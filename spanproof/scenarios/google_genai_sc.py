@@ -33,21 +33,10 @@ def _run(url):
 register(Scenario("google_genai.generate_content", "google_genai", "google-genai", lambda: [Reply(body=_g)],
                   [Call(_g_t)], _run, _integ, tags=["usage", "cached", "reasoning"]))
 
+
 # Stream: Gemini sends cumulative usageMetadata on each chunk; the last one is final.
-_gs_text = ["The ", "capital ", "is ", "Paris."]
-
-
 def _stream_events():
-    out = []
-    for i, t in enumerate(_gs_text):
-        last = i == len(_gs_text) - 1
-        out.append({"candidates": [{"content": {"role": "model", "parts": [{"text": t}]},
-                                    "finishReason": "STOP" if last else None, "index": 0}],
-                    "usageMetadata": {"promptTokenCount": 900, "candidatesTokenCount": 50 * (i + 1),
-                                      "cachedContentTokenCount": 512, "thoughtsTokenCount": 150,
-                                      "totalTokenCount": 900 + 50 * (i + 1) + 150},
-                    "modelVersion": "gemini-3-flash", "responseId": "gen_sp2"})
-    return out
+    return fx.genai_stream()[0]
 
 
 _gs_t = fx.Truth(900, 200 + 150, cached=512, reasoning=150, model="gemini-3-flash", response_id="gen_sp2")

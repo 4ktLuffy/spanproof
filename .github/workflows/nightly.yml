@@ -72,6 +72,7 @@ jobs:
 
       - name: Open an issue in this repository when something new appears
         if: hashFiles('site/new.md') != ''
+        continue-on-error: true  # never let the issue step stop the page from publishing
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

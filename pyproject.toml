@@ -9,7 +9,7 @@ dependencies = ["sentry-sdk>=2.40"]
 
 [project.optional-dependencies]
 providers = ["openai", "anthropic", "litellm", "google-genai", "openai-agents", "langchain", "langchain-openai",
-             "langgraph", "pydantic-ai-slim[openai]"]
+             "langgraph", "pydantic-ai-slim[openai]", "cohere", "mistralai", "huggingface_hub"]
 test = ["pytest"]
 
 [project.scripts]

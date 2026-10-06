@@ -26,7 +26,7 @@ import json
 import os
 import subprocess
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 from .catalog import FINDINGS
@@ -35,15 +35,100 @@ from .gate import signature
 TITLE = {f["id"]: f["title"] for f in FINDINGS}
 TITLE["OLD-SDK"] = "Provider SDK version predates the usage field (not a Sentry fault)"
 TITLE["KNOWN-JS-23993"] = "Vercel AI reasoning tokens (known: getsentry/sentry-javascript#23993)"
+TITLE["UPSTREAM-LANGCHAIN"] = "LangChain JS's own usage numbers differ from the provider's (reproduces without Sentry)"
 # Oldest supported provider SDKs that predate the cached/reasoning usage details
 OLD_SDK = {"openai-base@1.0.1", "langchain-base@0.1.20"}
+LIST_MAX = 100  # findings listed one by one in the summary and the GitHub issue
+ISSUE_MAX = 60000
 ROOT = Path(__file__).resolve().parent.parent
+
+
+def _explored(i: str, sc: str, rule: str) -> str | None:
+    """Findings from the 2026-10-06 exploration (SP-19 to SP-44), by integration, scenario and rule."""
+    usage = rule.startswith(("usage.", "conventions.total", "conventions.cached_exceeds"))
+    if i in ("huggingface_hub", "cohere") and rule == "errors.swallowed":
+        return "SP-19"
+    if i == "huggingface_hub":
+        if rule == "lifecycle.lost_span":
+            return "SP-35" if ".async" in sc else "SP-20"
+        if "text_generation" in sc and usage:
+            return "SP-21"
+        if "tool_call" in sc and rule.startswith(("identity.tool_call", "output.tool_calls")):
+            return "SP-28"
+    if i == "cohere":
+        if rule == "lifecycle.lost_span":
+            return "SP-35"
+        if rule.startswith("conventions.legacy"):
+            return "SP-36"
+    if i == "mistral":
+        if rule == "lifecycle.lost_span":
+            return "SP-22"
+        if rule.startswith(("output.tool_calls", "identity.tool_call", "identity.model", "identity.response_id")):
+            return "SP-29"
+    if rule.startswith("billing.unrecorded"):
+        return "SP-31"
+    if i in ("openai", "anthropic") and rule == "lifecycle.lost_span" and ".parse" in sc:
+        return "SP-25"
+    if i == "anthropic" and rule == "lifecycle.lost_span" and ".beta." in sc:
+        return "SP-35"
+    if i == "openai":
+        if "incomplete" in sc and usage:
+            return "SP-23"
+        if "background" in sc and usage:
+            return "SP-24"
+        if "n2" in sc and rule.startswith("output."):
+            return "SP-26"
+    if i == "anthropic":
+        if rule.startswith("output.") and ".stream" in sc:
+            return "SP-27"
+        if "thinking" in sc and rule == "usage.missing.reasoning":
+            return "SP-30"
+    if i == "js.langgraph":
+        if "create_agent" in sc and rule.startswith("structure."):
+            return "SP-37"
+        if "thread" in sc and rule.startswith("aggregation.rollup"):
+            return "SP-38"
+        if "without_langchain" in sc and rule.startswith(("lifecycle.duplicate", "aggregation.filtered",
+                                                          "aggregation.rollup")):
+            return "SP-43"
+        if "anthropic" in sc and (usage or rule.startswith("aggregation.")) and not rule.startswith("aggregation.double"):
+            return "SP-40"
+    if i == "js.google_genai" and usage:
+        return "SP-39"
+    if i == "js.langchain":
+        if rule == "lifecycle.lost_span":
+            return "SP-44"
+        if "chat_google" in sc and rule in ("usage.wrong.output_tokens", "conventions.total_mismatch"):
+            return "UPSTREAM-LANGCHAIN"
+        if "chat_anthropic.stream" in sc and rule in ("usage.wrong.output_tokens", "usage.wrong.total"):
+            return "UPSTREAM-LANGCHAIN"
+        if "anthropic" in sc and usage:
+            return "SP-40"
+    if i == "cohere" and rule == "usage.missing.cached":
+        return "SP-45"
+    if i == "cohere" and rule == "output.tool_calls_missing":
+        return "SP-48"
+    if (i == "js.langgraph" and rule == "conventions.type") or (i == "js.langchain" and rule == "identity.response_id_wrong"):
+        return "SP-46"
+    if i == "js.langgraph" and ".stream" in sc and rule.startswith("structure."):
+        return "SP-47"
+    if i in ("js.langchain", "js.langgraph"):
+        if rule == "privacy.content_leak":
+            return "SP-42"
+        if rule.startswith("usage.missing."):
+            return "SP-41"
+    return None
 
 
 def catalog_id(integration: str, scenario: str, rule: str, cell: str = "") -> str | None:
     if cell in OLD_SDK and rule in ("usage.missing.cached", "usage.missing.reasoning", "identity.model_wrong"):
         return "OLD-SDK"
+    if cell == "anthropic@0.16.0" and "stop_reason." in scenario and rule.startswith("usage."):
+        return "OLD-SDK"  # anthropic 0.16.0 types a newer stop_reason delta as message_start (not a Sentry fault)
     js = integration.startswith("js.")
+    sp = _explored(integration, scenario, rule)
+    if sp:
+        return sp
     if js:
         if integration == "js.openai" and rule.startswith("usage.missing.") and rule.endswith(("cached", "reasoning")):
             return "SP-11"
@@ -374,11 +459,20 @@ def main(argv=None) -> int:
     if glob or per_cell:
         lines.append("\nChanged since the previous night (co-occurrence, not proof of cause):")
         lines += [f"- {c}" for c in glob] + [f"- `{c}`: {'; '.join(d)}" for c, d in per_cell.items()]
-    lines += [f"- new: [{now[k]['id'] or 'uncatalogued'}] `{k}` {now[k]['message']}" for k in v["new"]]
-    lines += [f"- fixed: [{v['before'][k].get('id') or 'uncatalogued'}] `{k}`" for k in v["fixed"]]
+    if v["new"]:
+        by_id = Counter(now[k]["id"] or "uncatalogued" for k in v["new"])
+        lines.append("\nNew by catalog id: " + ", ".join(f"{i} {n}" for i, n in sorted(by_id.items())))
+    lines += [f"- new: [{now[k]['id'] or 'uncatalogued'}] `{k}` {now[k]['message']}" for k in v["new"][:LIST_MAX]]
+    if len(v["new"]) > LIST_MAX:
+        lines.append(f"- ... and {len(v['new']) - LIST_MAX} more new findings (listed on the nightly page)")
+    lines += [f"- fixed: [{v['before'][k].get('id') or 'uncatalogued'}] `{k}`" for k in v["fixed"][:LIST_MAX]]
+    if len(v["fixed"]) > LIST_MAX:
+        lines.append(f"- ... and {len(v['fixed']) - LIST_MAX} more fixed findings (listed on the nightly page)")
     lines += [f"- did not run (not fixed): `{k}`" for k in v["unknown"][:50]]
     lines += [f"- run problem: {c}" for c in tonight["crashes"][:20]]
     text = "\n".join(lines)
+    if len(text) > ISSUE_MAX:  # a GitHub issue body holds 65,536 characters
+        text = text[:ISSUE_MAX].rsplit("\n", 1)[0] + "\n- ... (cut to fit a GitHub issue; the nightly page has all)"
     print(text)
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         open(os.environ["GITHUB_STEP_SUMMARY"], "a").write(text + "\n")

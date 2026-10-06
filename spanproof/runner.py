@@ -39,7 +39,11 @@ def list_scenarios(python: str) -> list[str]:
 def raised_in_sentry_sdk(tb: str) -> bool:
     """True when the innermost traceback frame is Sentry's code (wrapper frames above it don't count)."""
     frames = re.findall(r'File "([^"]+)", line \d+', tb)
-    return bool(frames) and "sentry_sdk" in frames[-1]
+    if not frames or "sentry_sdk" not in frames[-1]:
+        return False
+    # a wrapper passing the caller's arguments through unchanged: the client's signature rejected them
+    last = tb[tb.rfind('File "'):]
+    return not ("unexpected keyword argument" in last and re.search(r"\(\*args, \*\*kwargs\)", last))
 
 
 def run_one(python: str, sid: str, mode: str, timeout: int = 120) -> dict:

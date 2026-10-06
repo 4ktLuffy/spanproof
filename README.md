@@ -19,11 +19,20 @@ against a local scripted server that speaks the provider's wire format.
 | aggregation | Does summing tokens over a trace equal what was billed? Does an agent's usage equal the calls inside it? |
 | conventions | Is every attribute in `getsentry/sentry-conventions`, non-deprecated, correctly typed, and consistent (cached ≤ input, total = input + output)? |
 | privacy | With data collection off, is all prompt and completion content absent? |
-| identity | Are the response model, response id and finish reason recorded? |
-| errors | Are provider failures captured, and does the client behave as the scenario expects? |
+| identity | Are the response model, response id, finish reason and tool calls recorded as the provider returned them? |
+| errors | Are provider failures captured, and does the app still see the same exception it would without Sentry? |
+| output | With output collection on, does the recorded answer text match each choice the model returned? |
+| billing | Are billed quantities beyond tokens (server and built-in tool calls, cache-write TTL, audio tokens, service tier) recorded, and is there a convention attribute for them? |
 
 Each scenario runs in four transport modes: default, data collection off, legacy transport
 (`stream_gen_ai_spans=False`) and span streaming (`trace_lifecycle="stream"`).
+
+Python coverage: OpenAI (chat, Responses, embeddings, including structured outputs, background mode,
+built-in tools, audio and n>1 streams), Anthropic (including extended thinking, server tools, cache TTLs,
+`messages.parse` and `beta.messages`), LiteLLM, Google GenAI, Cohere, Mistral, Hugging Face Hub, OpenAI Agents,
+Pydantic AI, LangChain and LangGraph, plus MCP servers (below). The tests parse each fixture builder's output
+with the provider SDK's own types (`tests/test_fixtures.py`, `tests/test_fixtures_strict.py`), so a builder that
+drifts from the real schema fails.
 
 ## Agent failure classes
 
@@ -44,7 +53,7 @@ are reported with 95% Wilson intervals (`spanproof.evaluate`).
 uv venv -p 3.12 && uv pip install -e . -e path/to/sentry-python ".[providers]"
 python -m spanproof.runner --modes default,nodc,legacy,stream --out results/run.json
 python -m spanproof.matrix --sdk path/to/sentry-python --envs ~/.spanproof-envs --out results/matrix.json
-(cd js && npm install @sentry/node openai @anthropic-ai/sdk ai @ai-sdk/openai) && python -m spanproof.js_bridge
+(cd js && npm install) && python -m spanproof.js_bridge     # js/package.json lists the JS packages
 python -m spanproof.corpus --n 8 --out results/corpus.jsonl && python -m spanproof.evaluate results/corpus.jsonl
 python -m spanproof.issues results/corpus.jsonl --dry-run
 python -m spanproof.report            # writes report/index.html
@@ -67,6 +76,20 @@ openai-agents, LangGraph and Pydantic AI agents the same way, with faults inject
 
 CI: `spanproof.gate` compares a run with a checked-in baseline of known findings, fails only on new ones,
 and lists the known ones that disappeared. `ci/spanproof.yml` is an example nightly + pull-request workflow.
+
+## MCP servers
+
+`python -m spanproof.mcp_run --py <python> ...` checks Sentry's MCP integration against what an MCP server
+really handled. One server (tools, prompts, resources; text, image, embedded-resource and structured
+results; a tool that raises, one that returns `isError`, concurrent calls) runs as the low-level `Server`,
+the SDK's high-level server (`FastMCP` in mcp 1.x, `MCPServer` in 2.x) and standalone `fastmcp`, over
+in-memory streams, a real stdio subprocess, Streamable HTTP (stateful and stateless) and SSE, in seven
+modes (default, `send_default_pii=False`, `include_prompts=False`, `data_collection` inputs and outputs
+off, outputs off, legacy transport, span streaming). Pass one `--py` per installed mcp / fastmcp version.
+The truth is what each handler received and returned, what the client got back, and every JSON-RPC
+message as it reached the HTTP server (`spanproof/mcp_sc.py`); `spanproof/mcp_checks.py` holds the checks
+and re-scores saved runs (`python -m spanproof.mcp_checks results/mcp_*.json.gz`). Attribute names, types and
+deprecations come from a pinned `mcp.*` snapshot of sentry-conventions (`conventions_snapshot/mcp.json`).
 
 ## SpanProof Watch
 
@@ -99,7 +122,7 @@ where the integration does not record finish reasons (openai-agents, Pydantic AI
 ## Layout
 
 ```
-spanproof/fixtures.py     provider wire responses + ground truth, validated with each provider SDK's own types
+spanproof/fixtures.py     provider wire responses + ground truth (tests parse them with each provider SDK's types)
 spanproof/mockserver.py   scripted JSON/SSE server (can cut a stream mid-way)
 spanproof/scenarios/      one module per integration
 spanproof/worker.py       runs one scenario in a fresh interpreter
@@ -112,6 +135,8 @@ spanproof/watch.py        SpanProof Watch: agent failures in a Sentry org filed 
 spanproof/watch_replay.py replays saved traces into Watch with late spans, failed deliveries and crashes
 spanproof/live.py, live_agents.py, live_agent_worker.py   live provider truth (recorded responses) and real agents
 spanproof/gate.py         CI baseline gate;  report.py: findings page;  catalog.py: curated findings
+spanproof/mcp_sc.py       MCP server in three flavors + client operations, recording handler/client/wire truth
+spanproof/mcp_worker.py   one MCP (flavor, transport, mode) run;  mcp_run.py: the matrix;  mcp_checks.py: the checks
 tests/                    unit tests, each check with a positive case and a negative control
 ```
 
@@ -121,4 +146,5 @@ tests/                    unit tests, each check with a positive case and a nega
   provider SDK's types; no API keys are needed. Live runs (above) use the provider's real responses; the ones
   in `results/` were made against Groq (`results/cassettes/groq/`).
 - The detector corpus is synthetic. Results on production traces are the next step.
-- JavaScript coverage is @sentry/node with OpenAI, Anthropic and Vercel AI.
+- JavaScript coverage is @sentry/node with OpenAI, Anthropic, Vercel AI, LangChain (OpenAI, Anthropic and Google chat
+  models), LangGraph (`createReactAgent`, `langchain`'s `createAgent`) and Google GenAI (models and chats).

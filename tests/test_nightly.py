@@ -160,3 +160,21 @@ def test_provenance_diff_names_changed_packages(tmp_path):
     row = next(r for r in html.split("<tr>") if "litellm@1.104.0|" in r or ">litellm@1.104.0<" in r)
     assert "litellm 1.104.0 -&gt; 1.105.0" in row and "openai 2.5" not in row
     assert n3["new"] == []
+
+
+def test_issue_body_fits_github_even_when_everything_is_new(tmp_path):
+    rules = [f"usage.wrong.input_tokens{i}" for i in range(30)]
+    quiet = ("openai-base", "2.54.0", [("openai.chat.sync", "openai", [])])
+    run(tmp_path, matrix([quiet]), "2026-10-07")
+    loud = ("openai-base", "2.54.0", [(f"openai.chat.s{j}", "openai", rules) for j in range(40)])
+    n = run(tmp_path, matrix([loud]), "2026-10-08")
+    assert len(n["new"]) == 1200
+    body = (tmp_path / "site" / "new.md").read_text()
+    assert len(body) < 65536 and "1100 more new findings" in body  # 100 listed, the rest summarized
+
+
+def test_double_count_keeps_its_own_label_in_without_langchain():
+    sc = "js.langgraph.react_agent.without_langchain"
+    assert nightly.catalog_id("js.langgraph", sc, "aggregation.double_count.input_tokens") == "SP-06"
+    assert nightly.catalog_id("js.langgraph", sc, "lifecycle.duplicate_span") == "SP-43"
+    assert nightly.catalog_id("js.langgraph", sc, "aggregation.filtered_mismatch.input_tokens") == "SP-43"

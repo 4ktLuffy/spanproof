@@ -24,7 +24,8 @@ def main() -> int:
                     help="stream_gen_ai_spans=False: gen_ai spans stay inside the transaction")
     a = ap.parse_args()
 
-    for k in ("OPENAI_API_KEY", "ANTHROPIC_API_KEY", "GEMINI_API_KEY", "GOOGLE_API_KEY"):
+    for k in ("OPENAI_API_KEY", "ANTHROPIC_API_KEY", "GEMINI_API_KEY", "GOOGLE_API_KEY", "CO_API_KEY",
+              "MISTRAL_API_KEY", "HF_TOKEN"):
         os.environ[k] = "spanproof-dummy-key"
     os.environ.setdefault("OPENAI_AGENTS_DISABLE_TRACING", "1")
     os.environ.setdefault("LITELLM_LOCAL_MODEL_COST_MAP", "True")
@@ -103,6 +104,7 @@ def main() -> int:
         calls=calls,
         live=bool(mockserver.LIVE),
         expects_exception=sc.expects_exception,
+        raises=sc.raises,
         agent=(dict(sc.agent, tools=[]) if (sc.agent and mockserver.LIVE) else sc.agent),
         data_collection=not a.no_data_collection,
         span_streaming=a.span_streaming,

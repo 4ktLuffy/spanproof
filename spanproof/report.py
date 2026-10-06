@@ -239,7 +239,7 @@ def build() -> str:
     dets = detector_tables()
     review = load("review.json") or {}
     full = load("full_head.json") or {"results": []}
-    n_runs_full = len(full["results"])
+    n_runs_full = len(full["results"]) + len((load("explore_python.json") or {"results": []})["results"])
     m = load("matrix_tox_head.json") or {"cells": []}
     n_cells = sum(1 for c in m["cells"] if c.get("results"))
     n_runs_matrix = sum(len(c.get("results", [])) for c in m["cells"])
@@ -527,8 +527,8 @@ def build() -> str:
     # ---- method
     h.append('<h2>Method and limits</h2><ul class="plain">'
              '<li>Ground truth comes from wire responses built to each provider\'s published schema and parsed '
-             'with the provider SDK\'s own response types before use, so a fixture that drifts from the real '
-             'schema fails loudly. The findings come from these replays; the live checks (recorded Groq calls, a '
+             'with the provider SDK\'s own response types in the tests, so a fixture builder that drifts from the '
+             'real schema fails loudly. The findings come from these replays; the live checks (recorded Groq calls, a '
              'real Sentry account, real agents) are marked where they are used.</li>'
              '<li>Each scenario runs in a fresh interpreter against a local scripted server; nothing is mocked '
              'inside the SDK or the client library.</li>'

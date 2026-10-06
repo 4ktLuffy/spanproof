@@ -1,6 +1,611 @@
 {
  "generated": "2026-10-06",
  "known": {
+  "-|anthropic.adv.beta.stream|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.beta.stream|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.beta.stream|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.beta.stream|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.beta.sync|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.beta.sync|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.beta.sync|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.beta.sync|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.stream|default|billing.unrecorded.cache_write.ephemeral_1h|gen_ai.usage.cache_creation.ephemeral_1h.input_tokens|0": {
+   "message": "cache_write.ephemeral_1h=1700 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.stream|default|billing.unrecorded.cache_write.ephemeral_5m|gen_ai.usage.cache_creation.ephemeral_5m.input_tokens|0": {
+   "message": "cache_write.ephemeral_5m=300 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.stream|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.stream|legacy|billing.unrecorded.cache_write.ephemeral_1h|gen_ai.usage.cache_creation.ephemeral_1h.input_tokens|0": {
+   "message": "cache_write.ephemeral_1h=1700 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.stream|legacy|billing.unrecorded.cache_write.ephemeral_5m|gen_ai.usage.cache_creation.ephemeral_5m.input_tokens|0": {
+   "message": "cache_write.ephemeral_5m=300 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.stream|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.stream|nodc|billing.unrecorded.cache_write.ephemeral_1h|gen_ai.usage.cache_creation.ephemeral_1h.input_tokens|0": {
+   "message": "cache_write.ephemeral_1h=1700 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.stream|nodc|billing.unrecorded.cache_write.ephemeral_5m|gen_ai.usage.cache_creation.ephemeral_5m.input_tokens|0": {
+   "message": "cache_write.ephemeral_5m=300 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.stream|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.stream|stream|billing.unrecorded.cache_write.ephemeral_1h|gen_ai.usage.cache_creation.ephemeral_1h.input_tokens|0": {
+   "message": "cache_write.ephemeral_1h=1700 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.stream|stream|billing.unrecorded.cache_write.ephemeral_5m|gen_ai.usage.cache_creation.ephemeral_5m.input_tokens|0": {
+   "message": "cache_write.ephemeral_5m=300 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.stream|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.sync|default|billing.unrecorded.cache_write.ephemeral_1h|gen_ai.usage.cache_creation.ephemeral_1h.input_tokens|0": {
+   "message": "cache_write.ephemeral_1h=1700 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.sync|default|billing.unrecorded.cache_write.ephemeral_5m|gen_ai.usage.cache_creation.ephemeral_5m.input_tokens|0": {
+   "message": "cache_write.ephemeral_5m=300 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.sync|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.sync|legacy|billing.unrecorded.cache_write.ephemeral_1h|gen_ai.usage.cache_creation.ephemeral_1h.input_tokens|0": {
+   "message": "cache_write.ephemeral_1h=1700 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.sync|legacy|billing.unrecorded.cache_write.ephemeral_5m|gen_ai.usage.cache_creation.ephemeral_5m.input_tokens|0": {
+   "message": "cache_write.ephemeral_5m=300 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.sync|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.sync|nodc|billing.unrecorded.cache_write.ephemeral_1h|gen_ai.usage.cache_creation.ephemeral_1h.input_tokens|0": {
+   "message": "cache_write.ephemeral_1h=1700 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.sync|nodc|billing.unrecorded.cache_write.ephemeral_5m|gen_ai.usage.cache_creation.ephemeral_5m.input_tokens|0": {
+   "message": "cache_write.ephemeral_5m=300 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.sync|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.sync|stream|billing.unrecorded.cache_write.ephemeral_1h|gen_ai.usage.cache_creation.ephemeral_1h.input_tokens|0": {
+   "message": "cache_write.ephemeral_1h=1700 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.sync|stream|billing.unrecorded.cache_write.ephemeral_5m|gen_ai.usage.cache_creation.ephemeral_5m.input_tokens|0": {
+   "message": "cache_write.ephemeral_5m=300 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.cache_ttl.sync|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.parse.async|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.parse.async|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.parse.async|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.parse.async|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.parse.sync|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.parse.sync|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.parse.sync|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.parse.sync|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|default|billing.unrecorded.server_tool.web_fetch_requests|gen_ai.usage.web_fetch_requests|0": {
+   "message": "server_tool.web_fetch_requests=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|default|billing.unrecorded.server_tool.web_search_requests|gen_ai.usage.web_search_requests|0": {
+   "message": "server_tool.web_search_requests=3 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|default|output.text_wrong|gen_ai.response.text|0": {
+   "message": "recorded response text ['{\"query\": \"capital of France\"}Paris.'] differs from the model's ['Paris.']",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|legacy|billing.unrecorded.server_tool.web_fetch_requests|gen_ai.usage.web_fetch_requests|0": {
+   "message": "server_tool.web_fetch_requests=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|legacy|billing.unrecorded.server_tool.web_search_requests|gen_ai.usage.web_search_requests|0": {
+   "message": "server_tool.web_search_requests=3 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|legacy|output.text_wrong|gen_ai.response.text|0": {
+   "message": "recorded response text ['{\"query\": \"capital of France\"}Paris.'] differs from the model's ['Paris.']",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|nodc|billing.unrecorded.server_tool.web_fetch_requests|gen_ai.usage.web_fetch_requests|0": {
+   "message": "server_tool.web_fetch_requests=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|nodc|billing.unrecorded.server_tool.web_search_requests|gen_ai.usage.web_search_requests|0": {
+   "message": "server_tool.web_search_requests=3 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|stream|billing.unrecorded.server_tool.web_fetch_requests|gen_ai.usage.web_fetch_requests|0": {
+   "message": "server_tool.web_fetch_requests=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|stream|billing.unrecorded.server_tool.web_search_requests|gen_ai.usage.web_search_requests|0": {
+   "message": "server_tool.web_search_requests=3 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.stream|stream|output.text_wrong|gen_ai.response.text|0": {
+   "message": "recorded response text ['{\"query\": \"capital of France\"}Paris.'] differs from the model's ['Paris.']",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.sync|default|billing.unrecorded.server_tool.web_fetch_requests|gen_ai.usage.web_fetch_requests|0": {
+   "message": "server_tool.web_fetch_requests=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.sync|default|billing.unrecorded.server_tool.web_search_requests|gen_ai.usage.web_search_requests|0": {
+   "message": "server_tool.web_search_requests=3 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.sync|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.sync|legacy|billing.unrecorded.server_tool.web_fetch_requests|gen_ai.usage.web_fetch_requests|0": {
+   "message": "server_tool.web_fetch_requests=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.sync|legacy|billing.unrecorded.server_tool.web_search_requests|gen_ai.usage.web_search_requests|0": {
+   "message": "server_tool.web_search_requests=3 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.sync|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.sync|nodc|billing.unrecorded.server_tool.web_fetch_requests|gen_ai.usage.web_fetch_requests|0": {
+   "message": "server_tool.web_fetch_requests=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.sync|nodc|billing.unrecorded.server_tool.web_search_requests|gen_ai.usage.web_search_requests|0": {
+   "message": "server_tool.web_search_requests=3 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.sync|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.sync|stream|billing.unrecorded.server_tool.web_fetch_requests|gen_ai.usage.web_fetch_requests|0": {
+   "message": "server_tool.web_fetch_requests=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.sync|stream|billing.unrecorded.server_tool.web_search_requests|gen_ai.usage.web_search_requests|0": {
+   "message": "server_tool.web_search_requests=3 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.server_tools.sync|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.max_tokens|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.max_tokens|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.max_tokens|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.max_tokens|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.model_context_window_exceeded|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.model_context_window_exceeded|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.model_context_window_exceeded|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.model_context_window_exceeded|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.refusal.stream|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.refusal.stream|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.refusal.stream|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.refusal.stream|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.refusal|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.refusal|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.refusal|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.stop_reason.refusal|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream_helper|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream_helper|default|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 900)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream_helper|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream_helper|legacy|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 900)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream_helper|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream_helper|nodc|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 900)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream_helper|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream_helper|stream|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 900)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream|default|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 900)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream|legacy|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 900)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream|nodc|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 900)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.stream|stream|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 900)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.sync|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.sync|default|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 900)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.sync|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.sync|legacy|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 900)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.sync|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.sync|nodc|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 900)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.sync|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.thinking.sync|stream|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 900)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.stream|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.stream|default|output.text_wrong|gen_ai.response.text|0": {
+   "message": "recorded response text ['Let me check.{\"city\": \"Paris\"}'] differs from the model's ['Let me check.']",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.stream|default|output.tool_calls_missing|gen_ai.response.tool_calls|0": {
+   "message": "model called ['get_weather'] but no tool call is recorded",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.stream|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.stream|legacy|output.text_wrong|gen_ai.response.text|0": {
+   "message": "recorded response text ['Let me check.{\"city\": \"Paris\"}'] differs from the model's ['Let me check.']",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.stream|legacy|output.tool_calls_missing|gen_ai.response.tool_calls|0": {
+   "message": "model called ['get_weather'] but no tool call is recorded",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.stream|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.stream|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.stream|stream|output.text_wrong|gen_ai.response.text|0": {
+   "message": "recorded response text ['Let me check.{\"city\": \"Paris\"}'] differs from the model's ['Let me check.']",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.stream|stream|output.tool_calls_missing|gen_ai.response.tool_calls|0": {
+   "message": "model called ['get_weather'] but no tool call is recorded",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.sync|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.sync|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.sync|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.adv.tool_round_trip.sync|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
   "-|anthropic.messages.async|default|conventions.type|gen_ai.response.finish_reasons|None": {
    "message": "gen_ai.response.finish_reasons should be string, got list",
    "until": null,
@@ -238,6 +843,836 @@
   },
   "-|anthropic.messages.tool_use|stream|conventions.type|gen_ai.response.finish_reasons|None": {
    "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.async|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.async|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.async|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.async|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|default|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|default|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|default|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|default|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|default|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1536)",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|legacy|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|legacy|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|legacy|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|legacy|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|legacy|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1536)",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|nodc|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|nodc|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|nodc|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|nodc|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|nodc|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1536)",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|stream|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|stream|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|stream|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|stream|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.cached|stream|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1536)",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.http_500|default|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.http_500|legacy|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.http_500|nodc|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.http_500|stream|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|default|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|default|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|default|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|default|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|legacy|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|legacy|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|legacy|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|legacy|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|nodc|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|nodc|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|nodc|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|nodc|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|stream|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|stream|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|stream|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.sync|stream|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|default|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|default|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|default|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|default|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|legacy|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|legacy|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|legacy|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|legacy|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|nodc|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|nodc|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|nodc|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|nodc|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|stream|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|stream|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|stream|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat.tool_call|stream|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream.connection_drop|default|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream.connection_drop|default|errors.swallowed|None|None": {
+   "message": "without Sentry the client raises httpx.RemoteProtocolError here; with Sentry the call returned normally, so the failure is hidden from the application",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream.connection_drop|legacy|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream.connection_drop|legacy|errors.swallowed|None|None": {
+   "message": "without Sentry the client raises httpx.RemoteProtocolError here; with Sentry the call returned normally, so the failure is hidden from the application",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream.connection_drop|nodc|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream.connection_drop|nodc|errors.swallowed|None|None": {
+   "message": "without Sentry the client raises httpx.RemoteProtocolError here; with Sentry the call returned normally, so the failure is hidden from the application",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream.connection_drop|stream|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream.connection_drop|stream|errors.swallowed|None|None": {
+   "message": "without Sentry the client raises httpx.RemoteProtocolError here; with Sentry the call returned normally, so the failure is hidden from the application",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream.early_close|default|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream.early_close|legacy|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream.early_close|nodc|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream.early_close|stream|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|default|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|default|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|default|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|default|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|legacy|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|legacy|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|legacy|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|legacy|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|nodc|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|nodc|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|nodc|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|nodc|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|stream|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.chat_completions.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|stream|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|stream|conventions.type|gen_ai.usage.output_tokens|None": {
+   "message": "gen_ai.usage.output_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.chat_stream|stream|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed.batched|default|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.embeddings.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed.batched|default|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed.batched|default|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed.batched|legacy|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.embeddings.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed.batched|legacy|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed.batched|legacy|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed.batched|nodc|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.embeddings.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed.batched|nodc|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed.batched|nodc|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed.batched|stream|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.embeddings.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed.batched|stream|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed.batched|stream|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed|default|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.embeddings.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed|default|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed|default|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed|legacy|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.embeddings.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed|legacy|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed|legacy|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed|nodc|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.embeddings.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed|nodc|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed|nodc|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed|stream|conventions.legacy_op|op|None": {
+   "message": "provider call has op 'ai.embeddings.create.cohere', not gen_ai.*; AI Agents views and the gen_ai span stream only take gen_ai.* ops",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed|stream|conventions.type|gen_ai.usage.input_tokens|None": {
+   "message": "gen_ai.usage.input_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.embed|stream|conventions.type|gen_ai.usage.total_tokens|None": {
+   "message": "gen_ai.usage.total_tokens should be integer, got float",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.v2.chat|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.v2.chat|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.v2.chat|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|cohere.v2.chat|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.async|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.async|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.async|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.async|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.break|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.break|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.break|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.break|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.early_close|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.early_close|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.early_close|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.early_close|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.server_error|default|errors.swallowed|None|None": {
+   "message": "without Sentry the client raises huggingface_hub.errors.GenerationError here; with Sentry the call returned normally, so the failure is hidden from the application",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.server_error|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.server_error|legacy|errors.swallowed|None|None": {
+   "message": "without Sentry the client raises huggingface_hub.errors.GenerationError here; with Sentry the call returned normally, so the failure is hidden from the application",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.server_error|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.server_error|nodc|errors.swallowed|None|None": {
+   "message": "without Sentry the client raises huggingface_hub.errors.GenerationError here; with Sentry the call returned normally, so the failure is hidden from the application",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.server_error|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.server_error|stream|errors.swallowed|None|None": {
+   "message": "without Sentry the client raises huggingface_hub.errors.GenerationError here; with Sentry the call returned normally, so the failure is hidden from the application",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.server_error|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.tool_call|default|identity.tool_call_wrong|gen_ai.response.tool_calls|0": {
+   "message": "recorded tool call differs from what the model returned",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.tool_call|default|output.tool_calls_missing|gen_ai.response.tool_calls|0": {
+   "message": "model called ['get_weather'] but no tool call is recorded",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.tool_call|legacy|identity.tool_call_wrong|gen_ai.response.tool_calls|0": {
+   "message": "recorded tool call differs from what the model returned",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.tool_call|legacy|output.tool_calls_missing|gen_ai.response.tool_calls|0": {
+   "message": "model called ['get_weather'] but no tool call is recorded",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.tool_call|stream|identity.tool_call_wrong|gen_ai.response.tool_calls|0": {
+   "message": "recorded tool call differs from what the model returned",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.chat_completion.stream.tool_call|stream|output.tool_calls_missing|gen_ai.response.tool_calls|0": {
+   "message": "model called ['get_weather'] but no tool call is recorded",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.details|default|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 8)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.details|default|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 3)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.details|default|usage.wrong.total|gen_ai.usage.total_tokens|0": {
+   "message": "total is 3, provider said 11",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.details|legacy|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 8)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.details|legacy|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 3)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.details|legacy|usage.wrong.total|gen_ai.usage.total_tokens|0": {
+   "message": "total is 3, provider said 11",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.details|nodc|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 8)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.details|nodc|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 3)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.details|nodc|usage.wrong.total|gen_ai.usage.total_tokens|0": {
+   "message": "total is 3, provider said 11",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.details|stream|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 8)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.details|stream|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 3)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.details|stream|usage.wrong.total|gen_ai.usage.total_tokens|0": {
+   "message": "total is 3, provider said 11",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.stream|default|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 8)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.stream|default|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 5)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.stream|default|usage.wrong.total|gen_ai.usage.total_tokens|0": {
+   "message": "total is 5, provider said 13",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.stream|legacy|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 8)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.stream|legacy|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 5)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.stream|legacy|usage.wrong.total|gen_ai.usage.total_tokens|0": {
+   "message": "total is 5, provider said 13",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.stream|nodc|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 8)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.stream|nodc|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 5)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.stream|nodc|usage.wrong.total|gen_ai.usage.total_tokens|0": {
+   "message": "total is 5, provider said 13",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.stream|stream|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 8)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.stream|stream|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 5)",
+   "until": null,
+   "ref": null
+  },
+  "-|huggingface_hub.text_generation.stream|stream|usage.wrong.total|gen_ai.usage.total_tokens|0": {
+   "message": "total is 5, provider said 13",
    "until": null,
    "ref": null
   },
@@ -838,6 +2273,916 @@
   },
   "-|litellm.completion.openai|stream|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
    "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete.async|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete.async|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete.async|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete.async|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete.tool_call|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete.tool_call|default|output.tool_calls_missing|gen_ai.response.tool_calls|0": {
+   "message": "model called ['get_weather'] but no tool call is recorded",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete.tool_call|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete.tool_call|legacy|output.tool_calls_missing|gen_ai.response.tool_calls|0": {
+   "message": "model called ['get_weather'] but no tool call is recorded",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete.tool_call|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete.tool_call|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete.tool_call|stream|output.tool_calls_missing|gen_ai.response.tool_calls|0": {
+   "message": "model called ['get_weather'] but no tool call is recorded",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.complete|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.stream.async|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.stream.async|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.stream.async|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.stream.async|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.stream|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.stream|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.stream|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.chat.stream|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.embeddings.create|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.embeddings.create|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.embeddings.create|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|mistral.embeddings.create|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.audio_tokens|default|billing.unrecorded.audio.input_tokens|gen_ai.usage.input_tokens.audio|0": {
+   "message": "audio.input_tokens=200 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.audio_tokens|default|billing.unrecorded.audio.output_tokens|gen_ai.usage.output_tokens.audio|0": {
+   "message": "audio.output_tokens=150 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.audio_tokens|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.audio_tokens|legacy|billing.unrecorded.audio.input_tokens|gen_ai.usage.input_tokens.audio|0": {
+   "message": "audio.input_tokens=200 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.audio_tokens|legacy|billing.unrecorded.audio.output_tokens|gen_ai.usage.output_tokens.audio|0": {
+   "message": "audio.output_tokens=150 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.audio_tokens|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.audio_tokens|nodc|billing.unrecorded.audio.input_tokens|gen_ai.usage.input_tokens.audio|0": {
+   "message": "audio.input_tokens=200 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.audio_tokens|nodc|billing.unrecorded.audio.output_tokens|gen_ai.usage.output_tokens.audio|0": {
+   "message": "audio.output_tokens=150 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.audio_tokens|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.audio_tokens|stream|billing.unrecorded.audio.input_tokens|gen_ai.usage.input_tokens.audio|0": {
+   "message": "audio.input_tokens=200 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.audio_tokens|stream|billing.unrecorded.audio.output_tokens|gen_ai.usage.output_tokens.audio|0": {
+   "message": "audio.output_tokens=150 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.audio_tokens|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n1.stream|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n1.stream|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n1.stream|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n1.stream|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n2.stream|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n2.stream|default|output.text_wrong|gen_ai.response.text|0": {
+   "message": "recorded response text ['Paris It is is it.Paris.'] differs from the model's ['Paris is it.', 'It is Paris.']",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n2.stream|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n2.stream|legacy|output.text_wrong|gen_ai.response.text|0": {
+   "message": "recorded response text ['Paris It is is it.Paris.'] differs from the model's ['Paris is it.', 'It is Paris.']",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n2.stream|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n2.stream|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n2.stream|stream|output.text_wrong|gen_ai.response.text|0": {
+   "message": "recorded response text ['Paris It is is it.Paris.'] differs from the model's ['Paris is it.', 'It is Paris.']",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n2.sync|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n2.sync|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n2.sync|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.n2.sync|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.parse.async|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.parse.async|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.parse.async|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.parse.async|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.parse|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.parse|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.parse|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.parse|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.predictions|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.predictions|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.predictions|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.predictions|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.service_tier|default|billing.unrecorded.service_tier|gen_ai.openai.response.service_tier|0": {
+   "message": "service_tier=priority reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.service_tier|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.service_tier|legacy|billing.unrecorded.service_tier|gen_ai.openai.response.service_tier|0": {
+   "message": "service_tier=priority reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.service_tier|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.service_tier|nodc|billing.unrecorded.service_tier|gen_ai.openai.response.service_tier|0": {
+   "message": "service_tier=priority reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.service_tier|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.service_tier|stream|billing.unrecorded.service_tier|gen_ai.openai.response.service_tier|0": {
+   "message": "service_tier=priority reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.service_tier|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.stream_helper|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.stream_helper|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.stream_helper|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.chat.stream_helper|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|default|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|default|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 400)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|default|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 320)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|default|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 1900)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|legacy|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|legacy|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 400)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|legacy|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 320)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|legacy|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 1900)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|nodc|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|nodc|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 400)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|nodc|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 320)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|nodc|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 1900)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|stream|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|stream|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 400)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|stream|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 320)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.background|stream|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 1900)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|default|billing.unrecorded.tool_calls.code_interpreter_call|gen_ai.usage.code_interpreter_requests|0": {
+   "message": "tool_calls.code_interpreter_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|default|billing.unrecorded.tool_calls.file_search_call|gen_ai.usage.file_search_requests|0": {
+   "message": "tool_calls.file_search_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|default|billing.unrecorded.tool_calls.image_generation_call|gen_ai.usage.image_generation_requests|0": {
+   "message": "tool_calls.image_generation_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|default|billing.unrecorded.tool_calls.web_search_call|gen_ai.usage.web_search_requests|0": {
+   "message": "tool_calls.web_search_call=2 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|legacy|billing.unrecorded.tool_calls.code_interpreter_call|gen_ai.usage.code_interpreter_requests|0": {
+   "message": "tool_calls.code_interpreter_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|legacy|billing.unrecorded.tool_calls.file_search_call|gen_ai.usage.file_search_requests|0": {
+   "message": "tool_calls.file_search_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|legacy|billing.unrecorded.tool_calls.image_generation_call|gen_ai.usage.image_generation_requests|0": {
+   "message": "tool_calls.image_generation_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|legacy|billing.unrecorded.tool_calls.web_search_call|gen_ai.usage.web_search_requests|0": {
+   "message": "tool_calls.web_search_call=2 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|nodc|billing.unrecorded.tool_calls.code_interpreter_call|gen_ai.usage.code_interpreter_requests|0": {
+   "message": "tool_calls.code_interpreter_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|nodc|billing.unrecorded.tool_calls.file_search_call|gen_ai.usage.file_search_requests|0": {
+   "message": "tool_calls.file_search_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|nodc|billing.unrecorded.tool_calls.image_generation_call|gen_ai.usage.image_generation_requests|0": {
+   "message": "tool_calls.image_generation_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|nodc|billing.unrecorded.tool_calls.web_search_call|gen_ai.usage.web_search_requests|0": {
+   "message": "tool_calls.web_search_call=2 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|stream|billing.unrecorded.tool_calls.code_interpreter_call|gen_ai.usage.code_interpreter_requests|0": {
+   "message": "tool_calls.code_interpreter_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|stream|billing.unrecorded.tool_calls.file_search_call|gen_ai.usage.file_search_requests|0": {
+   "message": "tool_calls.file_search_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|stream|billing.unrecorded.tool_calls.image_generation_call|gen_ai.usage.image_generation_requests|0": {
+   "message": "tool_calls.image_generation_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.stream|stream|billing.unrecorded.tool_calls.web_search_call|gen_ai.usage.web_search_requests|0": {
+   "message": "tool_calls.web_search_call=2 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|default|billing.unrecorded.tool_calls.code_interpreter_call|gen_ai.usage.code_interpreter_requests|0": {
+   "message": "tool_calls.code_interpreter_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|default|billing.unrecorded.tool_calls.file_search_call|gen_ai.usage.file_search_requests|0": {
+   "message": "tool_calls.file_search_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|default|billing.unrecorded.tool_calls.image_generation_call|gen_ai.usage.image_generation_requests|0": {
+   "message": "tool_calls.image_generation_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|default|billing.unrecorded.tool_calls.web_search_call|gen_ai.usage.web_search_requests|0": {
+   "message": "tool_calls.web_search_call=2 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|legacy|billing.unrecorded.tool_calls.code_interpreter_call|gen_ai.usage.code_interpreter_requests|0": {
+   "message": "tool_calls.code_interpreter_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|legacy|billing.unrecorded.tool_calls.file_search_call|gen_ai.usage.file_search_requests|0": {
+   "message": "tool_calls.file_search_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|legacy|billing.unrecorded.tool_calls.image_generation_call|gen_ai.usage.image_generation_requests|0": {
+   "message": "tool_calls.image_generation_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|legacy|billing.unrecorded.tool_calls.web_search_call|gen_ai.usage.web_search_requests|0": {
+   "message": "tool_calls.web_search_call=2 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|nodc|billing.unrecorded.tool_calls.code_interpreter_call|gen_ai.usage.code_interpreter_requests|0": {
+   "message": "tool_calls.code_interpreter_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|nodc|billing.unrecorded.tool_calls.file_search_call|gen_ai.usage.file_search_requests|0": {
+   "message": "tool_calls.file_search_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|nodc|billing.unrecorded.tool_calls.image_generation_call|gen_ai.usage.image_generation_requests|0": {
+   "message": "tool_calls.image_generation_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|nodc|billing.unrecorded.tool_calls.web_search_call|gen_ai.usage.web_search_requests|0": {
+   "message": "tool_calls.web_search_call=2 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|stream|billing.unrecorded.tool_calls.code_interpreter_call|gen_ai.usage.code_interpreter_requests|0": {
+   "message": "tool_calls.code_interpreter_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|stream|billing.unrecorded.tool_calls.file_search_call|gen_ai.usage.file_search_requests|0": {
+   "message": "tool_calls.file_search_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|stream|billing.unrecorded.tool_calls.image_generation_call|gen_ai.usage.image_generation_requests|0": {
+   "message": "tool_calls.image_generation_call=1 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.builtin_tools.sync|stream|billing.unrecorded.tool_calls.web_search_call|gen_ai.usage.web_search_requests|0": {
+   "message": "tool_calls.web_search_call=2 reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|default|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|default|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|default|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 3900)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|default|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 5596)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|legacy|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|legacy|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|legacy|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 3900)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|legacy|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 5596)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|nodc|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|nodc|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|nodc|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 3900)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|nodc|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 5596)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|stream|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|stream|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|stream|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 3900)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream.async|stream|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 5596)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|default|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|default|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|default|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 3900)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|default|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 5596)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|legacy|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|legacy|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|legacy|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 3900)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|legacy|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 5596)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|nodc|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|nodc|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|nodc|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 3900)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|nodc|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 5596)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|stream|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|stream|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|stream|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 3900)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete.stream|stream|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 5596)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|default|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|default|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|default|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|default|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 5596)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|legacy|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|legacy|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|legacy|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|legacy|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 5596)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|nodc|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|nodc|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|nodc|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|nodc|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 5596)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|stream|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 1500)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|stream|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|stream|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 4096)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.incomplete_reasoning_only.stream|stream|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 5596)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.parse|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.parse|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.parse|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.parse|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (complete); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.service_tier|default|billing.unrecorded.service_tier|gen_ai.openai.response.service_tier|0": {
+   "message": "service_tier=flex reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.service_tier|legacy|billing.unrecorded.service_tier|gen_ai.openai.response.service_tier|0": {
+   "message": "service_tier=flex reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.service_tier|nodc|billing.unrecorded.service_tier|gen_ai.openai.response.service_tier|0": {
+   "message": "service_tier=flex reported by the provider, not recorded; sentry-conventions has no attribute for it",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.adv.responses.service_tier|stream|billing.unrecorded.service_tier|gen_ai.openai.response.service_tier|0": {
+   "message": "service_tier=flex reported by the provider, not recorded; sentry-conventions has no attribute for it",
    "until": null,
    "ref": null
   },

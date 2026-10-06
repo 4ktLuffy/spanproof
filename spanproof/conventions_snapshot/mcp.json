@@ -1,0 +1,1368 @@
+{
+ "source": "getsentry/sentry-conventions model/attributes",
+ "sha": "6f0307c3218a0017a36156272a166b8859cd280e",
+ "attributes": {
+  "error.type": {
+   "key": "error.type",
+   "brief": "Describes a class of error the operation ended with.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "timeout",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.1.0",
+     "prs": [
+      127
+     ]
+    },
+    {
+     "version": "0.0.0"
+    }
+   ]
+  },
+  "gen_ai.operation.name": {
+   "key": "gen_ai.operation.name",
+   "brief": "The name of the operation being performed. It has the following list of well-known values: 'chat', 'create_agent', 'embeddings', 'execute_tool', 'generate_content', 'invoke_agent', 'text_completion'. If one of them applies, then that value MUST be used. Otherwise a custom value MAY be used.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "chat",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.4.0",
+     "prs": [
+      225
+     ]
+    },
+    {
+     "version": "0.1.0",
+     "prs": [
+      62,
+      127
+     ]
+    }
+   ]
+  },
+  "gen_ai.prompt.name": {
+   "key": "gen_ai.prompt.name",
+   "brief": "The name of the prompt that uniquely identifies it.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual",
+    "reason": "Prompt names may reveal user behavior patterns or sensitive operations"
+   },
+   "is_in_otel": true,
+   "visibility": "public",
+   "example": "summarize_text",
+   "alias": [
+    "mcp.prompt.name"
+   ],
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Added gen_ai.prompt.name attribute"
+    }
+   ]
+  },
+  "gen_ai.tool.call.arguments": {
+   "key": "gen_ai.tool.call.arguments",
+   "brief": "The arguments of the tool call. It has to be a stringified version of the arguments to the tool.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "{\"location\": \"Paris\"}",
+   "alias": [
+    "gen_ai.tool.input",
+    "ai.toolCall.args"
+   ],
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.5.0",
+     "prs": [
+      265
+     ]
+    },
+    {
+     "version": "0.4.0",
+     "prs": [
+      221
+     ]
+    }
+   ]
+  },
+  "gen_ai.tool.call.result": {
+   "key": "gen_ai.tool.call.result",
+   "brief": "The result of the tool call. It has to be a stringified version of the result of the tool.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "rainy, 57\u00b0F",
+   "alias": [
+    "gen_ai.tool.output",
+    "gen_ai.tool.message",
+    "mcp.tool.result.content",
+    "ai.toolCall.result",
+    "anthropic.tool_result.content"
+   ],
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.5.0",
+     "prs": [
+      265
+     ]
+    },
+    {
+     "version": "0.4.0",
+     "prs": [
+      221
+     ]
+    }
+   ]
+  },
+  "gen_ai.tool.definitions": {
+   "key": "gen_ai.tool.definitions",
+   "brief": "The list of source system tool definitions available to the GenAI agent or model.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "[{\"type\": \"function\", \"name\": \"get_current_weather\", \"description\": \"Get the current weather in a given location\", \"parameters\": {\"type\": \"object\", \"properties\": {\"location\": {\"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\"]}}, \"required\": [\"location\", \"unit\"]}}]",
+   "alias": [
+    "gen_ai.request.available_tools"
+   ],
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.22.0",
+     "prs": [
+      595
+     ],
+     "description": "Added gen_ai.request.available_tools as an alias"
+    },
+    {
+     "version": "0.4.0",
+     "prs": [
+      221
+     ]
+    }
+   ]
+  },
+  "gen_ai.tool.description": {
+   "key": "gen_ai.tool.description",
+   "brief": "The description of the tool being used.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "Searches the web for current information about a topic",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.1.0",
+     "prs": [
+      62,
+      127
+     ]
+    }
+   ]
+  },
+  "gen_ai.tool.input": {
+   "key": "gen_ai.tool.input",
+   "brief": "The input of the tool being used. It has to be a stringified version of the input to the tool.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "{\"location\": \"Paris\"}",
+   "alias": [
+    "gen_ai.tool.call.arguments",
+    "ai.toolCall.args"
+   ],
+   "deprecation": {
+    "_status": "normalize",
+    "replacement": "gen_ai.tool.call.arguments"
+   },
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.5.0",
+     "prs": [
+      265
+     ]
+    },
+    {
+     "version": "0.1.0",
+     "prs": [
+      63,
+      74
+     ]
+    }
+   ]
+  },
+  "gen_ai.tool.message": {
+   "key": "gen_ai.tool.message",
+   "brief": "The response from a tool or function call passed to the model.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "is_in_otel": false,
+   "example": "rainy, 57\u00b0F",
+   "alias": [
+    "gen_ai.tool.call.result",
+    "gen_ai.tool.output",
+    "mcp.tool.result.content",
+    "ai.toolCall.result",
+    "anthropic.tool_result.content"
+   ],
+   "deprecation": {
+    "_status": "normalize",
+    "replacement": "gen_ai.tool.call.result"
+   },
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.5.0",
+     "prs": [
+      265
+     ]
+    },
+    {
+     "version": "0.1.0",
+     "prs": [
+      62
+     ]
+    }
+   ]
+  },
+  "gen_ai.tool.name": {
+   "key": "gen_ai.tool.name",
+   "brief": "Name of the tool utilized by the agent.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "Flights",
+   "alias": [
+    "ai.function_call",
+    "mcp.tool.name"
+   ],
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.1.0",
+     "prs": [
+      57,
+      127
+     ]
+    }
+   ]
+  },
+  "gen_ai.tool.output": {
+   "key": "gen_ai.tool.output",
+   "brief": "The output of the tool being used. It has to be a stringified version of the output of the tool.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "rainy, 57\u00b0F",
+   "alias": [
+    "gen_ai.tool.call.result",
+    "gen_ai.tool.message",
+    "mcp.tool.result.content",
+    "ai.toolCall.result",
+    "anthropic.tool_result.content"
+   ],
+   "deprecation": {
+    "_status": "normalize",
+    "replacement": "gen_ai.tool.call.result"
+   },
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.5.0",
+     "prs": [
+      265
+     ]
+    },
+    {
+     "version": "0.1.0",
+     "prs": [
+      63,
+      74
+     ]
+    }
+   ]
+  },
+  "gen_ai.tool.type": {
+   "key": "gen_ai.tool.type",
+   "brief": "The type of tool being used.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "function",
+   "deprecation": {
+    "_status": null,
+    "reason": "The gen_ai.tool.type attribute is deprecated and should no longer be set."
+   },
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.1.0",
+     "prs": [
+      62,
+      127
+     ]
+    }
+   ]
+  },
+  "jsonrpc.protocol.version": {
+   "key": "jsonrpc.protocol.version",
+   "brief": "The version of the JSON-RPC protocol used.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "visibility": "public",
+   "example": "2.0",
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Added jsonrpc.protocol.version attribute"
+    }
+   ]
+  },
+  "jsonrpc.request.id": {
+   "key": "jsonrpc.request.id",
+   "brief": "The JSON-RPC request identifier. Unique within the session.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "visibility": "public",
+   "example": "1",
+   "alias": [
+    "mcp.request.id"
+   ],
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Added jsonrpc.request.id attribute"
+    }
+   ]
+  },
+  "mcp.cancelled.reason": {
+   "key": "mcp.cancelled.reason",
+   "brief": "Reason for the cancellation of an MCP operation.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual",
+    "reason": "Cancellation reasons may contain user-specific or sensitive information"
+   },
+   "is_in_otel": false,
+   "example": "User cancelled the request",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.cancelled.request_id": {
+   "key": "mcp.cancelled.request_id",
+   "brief": "Request ID of the cancelled MCP operation.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "123",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.client.name": {
+   "key": "mcp.client.name",
+   "brief": "Name of the MCP client application.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "claude-desktop",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.client.title": {
+   "key": "mcp.client.title",
+   "brief": "Display title of the MCP client application.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual",
+    "reason": "Client titles may reveal user-specific application configurations or custom setups"
+   },
+   "is_in_otel": false,
+   "example": "Claude Desktop",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.client.version": {
+   "key": "mcp.client.version",
+   "brief": "Version of the MCP client application.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "1.0.0",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.lifecycle.phase": {
+   "key": "mcp.lifecycle.phase",
+   "brief": "Lifecycle phase indicator for MCP operations.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "initialization_complete",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.logging.data_type": {
+   "key": "mcp.logging.data_type",
+   "brief": "Data type of the logged message content.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "string",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.logging.level": {
+   "key": "mcp.logging.level",
+   "brief": "Log level for MCP logging operations.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "info",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.logging.logger": {
+   "key": "mcp.logging.logger",
+   "brief": "Logger name for MCP logging operations.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual",
+    "reason": "Logger names may be user-defined and could contain sensitive information"
+   },
+   "is_in_otel": false,
+   "example": "mcp_server",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.logging.message": {
+   "key": "mcp.logging.message",
+   "brief": "Log message content from MCP logging operations.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "auto",
+    "reason": "Log messages can contain user data"
+   },
+   "is_in_otel": false,
+   "example": "Tool execution completed successfully",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.method.name": {
+   "key": "mcp.method.name",
+   "brief": "The name of the MCP request or notification method being called.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "tools/call",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Set is_in_otel=true, attribute exists in OTel MCP registry"
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.progress.current": {
+   "key": "mcp.progress.current",
+   "brief": "Current progress value of an MCP operation.",
+   "type": "integer",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": 50,
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.4.0",
+     "prs": [
+      228
+     ]
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.progress.message": {
+   "key": "mcp.progress.message",
+   "brief": "Progress message describing the current state of an MCP operation.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual",
+    "reason": "Progress messages may contain user-specific or sensitive information"
+   },
+   "is_in_otel": false,
+   "example": "Processing 50 of 100 items",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.progress.percentage": {
+   "key": "mcp.progress.percentage",
+   "brief": "Calculated progress percentage of an MCP operation. Computed from current/total * 100.",
+   "type": "double",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": 50,
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.4.0",
+     "prs": [
+      228
+     ]
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.progress.token": {
+   "key": "mcp.progress.token",
+   "brief": "Token for tracking progress of an MCP operation.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "progress-token-123",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.progress.total": {
+   "key": "mcp.progress.total",
+   "brief": "Total progress target value of an MCP operation.",
+   "type": "integer",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": 100,
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.4.0",
+     "prs": [
+      228
+     ]
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.prompt.name": {
+   "key": "mcp.prompt.name",
+   "brief": "Name of the MCP prompt template being used.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual",
+    "reason": "Prompt names may reveal user behavior patterns or sensitive operations"
+   },
+   "is_in_otel": false,
+   "example": "summarize",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Deprecated in favor of gen_ai.prompt.name"
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ],
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.prompt.name",
+    "reason": "OTel uses gen_ai.prompt.name for MCP prompt names"
+   },
+   "alias": [
+    "gen_ai.prompt.name"
+   ]
+  },
+  "mcp.prompt.result.description": {
+   "key": "mcp.prompt.result.description",
+   "brief": "Description of the prompt result.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "is_in_otel": false,
+   "example": "A summary of the requested information",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.prompt.result.message_content": {
+   "key": "mcp.prompt.result.message_content",
+   "brief": "Content of the message in the prompt result. Used for single message results only.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "is_in_otel": false,
+   "example": "Please provide a summary of the document",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.prompt.result.message_count": {
+   "key": "mcp.prompt.result.message_count",
+   "brief": "Number of messages in the prompt result.",
+   "type": "integer",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": 3,
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.4.0",
+     "prs": [
+      228
+     ]
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.prompt.result.message_role": {
+   "key": "mcp.prompt.result.message_role",
+   "brief": "Role of the message in the prompt result. Used for single message results only.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "user",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.protocol.ready": {
+   "key": "mcp.protocol.ready",
+   "brief": "Protocol readiness indicator for MCP session. Non-zero value indicates the protocol is ready.",
+   "type": "integer",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": 1,
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.4.0",
+     "prs": [
+      228
+     ]
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.protocol.version": {
+   "key": "mcp.protocol.version",
+   "brief": "MCP protocol version used in the session.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "2024-11-05",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Set is_in_otel=true, attribute exists in OTel MCP registry"
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.request.argument.<key>": {
+   "key": "mcp.request.argument.<key>",
+   "brief": "MCP request argument with dynamic key suffix. The <key> is replaced with the actual argument name. The value is a JSON-stringified representation of the argument value.",
+   "has_dynamic_suffix": true,
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "auto",
+    "reason": "Arguments contain user input"
+   },
+   "is_in_otel": false,
+   "example": "mcp.request.argument.query='weather in Paris'",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      176
+     ]
+    }
+   ]
+  },
+  "mcp.request.argument.name": {
+   "key": "mcp.request.argument.name",
+   "brief": "Name argument from prompts/get MCP request.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "auto",
+    "reason": "Prompt names can contain user input"
+   },
+   "is_in_otel": false,
+   "example": "summarize",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.request.argument.uri": {
+   "key": "mcp.request.argument.uri",
+   "brief": "URI argument from resources/read MCP request.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "auto",
+    "reason": "URIs can contain user file paths"
+   },
+   "is_in_otel": false,
+   "example": "file:///path/to/resource",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.request.id": {
+   "key": "mcp.request.id",
+   "brief": "JSON-RPC request identifier for the MCP request. Unique within the MCP session.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "1",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Deprecated in favor of jsonrpc.request.id"
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ],
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "jsonrpc.request.id",
+    "reason": "OTel models MCP as JSON-RPC, uses jsonrpc.request.id"
+   },
+   "alias": [
+    "jsonrpc.request.id"
+   ]
+  },
+  "mcp.resource.protocol": {
+   "key": "mcp.resource.protocol",
+   "brief": "Protocol of the resource URI being accessed, extracted from the URI.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "file",
+   "alias": [
+    "network.protocol.name",
+    "net.protocol.name",
+    "messaging.protocol"
+   ],
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "network.protocol.name",
+    "reason": "OTel uses the generic network.protocol.name attribute"
+   },
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.21.0",
+     "prs": [
+      581
+     ],
+     "description": "Added messaging.protocol as an alias"
+    },
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Deprecated in favor of network.protocol.name"
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.resource.uri": {
+   "key": "mcp.resource.uri",
+   "brief": "The resource URI being accessed in an MCP operation.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "auto",
+    "reason": "URIs can contain sensitive file paths"
+   },
+   "is_in_otel": true,
+   "example": "file:///path/to/file.txt",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Set is_in_otel=true, attribute exists in OTel MCP registry"
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.server.name": {
+   "key": "mcp.server.name",
+   "brief": "Name of the MCP server application.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "sentry-mcp-server",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.server.title": {
+   "key": "mcp.server.title",
+   "brief": "Display title of the MCP server application.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual",
+    "reason": "Server titles may reveal user-specific application configurations or custom setups"
+   },
+   "is_in_otel": false,
+   "example": "Sentry MCP Server",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.server.version": {
+   "key": "mcp.server.version",
+   "brief": "Version of the MCP server application.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "0.1.0",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.session.id": {
+   "key": "mcp.session.id",
+   "brief": "Identifier for the MCP session.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "550e8400-e29b-41d4-a716-446655440000",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Set is_in_otel=true, attribute exists in OTel MCP registry"
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.tool.name": {
+   "key": "mcp.tool.name",
+   "brief": "Name of the MCP tool being called.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "calculator",
+   "alias": [
+    "gen_ai.tool.name",
+    "ai.function_call"
+   ],
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Deprecated in favor of gen_ai.tool.name"
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ],
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.tool.name",
+    "reason": "OTel uses gen_ai.tool.name for MCP tool names"
+   }
+  },
+  "mcp.tool.result.content": {
+   "key": "mcp.tool.result.content",
+   "brief": "The content of the tool result.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "auto",
+    "reason": "Tool results can contain user data"
+   },
+   "is_in_otel": false,
+   "example": "{\"output\": \"rainy\", \"toolCallId\": \"1\"}",
+   "alias": [
+    "gen_ai.tool.call.result",
+    "gen_ai.tool.message",
+    "gen_ai.tool.output",
+    "ai.toolCall.result",
+    "anthropic.tool_result.content"
+   ],
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Deprecated in favor of gen_ai.tool.call.result"
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    },
+    {
+     "version": "0.2.0",
+     "prs": [
+      164
+     ]
+    }
+   ],
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.tool.call.result",
+    "reason": "OTel uses gen_ai.tool.call.result for MCP tool results"
+   }
+  },
+  "mcp.tool.result.content_count": {
+   "key": "mcp.tool.result.content_count",
+   "brief": "Number of content items in the tool result.",
+   "type": "integer",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": 1,
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.4.0",
+     "prs": [
+      228
+     ]
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ]
+  },
+  "mcp.tool.result.is_error": {
+   "key": "mcp.tool.result.is_error",
+   "brief": "Whether a tool execution resulted in an error.",
+   "type": "boolean",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": false,
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Deprecated in favor of error.type"
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ],
+   "deprecation": {
+    "_status": null,
+    "replacement": "error.type",
+    "reason": "OTel uses error.type set to 'tool_error' when isError is true. Cannot be automatically backfilled due to type mismatch (boolean vs string)."
+   }
+  },
+  "mcp.transport": {
+   "key": "mcp.transport",
+   "brief": "Transport method used for MCP communication.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": false,
+   "example": "stdio",
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.12.0",
+     "prs": [
+      420
+     ],
+     "description": "Deprecated in favor of network.transport"
+    },
+    {
+     "version": "0.3.0",
+     "prs": [
+      171
+     ]
+    }
+   ],
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "network.transport",
+    "reason": "OTel uses the generic network.transport attribute"
+   },
+   "alias": [
+    "network.transport",
+    "net.transport"
+   ]
+  },
+  "network.protocol.name": {
+   "key": "network.protocol.name",
+   "brief": "OSI application layer or non-OSI equivalent.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "http",
+   "alias": [
+    "net.protocol.name",
+    "mcp.resource.protocol",
+    "messaging.protocol"
+   ],
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.21.0",
+     "prs": [
+      581
+     ],
+     "description": "Added messaging.protocol as an alias"
+    },
+    {
+     "version": "0.1.0",
+     "prs": [
+      127
+     ]
+    },
+    {
+     "version": "0.0.0"
+    }
+   ]
+  },
+  "network.transport": {
+   "key": "network.transport",
+   "brief": "OSI transport layer or inter-process communication method.",
+   "type": "string",
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "is_in_otel": true,
+   "example": "tcp",
+   "alias": [
+    "net.transport",
+    "mcp.transport"
+   ],
+   "visibility": "public",
+   "changelog": [
+    {
+     "version": "0.1.0",
+     "prs": [
+      127
+     ]
+    },
+    {
+     "version": "0.0.0"
+    }
+   ]
+  }
+ }
+}

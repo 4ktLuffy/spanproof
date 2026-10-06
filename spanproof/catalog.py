@@ -277,7 +277,265 @@ FINDINGS.append({
            "Pydantic AI suite 332/332, the new test fails on the original code).",
 })
 
+JS_SHA = "9ae9a3027daf12f31c7f848849dd1adbba732bc8"
+JS = f"https://github.com/getsentry/sentry-javascript/blob/{JS_SHA}/packages/server-utils/src"
+PYI = f"{PY}/sentry_sdk/integrations"
+
+
+def _f(**kw):
+    FINDINGS.append(kw)
+
+
+# ------------------------------------------------- found by the 2026-10-06 exploration
+_f(id="SP-19", title="Hugging Face and Cohere streams swallow provider errors: the app gets a shorter answer and no "
+                     "exception",
+   sdk="python", integration="huggingface_hub, cohere", severity="high", intent="unintended", status="new",
+   evidence=[f"{PYI}/huggingface_hub.py#L352-L388 (the for/yield loop sits inside capture_internal_exceptions())",
+             f"{PYI}/huggingface_hub.py#L286-L307 (text_generation stream, same pattern)",
+             f"{PYI}/cohere.py#L223-L234 (chat_stream, same pattern)",
+             "control: the same call without Sentry raises (huggingface_hub GenerationError, "
+              "httpx.RemoteProtocolError)"],
+   scenarios=["huggingface_hub.chat_completion.stream.server_error", "cohere.chat_stream.connection_drop"],
+   impact="Sentry changes application behaviour: a stream that fails mid-way (TGI out of memory, dropped connection) "
+          "ends early with no exception, so the app shows a truncated answer as if it were complete, and no error "
+          "is reported anywhere. Also absorbs KeyboardInterrupt during a stream read (code reading, not tested).",
+   fix="Keep only Sentry's own bookkeeping inside capture_internal_exceptions; let errors from the provider "
+       "iterator propagate, mark the span as errored and end it in finally.")
+_f(id="SP-20", title="Hugging Face chat stream: span lost on early close, break or mid-stream error",
+   sdk="python", integration="huggingface_hub", severity="high", intent="unintended", status="new",
+   evidence=[f"{PYI}/huggingface_hub.py#L454 (span.__exit__ runs only after the loop completes)"],
+   scenarios=["huggingface_hub.chat_completion.stream.early_close", "huggingface_hub.chat_completion.stream.break",
+              "huggingface_hub.chat_completion.stream.server_error"],
+   impact="The gen_ai.chat span never finishes, so the call disappears from traces (same class as #7847 for OpenAI).",
+   fix="End the span in a finally block of the wrapping generator.")
+_f(id="SP-21", title="Hugging Face text_generation: generated tokens recorded as the total; input and output tokens "
+                     "missing",
+   sdk="python", integration="huggingface_hub", severity="high", intent="simplification", status="new",
+   evidence=[f"{PYI}/huggingface_hub.py#L189-L194", f"{PYI}/huggingface_hub.py#L267-L271",
+             "sentry-python's own tests assert total = generated tokens"],
+   scenarios=["huggingface_hub.text_generation.details", "huggingface_hub.text_generation.stream"],
+   impact="With details=True the provider reports input_length=8 and generated_tokens=3; Sentry records total=3 and "
+          "nothing else, so input cost is invisible and the total is wrong.",
+   fix="record_token_usage(input_tokens=details.input_length, output_tokens=details.generated_tokens).")
+_f(id="SP-22", title="Mistral: chat.stream, chat.stream_async and embeddings.create produce no span",
+   sdk="python", integration="mistral", severity="high", intent="unintended", status="new",
+   evidence=[f"{PYI}/mistral.py#L50-L52 (only Chat.complete and complete_async are wrapped)"],
+   scenarios=["mistral.chat.stream", "mistral.chat.stream.async", "mistral.embeddings.create"],
+   impact="Streaming, the common chat UI path, and embeddings are invisible in Sentry.",
+   fix="Wrap Chat.stream/stream_async (usage from the final chunk, span ended in finally) and Embeddings.create.")
+_f(id="SP-23", title="OpenAI Responses stream that ends 'incomplete' records no tokens and no model",
+   sdk="python", integration="openai", severity="high", intent="unintended", status="new",
+   evidence=[f"{PYI}/openai.py#L1171 and #L1244 (only ResponseCompletedEvent is handled)",
+             "control: the same response non-streamed is recorded correctly"],
+   scenarios=["openai.adv.responses.incomplete.stream", "openai.adv.responses.incomplete.stream.async",
+              "openai.adv.responses.incomplete_reasoning_only.stream"],
+   impact="A call stopped by max_output_tokens (1,500 in + 4,096 out, 3,900 of it reasoning: 5,596 billed tokens) "
+          "is recorded with 0 tokens. These are often the most expensive calls.",
+   fix="Treat ResponseIncompleteEvent and ResponseFailedEvent like ResponseCompletedEvent (usage and model from "
+       "x.response).")
+_f(id="SP-24", title="OpenAI background responses: tokens never recorded (responses.retrieve is not instrumented)",
+   sdk="python", integration="openai", severity="high", intent="unintended", status="new",
+   evidence=[f"{PYI}/openai.py#L138-L149 (setup_once patches only .create)"],
+   scenarios=["openai.adv.responses.background"],
+   impact="create(background=True) returns 'queued' without usage; the billed result (1,500 in + 400 out) arrives "
+          "through retrieve() and is never recorded.",
+   fix="Wrap Responses.retrieve and record usage when the status is final, linked to the create span by response id.")
+_f(id="SP-25", title="Structured-output parse() calls produce no span (OpenAI chat.completions.parse, Anthropic "
+                     "messages.parse)",
+   sdk="python", integration="openai, anthropic", severity="high", intent="unintended",
+   status="new (responses.parse known: #5401)", issue="https://github.com/getsentry/sentry-python/issues/5401",
+   evidence=[f"{PYI}/openai.py#L138-L149", f"{PYI}/anthropic.py#L245-L274",
+             "openai and anthropic SDKs: parse() calls self._post directly, not create()"],
+   scenarios=["openai.adv.chat.parse", "openai.adv.chat.parse.async", "openai.adv.responses.parse",
+              "anthropic.adv.parse.sync", "anthropic.adv.parse.async"],
+   impact="Every structured-output call (a common production pattern) is invisible: no span, no tokens, no cost.",
+   fix="Wrap Completions.parse, Responses.parse and Messages.parse (sync and async) with the existing create handlers.")
+_f(id="SP-26", title="OpenAI streamed n>1 chat: choices merged into one garbled string",
+   sdk="python", integration="openai", severity="medium", intent="unintended", status="new",
+   evidence=[f"{PYI}/openai.py#L1028-L1037 (position within the chunk used instead of choice.index)"],
+   scenarios=["openai.adv.chat.n2.stream"],
+   impact="'Paris is it.' and 'It is Paris.' are recorded as ['Paris It is is it.Paris.']. Tokens are correct.",
+   fix="Index the buffers by choice.index.")
+_f(id="SP-27", title="Anthropic stream: tool-call JSON glued into the answer text, tool calls not recorded",
+   sdk="python", integration="anthropic", severity="medium", intent="unintended",
+   status="related: #4242", issue="https://github.com/getsentry/sentry-python/issues/4242",
+   evidence=[f"{PYI}/anthropic.py#L336-L342 (partial_json appended to the text buffer)",
+             "control: the non-stream path is correct"],
+   scenarios=["anthropic.adv.tool_round_trip.stream", "anthropic.adv.server_tools.stream"],
+   impact="Recorded answer 'Let me check.{\"city\": \"Paris\"}'; with web search the query JSON is prepended to the "
+          "answer.",
+   fix="Collect content per block; tool_use input goes to tool calls, server_tool_use input is skipped.")
+_f(id="SP-28", title="Hugging Face streamed tool call: only the last delta is kept",
+   sdk="python", integration="huggingface_hub", severity="medium", intent="unintended", status="new",
+   evidence=[f"{PYI}/huggingface_hub.py#L381-L386"],
+   scenarios=["huggingface_hub.chat_completion.stream.tool_call"],
+   impact="Recorded tool call has name None and arguments 'ris\"}' instead of get_weather({\"city\": \"Paris\"}).",
+   fix="Accumulate tool-call deltas per index.")
+_f(id="SP-29", title="Mistral: response model, id and finish reason not recorded; tool calls dropped",
+   sdk="python", integration="mistral", severity="medium", intent="unintended", status="new",
+   evidence=[f"{PYI}/mistral.py#L321-L361", f"{PYI}/mistral.py#L152-L189"],
+   scenarios=["mistral.chat.complete", "mistral.chat.complete.tool_call"],
+   impact="Truncation and tool-stops are invisible and calls cannot be joined with provider logs.",
+   fix="Set response model, id and finish reasons; add tool_call parts to the output messages.")
+_f(id="SP-30", title="Anthropic thinking tokens not recorded",
+   sdk="python", integration="anthropic", severity="medium", intent="unintended",
+   status="known", issue="https://github.com/getsentry/sentry-python/issues/5802",
+   evidence=[f"{PYI}/anthropic.py#L286-L320 (usage.output_tokens_details.thinking_tokens is not read)"],
+   scenarios=["anthropic.adv.thinking.sync", "anthropic.adv.thinking.stream", "anthropic.adv.thinking.stream_helper"],
+   impact="900 of 1,100 output tokens were reasoning; none recorded. Output totals and cost stay right.",
+   fix="Read thinking_tokens as output_tokens.reasoning (sync and message_delta paths).")
+_f(id="SP-31", title="Billing facts with no attribute: server and built-in tool calls, cache-write TTL, audio tokens, "
+                     "service tier",
+   sdk="python", integration="openai, anthropic", severity="medium", intent="needs decision",
+   status="convention gap (partly getsentry/sentry-conventions#64)",
+   issue="https://github.com/getsentry/sentry-conventions/issues/64",
+   evidence=[f"{PYI}/anthropic.py#L391 (# TODO: Record event.usage.server_tool_use)",
+             "sentry-conventions at 6f0307c and ff34ba1: no attribute for any of these"],
+   scenarios=["anthropic.adv.server_tools.sync", "anthropic.adv.cache_ttl.sync",
+   "openai.adv.responses.builtin_tools.sync",
+              "openai.adv.chat.audio_tokens", "openai.adv.chat.service_tier"],
+   impact="Per-request tool fees (web search), the 1-hour cache-write price (2x input vs 1.25x for 5 minutes), "
+          "audio tokens and flex/priority tiers change the bill but cannot be represented, so cost is understated.",
+   fix="Conventions first (attributes for these), then the integrations.")
+_f(id="SP-32", title="MCP: tool errors are recorded as successes",
+   sdk="python", integration="mcp", severity="high", intent="unintended", status="new",
+   evidence=[f"{PYI}/mcp.py#L457-L501 (mcp 2.x middleware never reads result['isError'])",
+             f"{PYI}/mcp.py#L357-L395 (mcp 1.x wrapper ignores a returned CallToolResult.isError)",
+             "the client receives isError=true; the span status stays ok and the MCP integration captures nothing"],
+   scenarios=["mcp: tool_raise, tool_is_error, tool_bad_args, tool_unknown (python -m spanproof.mcp_run)"],
+   impact="On mcp 2.x and fastmcp 4 every tool exception, bad-argument call and unknown-tool call ends this way, "
+          "so MCP tool error rates read 0%.",
+   fix="After call_next, if result.get('isError') set the span status to error and error.type; same for mcp 1.x.")
+_f(id="SP-33", title="MCP: concurrent requests on one connection nest under each other, and on stdio most are dropped",
+   sdk="python", integration="mcp", severity="high", intent="unintended", status="new",
+   evidence=[f"{PYI}/mcp.py#L330-L340 (spans started on the shared scope; no new_scope/isolation_scope per request)",
+             "control: with AsyncioIntegration enabled, 0 nested and 0 lost"],
+   scenarios=["mcp: concurrent_0..9 on stdio, memory and SSE"],
+   impact="Three concurrent tool calls on stdio produce one transaction: 4 of 5 spans are lost in every stdio cell "
+          "(288 of 288 expected), and the rest form a false parent chain.",
+   fix="Enter each handler span inside sentry_sdk.new_scope() (or isolation_scope) per request.")
+_f(id="SP-34", title="MCP small gaps: structuredContent ignored on mcp 1.x, content_count counts dict keys, request "
+                     "id 0 dropped",
+   sdk="python", integration="mcp", severity="low", intent="unintended", status="new",
+   evidence=[f"{PYI}/mcp.py#L239 (getattr(result, 'structured_content'); the 1.x field is structuredContent)",
+             f"{PYI}/mcp.py#L388-L392", f"{PYI}/mcp.py#L209 (if request_id: skips id 0)"],
+   scenarios=["mcp: tool_structured, tool_ok"],
+   impact="Recorded results and counts disagree with the registry's definitions; one JSON-RPC id is never recorded.",
+   fix="Read structuredContent, count content items, test request_id is not None.")
+_f(id="SP-35", title="Known gaps reproduced: uninstrumented client methods",
+   sdk="python", integration="anthropic, cohere, huggingface_hub", severity="medium", intent="unintended",
+   status="known", issue="https://github.com/getsentry/sentry-python/issues/5806",
+   evidence=["anthropic beta.messages (#5806), cohere async (#5845) and ClientV2 (#5844), "
+             "huggingface_hub AsyncInferenceClient (#5846): no span in each case"],
+   scenarios=["anthropic.adv.beta.sync", "cohere.chat.async", "cohere.v2.chat",
+              "huggingface_hub.chat_completion.async"],
+   impact="Confirms the open issues still apply at HEAD.", fix="Tracked in the linked issues.")
+_f(id="SP-36", title="Cohere: legacy ai.* span ops and attributes",
+   sdk="python", integration="cohere", severity="medium", intent="unintended",
+   status="known", issue="https://github.com/getsentry/sentry-python/issues/4760",
+   evidence=[f"{PYI}/cohere.py#L173-L182"], scenarios=["cohere.chat.sync"],
+   impact="Cohere calls do not appear in the Agents views that filter on gen_ai.* ops.", fix="Tracked in #4760.")
+_f(id="SP-37", title="JS LangChain createAgent (LangChain v1's recommended agent API): no agent span, no tool spans",
+   sdk="js", integration="langgraph", severity="high", intent="unintended", status="new",
+   evidence=[f"{JS}/integrations/langgraph.ts#L115-L120 (invoke is patched on the compiled graph instance)",
+             "langchain createAgent then calls .withConfig(), which builds a new Pregel object without the patch"],
+   scenarios=["js.langgraph.create_agent"],
+   impact="Agents built the recommended way show up as flat LLM calls: no agent name, no tools, no Agents view.",
+   fix="Instrument Pregel.prototype.invoke/stream (guarded) instead of the instance, or carry the wrapper across "
+       "withConfig.")
+_f(id="SP-38", title="JS LangGraph with a checkpointer: agent span re-counts earlier turns",
+   sdk="js", integration="langgraph", severity="high", intent="unintended", status="new",
+   evidence=[f"{JS}/ai/langgraph/utils.ts#L283-L285 (new messages = output.slice(input length); with thread memory the "
+             "output also holds earlier turns)"],
+   scenarios=["js.langgraph.react_agent.thread"],
+   impact="Turn 2 reports 2,700 input / 62 output when its only LLM call was 1,000 / 12; over the conversation agent "
+          "spans say 4,400 against 2,700 billed, and turn 1's tool calls are reported again.",
+   fix="Take agent usage from the LLM runs under this invoke, not from a slice of the message list.")
+_f(id="SP-39", title="JS Google GenAI: thinking tokens dropped from output, cached and reasoning never emitted",
+   sdk="js", integration="google_genai", severity="high", intent="unintended", status="new",
+   evidence=[f"{JS}/ai/google-genai/index.ts#L208-L220 (output = candidatesTokenCount only)",
+             "Python reports the same response correctly; only the Vercel AI path was fixed (#23433/#24066)"],
+   scenarios=["js.google_genai.generate_content", "js.google_genai.generate_content_stream",
+              "js.google_genai.chat.send_message"],
+   impact="Output 200 instead of 350 (43% low); 512 cached and 150 reasoning tokens missing; total != input + output.",
+   fix="output = candidatesTokenCount + thoughtsTokenCount; emit cache_read and reasoning (index.ts and streaming.ts).")
+_f(id="SP-40", title="JS LangChain with Anthropic: input excludes cache, cache attributes missing",
+   sdk="js", integration="langchain", severity="high", intent="unintended", status="new (same class as js#25069)",
+   issue="https://github.com/getsentry/sentry-javascript/issues/25069",
+   evidence=[f"{JS}/ai/langchain/utils.ts#L358-L360 (anthropicUsage.input_tokens used as input)"],
+   scenarios=["js.langchain.chat_anthropic.invoke", "js.langchain.chat_anthropic.stream",
+              "js.langgraph.react_agent.anthropic"],
+   impact="invoke reports input 40 with cache_read 2048 > input; stream reports 2,600 with no cache attributes; in "
+          "LangGraph the agent span says 2,138 while its LLM spans say 30 + 60.",
+   fix="Prefer message.usage_metadata (provider-neutral, cache included, carries cache and reasoning details).")
+_f(id="SP-41", title="JS LangChain: cached and reasoning tokens never emitted",
+   sdk="js", integration="langchain", severity="medium", intent="unintended", status="new",
+   evidence=[f"{JS}/ai/langchain/utils.ts#L355-L357 (only llmOutput.tokenUsage is read)",
+             "the data is on message.usage_metadata.input_token_details / output_token_details "
+              "(checked without Sentry)"],
+   scenarios=["js.langchain.chat_openai.invoke", "js.langchain.chat_openai.stream", "js.langgraph.react_agent"],
+   impact="1,024 cached and 256 reasoning tokens missing on OpenAI; Python reports both.", fix="Same as SP-40.")
+_f(id="SP-42", title="JS LangChain: tool-call arguments recorded with recordOutputs off",
+   sdk="js", integration="langchain", severity="high", intent="unintended",
+   status="new (#19812 closed, this part left)",
+   evidence=[f"{JS}/ai/langchain/utils.ts#L413-L414 (comment: names and IDs are not PII, so captured regardless; "
+             "the arguments are captured too)"],
+   scenarios=["js.langchain.chat_openai.tool_call (nodc)", "js.langgraph.react_agent (nodc)"],
+   impact="With sendDefaultPii off, gen_ai.response.tool_calls still carries {\"city\": \"Paris\"}. The OpenAI and "
+          "Google integrations, and the LangGraph tool span, drop the same arguments.",
+   fix="Record names and IDs only, or move arguments under recordOutputs.")
+_f(id="SP-43", title="JS LangGraph without the LangChain integration: every LLM call reported twice",
+   sdk="js", integration="langgraph", severity="medium", intent="unintended", status="new",
+   evidence=["integrations/langgraph injects the callback handler but never marks providers as skipped"],
+   scenarios=["js.langgraph.react_agent.without_langchain"],
+   impact="Only with an explicit integration list (the default list includes LangChain): 3,400 tokens "
+           "for 1,700 billed.",
+   fix="Mark providers skipped inside LangGraph runs, as the LangChain integration does.")
+_f(id="SP-44", title="JS: after the first LangChain call, direct provider calls lose their spans process-wide",
+   sdk="js", integration="langchain", severity="high", intent="simplification",
+   status="known", issue="https://github.com/getsentry/sentry-javascript/issues/19687",
+   evidence=["core/src/utils/ai/providerSkip.ts (a module-level Set); Sentry's own test pins the behaviour"],
+   scenarios=["js.langchain.then_direct_openai", "js.langchain.then_direct_anthropic",
+              "js.langchain.then_direct_google"],
+   impact="Reproduced on 11.4.0; also hides Anthropic and Google calls after a LangChain call that used OpenAI.",
+   fix="Scope the skip to LangChain runs (AsyncLocalStorage on the chat model channels).")
+
+_f(id="SP-45", title="Cohere: meta.cached_tokens ignored",
+   sdk="python", integration="cohere", severity="low", intent="needs decision", status="new",
+   evidence=[f"{PYI}/cohere.py#L136-L148"], scenarios=["cohere.chat.cached"],
+   impact="Whether Cohere counts cached tokens inside billed input is not confirmed, so the cost effect is unknown.",
+   fix="Record as input_tokens.cached once the billing semantics are confirmed.")
+_f(id="SP-46", title="JS identity gaps: LangGraph finish_reasons sent as an array; LangChain + Google records a run "
+                     "id as response id",
+   sdk="js", integration="langgraph, langchain", severity="low", intent="unintended", status="new",
+   evidence=[f"{JS}/ai/langgraph/utils.ts (finish reasons set as a list, same class as sentry-python#7873)",
+             "LangChain records LangChain's run-<uuid> as gen_ai.response.id for Google models"],
+   scenarios=["js.langgraph.react_agent", "js.langchain.chat_google.invoke"],
+   impact="List values are not searchable with the default transport; response ids cannot be joined "
+           "with provider logs.",
+   fix="Send finish_reasons as a JSON string; read the provider's response id.")
+_f(id="SP-47", title="JS LangGraph stream(): no invoke_agent span",
+   sdk="js", integration="langgraph", severity="high", intent="unintended",
+   status="known", issue="https://github.com/getsentry/sentry-javascript/issues/19626",
+   evidence=[f"{JS}/integrations/langgraph.ts#L115-L120 (only invoke is wrapped)"],
+   scenarios=["js.langgraph.react_agent.stream"],
+   impact="Reproduced on 11.4.0: the tool span sits outside any agent (the Python side is SP-08).",
+   fix="Tracked in #19626.")
+
+_f(id="SP-48", title="Cohere 5.4.0: tool calls recorded as a Python repr string, not JSON",
+   sdk="python", integration="cohere", severity="low", intent="unintended", status="new",
+   evidence=["ai.tool_calls is \"name='get_weather' parameters={'city': 'Paris'}\" on cohere 5.4.0; JSON on 5.21.1 and later"],
+   scenarios=["cohere.chat.tool_call (cohere 5.4.0)"],
+   impact="On the oldest supported Cohere version the recorded tool calls cannot be parsed.",
+   fix="Serialize the tool-call objects explicitly (model_dump / dict) instead of relying on str().")
+
+
 NEGATIVE_RESULTS = [
+    "LangChain JS + Google reports 200 output tokens because @langchain/google-genai leaves thoughts out of its own "
+    "usage, and LangChain JS + Anthropic streams report 121 instead of 120 because @langchain/anthropic adds "
+    "message_start's 1; both reproduce without Sentry loaded. Not Sentry faults.",
+    "Hugging Face chat.completions.create (the OpenAI-compatible alias) is instrumented on every version from 0.24.7 "
+    "to the pre-release, although sentry-python#5848 says otherwise.",
     "Live Groq streams repeat the usage block on two chunks; Sentry's OpenAI integration takes the final report "
     "and records the right numbers. LangChain, however, adds the two reports together (75 + 75 = 150 input "
     "tokens), with or without Sentry, so LangChain-on-Groq users see doubled tokens in Sentry. Not a Sentry fault.",

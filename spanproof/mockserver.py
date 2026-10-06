@@ -23,6 +23,8 @@ class Reply:
     sse_event_names: list[str] | None = None  # Anthropic-style "event:" lines
     sse_done: bool = True  # emit "data: [DONE]" (OpenAI style)
     cut_after: int | None = None  # drop the connection after N events
+    ndjson: bool = False  # one JSON document per line instead of SSE (Cohere v1 chat_stream)
+    chunked: bool = False  # chunked transfer encoding: a cut stream is an incomplete body, which clients raise on
     content_type: str | None = None
     path_contains: str | None = None  # optional routing guard
     proxy: bool = False  # forward to the live upstream and record the real response
@@ -91,11 +93,19 @@ def _handler(script: Script):
                 self.wfile.write(data)
                 return
             self.send_response(reply.status)
-            self.send_header("content-type", reply.content_type or "text/event-stream")
+            self.send_header("content-type", reply.content_type or (
+                "application/stream+json" if reply.ndjson else "text/event-stream"))
             self.send_header("cache-control", "no-cache")
             self.send_header("connection", "close")
+            if reply.chunked:
+                self.send_header("transfer-encoding", "chunked")
             self.end_headers()
             self.close_connection = True
+
+            def write(b):
+                self.wfile.write(b"%x\r\n%s\r\n" % (len(b), b) if reply.chunked else b)
+                self.wfile.flush()
+
             for i, ev in enumerate(reply.events):
                 if reply.cut_after is not None and i >= reply.cut_after:
                     # abrupt close: no terminator, socket shut
@@ -109,11 +119,12 @@ def _handler(script: Script):
                 if reply.sse_event_names:
                     chunk += f"event: {reply.sse_event_names[i]}\n"
                 payload = ev if isinstance(ev, str) else json.dumps(ev)
-                chunk += f"data: {payload}\n\n"
-                self.wfile.write(chunk.encode())
-                self.wfile.flush()
-            if reply.sse_done and not reply.sse_event_names:
-                self.wfile.write(b"data: [DONE]\n\n")
+                chunk += payload + "\n" if reply.ndjson else f"data: {payload}\n\n"
+                write(chunk.encode())
+            if reply.sse_done and not reply.sse_event_names and not reply.ndjson:
+                write(b"data: [DONE]\n\n")
+            if reply.chunked:
+                self.wfile.write(b"0\r\n\r\n")
                 self.wfile.flush()
 
         def _proxy(self, body):

@@ -31,6 +31,9 @@ TOX_ENVS = {
     "anthropic": ("anthropic.", "anthropic", []),
     "litellm": ("litellm.", "litellm", []),
     "google_genai": ("google_genai.", "google-genai", []),
+    "cohere": ("cohere.", "cohere", []),
+    "mistral": ("mistral.", "mistralai", []),
+    "huggingface_hub": ("huggingface_hub.", "huggingface_hub", []),
     "openai_agents": ("openai_agents.", "openai-agents", []),
     "pydantic_ai": ("pydantic_ai.", "pydantic-ai-slim[openai]", []),
     "langchain-base": ("langchain.", "langchain", ["langchain-openai"]),
@@ -76,7 +79,9 @@ def build_env(envs: Path, sdk: str, cell: dict) -> tuple[str | None, str]:
             return None, p.stderr[-800:]
     args = [UV, "pip", "install", "-q", "-p", str(py), "-e", sdk, *cell["pins"], *cell["extras"]]
     if cell["requested"] == "pre":
-        args += ["--prerelease", "allow", "--upgrade-package", cell["dist"].split("[")[0]]
+        # pre-releases of the provider only: a pre-release dependency (e.g. httpx) can break the provider SDK itself
+        dist = cell["dist"].split("[")[0]
+        args += ["--prerelease-package", f"{dist}=allow", "--upgrade-package", dist]
     elif cell["requested"] == "latest":
         args += ["--upgrade-package", cell["dist"].split("[")[0]]
     p = subprocess.run(args, capture_output=True, text=True)

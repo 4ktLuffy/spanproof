@@ -21,7 +21,7 @@ const server = http.createServer((req, res) => {
   let body = '';
   req.on('data', c => (body += c));
   req.on('end', () => {
-    requests.push({ path: req.url });
+    requests.push({ path: req.url, method: req.method });
     const r = replies.shift() || { body: { error: { message: 'script exhausted' } }, status: 500 };
     if (!r.events) {
       const data = JSON.stringify(r.body);
@@ -53,11 +53,10 @@ Sentry.init({
   tracesSampleRate: 1.0,
   sendDefaultPii: dataCollection,
   defaultIntegrations: false,
-  integrations: [
-    Sentry.openAIIntegration({ recordInputs: dataCollection, recordOutputs: dataCollection }),
-    Sentry.anthropicAIIntegration({ recordInputs: dataCollection, recordOutputs: dataCollection }),
-    Sentry.vercelAIIntegration({ recordInputs: dataCollection, recordOutputs: dataCollection }),
-  ],
+  // A job may name the integrations it needs (in @sentry/node's default order: LangChain first);
+  // without a list, the original three run so existing scenarios keep their setup.
+  integrations: (job.integrations || ['openAI', 'anthropicAI', 'vercelAI'])
+    .map(n => Sentry[n + 'Integration']({ recordInputs: dataCollection, recordOutputs: dataCollection })),
   // Record every envelope; when SPANPROOF_DSN is set, also send it to that real project.
   transport: opts => {
     const real = REAL_DSN ? Sentry.makeNodeTransport(opts) : null;
@@ -174,7 +173,116 @@ const SCENARIOS = {
     let i = 0;
     for await (const _ of r.textStream) { if (++i === 2) break; }
   },
+
+  // ---------------------------------------------------------------- LangChain
+  'js.langchain.chat_openai.invoke': async url => { await lcOpenAI(url).invoke(LC_MSG); },
+  'js.langchain.chat_openai.stream': async url => {
+    for await (const _ of await lcOpenAI(url).stream(LC_MSG)) { /* drain */ }
+  },
+  'js.langchain.chat_openai.tool_call': async url => { await lcOpenAI(url).bindTools([weatherTool()]).invoke(LC_MSG); },
+  'js.langchain.chat_anthropic.invoke': async url => { await lcAnthropic(url).invoke(LC_MSG); },
+  'js.langchain.chat_anthropic.stream': async url => {
+    for await (const _ of await lcAnthropic(url).stream(LC_MSG)) { /* drain */ }
+  },
+  'js.langchain.chat_google.invoke': async url => { await lcGoogle(url).invoke(LC_MSG); },
+  // getsentry/sentry-javascript#19687: after one LangChain call, is a direct provider call still traced?
+  'js.langchain.then_direct_openai': async url => {
+    await lcOpenAI(url).invoke(LC_MSG);
+    await openai(url).chat.completions.create({ model: 'gpt-5-mini', messages: MSG });
+  },
+  'js.langchain.direct_openai_first': async url => {
+    await openai(url).chat.completions.create({ model: 'gpt-5-mini', messages: MSG });
+    await lcOpenAI(url).invoke(LC_MSG);
+    await openai(url).chat.completions.create({ model: 'gpt-5-mini', messages: MSG });
+  },
+  'js.langchain.then_direct_anthropic': async url => {
+    await lcOpenAI(url).invoke(LC_MSG);
+    await anthropic(url).messages.create(AKW);
+  },
+  'js.langchain.then_direct_google': async url => {
+    await lcOpenAI(url).invoke(LC_MSG);
+    await genai(url).models.generateContent({ model: 'gemini-3-flash', contents: 'Capital of France?' });
+  },
+
+  // ---------------------------------------------------------------- LangGraph
+  'js.langgraph.react_agent': async url => {
+    await reactAgent(url).invoke({ messages: [{ role: 'user', content: 'What is the weather in Paris?' }] });
+  },
+  'js.langgraph.react_agent.stream': async url => {
+    const s = await reactAgent(url).stream({ messages: [{ role: 'user', content: 'What is the weather in Paris?' }] });
+    for await (const _ of s) { /* drain */ }
+  },
+  'js.langgraph.react_agent.anthropic': async url => {
+    await reactAgent(url, lcAnthropic(url)).invoke({ messages: [{ role: 'user', content: 'What is the weather in Paris?' }] });
+  },
+  // Second turn on the same thread: the checkpointer returns the whole history, not only this turn's messages.
+  'js.langgraph.react_agent.thread': async url => {
+    const { MemorySaver } = require('@langchain/langgraph');
+    const agent = reactAgent(url, null, new MemorySaver());
+    const cfg = { configurable: { thread_id: 'spanproof-thread' } };
+    await agent.invoke({ messages: [{ role: 'user', content: 'What is the weather in Paris?' }] }, cfg);
+    await agent.invoke({ messages: [{ role: 'user', content: 'Thanks. And tomorrow?' }] }, cfg);
+  },
+
+  // langchain v1 createAgent (built on a compiled StateGraph)
+  'js.langgraph.create_agent': async url => {
+    const { createAgent } = require('langchain');
+    const agent = createAgent({ model: lcOpenAI(url), tools: [weatherTool()], name: 'weather_agent' });
+    await agent.invoke({ messages: [{ role: 'user', content: 'What is the weather in Paris?' }] });
+  },
+
+  // ------------------------------------------------------------ Google GenAI
+  'js.google_genai.generate_content': async url => {
+    await genai(url).models.generateContent({ model: 'gemini-3-flash', contents: 'Capital of France?' });
+  },
+  'js.google_genai.generate_content_stream': async url => {
+    const s = await genai(url).models.generateContentStream({ model: 'gemini-3-flash', contents: 'Capital of France?' });
+    for await (const _ of s) { /* drain */ }
+  },
+  'js.google_genai.generate_content_stream.early_close': async url => {
+    const s = await genai(url).models.generateContentStream({ model: 'gemini-3-flash', contents: 'Capital of France?' });
+    let i = 0;
+    for await (const _ of s) { if (++i === 2) break; }
+  },
+  'js.google_genai.chat.send_message': async url => {
+    const chat = genai(url).chats.create({ model: 'gemini-3-flash' });
+    await chat.sendMessage({ message: 'Capital of France?' });
+    await chat.sendMessage({ message: 'And of Italy?' });
+  },
+  'js.google_genai.chat.send_message_stream': async url => {
+    const chat = genai(url).chats.create({ model: 'gemini-3-flash' });
+    for await (const _ of await chat.sendMessageStream({ message: 'Capital of France?' })) { /* drain */ }
+  },
 };
+
+const LC_MSG = [['system', 'Be brief.'], ['human', 'Capital of France?']];
+function lcOpenAI(url) {
+  const { ChatOpenAI } = require('@langchain/openai');
+  return new ChatOpenAI({ model: 'gpt-5-mini', apiKey: DUMMY_KEY, maxRetries: 0, configuration: { baseURL: url + '/v1' } });
+}
+function lcAnthropic(url) {
+  const { ChatAnthropic } = require('@langchain/anthropic');
+  return new ChatAnthropic({ model: 'claude-sonnet-5-5', apiKey: DUMMY_KEY, maxRetries: 0, anthropicApiUrl: url, maxTokens: 256 });
+}
+function lcGoogle(url) {
+  const { ChatGoogleGenerativeAI } = require('@langchain/google-genai');
+  return new ChatGoogleGenerativeAI({ model: 'gemini-3-flash', apiKey: DUMMY_KEY, maxRetries: 0, baseUrl: url });
+}
+function genai(url) {
+  const { GoogleGenAI } = require('@google/genai');
+  return new GoogleGenAI({ apiKey: DUMMY_KEY, httpOptions: { baseUrl: url } });
+}
+function weatherTool() {
+  const { tool } = require('@langchain/core/tools');
+  return tool(async ({ city }) => `Sunny in ${city}`, {
+    name: 'get_weather', description: 'Weather for a city.',
+    schema: { type: 'object', properties: { city: { type: 'string' } }, required: ['city'] },
+  });
+}
+function reactAgent(url, llm, checkpointer) {
+  const { createReactAgent } = require('@langchain/langgraph/prebuilt');
+  return createReactAgent({ llm: llm || lcOpenAI(url), tools: [weatherTool()], name: 'weather_agent', checkpointer });
+}
 
 // ------------------------------------------------------------------ run
 (async () => {
@@ -191,7 +299,8 @@ const SCENARIOS = {
   server.close();
   const out = flatten();
   const versions = {};
-  for (const p of ['@sentry/node', 'openai', '@anthropic-ai/sdk', 'ai']) {
+  for (const p of ['@sentry/node', 'openai', '@anthropic-ai/sdk', 'ai', '@langchain/core', '@langchain/openai',
+    '@langchain/anthropic', '@langchain/google-genai', '@langchain/langgraph', 'langchain', '@google/genai']) {
     try { versions[p] = JSON.parse(fs.readFileSync(require.resolve('./node_modules/' + p + '/package.json'), 'utf8')).version; } catch (_) { /* absent */ }
   }
   Object.assign(out, { exception, requests, versions, data_collection: dataCollection, node: process.version });

@@ -139,3 +139,91 @@ def test_lifecycle_counts_logical_calls_not_http_retries():
     # one call, the client retried twice at HTTP level: three requests, one span -> no finding
     r = result([span(**GOOD)], requests=3)
     assert oracles.check_lifecycle(r) == []
+
+
+# ---------------------------------------------------------------- billing extras
+
+def _calls(**truth_kw):
+    t = Truth(1200, 300, cached=1024, reasoning=256, model="m-1", response_id="r1", finish="stop", **truth_kw)
+    return [{"truth": t.as_dict(), "op": "gen_ai.chat", "completes": True}]
+
+
+def test_billing_unrecorded_server_tool_and_gap_message():
+    r = result([span(**GOOD)], calls=_calls(extras={"server_tool.web_search_requests": 3}))
+    f = oracles.check_billing(r)
+    assert [x["rule"] for x in f] == ["billing.unrecorded.server_tool.web_search_requests"]
+    assert f[0]["expected"] == 3 and "no attribute" in f[0]["message"] and f[0]["severity"] == "medium"
+
+
+def test_billing_quiet_when_recorded_or_default():
+    d = dict(GOOD, **{"gen_ai.usage.web_search_requests": 3, "gen_ai.openai.response.service_tier": "flex"})
+    r = result([span(**d)], calls=_calls(extras={"server_tool.web_search_requests": 3, "service_tier": "flex",
+                                                 "audio.input_tokens": 0}))
+    assert oracles.check_billing(r) == []
+    # the default tier and zero counts never fire, even when nothing is recorded
+    r = result([span(**GOOD)], calls=_calls(extras={"service_tier": "default", "tool_calls.web_search_call": 0}))
+    assert oracles.check_billing(r) == []
+
+
+def test_billing_ignores_content_values():
+    # "web_search" inside a recorded tool definition is content, not a usage attribute
+    d = dict(GOOD, **{"gen_ai.request.available_tools": '[{"name": "web_search"}]'})
+    r = result([span(**d)], calls=_calls(extras={"server_tool.web_search_requests": 1}))
+    assert [x["rule"] for x in oracles.check_billing(r)] == ["billing.unrecorded.server_tool.web_search_requests"]
+
+
+def test_billing_keys_have_registry_status():
+    from spanproof import conventions as cv
+
+    for meaning in cv.BILLING_KEYS:
+        assert isinstance(cv.registry_has(meaning), list)
+
+
+# ---------------------------------------------------------------- output
+
+def test_output_text_wrong_and_quiet_when_equal():
+    d = dict(GOOD, **{"gen_ai.response.text": '["Let me check.{\\"city\\": \\"Paris\\"}"]'})
+    r = result([span(**d)], calls=_calls(text=["Let me check."]))
+    assert [x["rule"] for x in oracles.check_output(r)] == ["output.text_wrong"]
+    for ok in ('["Let me check."]', ["Let me check."], "Let me check.", "Let me check. "):
+        r = result([span(**dict(GOOD, **{"gen_ai.response.text": ok}))], calls=_calls(text=["Let me check."]))
+        assert oracles.check_output(r) == [], ok
+
+
+def test_output_choices_merged_is_wrong():
+    d = dict(GOOD, **{"gen_ai.response.text": ["Paris It is is it.Paris."]})
+    r = result([span(**d)], calls=_calls(text=["Paris is it.", "It is Paris."]))
+    assert [x["rule"] for x in oracles.check_output(r)] == ["output.text_wrong"]
+
+
+def test_output_tool_calls_missing_and_present():
+    r = result([span(**GOOD)], calls=_calls(tool_calls=[["get_weather", {"city": "Paris"}]]))
+    assert [x["rule"] for x in oracles.check_output(r)] == ["output.tool_calls_missing"]
+    d = dict(GOOD, **{"gen_ai.response.tool_calls": '[{"name": "get_weather"}]'})
+    assert oracles.check_output(result([span(**d)], calls=_calls(tool_calls=[["get_weather", {"city": "Paris"}]]))) == []
+
+
+def test_output_skipped_without_truth_or_data_collection():
+    d = dict(GOOD, **{"gen_ai.response.text": "anything"})
+    assert oracles.check_output(result([span(**d)])) == []  # no text truth: not checked
+    r = result([span(**d)], calls=_calls(text=["other"]), data_collection=False)
+    assert oracles.check_output(r) == []
+
+
+def test_lifecycle_duplicate_span_same_response_twice():
+    # one provider response reported by two integrations (e.g. LangGraph's handler and the OpenAI integration)
+    a = span(sid="a", **dict(GOOD, **{"sentry.origin": "auto.ai.openai"}))
+    b = span(sid="b", **dict(GOOD, **{"sentry.origin": "auto.ai.langchain"}))
+    f = [x for x in oracles.check_lifecycle(result([a, b])) if x["rule"] == "lifecycle.duplicate_span"]
+    assert len(f) == 1 and f[0]["actual"] == 2 and "auto.ai.langchain" in f[0]["message"]
+    # negative control: two calls, two distinct responses
+    two = [{"truth": T, "op": "gen_ai.chat", "completes": True}] * 2
+    c = span(sid="c", **dict(GOOD, **{"gen_ai.response.id": "r2"}))
+    assert oracles.check_lifecycle(result([span(sid="a", **GOOD), c], calls=two, requests=2)) == []
+
+
+def test_output_tool_calls_read_from_deprecated_keys():
+    # Cohere still records tool calls under ai.tool_calls: they are recorded, not missing
+    d = dict(GOOD, **{"ai.tool_calls": '[{"name": "get_weather", "parameters": {"city": "Paris"}}]'})
+    r = result([span(**d)], calls=_calls(tool_calls=[["get_weather", {"city": "Paris"}]]))
+    assert oracles.check_output(r) == []

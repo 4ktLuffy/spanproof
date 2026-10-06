@@ -2,7 +2,8 @@
 
 A finding is a dict:
   rule      stable identifier of the rule that fired (e.g. "usage.missing", "structure.orphan")
-  check     usage | lifecycle | structure | aggregation | conventions | privacy | identity | errors
+  check     usage | lifecycle | structure | aggregation | conventions | privacy | identity | errors |
+            billing | output
   severity  high (wrong number or lost data) | medium (missing data) | low (hygiene)
   scenario, call, attribute, expected, actual, message
 """
@@ -25,7 +26,8 @@ def is_client_span(s: dict) -> bool:
     op = s.get("op") or ""
     if s.get("data", {}).get("gen_ai.operation.type") == "ai_client":
         return True
-    return op.startswith("gen_ai.") and op not in AGENT_OPS
+    # "ai.*" is the pre-gen_ai op scheme (e.g. ai.chat_completions.create.cohere): still a provider call
+    return (op.startswith("gen_ai.") and op not in AGENT_OPS) or op.startswith("ai.")
 
 
 def _f(r, rule, severity, message, call=None, attribute=None, expected=None, actual=None):
@@ -144,6 +146,18 @@ def check_lifecycle(r):
         out.append(_f(r, "lifecycle.lost_span", "high",
                       f"{n_calls} provider call(s) but {len(finished)} finished gen_ai span(s) delivered "
                       f"({kinds}); the call is invisible in Sentry", None, None, n_calls, len(finished)))
+    # The same provider response reported by two client spans (two integrations instrumenting one call)
+    by_rid: dict = {}
+    for s in finished:
+        rid = s["data"].get("gen_ai.response.id")
+        if rid:
+            by_rid.setdefault(rid, []).append(s)
+    for rid, dup in by_rid.items():
+        if len(dup) > 1:
+            origins = sorted({str(s["data"].get("sentry.origin")) for s in dup})
+            out.append(_f(r, "lifecycle.duplicate_span", "high",
+                          f"response {rid} is reported by {len(dup)} gen_ai spans ({', '.join(origins)}); its tokens "
+                          "count twice", None, "gen_ai.response.id", 1, len(dup)))
     for i, span in match_calls(r):
         c = r["calls"][i]
         if span is None or c["completes"]:
@@ -278,8 +292,14 @@ def check_conventions(r):
     out = []
     seen_key, seen_violation = set(), set()
     for s in r["spans"]:
+        op = s.get("op") or ""
+        if is_client_span(s) and not op.startswith("gen_ai.") and (op, "op") not in seen_key:
+            seen_key.add((op, "op"))
+            out.append(_f(r, "conventions.legacy_op", "medium", f"provider call has op {op!r}, not gen_ai.*; "
+                          "AI Agents views and the gen_ai span stream only take gen_ai.* ops", None, "op",
+                          "gen_ai.*", op))
         for k, v in s["data"].items():
-            if not k.startswith("gen_ai."):
+            if not k.startswith(("gen_ai.", "ai.")):
                 continue
             d = cv.lookup(k)
             if (k, s["op"]) not in seen_key:  # registration and deprecation are per key
@@ -291,9 +311,10 @@ def check_conventions(r):
                     dep = cv.deprecation(k)
                     if dep:
                         out.append(_f(r, "conventions.deprecated", "low",
-                                      f"{k} is deprecated; use {dep.get('replacement')}", None, k,
-                                      dep.get("replacement"), k))
-            if d is not None and cv.type_ok(k, v) is False:  # types are checked on every value
+                                      f"{k} is deprecated; use {dep.get('replacement') or 'nothing (dropped)'}", None,
+                                      k, dep.get("replacement"), k))
+            # types are checked on every gen_ai value; legacy ai.* keys are reported as deprecated only
+            if d is not None and k.startswith("gen_ai.") and cv.type_ok(k, v) is False:
                 tag = (k, s["op"], type(v).__name__)
                 if tag not in seen_violation:
                     seen_violation.add(tag)
@@ -329,7 +350,7 @@ def check_privacy(r):
         clients = [s for s in r["spans"] if is_client_span(s) and s["finished"]]
         for s in clients:
             if not any(k in s["data"] for k in ("gen_ai.input.messages", "gen_ai.request.messages", "gen_ai.prompt",
-                                                "gen_ai.embeddings.input")):
+                                                "gen_ai.embeddings.input", "ai.input_messages", "ai.texts")):
                 out.append(_f(r, "privacy.no_input_recorded", "low",
                               f"{s['op']}: data collection on but no input messages recorded", None,
                               "gen_ai.input.messages", "present", "absent"))
@@ -360,6 +381,42 @@ def finish_values(v) -> set[str]:
     return {str(x).strip().lower() for x in v if str(x).strip()}
 
 
+def recorded_tool_calls(d: dict) -> list:
+    """[name, arguments] pairs found in a span's tool-call or output-message attributes (any of the shapes in use)."""
+    # the first attribute that holds any call wins: the same calls are often recorded in two shapes
+    for k in ("gen_ai.response.tool_calls", "gen_ai.output.messages", "ai.tool_calls"):
+        out = _calls_in(d.get(k))
+        if out:
+            return out
+    return []
+
+
+def _calls_in(value) -> list:
+    out = []
+    stack = [value]
+    while stack:
+        x = stack.pop()
+        if isinstance(x, str):
+            try:
+                x = json.loads(x)
+            except ValueError:
+                continue
+        if isinstance(x, list):
+            stack.extend(x)
+        elif isinstance(x, dict):
+            fn = x["function"] if isinstance(x.get("function"), dict) else x
+            if "name" in fn and ("arguments" in fn or "parameters" in fn or "args" in fn):  # args: LangChain JS
+                args = fn.get("arguments", fn.get("parameters", fn.get("args")))
+                try:
+                    args = json.loads(args) if isinstance(args, str) else args
+                except ValueError:
+                    pass
+                out.append([fn["name"], args])
+            else:
+                stack.extend(x.values())
+    return out
+
+
 def check_identity(r):
     out = []
     for i, span in match_calls(r):
@@ -367,7 +424,7 @@ def check_identity(r):
         if not t or span is None:
             continue
         d = span["data"]
-        model = d.get("gen_ai.response.model")
+        model = cv.value(d, "gen_ai.response.model")
         if t.get("model"):
             if model in (None, ""):
                 out.append(_f(r, "identity.model_missing", "low", "response model not recorded", i,
@@ -377,7 +434,7 @@ def check_identity(r):
                               "response model differs from what the provider returned", i, "gen_ai.response.model",
                               t["model"], model))
         if t.get("finish"):
-            raw = d.get("gen_ai.response.finish_reasons", d.get("gen_ai.response.finish_reason"))
+            raw = cv.value(d, "gen_ai.response.finish_reasons", "gen_ai.response.finish_reason")
             got = finish_values(raw)
             if not got:
                 out.append(_f(r, "identity.finish_missing", "medium",
@@ -386,8 +443,25 @@ def check_identity(r):
             elif t["finish"].lower() not in got:
                 out.append(_f(r, "identity.finish_wrong", "high", f"finish reason {sorted(got)} differs from the "
                               f"provider's {t['finish']!r}", i, "gen_ai.response.finish_reasons", t["finish"], raw))
+        got_calls = recorded_tool_calls(d)
+        def canon(calls):
+            return sorted(json.dumps(c, sort_keys=True) for c in calls)
+
+        if t.get("tool_calls") and got_calls and canon(got_calls) != canon(t["tool_calls"]):
+            out.append(_f(r, "identity.tool_call_wrong", "medium", "recorded tool call differs from what the model "
+                          "returned", i, "gen_ai.response.tool_calls", t["tool_calls"], got_calls))
+        elif t.get("tool_calls") and not got_calls and r["data_collection"] and any(
+                k in d for k in ("gen_ai.output.messages", "gen_ai.response.text", "ai.responses")):
+            out.append(_f(r, "identity.tool_call_missing", "low", "outputs are recorded but the tool call the model "
+                          "returned is not", i, "gen_ai.output.messages", t["tool_calls"], None))
+        streaming = cv.value(d, "gen_ai.response.streaming")
+        # expected streaming comes from the scenario's tags; results without tags (the JS bridge) are not checked
+        if isinstance(streaming, bool) and r.get("tags") is not None and streaming != ("stream" in r["tags"]):
+            out.append(_f(r, "identity.streaming_wrong", "low", f"gen_ai.response.streaming is {streaming} on a "
+                          f"{'streaming' if not streaming else 'non-streaming'} call", i, "gen_ai.response.streaming",
+                          not streaming, streaming))
         if t.get("response_id"):
-            rid = d.get("gen_ai.response.id")
+            rid = cv.value(d, "gen_ai.response.id")
             if rid in (None, ""):
                 out.append(_f(r, "identity.response_id_missing", "low",
                               "provider response id not recorded (cannot join with provider logs)", i,
@@ -402,7 +476,11 @@ def check_identity(r):
 
 def check_errors(r):
     out = []
-    if r["expects_exception"] and not r["exception"]:
+    if r.get("raises") and not r["exception"]:
+        out.append(_f(r, "errors.swallowed", "high", f"without Sentry the client raises {r['raises']} here; with "
+                      "Sentry the call returned normally, so the failure is hidden from the application", None, None,
+                      r["raises"], None))
+    elif r["expects_exception"] and not r["exception"]:
         out.append(_f(r, "errors.expected_raise", "low", "scenario expected the client to raise but it did not",
                       None, None, "exception", None))
     if r["exception"] and not r["expects_exception"]:
@@ -415,8 +493,92 @@ def check_errors(r):
     return out
 
 
+# --------------------------------------------------------------- 9. billing
+
+def check_billing(r):
+    """Price-changing provider facts that are not token totals (Truth.extras).
+
+    Per-request server tool fees, cache writes split by TTL, audio tokens and the service tier
+    each change what a call costs. A dimension the provider reported and no span attribute
+    records is a finding; the message says whether sentry-conventions even has an attribute
+    for it, since an SDK cannot be faulted for omitting what the conventions do not define.
+    """
+    out = []
+    for i, span in match_calls(r):
+        t = r["calls"][i]["truth"]
+        if not t or span is None:
+            continue
+        for meaning, want in sorted((t.get("extras") or {}).items()):
+            if want in (None, 0, "", "default", "standard"):
+                continue  # the default price applies: nothing to record
+            if cv.billing_recorded(span["data"], meaning):
+                continue
+            reg = cv.registry_has(meaning)
+            gap = ("; sentry-conventions has no attribute for it" if not reg
+                   else f"; sentry-conventions has {', '.join(reg)}")
+            out.append(_f(r, f"billing.unrecorded.{meaning}", "low" if meaning.startswith("embeddings.") else "medium",
+                          f"{meaning}={want} reported by the provider, not recorded{gap}", i,
+                          cv.BILLING_KEYS[meaning][0][0], want, None))
+    return out
+
+
+# ---------------------------------------------------------------- 10. output
+
+def _texts(v) -> list[str] | None:
+    """Recorded response text as one string per choice (list, JSON string or plain string)."""
+    if v is None:
+        return None
+    if isinstance(v, str):
+        try:
+            p = json.loads(v)
+            v = p if isinstance(p, (list, str)) else v
+        except ValueError:
+            pass
+    if isinstance(v, str):
+        v = [v]
+    out = []
+    for x in v if isinstance(v, (list, tuple)) else [v]:
+        if isinstance(x, dict):
+            x = x.get("content") if x.get("content") is not None else x.get("text", "")
+        out.append(str(x).strip())
+    return out
+
+
+def check_output(r):
+    """With output collection on, recorded text and tool calls must match what the model returned.
+
+    Only runs for calls whose truth names the expected text or tool calls (Truth.text / tool_calls).
+    """
+    out = []
+    if not r["data_collection"]:
+        return out
+    for i, span in match_calls(r):
+        t = r["calls"][i]["truth"]
+        if not t or span is None:
+            continue
+        d = span["data"]
+        if t.get("text") is not None:
+            got = _texts(d.get("gen_ai.response.text"))
+            want = [x.strip() for x in t["text"]]
+            if got is not None and got != want:
+                out.append(_f(r, "output.text_wrong", "medium",
+                              f"recorded response text {got!r} differs from the model's {want!r}", i,
+                              "gen_ai.response.text", want, got))
+        if t.get("tool_calls"):
+            # parsed calls, including deprecated ai.* keys (Cohere), plus a text match on the output messages
+            got = {c[0] for c in recorded_tool_calls(d) if c}
+            rec = " ".join(str(d.get(k, "")) for k in ("gen_ai.response.tool_calls", "gen_ai.output.messages"))
+            names = [c[0] if isinstance(c, (list, tuple)) else c for c in t["tool_calls"]]
+            missing = [n for n in names if n not in got and n not in rec]
+            if missing:
+                out.append(_f(r, "output.tool_calls_missing", "medium",
+                              f"model called {missing} but no tool call is recorded", i, "gen_ai.response.tool_calls",
+                              names, None))
+    return out
+
+
 ALL = [check_usage, check_lifecycle, check_structure, check_aggregation, check_conventions, check_privacy,
-       check_identity, check_errors]
+       check_identity, check_errors, check_billing, check_output]
 
 
 def run_all(r: dict) -> list[dict]:

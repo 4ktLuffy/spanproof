@@ -36,6 +36,7 @@ class Scenario:
     run: Callable[[str], None]  # gets the mock server base URL
     make_integrations: Callable[[], list]
     expects_exception: bool = False
+    raises: str = ""  # exception the client library raises here without Sentry (tests/test_controls.py)
     agent: dict | None = None  # {"tools": [...], "agent_name": "..."} for agent scenarios
     tags: list[str] = field(default_factory=list)
     notes: str = ""

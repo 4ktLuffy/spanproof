@@ -122,6 +122,14 @@ def test_unsupported_vs_sdk_bug_by_innermost_frame():
            "TypeError: 'NoneType' object is not subscriptable")
     assert raised_in_sentry_sdk(provider) is False
     assert raised_in_sentry_sdk(sdk) is True
+    passthrough = ('File "/x/sentry_sdk/utils.py", line 1868, in reraise\n    raise value\n'
+                   'File "/x/sentry_sdk/integrations/huggingface_hub.py", line 160, in new_huggingface_task\n'
+                   '    res = f(*args, **kwargs)\n'
+                   "TypeError: InferenceClient.chat_completion() got an unexpected keyword argument 'stream_options'")
+    injected = ('File "/x/sentry_sdk/integrations/x.py", line 9, in wrap\n    res = f(*args, extra=1)\n'
+                "TypeError: create() got an unexpected keyword argument 'extra'")
+    assert raised_in_sentry_sdk(passthrough) is False
+    assert raised_in_sentry_sdk(injected) is True
 
 
 def test_text_length_fingerprint_decides_empty_without_content():
