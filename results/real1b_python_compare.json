@@ -1,0 +1,1157 @@
+[
+ {
+  "scenario": "anthropic.messages.sync",
+  "mode": "default",
+  "trace": "0b1deeb9cb3f48bb85fc8587f1ae77ec",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 2600,
+     "output_tokens": 120,
+     "cached": 2048,
+     "cache_write": 512,
+     "reasoning": 0,
+     "model": "claude-sonnet-5-5",
+     "response_id": "msg_sp1",
+     "finish": "end_turn",
+     "total": 2720
+    },
+    "sent": {
+     "gen_ai.response.model": "claude-sonnet-5-5",
+     "gen_ai.usage.input_tokens": 2600,
+     "gen_ai.usage.input_tokens.cached": 2048,
+     "gen_ai.usage.input_tokens.cache_write": 512,
+     "gen_ai.usage.output_tokens": 120,
+     "gen_ai.usage.total_tokens": 2720
+    },
+    "stored": {
+     "id": "b54d1782fde0e4a6",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat claude-sonnet-5-5",
+     "parent_span": "a937791d8d2916ca",
+     "gen_ai.response.model": "claude-sonnet-5-5",
+     "gen_ai.request.model": "claude-sonnet-5-5",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": null,
+     "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.input.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.response.text": "Paris.",
+     "gen_ai.output.messages": "Paris.",
+     "gen_ai.usage.input_tokens": 2600,
+     "gen_ai.usage.output_tokens": 120,
+     "gen_ai.usage.total_tokens": 2720,
+     "gen_ai.usage.input_tokens.cached": 2048,
+     "gen_ai.usage.input_tokens.cache_write": 512,
+     "gen_ai.usage.output_tokens.reasoning": null,
+     "gen_ai.usage.cache_read.input_tokens": 2048,
+     "gen_ai.usage.cache_creation.input_tokens": 512,
+     "gen_ai.usage.reasoning.output_tokens": null,
+     "gen_ai.cost.total_tokens": 0.0029696,
+     "gen_ai.cost.input_tokens": 0.0017696,
+     "gen_ai.cost.output_tokens": 0.0012000000000000001,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0029696,
+  "cost_llm_spans": 0.0029696,
+  "content_stored": [
+   "gen_ai.input.messages",
+   "gen_ai.output.messages",
+   "gen_ai.request.messages",
+   "gen_ai.response.text"
+  ],
+  "data_collection": true
+ },
+ {
+  "scenario": "anthropic.messages.sync",
+  "mode": "legacy",
+  "trace": "5533bdf47bc14901ab34b7b49898e5e4",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 2600,
+     "output_tokens": 120,
+     "cached": 2048,
+     "cache_write": 512,
+     "reasoning": 0,
+     "model": "claude-sonnet-5-5",
+     "response_id": "msg_sp1",
+     "finish": "end_turn",
+     "total": 2720
+    },
+    "sent": {
+     "gen_ai.response.model": "claude-sonnet-5-5",
+     "gen_ai.usage.input_tokens": 2600,
+     "gen_ai.usage.input_tokens.cached": 2048,
+     "gen_ai.usage.input_tokens.cache_write": 512,
+     "gen_ai.usage.output_tokens": 120,
+     "gen_ai.usage.total_tokens": 2720
+    },
+    "stored": {
+     "id": "9618bdc7a70e9042",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat claude-sonnet-5-5",
+     "parent_span": "9d0d6636262720da",
+     "gen_ai.response.model": "claude-sonnet-5-5",
+     "gen_ai.request.model": "claude-sonnet-5-5",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": "[\"end_turn\"]",
+     "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.input.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.response.text": "Paris.",
+     "gen_ai.output.messages": "Paris.",
+     "gen_ai.usage.input_tokens": 2600,
+     "gen_ai.usage.output_tokens": 120,
+     "gen_ai.usage.total_tokens": 2720,
+     "gen_ai.usage.input_tokens.cached": 2048,
+     "gen_ai.usage.input_tokens.cache_write": 512,
+     "gen_ai.usage.output_tokens.reasoning": null,
+     "gen_ai.usage.cache_read.input_tokens": 2048,
+     "gen_ai.usage.cache_creation.input_tokens": 512,
+     "gen_ai.usage.reasoning.output_tokens": null,
+     "gen_ai.cost.total_tokens": 0.0029696,
+     "gen_ai.cost.input_tokens": 0.0017696,
+     "gen_ai.cost.output_tokens": 0.0012,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0029696,
+  "cost_llm_spans": 0.0029696,
+  "content_stored": [
+   "gen_ai.input.messages",
+   "gen_ai.output.messages",
+   "gen_ai.request.messages",
+   "gen_ai.response.text"
+  ],
+  "data_collection": true
+ },
+ {
+  "scenario": "anthropic.messages.sync",
+  "mode": "nodc",
+  "trace": "69e7c17fc5b44ae69dddfa836b18bc76",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 2600,
+     "output_tokens": 120,
+     "cached": 2048,
+     "cache_write": 512,
+     "reasoning": 0,
+     "model": "claude-sonnet-5-5",
+     "response_id": "msg_sp1",
+     "finish": "end_turn",
+     "total": 2720
+    },
+    "sent": {
+     "gen_ai.response.model": "claude-sonnet-5-5",
+     "gen_ai.usage.input_tokens": 2600,
+     "gen_ai.usage.input_tokens.cached": 2048,
+     "gen_ai.usage.input_tokens.cache_write": 512,
+     "gen_ai.usage.output_tokens": 120,
+     "gen_ai.usage.total_tokens": 2720
+    },
+    "stored": {
+     "id": "a2525fa5ec91c49e",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat claude-sonnet-5-5",
+     "parent_span": "bd871a81afb023d9",
+     "gen_ai.response.model": "claude-sonnet-5-5",
+     "gen_ai.request.model": "claude-sonnet-5-5",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": null,
+     "gen_ai.request.messages": null,
+     "gen_ai.input.messages": null,
+     "gen_ai.response.text": null,
+     "gen_ai.output.messages": null,
+     "gen_ai.usage.input_tokens": 2600,
+     "gen_ai.usage.output_tokens": 120,
+     "gen_ai.usage.total_tokens": 2720,
+     "gen_ai.usage.input_tokens.cached": 2048,
+     "gen_ai.usage.input_tokens.cache_write": 512,
+     "gen_ai.usage.output_tokens.reasoning": null,
+     "gen_ai.usage.cache_read.input_tokens": 2048,
+     "gen_ai.usage.cache_creation.input_tokens": 512,
+     "gen_ai.usage.reasoning.output_tokens": null,
+     "gen_ai.cost.total_tokens": 0.0029696,
+     "gen_ai.cost.input_tokens": 0.0017696,
+     "gen_ai.cost.output_tokens": 0.0012000000000000001,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0029696,
+  "cost_llm_spans": 0.0029696,
+  "content_stored": [],
+  "data_collection": false
+ },
+ {
+  "scenario": "google_genai.generate_content",
+  "mode": "default",
+  "trace": "a211df55eda14d0b8d75e0e85ebf5387",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 900,
+     "output_tokens": 350,
+     "cached": 512,
+     "cache_write": 0,
+     "reasoning": 150,
+     "model": "gemini-3-flash",
+     "response_id": "gen_sp1",
+     "finish": "STOP",
+     "total": 1250
+    },
+    "sent": {
+     "gen_ai.response.model": "gemini-3-flash",
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.output_tokens": 350,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.total_tokens": 1250
+    },
+    "stored": {
+     "id": "929cab96f953c47d",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gemini-3-flash",
+     "parent_span": "b1cb4a2d96507eae",
+     "gen_ai.response.model": "gemini-3-flash",
+     "gen_ai.request.model": "gemini-3-flash",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": "STOP",
+     "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.input.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.response.text": "[\"Paris.\"]",
+     "gen_ai.output.messages": "[\"Paris.\"]",
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.output_tokens": 350,
+     "gen_ai.usage.total_tokens": 1250,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.cache_read.input_tokens": 512,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": 150,
+     "gen_ai.cost.total_tokens": 0.0012696,
+     "gen_ai.cost.input_tokens": 0.0002196,
+     "gen_ai.cost.output_tokens": 0.0010500000000000002,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0012696,
+  "cost_llm_spans": 0.0012696,
+  "content_stored": [
+   "gen_ai.input.messages",
+   "gen_ai.output.messages",
+   "gen_ai.request.messages",
+   "gen_ai.response.text"
+  ],
+  "data_collection": true
+ },
+ {
+  "scenario": "google_genai.generate_content",
+  "mode": "legacy",
+  "trace": "3f79ddc8c44e4e1f8673e0df6cb07529",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 900,
+     "output_tokens": 350,
+     "cached": 512,
+     "cache_write": 0,
+     "reasoning": 150,
+     "model": "gemini-3-flash",
+     "response_id": "gen_sp1",
+     "finish": "STOP",
+     "total": 1250
+    },
+    "sent": {
+     "gen_ai.response.model": "gemini-3-flash",
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.output_tokens": 350,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.total_tokens": 1250
+    },
+    "stored": {
+     "id": "b283d60b1b486585",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gemini-3-flash",
+     "parent_span": "9ba47d4fa8d85859",
+     "gen_ai.response.model": "gemini-3-flash",
+     "gen_ai.request.model": "gemini-3-flash",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": "STOP",
+     "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.input.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.response.text": "[\"Paris.\"]",
+     "gen_ai.output.messages": "[\"Paris.\"]",
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.output_tokens": 350,
+     "gen_ai.usage.total_tokens": 1250,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.cache_read.input_tokens": 512,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": 150,
+     "gen_ai.cost.total_tokens": 0.0012696,
+     "gen_ai.cost.input_tokens": 0.0002196,
+     "gen_ai.cost.output_tokens": 0.0010500000000000002,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0012696,
+  "cost_llm_spans": 0.0012696,
+  "content_stored": [
+   "gen_ai.input.messages",
+   "gen_ai.output.messages",
+   "gen_ai.request.messages",
+   "gen_ai.response.text"
+  ],
+  "data_collection": true
+ },
+ {
+  "scenario": "google_genai.generate_content",
+  "mode": "nodc",
+  "trace": "666faa8a67b9412083229ecfbfcd9fb1",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 900,
+     "output_tokens": 350,
+     "cached": 512,
+     "cache_write": 0,
+     "reasoning": 150,
+     "model": "gemini-3-flash",
+     "response_id": "gen_sp1",
+     "finish": "STOP",
+     "total": 1250
+    },
+    "sent": {
+     "gen_ai.response.model": "gemini-3-flash",
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.output_tokens": 350,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.total_tokens": 1250
+    },
+    "stored": {
+     "id": "b86fc6e4b2ad1bbe",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gemini-3-flash",
+     "parent_span": "b71ba9e6d935dc1e",
+     "gen_ai.response.model": "gemini-3-flash",
+     "gen_ai.request.model": "gemini-3-flash",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": "STOP",
+     "gen_ai.request.messages": null,
+     "gen_ai.input.messages": null,
+     "gen_ai.response.text": null,
+     "gen_ai.output.messages": null,
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.output_tokens": 350,
+     "gen_ai.usage.total_tokens": 1250,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.cache_read.input_tokens": 512,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": 150,
+     "gen_ai.cost.total_tokens": 0.0012696,
+     "gen_ai.cost.input_tokens": 0.0002196,
+     "gen_ai.cost.output_tokens": 0.0010500000000000002,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0012696,
+  "cost_llm_spans": 0.0012696,
+  "content_stored": [],
+  "data_collection": false
+ },
+ {
+  "scenario": "google_genai.generate_content_stream",
+  "mode": "default",
+  "trace": "49569e4941994cf59fc9eae6c6dfe8d7",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 900,
+     "output_tokens": 350,
+     "cached": 512,
+     "cache_write": 0,
+     "reasoning": 150,
+     "model": "gemini-3-flash",
+     "response_id": "gen_sp2",
+     "finish": "",
+     "total": 1250
+    },
+    "sent": {
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.output_tokens": 350,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.total_tokens": 1250
+    },
+    "stored": {
+     "id": "99b3144e3fa34901",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gemini-3-flash",
+     "parent_span": "9c25aebf984809dc",
+     "gen_ai.response.model": "gemini-3-flash",
+     "gen_ai.request.model": "gemini-3-flash",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": "STOP",
+     "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.input.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.response.text": "[\"The capital is Paris.\"]",
+     "gen_ai.output.messages": "[\"The capital is Paris.\"]",
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.output_tokens": 350,
+     "gen_ai.usage.total_tokens": 1250,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.cache_read.input_tokens": 512,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": 150,
+     "gen_ai.cost.total_tokens": 0.0012696,
+     "gen_ai.cost.input_tokens": 0.0002196,
+     "gen_ai.cost.output_tokens": 0.0010500000000000002,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0012696,
+  "cost_llm_spans": 0.0012696,
+  "content_stored": [
+   "gen_ai.input.messages",
+   "gen_ai.output.messages",
+   "gen_ai.request.messages",
+   "gen_ai.response.text"
+  ],
+  "data_collection": true
+ },
+ {
+  "scenario": "google_genai.generate_content_stream",
+  "mode": "legacy",
+  "trace": "40680cd9f22e4c1bbc891d239272be7d",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 900,
+     "output_tokens": 350,
+     "cached": 512,
+     "cache_write": 0,
+     "reasoning": 150,
+     "model": "gemini-3-flash",
+     "response_id": "gen_sp2",
+     "finish": "",
+     "total": 1250
+    },
+    "sent": {
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.output_tokens": 350,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.total_tokens": 1250
+    },
+    "stored": {
+     "id": "a6aabf2e98ef19d3",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gemini-3-flash",
+     "parent_span": "b2e5953660e6a8c2",
+     "gen_ai.response.model": "gemini-3-flash",
+     "gen_ai.request.model": "gemini-3-flash",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": "STOP",
+     "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.input.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.response.text": "[\"The capital is Paris.\"]",
+     "gen_ai.output.messages": "[\"The capital is Paris.\"]",
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.output_tokens": 350,
+     "gen_ai.usage.total_tokens": 1250,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.cache_read.input_tokens": 512,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": 150,
+     "gen_ai.cost.total_tokens": 0.0012696,
+     "gen_ai.cost.input_tokens": 0.0002196,
+     "gen_ai.cost.output_tokens": 0.0010500000000000002,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0012696,
+  "cost_llm_spans": 0.0012696,
+  "content_stored": [
+   "gen_ai.input.messages",
+   "gen_ai.output.messages",
+   "gen_ai.request.messages",
+   "gen_ai.response.text"
+  ],
+  "data_collection": true
+ },
+ {
+  "scenario": "google_genai.generate_content_stream",
+  "mode": "nodc",
+  "trace": "4c388912b0064fba8c872a0c0215cb56",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 900,
+     "output_tokens": 350,
+     "cached": 512,
+     "cache_write": 0,
+     "reasoning": 150,
+     "model": "gemini-3-flash",
+     "response_id": "gen_sp2",
+     "finish": "",
+     "total": 1250
+    },
+    "sent": {
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.output_tokens": 350,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.total_tokens": 1250
+    },
+    "stored": {
+     "id": "bff2e2e1279f7aeb",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gemini-3-flash",
+     "parent_span": "be15787a003c65c5",
+     "gen_ai.response.model": "gemini-3-flash",
+     "gen_ai.request.model": "gemini-3-flash",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": "STOP",
+     "gen_ai.request.messages": null,
+     "gen_ai.input.messages": null,
+     "gen_ai.response.text": null,
+     "gen_ai.output.messages": null,
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.output_tokens": 350,
+     "gen_ai.usage.total_tokens": 1250,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.cache_read.input_tokens": 512,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": 150,
+     "gen_ai.cost.total_tokens": 0.0012696,
+     "gen_ai.cost.input_tokens": 0.0002196,
+     "gen_ai.cost.output_tokens": 0.0010500000000000002,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0012696,
+  "cost_llm_spans": 0.0012696,
+  "content_stored": [],
+  "data_collection": false
+ },
+ {
+  "scenario": "google_genai.generate_content_stream.early_close",
+  "mode": "default",
+  "trace": "8efad863dcf24ae7b47f57c3acf236bc",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": null,
+    "sent": {
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.output_tokens": 250,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.total_tokens": 1150
+    },
+    "stored": {
+     "id": "a06bdc4f78577bd3",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gemini-3-flash",
+     "parent_span": "8773a77c4d3b25af",
+     "gen_ai.response.model": "gemini-3-flash",
+     "gen_ai.request.model": "gemini-3-flash",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": null,
+     "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.input.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.response.text": "[\"The capital \"]",
+     "gen_ai.output.messages": "[\"The capital \"]",
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.output_tokens": 250,
+     "gen_ai.usage.total_tokens": 1150,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.cache_read.input_tokens": 512,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": 150,
+     "gen_ai.cost.total_tokens": 0.0009696,
+     "gen_ai.cost.input_tokens": 0.0002196,
+     "gen_ai.cost.output_tokens": 0.00075,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0009696,
+  "cost_llm_spans": 0.0009696,
+  "content_stored": [
+   "gen_ai.input.messages",
+   "gen_ai.output.messages",
+   "gen_ai.request.messages",
+   "gen_ai.response.text"
+  ],
+  "data_collection": true
+ },
+ {
+  "scenario": "google_genai.generate_content_stream.early_close",
+  "mode": "legacy",
+  "trace": "76e0b2e204b24cd6bed8358e6c4b1a8d",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": null,
+    "sent": {
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.output_tokens": 250,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.total_tokens": 1150
+    },
+    "stored": {
+     "id": "9e2d35e5f3e28f05",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gemini-3-flash",
+     "parent_span": "bf455de8eb493713",
+     "gen_ai.response.model": "gemini-3-flash",
+     "gen_ai.request.model": "gemini-3-flash",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": null,
+     "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.input.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.response.text": "[\"The capital \"]",
+     "gen_ai.output.messages": "[\"The capital \"]",
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.output_tokens": 250,
+     "gen_ai.usage.total_tokens": 1150,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.cache_read.input_tokens": 512,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": 150,
+     "gen_ai.cost.total_tokens": 0.0009696,
+     "gen_ai.cost.input_tokens": 0.0002196,
+     "gen_ai.cost.output_tokens": 0.00075,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0009696,
+  "cost_llm_spans": 0.0009696,
+  "content_stored": [
+   "gen_ai.input.messages",
+   "gen_ai.output.messages",
+   "gen_ai.request.messages",
+   "gen_ai.response.text"
+  ],
+  "data_collection": true
+ },
+ {
+  "scenario": "google_genai.generate_content_stream.early_close",
+  "mode": "nodc",
+  "trace": "1c56c6758c96422da32fba491a31faed",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": null,
+    "sent": {
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.output_tokens": 250,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.total_tokens": 1150
+    },
+    "stored": {
+     "id": "94af34b3f3a41c27",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gemini-3-flash",
+     "parent_span": "8b7232185b8152aa",
+     "gen_ai.response.model": "gemini-3-flash",
+     "gen_ai.request.model": "gemini-3-flash",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": null,
+     "gen_ai.request.messages": null,
+     "gen_ai.input.messages": null,
+     "gen_ai.response.text": null,
+     "gen_ai.output.messages": null,
+     "gen_ai.usage.input_tokens": 900,
+     "gen_ai.usage.output_tokens": 250,
+     "gen_ai.usage.total_tokens": 1150,
+     "gen_ai.usage.input_tokens.cached": 512,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": 150,
+     "gen_ai.usage.cache_read.input_tokens": 512,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": 150,
+     "gen_ai.cost.total_tokens": 0.0009696,
+     "gen_ai.cost.input_tokens": 0.0002196,
+     "gen_ai.cost.output_tokens": 0.00075,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0009696,
+  "cost_llm_spans": 0.0009696,
+  "content_stored": [],
+  "data_collection": false
+ },
+ {
+  "scenario": "openai.chat.sync",
+  "mode": "default",
+  "trace": "ec9a1c10ef52496d83cbb2624115dcf4",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 1200,
+     "output_tokens": 300,
+     "cached": 1024,
+     "cache_write": 0,
+     "reasoning": 256,
+     "model": "gpt-5-mini-2026-08-07",
+     "response_id": "chatcmpl-sp1",
+     "finish": "stop",
+     "total": 1500
+    },
+    "sent": {
+     "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+     "gen_ai.usage.input_tokens": 1200,
+     "gen_ai.usage.input_tokens.cached": 1024,
+     "gen_ai.usage.output_tokens": 300,
+     "gen_ai.usage.output_tokens.reasoning": 256,
+     "gen_ai.usage.total_tokens": 1500
+    },
+    "stored": {
+     "id": "8a4623536bdc5b71",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gpt-5-mini",
+     "parent_span": "85914391416d40e9",
+     "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+     "gen_ai.request.model": "gpt-5-mini",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": null,
+     "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.input.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.response.text": "{\"content\": \"Paris.\", \"refusal\": \"None\", \"role\": \"assistant\", \"annotations\": \"None\", \"audio\": \"None\", \"function_call\": \"None\", \"tool_calls\": \"None\"}",
+     "gen_ai.output.messages": "{\"content\": \"Paris.\", \"refusal\": \"None\", \"role\": \"assistant\", \"annotations\": \"None\", \"audio\": \"None\", \"function_call\": \"None\", \"tool_calls\": \"None\"}",
+     "gen_ai.usage.input_tokens": 1200,
+     "gen_ai.usage.output_tokens": 300,
+     "gen_ai.usage.total_tokens": 1500,
+     "gen_ai.usage.input_tokens.cached": 1024,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": 256,
+     "gen_ai.usage.cache_read.input_tokens": 1024,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": 256,
+     "gen_ai.cost.total_tokens": 0.0006695999999999999,
+     "gen_ai.cost.input_tokens": 6.96e-05,
+     "gen_ai.cost.output_tokens": 0.0006,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0006695999999999999,
+  "cost_llm_spans": 0.0006695999999999999,
+  "content_stored": [
+   "gen_ai.input.messages",
+   "gen_ai.output.messages",
+   "gen_ai.request.messages",
+   "gen_ai.response.text"
+  ],
+  "data_collection": true
+ },
+ {
+  "scenario": "openai.chat.sync",
+  "mode": "legacy",
+  "trace": "fa248987cd6a4679aca7238cc8c9a316",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 1200,
+     "output_tokens": 300,
+     "cached": 1024,
+     "cache_write": 0,
+     "reasoning": 256,
+     "model": "gpt-5-mini-2026-08-07",
+     "response_id": "chatcmpl-sp1",
+     "finish": "stop",
+     "total": 1500
+    },
+    "sent": {
+     "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+     "gen_ai.usage.input_tokens": 1200,
+     "gen_ai.usage.input_tokens.cached": 1024,
+     "gen_ai.usage.output_tokens": 300,
+     "gen_ai.usage.output_tokens.reasoning": 256,
+     "gen_ai.usage.total_tokens": 1500
+    },
+    "stored": {
+     "id": "aa847404855419cd",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gpt-5-mini",
+     "parent_span": "b09d5f4fb1a0b704",
+     "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+     "gen_ai.request.model": "gpt-5-mini",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": null,
+     "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.input.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.response.text": "{\"content\": \"Paris.\", \"refusal\": \"None\", \"role\": \"assistant\", \"annotations\": \"None\", \"audio\": \"None\", \"function_call\": \"None\", \"tool_calls\": \"None\"}",
+     "gen_ai.output.messages": "{\"content\": \"Paris.\", \"refusal\": \"None\", \"role\": \"assistant\", \"annotations\": \"None\", \"audio\": \"None\", \"function_call\": \"None\", \"tool_calls\": \"None\"}",
+     "gen_ai.usage.input_tokens": 1200,
+     "gen_ai.usage.output_tokens": 300,
+     "gen_ai.usage.total_tokens": 1500,
+     "gen_ai.usage.input_tokens.cached": 1024,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": 256,
+     "gen_ai.usage.cache_read.input_tokens": 1024,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": 256,
+     "gen_ai.cost.total_tokens": 0.0006695999999999999,
+     "gen_ai.cost.input_tokens": 6.96e-05,
+     "gen_ai.cost.output_tokens": 0.0006,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0006695999999999999,
+  "cost_llm_spans": 0.0006695999999999999,
+  "content_stored": [
+   "gen_ai.input.messages",
+   "gen_ai.output.messages",
+   "gen_ai.request.messages",
+   "gen_ai.response.text"
+  ],
+  "data_collection": true
+ },
+ {
+  "scenario": "openai.chat.sync",
+  "mode": "nodc",
+  "trace": "2192fd75651b4d99bbfe692594f0255d",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 1200,
+     "output_tokens": 300,
+     "cached": 1024,
+     "cache_write": 0,
+     "reasoning": 256,
+     "model": "gpt-5-mini-2026-08-07",
+     "response_id": "chatcmpl-sp1",
+     "finish": "stop",
+     "total": 1500
+    },
+    "sent": {
+     "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+     "gen_ai.usage.input_tokens": 1200,
+     "gen_ai.usage.input_tokens.cached": 1024,
+     "gen_ai.usage.output_tokens": 300,
+     "gen_ai.usage.output_tokens.reasoning": 256,
+     "gen_ai.usage.total_tokens": 1500
+    },
+    "stored": {
+     "id": "8a14a8a4d3e50e94",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gpt-5-mini",
+     "parent_span": "9f3abdaa6731b017",
+     "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+     "gen_ai.request.model": "gpt-5-mini",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": null,
+     "gen_ai.request.messages": null,
+     "gen_ai.input.messages": null,
+     "gen_ai.response.text": null,
+     "gen_ai.output.messages": null,
+     "gen_ai.usage.input_tokens": 1200,
+     "gen_ai.usage.output_tokens": 300,
+     "gen_ai.usage.total_tokens": 1500,
+     "gen_ai.usage.input_tokens.cached": 1024,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": 256,
+     "gen_ai.usage.cache_read.input_tokens": 1024,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": 256,
+     "gen_ai.cost.total_tokens": 0.0006695999999999999,
+     "gen_ai.cost.input_tokens": 6.96e-05,
+     "gen_ai.cost.output_tokens": 0.0006,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0006695999999999999,
+  "cost_llm_spans": 0.0006695999999999999,
+  "content_stored": [],
+  "data_collection": false
+ },
+ {
+  "scenario": "openai.chat.tool_call",
+  "mode": "default",
+  "trace": "2f62a4f06dd94172abacf9e86e20431e",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 1200,
+     "output_tokens": 40,
+     "cached": 1024,
+     "cache_write": 0,
+     "reasoning": 0,
+     "model": "gpt-5-mini-2026-08-07",
+     "response_id": "chatcmpl-sp-tool",
+     "finish": "tool_calls",
+     "total": 1240
+    },
+    "sent": {
+     "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+     "gen_ai.usage.input_tokens": 1200,
+     "gen_ai.usage.input_tokens.cached": 1024,
+     "gen_ai.usage.output_tokens": 40,
+     "gen_ai.usage.total_tokens": 1240
+    },
+    "stored": {
+     "id": "b8a7a21af15c9390",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gpt-5-mini",
+     "parent_span": "b6dbe2a2783b4e64",
+     "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+     "gen_ai.request.model": "gpt-5-mini",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": null,
+     "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.input.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.response.text": "{\"content\": \"None\", \"refusal\": \"None\", \"role\": \"assistant\", \"annotations\": \"None\", \"audio\": \"None\", \"function_call\": \"None\", \"tool_calls\": {\"id\": \"call_sp1\", \"function\": {\"arguments\": \"{\\\"city\\\":\\\"Paris\\\"}\", \"name\": \"get_weather\"}, \"type\": \"function\"}}",
+     "gen_ai.output.messages": "{\"content\": \"None\", \"refusal\": \"None\", \"role\": \"assistant\", \"annotations\": \"None\", \"audio\": \"None\", \"function_call\": \"None\", \"tool_calls\": {\"id\": \"call_sp1\", \"function\": {\"arguments\": \"{\\\"city\\\":\\\"Paris\\\"}\", \"name\": \"get_weather\"}, \"type\": \"function\"}}",
+     "gen_ai.usage.input_tokens": 1200,
+     "gen_ai.usage.output_tokens": 40,
+     "gen_ai.usage.total_tokens": 1240,
+     "gen_ai.usage.input_tokens.cached": 1024,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": null,
+     "gen_ai.usage.cache_read.input_tokens": 1024,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": null,
+     "gen_ai.cost.total_tokens": 0.0001496,
+     "gen_ai.cost.input_tokens": 6.96e-05,
+     "gen_ai.cost.output_tokens": 7.999999999999999e-05,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0001496,
+  "cost_llm_spans": 0.0001496,
+  "content_stored": [
+   "gen_ai.input.messages",
+   "gen_ai.output.messages",
+   "gen_ai.request.messages",
+   "gen_ai.response.text"
+  ],
+  "data_collection": true
+ },
+ {
+  "scenario": "openai.chat.tool_call",
+  "mode": "legacy",
+  "trace": "a199fbd409074262afbaef29e5b06546",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 1200,
+     "output_tokens": 40,
+     "cached": 1024,
+     "cache_write": 0,
+     "reasoning": 0,
+     "model": "gpt-5-mini-2026-08-07",
+     "response_id": "chatcmpl-sp-tool",
+     "finish": "tool_calls",
+     "total": 1240
+    },
+    "sent": {
+     "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+     "gen_ai.usage.input_tokens": 1200,
+     "gen_ai.usage.input_tokens.cached": 1024,
+     "gen_ai.usage.output_tokens": 40,
+     "gen_ai.usage.total_tokens": 1240
+    },
+    "stored": {
+     "id": "b97324c36120e415",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gpt-5-mini",
+     "parent_span": "be6948ba5bd409af",
+     "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+     "gen_ai.request.model": "gpt-5-mini",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": null,
+     "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.input.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+     "gen_ai.response.text": "{\"content\": \"None\", \"refusal\": \"None\", \"role\": \"assistant\", \"annotations\": \"None\", \"audio\": \"None\", \"function_call\": \"None\", \"tool_calls\": {\"id\": \"call_sp1\", \"function\": {\"arguments\": \"{\\\"city\\\":\\\"Paris\\\"}\", \"name\": \"get_weather\"}, \"type\": \"function\"}}",
+     "gen_ai.output.messages": "{\"content\": \"None\", \"refusal\": \"None\", \"role\": \"assistant\", \"annotations\": \"None\", \"audio\": \"None\", \"function_call\": \"None\", \"tool_calls\": {\"id\": \"call_sp1\", \"function\": {\"arguments\": \"{\\\"city\\\":\\\"Paris\\\"}\", \"name\": \"get_weather\"}, \"type\": \"function\"}}",
+     "gen_ai.usage.input_tokens": 1200,
+     "gen_ai.usage.output_tokens": 40,
+     "gen_ai.usage.total_tokens": 1240,
+     "gen_ai.usage.input_tokens.cached": 1024,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": null,
+     "gen_ai.usage.cache_read.input_tokens": 1024,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": null,
+     "gen_ai.cost.total_tokens": 0.0001496,
+     "gen_ai.cost.input_tokens": 6.96e-05,
+     "gen_ai.cost.output_tokens": 7.999999999999999e-05,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0001496,
+  "cost_llm_spans": 0.0001496,
+  "content_stored": [
+   "gen_ai.input.messages",
+   "gen_ai.output.messages",
+   "gen_ai.request.messages",
+   "gen_ai.response.text"
+  ],
+  "data_collection": true
+ },
+ {
+  "scenario": "openai.chat.tool_call",
+  "mode": "nodc",
+  "trace": "5a9a086d573a4d478a98be2134483f23",
+  "sent_spans": 2,
+  "stored_spans": 2,
+  "calls": [
+   {
+    "call": 0,
+    "truth": {
+     "input_tokens": 1200,
+     "output_tokens": 40,
+     "cached": 1024,
+     "cache_write": 0,
+     "reasoning": 0,
+     "model": "gpt-5-mini-2026-08-07",
+     "response_id": "chatcmpl-sp-tool",
+     "finish": "tool_calls",
+     "total": 1240
+    },
+    "sent": {
+     "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+     "gen_ai.usage.input_tokens": 1200,
+     "gen_ai.usage.input_tokens.cached": 1024,
+     "gen_ai.usage.output_tokens": 40,
+     "gen_ai.usage.total_tokens": 1240
+    },
+    "stored": {
+     "id": "975938a125d5220b",
+     "span.op": "gen_ai.chat",
+     "span.description": "chat gpt-5-mini",
+     "parent_span": "b0e320e201bcb8d2",
+     "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+     "gen_ai.request.model": "gpt-5-mini",
+     "gen_ai.operation.type": "ai_client",
+     "gen_ai.agent.name": null,
+     "gen_ai.response.finish_reasons": null,
+     "gen_ai.request.messages": null,
+     "gen_ai.input.messages": null,
+     "gen_ai.response.text": null,
+     "gen_ai.output.messages": null,
+     "gen_ai.usage.input_tokens": 1200,
+     "gen_ai.usage.output_tokens": 40,
+     "gen_ai.usage.total_tokens": 1240,
+     "gen_ai.usage.input_tokens.cached": 1024,
+     "gen_ai.usage.input_tokens.cache_write": null,
+     "gen_ai.usage.output_tokens.reasoning": null,
+     "gen_ai.usage.cache_read.input_tokens": 1024,
+     "gen_ai.usage.cache_creation.input_tokens": null,
+     "gen_ai.usage.reasoning.output_tokens": null,
+     "gen_ai.cost.total_tokens": 0.0001496,
+     "gen_ai.cost.input_tokens": 6.96e-05,
+     "gen_ai.cost.output_tokens": 7.999999999999999e-05,
+     "project.name": "python"
+    }
+   }
+  ],
+  "cost_all_spans": 0.0001496,
+  "cost_llm_spans": 0.0001496,
+  "content_stored": [],
+  "data_collection": false
+ }
+]

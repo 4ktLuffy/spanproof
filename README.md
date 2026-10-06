@@ -49,6 +49,12 @@ python -m spanproof.issues results/corpus.jsonl --dry-run
 python -m spanproof.report            # writes report/index.html
 ```
 
+Against a real Sentry account: put `SENTRY_DSN_PY`, `SENTRY_DSN_JS`, `SENTRY_ORG`, `SENTRY_REGION_URL` and a
+read-only `SENTRY_AUTH_TOKEN` in `~/.spanproof.env` (never in the repo), run with `SPANPROOF_DSN=<dsn>` set so
+every envelope is recorded locally and also sent, then `python -m spanproof.real_compare results/run.json`
+compares what was sent, what Sentry stored and the truth, and `python -m spanproof.from_sentry` re-scores the
+detectors on traces read back from Sentry.
+
 CI: `spanproof.gate` compares a run with a checked-in baseline of known findings, fails only on new ones,
 and lists the known ones that disappeared. `ci/spanproof.yml` is an example nightly + pull-request workflow.
 

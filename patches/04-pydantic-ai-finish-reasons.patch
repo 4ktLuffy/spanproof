@@ -1,24 +1,28 @@
 diff --git a/sentry_sdk/integrations/pydantic_ai/spans/ai_client.py b/sentry_sdk/integrations/pydantic_ai/spans/ai_client.py
-index 4ff5f875..6b59c233 100644
+index 4ff5f875..9ca8ca8a 100644
 --- a/sentry_sdk/integrations/pydantic_ai/spans/ai_client.py
 +++ b/sentry_sdk/integrations/pydantic_ai/spans/ai_client.py
-@@ -357,5 +357,14 @@ def update_ai_client_span(
+@@ -357,5 +357,18 @@ def update_ai_client_span(
      if model_response and hasattr(model_response, "usage"):
          _set_usage_data(span, model_response.usage)
  
 +    # pydantic-ai normalizes the provider's stop reason ("stop", "length",
 +    # "tool_call", ...); without it truncated answers are indistinguishable.
++    # Sent as a JSON string, as the conventions type it: list values sent through
++    # span streaming are stored but cannot be searched.
 +    finish_reason = getattr(model_response, "finish_reason", None)
 +    if isinstance(finish_reason, str):
 +        set_on_span = (
 +            span.set_attribute if isinstance(span, StreamedSpan) else span.set_data
 +        )
-+        set_on_span(SPANDATA.GEN_AI_RESPONSE_FINISH_REASONS, [finish_reason])
++        set_on_span(
++            SPANDATA.GEN_AI_RESPONSE_FINISH_REASONS, safe_serialize([finish_reason])
++        )
 +
      # Set output data
      _set_output_data(span, model_response)
 diff --git a/tests/integrations/pydantic_ai/test_pydantic_ai.py b/tests/integrations/pydantic_ai/test_pydantic_ai.py
-index e100e626..84edb89a 100644
+index e100e626..4a71fea9 100644
 --- a/tests/integrations/pydantic_ai/test_pydantic_ai.py
 +++ b/tests/integrations/pydantic_ai/test_pydantic_ai.py
 @@ -4876,3 +4876,27 @@ async def test_data_collection_gen_ai_request_messages_keep_tool_returns_when_ou
@@ -48,4 +52,4 @@ index e100e626..84edb89a 100644
 +
 +    (transaction,) = (e for e in events if e["type"] == "transaction")
 +    (chat_span,) = (s for s in transaction["spans"] if s["op"] == "gen_ai.chat")
-+    assert chat_span["data"][SPANDATA.GEN_AI_RESPONSE_FINISH_REASONS] == ["length"]
++    assert chat_span["data"][SPANDATA.GEN_AI_RESPONSE_FINISH_REASONS] == '["length"]'

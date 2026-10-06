@@ -43,6 +43,10 @@ def main() -> int:
 
     import sentry_sdk
 
+    sentry_sdk.set_tag("spanproof.scenario", sc.id)
+    sentry_sdk.set_tag("spanproof.mode", "nodc" if a.no_data_collection else (
+        "legacy" if a.legacy_transport else ("stream" if a.span_streaming else "default")))
+
     import contextlib
 
     exc = None
@@ -57,7 +61,8 @@ def main() -> int:
                 exc = {"type": type(e).__name__, "value": str(e)[:300],
                        "tb": traceback.format_exc()[-1500:]}
         requests = list(srv.script.requests)
-    sentry_sdk.flush(timeout=5)
+    # A real DSN needs time to deliver before this process exits.
+    sentry_sdk.flush(timeout=30 if os.environ.get("SPANPROOF_DSN") else 5)
 
     def ver(p):
         try:

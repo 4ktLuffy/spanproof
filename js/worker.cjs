@@ -46,8 +46,10 @@ const server = http.createServer((req, res) => {
 // ------------------------------------------------------------------ sentry capture
 const envelopes = [];
 const Sentry = require('@sentry/node');
+const REAL_DSN = process.env.SPANPROOF_DSN;
 Sentry.init({
-  dsn: 'http://spanproof@127.0.0.1:9/1',
+  dsn: REAL_DSN || 'http://spanproof@127.0.0.1:9/1',
+  environment: process.env.SPANPROOF_ENV || 'spanproof',
   tracesSampleRate: 1.0,
   sendDefaultPii: dataCollection,
   defaultIntegrations: false,
@@ -56,11 +58,17 @@ Sentry.init({
     Sentry.anthropicAIIntegration({ recordInputs: dataCollection, recordOutputs: dataCollection }),
     Sentry.vercelAIIntegration({ recordInputs: dataCollection, recordOutputs: dataCollection }),
   ],
-  transport: () => ({
-    send: async env => { envelopes.push(env); return { statusCode: 200 }; },
-    flush: async () => true,
-  }),
+  // Record every envelope; when SPANPROOF_DSN is set, also send it to that real project.
+  transport: opts => {
+    const real = REAL_DSN ? Sentry.makeNodeTransport(opts) : null;
+    return {
+      send: async env => { envelopes.push(env); return real ? real.send(env) : { statusCode: 200 }; },
+      flush: async t => (real ? real.flush(t) : true),
+    };
+  },
 });
+if (process.env.SPANPROOF_RUN) Sentry.setTag('spanproof.run', process.env.SPANPROOF_RUN);
+Sentry.setTag('spanproof.scenario', job.scenario);
 
 function flatten() {
   const spans = [];
@@ -179,7 +187,7 @@ const SCENARIOS = {
     try { await fn(url); } catch (e) { exception = { type: e && e.constructor ? e.constructor.name : String(e), value: String(e && e.message).slice(0, 300), tb: String(e && e.stack).slice(-1500) }; }
   });
   await new Promise(r => setTimeout(r, 300));
-  await Sentry.flush(3000);
+  await Sentry.flush(process.env.SPANPROOF_DSN ? 30000 : 3000);
   server.close();
   const out = flatten();
   const versions = {};

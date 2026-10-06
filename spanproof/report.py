@@ -441,6 +441,26 @@ def build() -> str:
                  'content treated as evidence, and others). All 14 are fixed, each with a regression test '
                  '(tests/test_review_regressions.py); stored results were re-scored and no real finding changed.</p>')
 
+    # ---- real account
+    h.append('<h2>Checked on a real Sentry account</h2>')
+    h.append('<p>Every scenario was also sent to a real Sentry organization (Python and Node projects), read back '
+             'through the span API, and opened in the product. The comparison script is '
+             '<code>spanproof.real_compare</code>; detectors were re-scored on traces read back with '
+             '<code>spanproof.from_sentry</code>.</p>')
+    h.append('<div class="scroll"><table><tr><th>check</th><th>result</th></tr>'
+             '<tr><td>Stored vs sent</td><td>every span stored with identical token values</td></tr>'
+             '<tr><td>Cost on correct input</td><td>matches hand-computed prices exactly</td></tr>'
+             '<tr><td>JS Anthropic (cache)</td><td class="bad">trace view: 40 in (Python: 2.6K); cost $0.00128 '
+             'vs $0.00297</td></tr>'
+             '<tr><td>JS OpenAI (cached tokens)</td><td class="bad">cost $0.001175 vs $0.000887 (+32%)</td></tr>'
+             '<tr><td>Sum over all gen_ai spans</td><td class="bad">+27% cost, +50% input tokens vs LLM calls only'
+             '</td></tr>'
+             '<tr><td>Built-in AI Agents dashboard</td><td class="good">correct: filters to LLM calls</td></tr>'
+             '<tr><td>Python finish reasons, default transport</td><td class="bad">stored but not searchable'
+             '</td></tr>'
+             '<tr><td>Detectors on traces read from Sentry</td><td class="good">same results as local, no false '
+             'alarms on healthy traces</td></tr></table></div>')
+
     # ---- negatives
     h.append('<h2>Negative results</h2><ul class="plain">' + "".join(f"<li>{esc(n)}</li>" for n in NEGATIVE_RESULTS)
              + '</ul>')

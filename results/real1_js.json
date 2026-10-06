@@ -1,0 +1,4621 @@
+{
+ "generated": "2026-10-06T08:08:49",
+ "results": [
+  {
+   "spans": [
+    {
+     "trace_id": "1674a5ecc47d409c8ea52152251e07da",
+     "span_id": "962c1023206d2ea7",
+     "parent_span_id": "bb3bb3ba6f4a6f09",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.system_instructions": "[{\"type\":\"text\",\"content\":\"Be brief.\"}]",
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "gen_ai.response.id": "chatcmpl-sp1",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.total_tokens": 1500,
+      "gen_ai.response.finish_reasons": "[\"stop\"]",
+      "gen_ai.response.text": "[\"Paris.\"]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.sync",
+      "sentry.segment.id": "bb3bb3ba6f4a6f09",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263316.8586223,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "1674a5ecc47d409c8ea52152251e07da",
+     "span_id": "bb3bb3ba6f4a6f09",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.chat.sync",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.sync",
+      "sentry.segment.id": "bb3bb3ba6f4a6f09",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263316.749531,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.openai.chat.sync",
+   "mode": "default",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.chat.sync",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 300,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 256,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp1",
+      "finish": "stop",
+      "total": 1500
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.24,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.chat.sync",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 1024,
+     "actual": null,
+     "message": "cached not reported (provider said 1024)",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.reasoning",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.chat.sync",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.reasoning.output_tokens",
+     "expected": 256,
+     "actual": null,
+     "message": "reasoning not reported (provider said 256)",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.chat.sync",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "638d995f26ab469f80abfca991df1107",
+     "span_id": "aeda0ac288af1244",
+     "parent_span_id": "aace25b87a2d7b2d",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.response.id": "chatcmpl-sp1",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.total_tokens": 1500,
+      "gen_ai.response.finish_reasons": "[\"stop\"]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.sync",
+      "sentry.segment.id": "aace25b87a2d7b2d",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263316.85681,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "638d995f26ab469f80abfca991df1107",
+     "span_id": "aace25b87a2d7b2d",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.chat.sync",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.sync",
+      "sentry.segment.id": "aace25b87a2d7b2d",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263316.7520204,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.openai.chat.sync",
+   "mode": "nodc",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.chat.sync",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 300,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 256,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp1",
+      "finish": "stop",
+      "total": 1500
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.34,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.chat.sync",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 1024,
+     "actual": null,
+     "message": "cached not reported (provider said 1024)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.reasoning",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.chat.sync",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.reasoning.output_tokens",
+     "expected": 256,
+     "actual": null,
+     "message": "reasoning not reported (provider said 256)",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "8382c481113f4ab6b562ff6b14713a9b",
+     "span_id": "8e456d0397d5cb02",
+     "parent_span_id": "96b2f9d52f83c276",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.request.stream": true,
+      "gen_ai.system_instructions": "[{\"type\":\"text\",\"content\":\"Be brief.\"}]",
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "chatcmpl-sp2",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.total_tokens": 1500,
+      "gen_ai.response.finish_reasons": "[\"stop\"]",
+      "gen_ai.response.text": "The capital is Paris. ",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.stream",
+      "sentry.segment.id": "96b2f9d52f83c276",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263316.8568544,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "8382c481113f4ab6b562ff6b14713a9b",
+     "span_id": "96b2f9d52f83c276",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.chat.stream",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.stream",
+      "sentry.segment.id": "96b2f9d52f83c276",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263316.7503386,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.openai.chat.stream",
+   "mode": "default",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.chat.stream",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 300,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 256,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp2",
+      "finish": "stop",
+      "total": 1500
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.47,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.chat.stream",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 1024,
+     "actual": null,
+     "message": "cached not reported (provider said 1024)",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.reasoning",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.chat.stream",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.reasoning.output_tokens",
+     "expected": 256,
+     "actual": null,
+     "message": "reasoning not reported (provider said 256)",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.chat.stream",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.chat.stream",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "2e6fee21e8654e79ba6c79213cf6ba02",
+     "span_id": "a1337091c3c98274",
+     "parent_span_id": "ab4b3058560ef81b",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.request.stream": true,
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "chatcmpl-sp2",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.total_tokens": 1500,
+      "gen_ai.response.finish_reasons": "[\"stop\"]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.stream",
+      "sentry.segment.id": "ab4b3058560ef81b",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263316.8589697,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "2e6fee21e8654e79ba6c79213cf6ba02",
+     "span_id": "ab4b3058560ef81b",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.chat.stream",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.stream",
+      "sentry.segment.id": "ab4b3058560ef81b",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263316.7511508,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.openai.chat.stream",
+   "mode": "nodc",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.chat.stream",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 300,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 256,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp2",
+      "finish": "stop",
+      "total": 1500
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 3.75,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.chat.stream",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 1024,
+     "actual": null,
+     "message": "cached not reported (provider said 1024)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.reasoning",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.chat.stream",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.reasoning.output_tokens",
+     "expected": 256,
+     "actual": null,
+     "message": "reasoning not reported (provider said 256)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.chat.stream",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "fdb3cd1dc1a94a64b77853806fdb44d1",
+     "span_id": "9fd36b7fa0b72281",
+     "parent_span_id": "b3c7cd5c9992eccb",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.request.stream": true,
+      "gen_ai.system_instructions": "[{\"type\":\"text\",\"content\":\"Be brief.\"}]",
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "chatcmpl-sp2",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.response.text": "The capital ",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.stream.early_close",
+      "sentry.segment.id": "b3c7cd5c9992eccb",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263317.9326298,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "fdb3cd1dc1a94a64b77853806fdb44d1",
+     "span_id": "b3c7cd5c9992eccb",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.chat.stream.early_close",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.stream.early_close",
+      "sentry.segment.id": "b3c7cd5c9992eccb",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263317.8722901,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.openai.chat.stream.early_close",
+   "mode": "default",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.chat.stream.early_close",
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.chat",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.21,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.chat.stream.early_close",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.chat.stream.early_close",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "ae69ffd4242f488a9e1b95fd800bce93",
+     "span_id": "a5147dbc5975cc28",
+     "parent_span_id": "9ffb3f5240d93538",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.request.stream": true,
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "chatcmpl-sp2",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.stream.early_close",
+      "sentry.segment.id": "9ffb3f5240d93538",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263318.0205889,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "ae69ffd4242f488a9e1b95fd800bce93",
+     "span_id": "9ffb3f5240d93538",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.chat.stream.early_close",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.stream.early_close",
+      "sentry.segment.id": "9ffb3f5240d93538",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263317.9592867,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.openai.chat.stream.early_close",
+   "mode": "nodc",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.chat.stream.early_close",
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.chat",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.04,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.chat.stream.early_close",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "cb40514494f342c884acec2f91685434",
+     "span_id": "9e124d7995a8b9d8",
+     "parent_span_id": "a232a18c7b297960",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.tool.definitions": "[{\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"description\":\"Weather\",\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\"}}}}}]",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.system_instructions": "[{\"type\":\"text\",\"content\":\"Be brief.\"}]",
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "gen_ai.response.id": "chatcmpl-sp-tool",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.output_tokens": 40,
+      "gen_ai.usage.total_tokens": 1240,
+      "gen_ai.response.finish_reasons": "[\"tool_calls\"]",
+      "gen_ai.response.text": "[\"\"]",
+      "gen_ai.response.tool_calls": "[{\"id\":\"call_sp1\",\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"arguments\":\"{\\\"city\\\":\\\"Paris\\\"}\"}}]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.tool_call",
+      "sentry.segment.id": "a232a18c7b297960",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263318.1441922,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "cb40514494f342c884acec2f91685434",
+     "span_id": "a232a18c7b297960",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.chat.tool_call",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.tool_call",
+      "sentry.segment.id": "a232a18c7b297960",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263318.0855165,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.openai.chat.tool_call",
+   "mode": "default",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.chat.tool_call",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 40,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 0,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp-tool",
+      "finish": "tool_calls",
+      "total": 1240
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.2,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.chat.tool_call",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 1024,
+     "actual": null,
+     "message": "cached not reported (provider said 1024)",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.chat.tool_call",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.chat.tool_call",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.response.tool_calls",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.tool_calls",
+     "message": "gen_ai.response.tool_calls is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "329155b53034457992d860b36f3bad67",
+     "span_id": "a334047aa48d93a0",
+     "parent_span_id": "816c15ca183b8b47",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.response.id": "chatcmpl-sp-tool",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.output_tokens": 40,
+      "gen_ai.usage.total_tokens": 1240,
+      "gen_ai.response.finish_reasons": "[\"tool_calls\"]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.tool_call",
+      "sentry.segment.id": "816c15ca183b8b47",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263319.0711277,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "329155b53034457992d860b36f3bad67",
+     "span_id": "816c15ca183b8b47",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.chat.tool_call",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.chat.tool_call",
+      "sentry.segment.id": "816c15ca183b8b47",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263319.0120122,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.openai.chat.tool_call",
+   "mode": "nodc",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.chat.tool_call",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 40,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 0,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp-tool",
+      "finish": "tool_calls",
+      "total": 1240
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.37,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.chat.tool_call",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 1024,
+     "actual": null,
+     "message": "cached not reported (provider said 1024)",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "8a2779d4b55c4251b5e10e8778030248",
+     "span_id": "80b0614b6987c0a5",
+     "parent_span_id": "90429968e6da5d1a",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.input.messages": "Capital of France?",
+      "gen_ai.response.id": "resp_sp1",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.input_tokens": 1500,
+      "gen_ai.usage.output_tokens": 400,
+      "gen_ai.usage.total_tokens": 1900,
+      "gen_ai.response.finish_reasons": "[\"completed\"]",
+      "gen_ai.response.text": "Paris.",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.responses.sync",
+      "sentry.segment.id": "90429968e6da5d1a",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263319.126462,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "8a2779d4b55c4251b5e10e8778030248",
+     "span_id": "90429968e6da5d1a",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.responses.sync",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.responses.sync",
+      "sentry.segment.id": "90429968e6da5d1a",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263319.0691428,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/responses"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.openai.responses.sync",
+   "mode": "default",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.responses.sync",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1500,
+      "output_tokens": 400,
+      "cached": 1280,
+      "cache_write": 96,
+      "reasoning": 320,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "resp_sp1",
+      "finish": "",
+      "total": 1900
+     },
+     "op": "gen_ai.responses",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.35,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.responses.sync",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 1280,
+     "actual": null,
+     "message": "cached not reported (provider said 1280)",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.cache_write",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.responses.sync",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_creation.input_tokens",
+     "expected": 96,
+     "actual": null,
+     "message": "cache_write not reported (provider said 96)",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.reasoning",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.responses.sync",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.reasoning.output_tokens",
+     "expected": 320,
+     "actual": null,
+     "message": "reasoning not reported (provider said 320)",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.responses.sync",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "30e80a30cf774cf390cedbe591916307",
+     "span_id": "9bf6017e1d2a5dd2",
+     "parent_span_id": "9ae87694040850fc",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.response.id": "resp_sp1",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.input_tokens": 1500,
+      "gen_ai.usage.output_tokens": 400,
+      "gen_ai.usage.total_tokens": 1900,
+      "gen_ai.response.finish_reasons": "[\"completed\"]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.responses.sync",
+      "sentry.segment.id": "9ae87694040850fc",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263319.3385518,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "30e80a30cf774cf390cedbe591916307",
+     "span_id": "9ae87694040850fc",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.responses.sync",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.responses.sync",
+      "sentry.segment.id": "9ae87694040850fc",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263319.2805734,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/responses"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.openai.responses.sync",
+   "mode": "nodc",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.responses.sync",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1500,
+      "output_tokens": 400,
+      "cached": 1280,
+      "cache_write": 96,
+      "reasoning": 320,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "resp_sp1",
+      "finish": "",
+      "total": 1900
+     },
+     "op": "gen_ai.responses",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 3.53,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.responses.sync",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 1280,
+     "actual": null,
+     "message": "cached not reported (provider said 1280)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.cache_write",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.responses.sync",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_creation.input_tokens",
+     "expected": 96,
+     "actual": null,
+     "message": "cache_write not reported (provider said 96)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.reasoning",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.responses.sync",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.reasoning.output_tokens",
+     "expected": 320,
+     "actual": null,
+     "message": "reasoning not reported (provider said 320)",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "cf9802aed6b64e5e806f9d0aa703b582",
+     "span_id": "95e0f89149101773",
+     "parent_span_id": "8fe25879727896f7",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.request.stream": true,
+      "gen_ai.input.messages": "Capital of France?",
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "resp_sp2",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.input_tokens": 1500,
+      "gen_ai.usage.output_tokens": 400,
+      "gen_ai.usage.total_tokens": 1900,
+      "gen_ai.response.finish_reasons": "[\"in_progress\",\"in_progress\",\"completed\"]",
+      "gen_ai.response.text": "Paris. ",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.responses.stream",
+      "sentry.segment.id": "8fe25879727896f7",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263320.449799,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "cf9802aed6b64e5e806f9d0aa703b582",
+     "span_id": "8fe25879727896f7",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.responses.stream",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.responses.stream",
+      "sentry.segment.id": "8fe25879727896f7",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263320.3860753,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/responses"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.openai.responses.stream",
+   "mode": "default",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.responses.stream",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1500,
+      "output_tokens": 400,
+      "cached": 1280,
+      "cache_write": 96,
+      "reasoning": 320,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "resp_sp2",
+      "finish": "",
+      "total": 1900
+     },
+     "op": "gen_ai.responses",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.22,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.responses.stream",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 1280,
+     "actual": null,
+     "message": "cached not reported (provider said 1280)",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.cache_write",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.responses.stream",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_creation.input_tokens",
+     "expected": 96,
+     "actual": null,
+     "message": "cache_write not reported (provider said 96)",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.reasoning",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.responses.stream",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.reasoning.output_tokens",
+     "expected": 320,
+     "actual": null,
+     "message": "reasoning not reported (provider said 320)",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.responses.stream",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.responses.stream",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "ecadd5eb69474ca982d32edbe52c1e71",
+     "span_id": "9d5d61760f20d9dc",
+     "parent_span_id": "a81a191a5941f695",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.request.stream": true,
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "resp_sp2",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.input_tokens": 1500,
+      "gen_ai.usage.output_tokens": 400,
+      "gen_ai.usage.total_tokens": 1900,
+      "gen_ai.response.finish_reasons": "[\"in_progress\",\"in_progress\",\"completed\"]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.responses.stream",
+      "sentry.segment.id": "a81a191a5941f695",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263320.446595,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "ecadd5eb69474ca982d32edbe52c1e71",
+     "span_id": "a81a191a5941f695",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.responses.stream",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.responses.stream",
+      "sentry.segment.id": "a81a191a5941f695",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263320.3837757,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/responses"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.openai.responses.stream",
+   "mode": "nodc",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.responses.stream",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1500,
+      "output_tokens": 400,
+      "cached": 1280,
+      "cache_write": 96,
+      "reasoning": 320,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "resp_sp2",
+      "finish": "",
+      "total": 1900
+     },
+     "op": "gen_ai.responses",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.06,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.responses.stream",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 1280,
+     "actual": null,
+     "message": "cached not reported (provider said 1280)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.cache_write",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.responses.stream",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_creation.input_tokens",
+     "expected": 96,
+     "actual": null,
+     "message": "cache_write not reported (provider said 96)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.reasoning",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.openai.responses.stream",
+     "integration": "js.openai",
+     "call": 0,
+     "attribute": "gen_ai.usage.reasoning.output_tokens",
+     "expected": 320,
+     "actual": null,
+     "message": "reasoning not reported (provider said 320)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.responses.stream",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "e462c705b61b4c5cace7984149e18ee8",
+     "span_id": "92dc36f2a2619be8",
+     "parent_span_id": "b511c5c8d05fa61d",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.request.stream": true,
+      "gen_ai.input.messages": "Capital of France?",
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "resp_sp2",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.response.finish_reasons": "[\"in_progress\",\"in_progress\"]",
+      "gen_ai.response.text": "Paris. ",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.responses.stream.early_close",
+      "sentry.segment.id": "b511c5c8d05fa61d",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263320.491964,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "e462c705b61b4c5cace7984149e18ee8",
+     "span_id": "b511c5c8d05fa61d",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.responses.stream.early_close",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.responses.stream.early_close",
+      "sentry.segment.id": "b511c5c8d05fa61d",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263320.4263842,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/responses"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.openai.responses.stream.early_close",
+   "mode": "default",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.responses.stream.early_close",
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.responses",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.23,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.responses.stream.early_close",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.responses.stream.early_close",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "59176f8d616d46b994fb4da1032dcd63",
+     "span_id": "9aa67d504c6c4c15",
+     "parent_span_id": "87ccd4e87991ddc7",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.ai.openai",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.request.stream": true,
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "resp_sp2",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.response.finish_reasons": "[\"in_progress\",\"in_progress\"]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.responses.stream.early_close",
+      "sentry.segment.id": "87ccd4e87991ddc7",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263321.4863873,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "59176f8d616d46b994fb4da1032dcd63",
+     "span_id": "87ccd4e87991ddc7",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.openai.responses.stream.early_close",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.openai.responses.stream.early_close",
+      "sentry.segment.id": "87ccd4e87991ddc7",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263321.4270225,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/responses"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.openai.responses.stream.early_close",
+   "mode": "nodc",
+   "integration": "js.openai",
+   "package": "openai",
+   "twin": "openai.responses.stream.early_close",
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.responses",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.26,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.openai.responses.stream.early_close",
+     "integration": "js.openai",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "69248db4ec274c3c9d466316508a50c3",
+     "span_id": "bc046864211a0cb6",
+     "parent_span_id": "a796922f6c8dbb39",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.origin": "auto.ai.anthropic",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.system_instructions": "[{\"type\":\"text\",\"content\":\"Be brief.\"}]",
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "gen_ai.response.text": "Paris.",
+      "gen_ai.response.id": "msg_sp1",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.usage.input_tokens": 40,
+      "gen_ai.usage.output_tokens": 120,
+      "gen_ai.usage.total_tokens": 2720,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.sync",
+      "sentry.segment.id": "a796922f6c8dbb39",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263321.6554403,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "69248db4ec274c3c9d466316508a50c3",
+     "span_id": "a796922f6c8dbb39",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.anthropic.messages.sync",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.sync",
+      "sentry.segment.id": "a796922f6c8dbb39",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263321.5819001,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.anthropic.messages.sync",
+   "mode": "default",
+   "integration": "js.anthropic",
+   "package": "anthropic",
+   "twin": "anthropic.messages.sync",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 2600,
+      "output_tokens": 120,
+      "cached": 2048,
+      "cache_write": 512,
+      "reasoning": 0,
+      "model": "claude-sonnet-5-5",
+      "response_id": "msg_sp1",
+      "finish": "end_turn",
+      "total": 2720
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.05,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.wrong.input_tokens",
+     "check": "usage",
+     "severity": "high",
+     "scenario": "js.anthropic.messages.sync",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.input_tokens",
+     "expected": 2600,
+     "actual": 40,
+     "message": "input_tokens is 40, provider said 2600",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.sync",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 2048,
+     "actual": null,
+     "message": "cached not reported (provider said 2048)",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.cache_write",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.sync",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_creation.input_tokens",
+     "expected": 512,
+     "actual": null,
+     "message": "cache_write not reported (provider said 512)",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.anthropic.messages.sync",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.total_mismatch",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.sync",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.total_tokens",
+     "expected": 160,
+     "actual": 2720,
+     "message": "total_tokens != input_tokens + output_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.finish_missing",
+     "check": "identity",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.sync",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "end_turn",
+     "actual": null,
+     "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "774466a0929f4341a7692f0c34ea5044",
+     "span_id": "b73b735565a60217",
+     "parent_span_id": "963d31f12e7d8a18",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.origin": "auto.ai.anthropic",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.response.id": "msg_sp1",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.usage.input_tokens": 40,
+      "gen_ai.usage.output_tokens": 120,
+      "gen_ai.usage.total_tokens": 2720,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.sync",
+      "sentry.segment.id": "963d31f12e7d8a18",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263321.6906693,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "774466a0929f4341a7692f0c34ea5044",
+     "span_id": "963d31f12e7d8a18",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.anthropic.messages.sync",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.sync",
+      "sentry.segment.id": "963d31f12e7d8a18",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263321.6497667,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.anthropic.messages.sync",
+   "mode": "nodc",
+   "integration": "js.anthropic",
+   "package": "anthropic",
+   "twin": "anthropic.messages.sync",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 2600,
+      "output_tokens": 120,
+      "cached": 2048,
+      "cache_write": 512,
+      "reasoning": 0,
+      "model": "claude-sonnet-5-5",
+      "response_id": "msg_sp1",
+      "finish": "end_turn",
+      "total": 2720
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 0.99,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.wrong.input_tokens",
+     "check": "usage",
+     "severity": "high",
+     "scenario": "js.anthropic.messages.sync",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.input_tokens",
+     "expected": 2600,
+     "actual": 40,
+     "message": "input_tokens is 40, provider said 2600",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.sync",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 2048,
+     "actual": null,
+     "message": "cached not reported (provider said 2048)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.cache_write",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.sync",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_creation.input_tokens",
+     "expected": 512,
+     "actual": null,
+     "message": "cache_write not reported (provider said 512)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.total_mismatch",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.sync",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.total_tokens",
+     "expected": 160,
+     "actual": 2720,
+     "message": "total_tokens != input_tokens + output_tokens",
+     "mode": "nodc"
+    },
+    {
+     "rule": "identity.finish_missing",
+     "check": "identity",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.sync",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "end_turn",
+     "actual": null,
+     "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "d5a119fd97db4d8abda908411b3bd4c9",
+     "span_id": "ba271cde6f191205",
+     "parent_span_id": "ade233af98ae6bf7",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.origin": "auto.ai.anthropic",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.request.stream": true,
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.system_instructions": "[{\"type\":\"text\",\"content\":\"Be brief.\"}]",
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "msg_sp2",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.usage.input_tokens": 40,
+      "gen_ai.usage.output_tokens": 120,
+      "gen_ai.usage.total_tokens": 2720,
+      "gen_ai.response.finish_reasons": "[\"end_turn\"]",
+      "gen_ai.response.text": "The capital is Paris. ",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream",
+      "sentry.segment.id": "ade233af98ae6bf7",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263322.6953564,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "d5a119fd97db4d8abda908411b3bd4c9",
+     "span_id": "ade233af98ae6bf7",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.anthropic.messages.stream",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream",
+      "sentry.segment.id": "ade233af98ae6bf7",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263322.6512737,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.anthropic.messages.stream",
+   "mode": "default",
+   "integration": "js.anthropic",
+   "package": "anthropic",
+   "twin": "anthropic.messages.stream",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 2600,
+      "output_tokens": 120,
+      "cached": 2048,
+      "cache_write": 512,
+      "reasoning": 0,
+      "model": "claude-sonnet-5-5",
+      "response_id": "msg_sp2",
+      "finish": "end_turn",
+      "total": 2720
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 3.55,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.wrong.input_tokens",
+     "check": "usage",
+     "severity": "high",
+     "scenario": "js.anthropic.messages.stream",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.input_tokens",
+     "expected": 2600,
+     "actual": 40,
+     "message": "input_tokens is 40, provider said 2600",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.stream",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 2048,
+     "actual": null,
+     "message": "cached not reported (provider said 2048)",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.cache_write",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.stream",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_creation.input_tokens",
+     "expected": 512,
+     "actual": null,
+     "message": "cache_write not reported (provider said 512)",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.anthropic.messages.stream",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.anthropic.messages.stream",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.total_mismatch",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.stream",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.total_tokens",
+     "expected": 160,
+     "actual": 2720,
+     "message": "total_tokens != input_tokens + output_tokens",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "d0627e592bd14e65be2d5e91c7a233f1",
+     "span_id": "a335cc42a95a8543",
+     "parent_span_id": "954ec3f978300829",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.origin": "auto.ai.anthropic",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.request.stream": true,
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "msg_sp2",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.usage.input_tokens": 40,
+      "gen_ai.usage.output_tokens": 120,
+      "gen_ai.usage.total_tokens": 2720,
+      "gen_ai.response.finish_reasons": "[\"end_turn\"]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream",
+      "sentry.segment.id": "954ec3f978300829",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263322.7015069,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "d0627e592bd14e65be2d5e91c7a233f1",
+     "span_id": "954ec3f978300829",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.anthropic.messages.stream",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream",
+      "sentry.segment.id": "954ec3f978300829",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263322.6581426,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.anthropic.messages.stream",
+   "mode": "nodc",
+   "integration": "js.anthropic",
+   "package": "anthropic",
+   "twin": "anthropic.messages.stream",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 2600,
+      "output_tokens": 120,
+      "cached": 2048,
+      "cache_write": 512,
+      "reasoning": 0,
+      "model": "claude-sonnet-5-5",
+      "response_id": "msg_sp2",
+      "finish": "end_turn",
+      "total": 2720
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.01,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.wrong.input_tokens",
+     "check": "usage",
+     "severity": "high",
+     "scenario": "js.anthropic.messages.stream",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.input_tokens",
+     "expected": 2600,
+     "actual": 40,
+     "message": "input_tokens is 40, provider said 2600",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.stream",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 2048,
+     "actual": null,
+     "message": "cached not reported (provider said 2048)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.cache_write",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.stream",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_creation.input_tokens",
+     "expected": 512,
+     "actual": null,
+     "message": "cache_write not reported (provider said 512)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.anthropic.messages.stream",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.total_mismatch",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.stream",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.total_tokens",
+     "expected": 160,
+     "actual": 2720,
+     "message": "total_tokens != input_tokens + output_tokens",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "c7aee13c993e4a35995d85f6435756c9",
+     "span_id": "957442a32ad74ef1",
+     "parent_span_id": "86197929bdb2e17d",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.origin": "auto.ai.anthropic",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.system_instructions": "[{\"type\":\"text\",\"content\":\"Be brief.\"}]",
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "msg_sp2",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.usage.input_tokens": 40,
+      "gen_ai.usage.output_tokens": 120,
+      "gen_ai.usage.total_tokens": 2720,
+      "gen_ai.response.finish_reasons": "[\"end_turn\"]",
+      "gen_ai.response.text": "The capital is Paris. ",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream_helper",
+      "sentry.segment.id": "86197929bdb2e17d",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263322.7349398,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "c7aee13c993e4a35995d85f6435756c9",
+     "span_id": "86197929bdb2e17d",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.anthropic.messages.stream_helper",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream_helper",
+      "sentry.segment.id": "86197929bdb2e17d",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263322.6926258,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.anthropic.messages.stream_helper",
+   "mode": "default",
+   "integration": "js.anthropic",
+   "package": "anthropic",
+   "twin": "anthropic.messages.stream_helper",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 2600,
+      "output_tokens": 120,
+      "cached": 2048,
+      "cache_write": 512,
+      "reasoning": 0,
+      "model": "claude-sonnet-5-5",
+      "response_id": "msg_sp2",
+      "finish": "end_turn",
+      "total": 2720
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.04,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.wrong.input_tokens",
+     "check": "usage",
+     "severity": "high",
+     "scenario": "js.anthropic.messages.stream_helper",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.input_tokens",
+     "expected": 2600,
+     "actual": 40,
+     "message": "input_tokens is 40, provider said 2600",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.stream_helper",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 2048,
+     "actual": null,
+     "message": "cached not reported (provider said 2048)",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.cache_write",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.stream_helper",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_creation.input_tokens",
+     "expected": 512,
+     "actual": null,
+     "message": "cache_write not reported (provider said 512)",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.anthropic.messages.stream_helper",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.total_mismatch",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.stream_helper",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.total_tokens",
+     "expected": 160,
+     "actual": 2720,
+     "message": "total_tokens != input_tokens + output_tokens",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "8f9aeef7723d498194e3586e969a5147",
+     "span_id": "b10f114014619094",
+     "parent_span_id": "a1c7d421163221f7",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.origin": "auto.ai.anthropic",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "msg_sp2",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.usage.input_tokens": 40,
+      "gen_ai.usage.output_tokens": 120,
+      "gen_ai.usage.total_tokens": 2720,
+      "gen_ai.response.finish_reasons": "[\"end_turn\"]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream_helper",
+      "sentry.segment.id": "a1c7d421163221f7",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263322.8616798,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "8f9aeef7723d498194e3586e969a5147",
+     "span_id": "a1c7d421163221f7",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.anthropic.messages.stream_helper",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream_helper",
+      "sentry.segment.id": "a1c7d421163221f7",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263322.821271,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.anthropic.messages.stream_helper",
+   "mode": "nodc",
+   "integration": "js.anthropic",
+   "package": "anthropic",
+   "twin": "anthropic.messages.stream_helper",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 2600,
+      "output_tokens": 120,
+      "cached": 2048,
+      "cache_write": 512,
+      "reasoning": 0,
+      "model": "claude-sonnet-5-5",
+      "response_id": "msg_sp2",
+      "finish": "end_turn",
+      "total": 2720
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.32,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.wrong.input_tokens",
+     "check": "usage",
+     "severity": "high",
+     "scenario": "js.anthropic.messages.stream_helper",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.input_tokens",
+     "expected": 2600,
+     "actual": 40,
+     "message": "input_tokens is 40, provider said 2600",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.stream_helper",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 2048,
+     "actual": null,
+     "message": "cached not reported (provider said 2048)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.cache_write",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.stream_helper",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_creation.input_tokens",
+     "expected": 512,
+     "actual": null,
+     "message": "cache_write not reported (provider said 512)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.total_mismatch",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.stream_helper",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.total_tokens",
+     "expected": 160,
+     "actual": 2720,
+     "message": "total_tokens != input_tokens + output_tokens",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "df2f7d5fa1854313b9b559d4fbd052f6",
+     "span_id": "9878d3370fc8a2d8",
+     "parent_span_id": "bb1724abb893eef6",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.origin": "auto.ai.anthropic",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.request.stream": true,
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.system_instructions": "[{\"type\":\"text\",\"content\":\"Be brief.\"}]",
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "msg_sp2",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.usage.input_tokens": 40,
+      "gen_ai.usage.total_tokens": 2600,
+      "gen_ai.response.text": "The ",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream.early_close",
+      "sentry.segment.id": "bb1724abb893eef6",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263323.7213655,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "df2f7d5fa1854313b9b559d4fbd052f6",
+     "span_id": "bb1724abb893eef6",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.anthropic.messages.stream.early_close",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream.early_close",
+      "sentry.segment.id": "bb1724abb893eef6",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263323.6790454,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.anthropic.messages.stream.early_close",
+   "mode": "default",
+   "integration": "js.anthropic",
+   "package": "anthropic",
+   "twin": "anthropic.messages.stream.early_close",
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.chat",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.31,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.anthropic.messages.stream.early_close",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.anthropic.messages.stream.early_close",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "56a5eceffbbb4c74a6cb2767aeb16fb3",
+     "span_id": "97edcd8576d25645",
+     "parent_span_id": "95f92e61d4a3dd57",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.origin": "auto.ai.anthropic",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.request.stream": true,
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.id": "msg_sp2",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.usage.input_tokens": 40,
+      "gen_ai.usage.total_tokens": 2600,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream.early_close",
+      "sentry.segment.id": "95f92e61d4a3dd57",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263323.7623415,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "56a5eceffbbb4c74a6cb2767aeb16fb3",
+     "span_id": "95f92e61d4a3dd57",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.anthropic.messages.stream.early_close",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream.early_close",
+      "sentry.segment.id": "95f92e61d4a3dd57",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263323.720592,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.anthropic.messages.stream.early_close",
+   "mode": "nodc",
+   "integration": "js.anthropic",
+   "package": "anthropic",
+   "twin": "anthropic.messages.stream.early_close",
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.chat",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.1,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.anthropic.messages.stream.early_close",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "11f45cacf06f49f1a123624c6436a298",
+     "span_id": "a1466573c8b30430",
+     "parent_span_id": "95a80ffd48e16420",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.origin": "auto.ai.anthropic",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.request.stream": true,
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.system_instructions": "[{\"type\":\"text\",\"content\":\"Be brief.\"}]",
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream.as_response",
+      "sentry.segment.id": "95a80ffd48e16420",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263324.1804988,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "11f45cacf06f49f1a123624c6436a298",
+     "span_id": "95a80ffd48e16420",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.anthropic.messages.stream.as_response",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream.as_response",
+      "sentry.segment.id": "95a80ffd48e16420",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263324.1411226,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.anthropic.messages.stream.as_response",
+   "mode": "default",
+   "integration": "js.anthropic",
+   "package": "anthropic",
+   "twin": null,
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.chat",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 0.98,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.anthropic.messages.stream.as_response",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "2f198d6a357b4fceac63ef262d07318f",
+     "span_id": "a72c9fb23233b133",
+     "parent_span_id": "85a0ce92caa70ccb",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.origin": "auto.ai.anthropic",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.request.stream": true,
+      "gen_ai.request.max_tokens": 256,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream.as_response",
+      "sentry.segment.id": "85a0ce92caa70ccb",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263324.873306,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "2f198d6a357b4fceac63ef262d07318f",
+     "span_id": "85a0ce92caa70ccb",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.anthropic.messages.stream.as_response",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.stream.as_response",
+      "sentry.segment.id": "85a0ce92caa70ccb",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263324.832878,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.anthropic.messages.stream.as_response",
+   "mode": "nodc",
+   "integration": "js.anthropic",
+   "package": "anthropic",
+   "twin": null,
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.chat",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.01,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.anthropic.messages.stream.as_response",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.request.stream",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.request.stream is not in sentry-conventions",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "36afca2bc30b475389f1abcf7f9d771e",
+     "span_id": "ba7ca44261ad5f30",
+     "parent_span_id": "b88692047d96c3de",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.origin": "auto.ai.anthropic",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.system_instructions": "[{\"type\":\"text\",\"content\":\"Be brief.\"}]",
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "gen_ai.response.text": "Paris.",
+      "gen_ai.response.id": "msg_sp1",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.usage.input_tokens": 40,
+      "gen_ai.usage.output_tokens": 120,
+      "gen_ai.usage.total_tokens": 2720,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.with_response",
+      "sentry.segment.id": "b88692047d96c3de",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263325.0130494,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "36afca2bc30b475389f1abcf7f9d771e",
+     "span_id": "b88692047d96c3de",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.anthropic.messages.with_response",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.with_response",
+      "sentry.segment.id": "b88692047d96c3de",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263324.973161,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.anthropic.messages.with_response",
+   "mode": "default",
+   "integration": "js.anthropic",
+   "package": "anthropic",
+   "twin": "anthropic.messages.raw_response",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 2600,
+      "output_tokens": 120,
+      "cached": 2048,
+      "cache_write": 512,
+      "reasoning": 0,
+      "model": "claude-sonnet-5-5",
+      "response_id": "msg_sp1",
+      "finish": "end_turn",
+      "total": 2720
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.18,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.wrong.input_tokens",
+     "check": "usage",
+     "severity": "high",
+     "scenario": "js.anthropic.messages.with_response",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.input_tokens",
+     "expected": 2600,
+     "actual": 40,
+     "message": "input_tokens is 40, provider said 2600",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.with_response",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 2048,
+     "actual": null,
+     "message": "cached not reported (provider said 2048)",
+     "mode": "default"
+    },
+    {
+     "rule": "usage.missing.cache_write",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.with_response",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_creation.input_tokens",
+     "expected": 512,
+     "actual": null,
+     "message": "cache_write not reported (provider said 512)",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.anthropic.messages.with_response",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.total_mismatch",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.with_response",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.total_tokens",
+     "expected": 160,
+     "actual": 2720,
+     "message": "total_tokens != input_tokens + output_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.finish_missing",
+     "check": "identity",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.with_response",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "end_turn",
+     "actual": null,
+     "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "ff33f058fc514b46b6d066a634e9d619",
+     "span_id": "8b6e9182528c6239",
+     "parent_span_id": "bf99da230bbd0261",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.origin": "auto.ai.anthropic",
+      "sentry.op": "gen_ai.chat",
+      "gen_ai.provider.name": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.response.id": "msg_sp1",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.usage.input_tokens": 40,
+      "gen_ai.usage.output_tokens": 120,
+      "gen_ai.usage.total_tokens": 2720,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.with_response",
+      "sentry.segment.id": "bf99da230bbd0261",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263325.1463974,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "ff33f058fc514b46b6d066a634e9d619",
+     "span_id": "bf99da230bbd0261",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.anthropic.messages.with_response",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.anthropic.messages.with_response",
+      "sentry.segment.id": "bf99da230bbd0261",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263325.1081753,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.anthropic.messages.with_response",
+   "mode": "nodc",
+   "integration": "js.anthropic",
+   "package": "anthropic",
+   "twin": "anthropic.messages.raw_response",
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 2600,
+      "output_tokens": 120,
+      "cached": 2048,
+      "cache_write": 512,
+      "reasoning": 0,
+      "model": "claude-sonnet-5-5",
+      "response_id": "msg_sp1",
+      "finish": "end_turn",
+      "total": 2720
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.29,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.wrong.input_tokens",
+     "check": "usage",
+     "severity": "high",
+     "scenario": "js.anthropic.messages.with_response",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.input_tokens",
+     "expected": 2600,
+     "actual": 40,
+     "message": "input_tokens is 40, provider said 2600",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.cached",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.with_response",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_read.input_tokens",
+     "expected": 2048,
+     "actual": null,
+     "message": "cached not reported (provider said 2048)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "usage.missing.cache_write",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.with_response",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.usage.cache_creation.input_tokens",
+     "expected": 512,
+     "actual": null,
+     "message": "cache_write not reported (provider said 512)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.total_mismatch",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.with_response",
+     "integration": "js.anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.total_tokens",
+     "expected": 160,
+     "actual": 2720,
+     "message": "total_tokens != input_tokens + output_tokens",
+     "mode": "nodc"
+    },
+    {
+     "rule": "identity.finish_missing",
+     "check": "identity",
+     "severity": "medium",
+     "scenario": "js.anthropic.messages.with_response",
+     "integration": "js.anthropic",
+     "call": 0,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "end_turn",
+     "actual": null,
+     "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "a56b320d837b47e185c70d1e622a801a",
+     "span_id": "9185cfd9056ca16d",
+     "parent_span_id": "8cf1279f9cf676c8",
+     "op": "gen_ai.generate_content",
+     "description": "generate_content gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.vercelai.channel",
+      "sentry.op": "gen_ai.generate_content",
+      "gen_ai.operation.name": "generate_content",
+      "gen_ai.provider.name": "openai.chat",
+      "vercel.ai.model.provider": "openai.chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "vercel.ai.operationId": "ai.generateText.doGenerate",
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.total_tokens": 1500,
+      "gen_ai.usage.cache_read.input_tokens": 0,
+      "gen_ai.response.finish_reasons": "[\"stop\"]",
+      "gen_ai.response.id": "chatcmpl-vercel",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.output_tokens.prediction_accepted": 0,
+      "gen_ai.usage.output_tokens.prediction_rejected": 0,
+      "gen_ai.output.messages": "[{\"role\":\"assistant\",\"parts\":[{\"type\":\"text\",\"content\":\"Paris.\"}],\"finish_reason\":\"stop\"}]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.vercel_ai.generate_text",
+      "sentry.segment.id": "99bf2d157602dec1",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263325.9284453,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "a56b320d837b47e185c70d1e622a801a",
+     "span_id": "8cf1279f9cf676c8",
+     "parent_span_id": "99bf2d157602dec1",
+     "op": "gen_ai.invoke_agent",
+     "description": "invoke_agent",
+     "data": {
+      "sentry.origin": "auto.vercelai.channel",
+      "sentry.op": "gen_ai.invoke_agent",
+      "gen_ai.operation.name": "invoke_agent",
+      "gen_ai.provider.name": "openai.chat",
+      "vercel.ai.model.provider": "openai.chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "vercel.ai.settings.maxRetries": 2,
+      "vercel.ai.operationId": "ai.generateText",
+      "gen_ai.response.streaming": false,
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.total_tokens": 1500,
+      "gen_ai.usage.cache_read.input_tokens": 0,
+      "gen_ai.response.id": "chatcmpl-vercel",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.output_tokens.prediction_accepted": 0,
+      "gen_ai.usage.output_tokens.prediction_rejected": 0,
+      "gen_ai.output.messages": "[{\"role\":\"assistant\",\"parts\":[{\"type\":\"text\",\"content\":\"Paris.\"}],\"finish_reason\":\"stop\"}]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.vercel_ai.generate_text",
+      "sentry.segment.id": "99bf2d157602dec1",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263325.927024,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "a56b320d837b47e185c70d1e622a801a",
+     "span_id": "99bf2d157602dec1",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.vercel_ai.generate_text",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.vercel_ai.generate_text",
+      "sentry.segment.id": "99bf2d157602dec1",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263325.8469508,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.vercel_ai.generate_text",
+   "mode": "default",
+   "integration": "js.vercel_ai",
+   "package": "vercel_ai",
+   "twin": null,
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 300,
+      "cached": 0,
+      "cache_write": 0,
+      "reasoning": 256,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-vercel",
+      "finish": "stop",
+      "total": 1500
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.04,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.missing.reasoning",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": 0,
+     "attribute": "gen_ai.usage.reasoning.output_tokens",
+     "expected": 256,
+     "actual": null,
+     "message": "reasoning not reported (provider said 256)",
+     "mode": "default"
+    },
+    {
+     "rule": "aggregation.double_count.input_tokens",
+     "check": "aggregation",
+     "severity": "high",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "input_tokens",
+     "expected": 1200,
+     "actual": 2400,
+     "message": "sum(input_tokens) over the trace is 2400, billed 1200 (x2.00); hierarchical spans double count",
+     "mode": "default"
+    },
+    {
+     "rule": "aggregation.double_count.output_tokens",
+     "check": "aggregation",
+     "severity": "high",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "output_tokens",
+     "expected": 300,
+     "actual": 600,
+     "message": "sum(output_tokens) over the trace is 600, billed 300 (x2.00); hierarchical spans double count",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.prediction_accepted",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.usage.output_tokens.prediction_accepted is not in sentry-conventions",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.prediction_rejected",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.usage.output_tokens.prediction_rejected is not in sentry-conventions",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.prediction_accepted",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.usage.output_tokens.prediction_accepted is not in sentry-conventions",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.prediction_rejected",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.usage.output_tokens.prediction_rejected is not in sentry-conventions",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "227e3ed4f123413287422001f9f26165",
+     "span_id": "9cf9f3e2019756d3",
+     "parent_span_id": "a366b250bbe47881",
+     "op": "gen_ai.generate_content",
+     "description": "generate_content gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.vercelai.channel",
+      "sentry.op": "gen_ai.generate_content",
+      "gen_ai.operation.name": "generate_content",
+      "gen_ai.provider.name": "openai.chat",
+      "vercel.ai.model.provider": "openai.chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "vercel.ai.operationId": "ai.generateText.doGenerate",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.total_tokens": 1500,
+      "gen_ai.usage.cache_read.input_tokens": 0,
+      "gen_ai.response.finish_reasons": "[\"stop\"]",
+      "gen_ai.response.id": "chatcmpl-vercel",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.output_tokens.prediction_accepted": 0,
+      "gen_ai.usage.output_tokens.prediction_rejected": 0,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.vercel_ai.generate_text",
+      "sentry.segment.id": "8914a4b717d59de8",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263326.2222967,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "227e3ed4f123413287422001f9f26165",
+     "span_id": "a366b250bbe47881",
+     "parent_span_id": "8914a4b717d59de8",
+     "op": "gen_ai.invoke_agent",
+     "description": "invoke_agent",
+     "data": {
+      "sentry.origin": "auto.vercelai.channel",
+      "sentry.op": "gen_ai.invoke_agent",
+      "gen_ai.operation.name": "invoke_agent",
+      "gen_ai.provider.name": "openai.chat",
+      "vercel.ai.model.provider": "openai.chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "vercel.ai.settings.maxRetries": 2,
+      "vercel.ai.operationId": "ai.generateText",
+      "gen_ai.response.streaming": false,
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.total_tokens": 1500,
+      "gen_ai.usage.cache_read.input_tokens": 0,
+      "gen_ai.response.id": "chatcmpl-vercel",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.output_tokens.prediction_accepted": 0,
+      "gen_ai.usage.output_tokens.prediction_rejected": 0,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.vercel_ai.generate_text",
+      "sentry.segment.id": "8914a4b717d59de8",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263326.2208824,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "227e3ed4f123413287422001f9f26165",
+     "span_id": "8914a4b717d59de8",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.vercel_ai.generate_text",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.vercel_ai.generate_text",
+      "sentry.segment.id": "8914a4b717d59de8",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263326.159382,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.vercel_ai.generate_text",
+   "mode": "nodc",
+   "integration": "js.vercel_ai",
+   "package": "vercel_ai",
+   "twin": null,
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 300,
+      "cached": 0,
+      "cache_write": 0,
+      "reasoning": 256,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-vercel",
+      "finish": "stop",
+      "total": 1500
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.2,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "usage.missing.reasoning",
+     "check": "usage",
+     "severity": "medium",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": 0,
+     "attribute": "gen_ai.usage.reasoning.output_tokens",
+     "expected": 256,
+     "actual": null,
+     "message": "reasoning not reported (provider said 256)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "aggregation.double_count.input_tokens",
+     "check": "aggregation",
+     "severity": "high",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "input_tokens",
+     "expected": 1200,
+     "actual": 2400,
+     "message": "sum(input_tokens) over the trace is 2400, billed 1200 (x2.00); hierarchical spans double count",
+     "mode": "nodc"
+    },
+    {
+     "rule": "aggregation.double_count.output_tokens",
+     "check": "aggregation",
+     "severity": "high",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "output_tokens",
+     "expected": 300,
+     "actual": 600,
+     "message": "sum(output_tokens) over the trace is 600, billed 300 (x2.00); hierarchical spans double count",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.prediction_accepted",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.usage.output_tokens.prediction_accepted is not in sentry-conventions",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.prediction_rejected",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.usage.output_tokens.prediction_rejected is not in sentry-conventions",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.prediction_accepted",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.usage.output_tokens.prediction_accepted is not in sentry-conventions",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.vercel_ai.generate_text",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.prediction_rejected",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.usage.output_tokens.prediction_rejected is not in sentry-conventions",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "ac9bfdcf55f54003bbac723825eddcb7",
+     "span_id": "ae319e5f8ae90fca",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.vercel_ai.stream_text.early_close",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.vercel_ai.stream_text.early_close",
+      "sentry.segment.id": "ae319e5f8ae90fca",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263326.1882598,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "ac9bfdcf55f54003bbac723825eddcb7",
+     "span_id": "85aa29de1b503408",
+     "parent_span_id": "a42541c4306c6bd5",
+     "op": "gen_ai.generate_content",
+     "description": "generate_content gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.vercelai.channel",
+      "sentry.op": "gen_ai.generate_content",
+      "gen_ai.operation.name": "generate_content",
+      "gen_ai.provider.name": "openai.chat",
+      "vercel.ai.model.provider": "openai.chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "vercel.ai.operationId": "ai.streamText.doStream",
+      "gen_ai.input.messages": "[{\"role\":\"user\",\"content\":\"Capital of France?\"}]",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.total_tokens": 1500,
+      "gen_ai.usage.cache_read.input_tokens": 0,
+      "gen_ai.response.finish_reasons": "[\"stop\"]",
+      "gen_ai.response.id": "chatcmpl-vs",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.output_tokens.prediction_accepted": 0,
+      "gen_ai.usage.output_tokens.prediction_rejected": 0,
+      "gen_ai.output.messages": "[{\"role\":\"assistant\",\"parts\":[{\"type\":\"text\",\"content\":\"The capital is Paris. \"}],\"finish_reason\":\"stop\"}]",
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.vercel_ai.stream_text.early_close",
+      "sentry.segment.id": "ae319e5f8ae90fca",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263326.2401233,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": true,
+   "node": "v25.8.0",
+   "scenario": "js.vercel_ai.stream_text.early_close",
+   "mode": "default",
+   "integration": "js.vercel_ai",
+   "package": "vercel_ai",
+   "twin": null,
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.chat",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 1.05,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "structure.orphan",
+     "check": "structure",
+     "severity": "high",
+     "scenario": "js.vercel_ai.stream_text.early_close",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "parent_span_id",
+     "expected": "present",
+     "actual": "a42541c4306c6bd5",
+     "message": "span gen_ai.generate_content has a parent that was never sent",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.vercel_ai.stream_text.early_close",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.prediction_accepted",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.usage.output_tokens.prediction_accepted is not in sentry-conventions",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.vercel_ai.stream_text.early_close",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.prediction_rejected",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.usage.output_tokens.prediction_rejected is not in sentry-conventions",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "5c7f6614a60f489d9dca6d1b166396c7",
+     "span_id": "84c0d7c6de4224fa",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "js.vercel_ai.stream_text.early_close",
+     "data": {
+      "sentry.origin": "manual",
+      "sentry.op": "spanproof.scenario",
+      "sentry.segment.name.source": "custom",
+      "sentry.sample_rate": 1,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.vercel_ai.stream_text.early_close",
+      "sentry.segment.id": "84c0d7c6de4224fa",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof",
+      "sentry.sdk.integrations": [
+       "OpenAI",
+       "Anthropic_AI",
+       "VercelAI",
+       "SpanStreaming"
+      ]
+     },
+     "status": "ok",
+     "start": 1791263326.397854,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "5c7f6614a60f489d9dca6d1b166396c7",
+     "span_id": "899cc3d4841cd382",
+     "parent_span_id": "87a379a091d3a396",
+     "op": "gen_ai.generate_content",
+     "description": "generate_content gpt-5-mini",
+     "data": {
+      "sentry.origin": "auto.vercelai.channel",
+      "sentry.op": "gen_ai.generate_content",
+      "gen_ai.operation.name": "generate_content",
+      "gen_ai.provider.name": "openai.chat",
+      "vercel.ai.model.provider": "openai.chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "vercel.ai.operationId": "ai.streamText.doStream",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.total_tokens": 1500,
+      "gen_ai.usage.cache_read.input_tokens": 0,
+      "gen_ai.response.finish_reasons": "[\"stop\"]",
+      "gen_ai.response.id": "chatcmpl-vs",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.output_tokens.prediction_accepted": 0,
+      "gen_ai.usage.output_tokens.prediction_rejected": 0,
+      "sentry.trace_lifecycle": "stream",
+      "sentry.segment.name": "js.vercel_ai.stream_text.early_close",
+      "sentry.segment.id": "84c0d7c6de4224fa",
+      "sentry.sdk.name": "sentry.javascript.node",
+      "sentry.sdk.version": "11.4.0",
+      "sentry.environment": "spanproof"
+     },
+     "status": "ok",
+     "start": 1791263326.4464543,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 0,
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "versions": {
+    "@sentry/node": "11.4.0",
+    "openai": "7.28.0",
+    "@anthropic-ai/sdk": "0.131.0",
+    "ai": "7.0.128"
+   },
+   "data_collection": false,
+   "node": "v25.8.0",
+   "scenario": "js.vercel_ai.stream_text.early_close",
+   "mode": "nodc",
+   "integration": "js.vercel_ai",
+   "package": "vercel_ai",
+   "twin": null,
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.chat",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "seconds": 3.54,
+   "language": "javascript",
+   "findings": [
+    {
+     "rule": "structure.orphan",
+     "check": "structure",
+     "severity": "high",
+     "scenario": "js.vercel_ai.stream_text.early_close",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "parent_span_id",
+     "expected": "present",
+     "actual": "87a379a091d3a396",
+     "message": "span gen_ai.generate_content has a parent that was never sent",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.vercel_ai.stream_text.early_close",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.prediction_accepted",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.usage.output_tokens.prediction_accepted is not in sentry-conventions",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.unregistered",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "js.vercel_ai.stream_text.early_close",
+     "integration": "js.vercel_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.prediction_rejected",
+     "expected": "registered",
+     "actual": "unregistered",
+     "message": "gen_ai.usage.output_tokens.prediction_rejected is not in sentry-conventions",
+     "mode": "nodc"
+    }
+   ]
+  }
+ ]
+}

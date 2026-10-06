@@ -26,7 +26,34 @@ class MemoryTransport(Transport):
             self.items.append((t, payload))
 
 
+class ForwardingTransport(MemoryTransport):
+    """Records every envelope like MemoryTransport AND sends it to a real Sentry project.
+
+    Used when SPANPROOF_DSN is set, so a run can be compared at three points: what the SDK
+    sent (recorded here), what Sentry stored (read back through the API), and the truth.
+    """
+
+    def __init__(self, options=None):
+        super().__init__(options)
+        from sentry_sdk.transport import HttpTransport
+
+        self.inner = HttpTransport(options)
+
+    def capture_envelope(self, envelope):
+        super().capture_envelope(envelope)
+        self.inner.capture_envelope(envelope)
+
+    def flush(self, timeout, callback=None):
+        self.inner.flush(timeout, callback)
+
+    def kill(self):
+        self.inner.kill()
+
+
 def init(integrations: list, *, data_collection: bool = True, extra: dict | None = None) -> MemoryTransport:
+    import os
+
+    real_dsn = os.environ.get("SPANPROOF_DSN")
     transport = MemoryTransport()
     opts = dict(
         dsn="http://spanproof@127.0.0.1:9/1",  # never contacted: transport is in-memory
@@ -38,6 +65,17 @@ def init(integrations: list, *, data_collection: bool = True, extra: dict | None
         auto_enabling_integrations=False,
     )
     opts.update(extra or {})
+    if real_dsn:
+        opts["dsn"] = real_dsn
+        opts["environment"] = os.environ.get("SPANPROOF_ENV", "spanproof")
+        opts.pop("transport")
+        sentry_sdk.init(**opts)
+        transport = ForwardingTransport(sentry_sdk.get_client().options)
+        sentry_sdk.get_client().transport = transport
+        run = os.environ.get("SPANPROOF_RUN")
+        if run:
+            sentry_sdk.set_tag("spanproof.run", run)
+        return transport
     sentry_sdk.init(**opts)
     return transport
 

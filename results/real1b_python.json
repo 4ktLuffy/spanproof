@@ -1,0 +1,3031 @@
+{
+ "label": "",
+ "python": "~/spanproof-work/.venv-latest/bin/python",
+ "generated": "2026-10-06T08:26:29",
+ "results": [
+  {
+   "spans": [
+    {
+     "trace_id": "0b1deeb9cb3f48bb85fc8587f1ae77ec",
+     "span_id": "a937791d8d2916ca",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "anthropic.messages.sync",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264355.947499,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "0b1deeb9cb3f48bb85fc8587f1ae77ec",
+     "span_id": "b54d1782fde0e4a6",
+     "parent_span_id": "a937791d8d2916ca",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.anthropic",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.response.streaming": false,
+      "gen_ai.system": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.system_instructions": "[{\"type\": \"text\", \"content\": \"Be brief.\"}]",
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.response.id": "msg_sp1",
+      "gen_ai.response.finish_reasons": [
+       "end_turn"
+      ],
+      "gen_ai.response.text": "Paris.",
+      "gen_ai.usage.input_tokens": 2600,
+      "gen_ai.usage.input_tokens.cached": 2048,
+      "gen_ai.usage.input_tokens.cache_write": 512,
+      "gen_ai.usage.output_tokens": 120,
+      "gen_ai.usage.total_tokens": 2720,
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "spanproof",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "anthropic.messages.sync",
+      "sentry.segment.id": "a937791d8d2916ca",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791264355.984946,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "anthropic.messages.sync",
+   "integration": "anthropic",
+   "package": "anthropic",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "anthropic": "1.11.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 2600,
+      "output_tokens": 120,
+      "cached": 2048,
+      "cache_write": 512,
+      "reasoning": 0,
+      "model": "claude-sonnet-5-5",
+      "response_id": "msg_sp1",
+      "finish": "end_turn",
+      "total": 2720
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "usage",
+    "cached",
+    "cache_write"
+   ],
+   "mode": "default",
+   "seconds": 6.53,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.type",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "string",
+     "actual": "list",
+     "message": "gen_ai.response.finish_reasons should be string, got list",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cache_write",
+     "expected": "gen_ai.usage.cache_creation.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cache_write",
+     "message": "gen_ai.usage.input_tokens.cache_write is deprecated; use gen_ai.usage.cache_creation.input_tokens",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "5533bdf47bc14901ab34b7b49898e5e4",
+     "span_id": "9d0d6636262720da",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "anthropic.messages.sync",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264355.947507,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "5533bdf47bc14901ab34b7b49898e5e4",
+     "span_id": "9618bdc7a70e9042",
+     "parent_span_id": "9d0d6636262720da",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.response.streaming": false,
+      "gen_ai.system": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.system_instructions": "[{\"type\": \"text\", \"content\": \"Be brief.\"}]",
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.response.id": "msg_sp1",
+      "gen_ai.response.finish_reasons": [
+       "end_turn"
+      ],
+      "gen_ai.response.text": "Paris.",
+      "gen_ai.usage.input_tokens": 2600,
+      "gen_ai.usage.input_tokens.cached": 2048,
+      "gen_ai.usage.input_tokens.cache_write": 512,
+      "gen_ai.usage.output_tokens": 120,
+      "gen_ai.usage.total_tokens": 2720
+     },
+     "status": null,
+     "start": 1791264355.984946,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "anthropic.messages.sync",
+   "integration": "anthropic",
+   "package": "anthropic",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "anthropic": "1.11.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 2600,
+      "output_tokens": 120,
+      "cached": 2048,
+      "cache_write": 512,
+      "reasoning": 0,
+      "model": "claude-sonnet-5-5",
+      "response_id": "msg_sp1",
+      "finish": "end_turn",
+      "total": 2720
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": true,
+   "tags": [
+    "usage",
+    "cached",
+    "cache_write"
+   ],
+   "mode": "legacy",
+   "seconds": 6.71,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.type",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "string",
+     "actual": "list",
+     "message": "gen_ai.response.finish_reasons should be string, got list",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cache_write",
+     "expected": "gen_ai.usage.cache_creation.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cache_write",
+     "message": "gen_ai.usage.input_tokens.cache_write is deprecated; use gen_ai.usage.cache_creation.input_tokens",
+     "mode": "legacy"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "69e7c17fc5b44ae69dddfa836b18bc76",
+     "span_id": "bd871a81afb023d9",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "anthropic.messages.sync",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264355.947533,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "69e7c17fc5b44ae69dddfa836b18bc76",
+     "span_id": "a2525fa5ec91c49e",
+     "parent_span_id": "bd871a81afb023d9",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.anthropic",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.response.streaming": false,
+      "gen_ai.system": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.response.id": "msg_sp1",
+      "gen_ai.response.finish_reasons": [
+       "end_turn"
+      ],
+      "gen_ai.usage.input_tokens": 2600,
+      "gen_ai.usage.input_tokens.cached": 2048,
+      "gen_ai.usage.input_tokens.cache_write": 512,
+      "gen_ai.usage.output_tokens": 120,
+      "gen_ai.usage.total_tokens": 2720,
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "spanproof",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "anthropic.messages.sync",
+      "sentry.segment.id": "bd871a81afb023d9",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791264355.984951,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "anthropic.messages.sync",
+   "integration": "anthropic",
+   "package": "anthropic",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "anthropic": "1.11.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 2600,
+      "output_tokens": 120,
+      "cached": 2048,
+      "cache_write": 512,
+      "reasoning": 0,
+      "model": "claude-sonnet-5-5",
+      "response_id": "msg_sp1",
+      "finish": "end_turn",
+      "total": 2720
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": false,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "usage",
+    "cached",
+    "cache_write"
+   ],
+   "mode": "nodc",
+   "seconds": 6.75,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.type",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "string",
+     "actual": "list",
+     "message": "gen_ai.response.finish_reasons should be string, got list",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "anthropic.messages.sync",
+     "integration": "anthropic",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cache_write",
+     "expected": "gen_ai.usage.cache_creation.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cache_write",
+     "message": "gen_ai.usage.input_tokens.cache_write is deprecated; use gen_ai.usage.cache_creation.input_tokens",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "a211df55eda14d0b8d75e0e85ebf5387",
+     "span_id": "b1cb4a2d96507eae",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "google_genai.generate_content",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264361.692545,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "a211df55eda14d0b8d75e0e85ebf5387",
+     "span_id": "929cab96f953c47d",
+     "parent_span_id": "b1cb4a2d96507eae",
+     "op": "gen_ai.chat",
+     "description": "chat gemini-3-flash",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.google_genai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.system": "gcp.gemini",
+      "gen_ai.request.model": "gemini-3-flash",
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.response.finish_reasons": "STOP",
+      "gen_ai.response.id": "gen_sp1",
+      "gen_ai.response.model": "gemini-3-flash",
+      "gen_ai.usage.input_tokens": 900,
+      "gen_ai.usage.input_tokens.cached": 512,
+      "gen_ai.usage.output_tokens": 350,
+      "gen_ai.usage.output_tokens.reasoning": 150,
+      "gen_ai.usage.total_tokens": 1250,
+      "gen_ai.response.text": "[\"Paris.\"]",
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "spanproof",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "google_genai.generate_content",
+      "sentry.segment.id": "b1cb4a2d96507eae",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791264361.704557,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "google_genai.generate_content",
+   "integration": "google_genai",
+   "package": "google-genai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "google-genai": "2.28.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1beta/models/gemini-3-flash:generateContent"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 900,
+      "output_tokens": 350,
+      "cached": 512,
+      "cache_write": 0,
+      "reasoning": 150,
+      "model": "gemini-3-flash",
+      "response_id": "gen_sp1",
+      "finish": "STOP",
+      "total": 1250
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "usage",
+    "cached",
+    "reasoning"
+   ],
+   "mode": "default",
+   "seconds": 5.85,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "3f79ddc8c44e4e1f8673e0df6cb07529",
+     "span_id": "9ba47d4fa8d85859",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "google_genai.generate_content",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264361.839156,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "3f79ddc8c44e4e1f8673e0df6cb07529",
+     "span_id": "b283d60b1b486585",
+     "parent_span_id": "9ba47d4fa8d85859",
+     "op": "gen_ai.chat",
+     "description": "chat gemini-3-flash",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.system": "gcp.gemini",
+      "gen_ai.request.model": "gemini-3-flash",
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.response.finish_reasons": "STOP",
+      "gen_ai.response.id": "gen_sp1",
+      "gen_ai.response.model": "gemini-3-flash",
+      "gen_ai.usage.input_tokens": 900,
+      "gen_ai.usage.input_tokens.cached": 512,
+      "gen_ai.usage.output_tokens": 350,
+      "gen_ai.usage.output_tokens.reasoning": 150,
+      "gen_ai.usage.total_tokens": 1250,
+      "gen_ai.response.text": "[\"Paris.\"]"
+     },
+     "status": null,
+     "start": 1791264361.851971,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "google_genai.generate_content",
+   "integration": "google_genai",
+   "package": "google-genai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "google-genai": "2.28.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1beta/models/gemini-3-flash:generateContent"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 900,
+      "output_tokens": 350,
+      "cached": 512,
+      "cache_write": 0,
+      "reasoning": 150,
+      "model": "gemini-3-flash",
+      "response_id": "gen_sp1",
+      "finish": "STOP",
+      "total": 1250
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": true,
+   "tags": [
+    "usage",
+    "cached",
+    "reasoning"
+   ],
+   "mode": "legacy",
+   "seconds": 5.83,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "legacy"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "666faa8a67b9412083229ecfbfcd9fb1",
+     "span_id": "b71ba9e6d935dc1e",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "google_genai.generate_content",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264361.882033,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "666faa8a67b9412083229ecfbfcd9fb1",
+     "span_id": "b86fc6e4b2ad1bbe",
+     "parent_span_id": "b71ba9e6d935dc1e",
+     "op": "gen_ai.chat",
+     "description": "chat gemini-3-flash",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.google_genai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.system": "gcp.gemini",
+      "gen_ai.request.model": "gemini-3-flash",
+      "gen_ai.response.finish_reasons": "STOP",
+      "gen_ai.response.id": "gen_sp1",
+      "gen_ai.response.model": "gemini-3-flash",
+      "gen_ai.usage.input_tokens": 900,
+      "gen_ai.usage.input_tokens.cached": 512,
+      "gen_ai.usage.output_tokens": 350,
+      "gen_ai.usage.output_tokens.reasoning": 150,
+      "gen_ai.usage.total_tokens": 1250,
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "spanproof",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "google_genai.generate_content",
+      "sentry.segment.id": "b71ba9e6d935dc1e",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791264361.892642,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "google_genai.generate_content",
+   "integration": "google_genai",
+   "package": "google-genai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "google-genai": "2.28.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1beta/models/gemini-3-flash:generateContent"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 900,
+      "output_tokens": 350,
+      "cached": 512,
+      "cache_write": 0,
+      "reasoning": 150,
+      "model": "gemini-3-flash",
+      "response_id": "gen_sp1",
+      "finish": "STOP",
+      "total": 1250
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": false,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "usage",
+    "cached",
+    "reasoning"
+   ],
+   "mode": "nodc",
+   "seconds": 6.02,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "49569e4941994cf59fc9eae6c6dfe8d7",
+     "span_id": "9c25aebf984809dc",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "google_genai.generate_content_stream",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264367.529191,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "49569e4941994cf59fc9eae6c6dfe8d7",
+     "span_id": "99b3144e3fa34901",
+     "parent_span_id": "9c25aebf984809dc",
+     "op": "gen_ai.chat",
+     "description": "chat gemini-3-flash",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.google_genai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.system": "gcp.gemini",
+      "gen_ai.request.model": "gemini-3-flash",
+      "gen_ai.response.streaming": true,
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.response.finish_reasons": "STOP",
+      "gen_ai.usage.input_tokens": 900,
+      "gen_ai.usage.input_tokens.cached": 512,
+      "gen_ai.usage.output_tokens": 350,
+      "gen_ai.usage.output_tokens.reasoning": 150,
+      "gen_ai.usage.total_tokens": 1250,
+      "gen_ai.response.text": "[\"The capital is Paris.\"]",
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "spanproof",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "google_genai.generate_content_stream",
+      "sentry.segment.id": "9c25aebf984809dc",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791264367.540979,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "google_genai.generate_content_stream",
+   "integration": "google_genai",
+   "package": "google-genai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "google-genai": "2.28.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1beta/models/gemini-3-flash:streamGenerateContent?alt=sse"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 900,
+      "output_tokens": 350,
+      "cached": 512,
+      "cache_write": 0,
+      "reasoning": 150,
+      "model": "gemini-3-flash",
+      "response_id": "gen_sp2",
+      "finish": "",
+      "total": 1250
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "usage",
+    "stream"
+   ],
+   "mode": "default",
+   "seconds": 5.87,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.model_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": 0,
+     "attribute": "gen_ai.response.model",
+     "expected": "gemini-3-flash",
+     "actual": null,
+     "message": "response model not recorded",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "gen_sp2",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "40680cd9f22e4c1bbc891d239272be7d",
+     "span_id": "b2e5953660e6a8c2",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "google_genai.generate_content_stream",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264367.64354,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "40680cd9f22e4c1bbc891d239272be7d",
+     "span_id": "a6aabf2e98ef19d3",
+     "parent_span_id": "b2e5953660e6a8c2",
+     "op": "gen_ai.chat",
+     "description": "chat gemini-3-flash",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.system": "gcp.gemini",
+      "gen_ai.request.model": "gemini-3-flash",
+      "gen_ai.response.streaming": true,
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.response.finish_reasons": "STOP",
+      "gen_ai.usage.input_tokens": 900,
+      "gen_ai.usage.input_tokens.cached": 512,
+      "gen_ai.usage.output_tokens": 350,
+      "gen_ai.usage.output_tokens.reasoning": 150,
+      "gen_ai.usage.total_tokens": 1250,
+      "gen_ai.response.text": "[\"The capital is Paris.\"]"
+     },
+     "status": null,
+     "start": 1791264367.654617,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "google_genai.generate_content_stream",
+   "integration": "google_genai",
+   "package": "google-genai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "google-genai": "2.28.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1beta/models/gemini-3-flash:streamGenerateContent?alt=sse"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 900,
+      "output_tokens": 350,
+      "cached": 512,
+      "cache_write": 0,
+      "reasoning": 150,
+      "model": "gemini-3-flash",
+      "response_id": "gen_sp2",
+      "finish": "",
+      "total": 1250
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": true,
+   "tags": [
+    "usage",
+    "stream"
+   ],
+   "mode": "legacy",
+   "seconds": 5.96,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "legacy"
+    },
+    {
+     "rule": "identity.model_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": 0,
+     "attribute": "gen_ai.response.model",
+     "expected": "gemini-3-flash",
+     "actual": null,
+     "message": "response model not recorded",
+     "mode": "legacy"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "gen_sp2",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "legacy"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "4c388912b0064fba8c872a0c0215cb56",
+     "span_id": "be15787a003c65c5",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "google_genai.generate_content_stream",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264367.87107,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "4c388912b0064fba8c872a0c0215cb56",
+     "span_id": "bff2e2e1279f7aeb",
+     "parent_span_id": "be15787a003c65c5",
+     "op": "gen_ai.chat",
+     "description": "chat gemini-3-flash",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.google_genai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.system": "gcp.gemini",
+      "gen_ai.request.model": "gemini-3-flash",
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.finish_reasons": "STOP",
+      "gen_ai.usage.input_tokens": 900,
+      "gen_ai.usage.input_tokens.cached": 512,
+      "gen_ai.usage.output_tokens": 350,
+      "gen_ai.usage.output_tokens.reasoning": 150,
+      "gen_ai.usage.total_tokens": 1250,
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "spanproof",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "google_genai.generate_content_stream",
+      "sentry.segment.id": "be15787a003c65c5",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791264367.8815,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "google_genai.generate_content_stream",
+   "integration": "google_genai",
+   "package": "google-genai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "google-genai": "2.28.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1beta/models/gemini-3-flash:streamGenerateContent?alt=sse"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 900,
+      "output_tokens": 350,
+      "cached": 512,
+      "cache_write": 0,
+      "reasoning": 150,
+      "model": "gemini-3-flash",
+      "response_id": "gen_sp2",
+      "finish": "",
+      "total": 1250
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": false,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "usage",
+    "stream"
+   ],
+   "mode": "nodc",
+   "seconds": 5.7,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "nodc"
+    },
+    {
+     "rule": "identity.model_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": 0,
+     "attribute": "gen_ai.response.model",
+     "expected": "gemini-3-flash",
+     "actual": null,
+     "message": "response model not recorded",
+     "mode": "nodc"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream",
+     "integration": "google_genai",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "gen_sp2",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "8efad863dcf24ae7b47f57c3acf236bc",
+     "span_id": "8773a77c4d3b25af",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "google_genai.generate_content_stream.early_close",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264373.386798,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "8efad863dcf24ae7b47f57c3acf236bc",
+     "span_id": "a06bdc4f78577bd3",
+     "parent_span_id": "8773a77c4d3b25af",
+     "op": "gen_ai.chat",
+     "description": "chat gemini-3-flash",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.google_genai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.system": "gcp.gemini",
+      "gen_ai.request.model": "gemini-3-flash",
+      "gen_ai.response.streaming": true,
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.usage.input_tokens": 900,
+      "gen_ai.usage.input_tokens.cached": 512,
+      "gen_ai.usage.output_tokens": 250,
+      "gen_ai.usage.output_tokens.reasoning": 150,
+      "gen_ai.usage.total_tokens": 1150,
+      "gen_ai.response.text": "[\"The capital \"]",
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "spanproof",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "google_genai.generate_content_stream.early_close",
+      "sentry.segment.id": "8773a77c4d3b25af",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791264373.398233,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "google_genai.generate_content_stream.early_close",
+   "integration": "google_genai",
+   "package": "google-genai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "google-genai": "2.28.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1beta/models/gemini-3-flash:streamGenerateContent?alt=sse"
+    }
+   ],
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.chat",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "lifecycle",
+    "stream"
+   ],
+   "mode": "default",
+   "seconds": 6.94,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "76e0b2e204b24cd6bed8358e6c4b1a8d",
+     "span_id": "bf455de8eb493713",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "google_genai.generate_content_stream.early_close",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264373.56304,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "76e0b2e204b24cd6bed8358e6c4b1a8d",
+     "span_id": "9e2d35e5f3e28f05",
+     "parent_span_id": "bf455de8eb493713",
+     "op": "gen_ai.chat",
+     "description": "chat gemini-3-flash",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.system": "gcp.gemini",
+      "gen_ai.request.model": "gemini-3-flash",
+      "gen_ai.response.streaming": true,
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.usage.input_tokens": 900,
+      "gen_ai.usage.input_tokens.cached": 512,
+      "gen_ai.usage.output_tokens": 250,
+      "gen_ai.usage.output_tokens.reasoning": 150,
+      "gen_ai.usage.total_tokens": 1150,
+      "gen_ai.response.text": "[\"The capital \"]"
+     },
+     "status": null,
+     "start": 1791264373.574359,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "google_genai.generate_content_stream.early_close",
+   "integration": "google_genai",
+   "package": "google-genai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "google-genai": "2.28.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1beta/models/gemini-3-flash:streamGenerateContent?alt=sse"
+    }
+   ],
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.chat",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": true,
+   "tags": [
+    "lifecycle",
+    "stream"
+   ],
+   "mode": "legacy",
+   "seconds": 6.8,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "legacy"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "1c56c6758c96422da32fba491a31faed",
+     "span_id": "8b7232185b8152aa",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "google_genai.generate_content_stream.early_close",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264373.599507,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "1c56c6758c96422da32fba491a31faed",
+     "span_id": "94af34b3f3a41c27",
+     "parent_span_id": "8b7232185b8152aa",
+     "op": "gen_ai.chat",
+     "description": "chat gemini-3-flash",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.google_genai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.system": "gcp.gemini",
+      "gen_ai.request.model": "gemini-3-flash",
+      "gen_ai.response.streaming": true,
+      "gen_ai.usage.input_tokens": 900,
+      "gen_ai.usage.input_tokens.cached": 512,
+      "gen_ai.usage.output_tokens": 250,
+      "gen_ai.usage.output_tokens.reasoning": 150,
+      "gen_ai.usage.total_tokens": 1150,
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "spanproof",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "google_genai.generate_content_stream.early_close",
+      "sentry.segment.id": "8b7232185b8152aa",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791264373.610132,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "google_genai.generate_content_stream.early_close",
+   "integration": "google_genai",
+   "package": "google-genai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "google-genai": "2.28.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1beta/models/gemini-3-flash:streamGenerateContent?alt=sse"
+    }
+   ],
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.chat",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": false,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "lifecycle",
+    "stream"
+   ],
+   "mode": "nodc",
+   "seconds": 6.69,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "google_genai.generate_content_stream.early_close",
+     "integration": "google_genai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "ec9a1c10ef52496d83cbb2624115dcf4",
+     "span_id": "85914391416d40e9",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "openai.chat.sync",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264380.768004,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "ec9a1c10ef52496d83cbb2624115dcf4",
+     "span_id": "8a4623536bdc5b71",
+     "parent_span_id": "85914391416d40e9",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.openai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.system": "openai",
+      "gen_ai.response.streaming": false,
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.system_instructions": "[{\"type\": \"text\", \"content\": \"Be brief.\"}]",
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.response.text": "{\"content\": \"Paris.\", \"refusal\": \"None\", \"role\": \"assistant\", \"annotations\": \"None\", \"audio\": \"None\", \"function_call\": \"None\", \"tool_calls\": \"None\"}",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.input_tokens.cached": 1024,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.output_tokens.reasoning": 256,
+      "gen_ai.usage.total_tokens": 1500,
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "spanproof",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "openai.chat.sync",
+      "sentry.segment.id": "85914391416d40e9",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791264380.772243,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "openai.chat.sync",
+   "integration": "openai",
+   "package": "openai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "openai": "2.54.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 300,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 256,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp1",
+      "finish": "stop",
+      "total": 1500
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "usage",
+    "cached",
+    "reasoning"
+   ],
+   "mode": "default",
+   "seconds": 7.74,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.finish_missing",
+     "check": "identity",
+     "severity": "medium",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": 0,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "stop",
+     "actual": null,
+     "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-sp1",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "fa248987cd6a4679aca7238cc8c9a316",
+     "span_id": "b09d5f4fb1a0b704",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "openai.chat.sync",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264380.767982,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "fa248987cd6a4679aca7238cc8c9a316",
+     "span_id": "aa847404855419cd",
+     "parent_span_id": "b09d5f4fb1a0b704",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.system": "openai",
+      "gen_ai.response.streaming": false,
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.system_instructions": "[{\"type\": \"text\", \"content\": \"Be brief.\"}]",
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.response.text": "{\"content\": \"Paris.\", \"refusal\": \"None\", \"role\": \"assistant\", \"annotations\": \"None\", \"audio\": \"None\", \"function_call\": \"None\", \"tool_calls\": \"None\"}",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.input_tokens.cached": 1024,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.output_tokens.reasoning": 256,
+      "gen_ai.usage.total_tokens": 1500
+     },
+     "status": null,
+     "start": 1791264380.772332,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "openai.chat.sync",
+   "integration": "openai",
+   "package": "openai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "openai": "2.54.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 300,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 256,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp1",
+      "finish": "stop",
+      "total": 1500
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": true,
+   "tags": [
+    "usage",
+    "cached",
+    "reasoning"
+   ],
+   "mode": "legacy",
+   "seconds": 7.73,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "legacy"
+    },
+    {
+     "rule": "identity.finish_missing",
+     "check": "identity",
+     "severity": "medium",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": 0,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "stop",
+     "actual": null,
+     "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+     "mode": "legacy"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-sp1",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "legacy"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "2192fd75651b4d99bbfe692594f0255d",
+     "span_id": "9f3abdaa6731b017",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "openai.chat.sync",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264380.767989,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "2192fd75651b4d99bbfe692594f0255d",
+     "span_id": "8a14a8a4d3e50e94",
+     "parent_span_id": "9f3abdaa6731b017",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.openai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.system": "openai",
+      "gen_ai.response.streaming": false,
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.input_tokens.cached": 1024,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.output_tokens.reasoning": 256,
+      "gen_ai.usage.total_tokens": 1500,
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "spanproof",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "openai.chat.sync",
+      "sentry.segment.id": "9f3abdaa6731b017",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791264380.77227,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "openai.chat.sync",
+   "integration": "openai",
+   "package": "openai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "openai": "2.54.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 300,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 256,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp1",
+      "finish": "stop",
+      "total": 1500
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": false,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "usage",
+    "cached",
+    "reasoning"
+   ],
+   "mode": "nodc",
+   "seconds": 7.66,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "nodc"
+    },
+    {
+     "rule": "identity.finish_missing",
+     "check": "identity",
+     "severity": "medium",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": 0,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "stop",
+     "actual": null,
+     "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "openai.chat.sync",
+     "integration": "openai",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-sp1",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "nodc"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "2f62a4f06dd94172abacf9e86e20431e",
+     "span_id": "b6dbe2a2783b4e64",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "openai.chat.tool_call",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264388.438882,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "2f62a4f06dd94172abacf9e86e20431e",
+     "span_id": "b8a7a21af15c9390",
+     "parent_span_id": "b6dbe2a2783b4e64",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.openai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.system": "openai",
+      "gen_ai.response.streaming": false,
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.tool.definitions": "[{\"type\": \"function\", \"name\": \"get_weather\", \"description\": \"Weather for a city\", \"parameters\": {\"type\": \"object\", \"properties\": {\"city\": {\"type\": \"string\"}}, \"required\": [\"city\"]}}]",
+      "gen_ai.system_instructions": "[{\"type\": \"text\", \"content\": \"Be brief.\"}]",
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.response.text": "{\"content\": \"None\", \"refusal\": \"None\", \"role\": \"assistant\", \"annotations\": \"None\", \"audio\": \"None\", \"function_call\": \"None\", \"tool_calls\": {\"id\": \"call_sp1\", \"function\": {\"arguments\": \"{\\\"city\\\":\\\"Paris\\\"}\", \"name\": \"get_weather\"}, \"type\": \"function\"}}",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.input_tokens.cached": 1024,
+      "gen_ai.usage.output_tokens": 40,
+      "gen_ai.usage.total_tokens": 1240,
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "spanproof",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "openai.chat.tool_call",
+      "sentry.segment.id": "b6dbe2a2783b4e64",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791264388.443224,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "openai.chat.tool_call",
+   "integration": "openai",
+   "package": "openai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "openai": "2.54.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 40,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 0,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp-tool",
+      "finish": "tool_calls",
+      "total": 1240
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "usage",
+    "tools"
+   ],
+   "mode": "default",
+   "seconds": 6.2,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.finish_missing",
+     "check": "identity",
+     "severity": "medium",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": 0,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "tool_calls",
+     "actual": null,
+     "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-sp-tool",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "a199fbd409074262afbaef29e5b06546",
+     "span_id": "be6948ba5bd409af",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "openai.chat.tool_call",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264388.438896,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "a199fbd409074262afbaef29e5b06546",
+     "span_id": "b97324c36120e415",
+     "parent_span_id": "be6948ba5bd409af",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.system": "openai",
+      "gen_ai.response.streaming": false,
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.tool.definitions": "[{\"type\": \"function\", \"name\": \"get_weather\", \"description\": \"Weather for a city\", \"parameters\": {\"type\": \"object\", \"properties\": {\"city\": {\"type\": \"string\"}}, \"required\": [\"city\"]}}]",
+      "gen_ai.system_instructions": "[{\"type\": \"text\", \"content\": \"Be brief.\"}]",
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.response.text": "{\"content\": \"None\", \"refusal\": \"None\", \"role\": \"assistant\", \"annotations\": \"None\", \"audio\": \"None\", \"function_call\": \"None\", \"tool_calls\": {\"id\": \"call_sp1\", \"function\": {\"arguments\": \"{\\\"city\\\":\\\"Paris\\\"}\", \"name\": \"get_weather\"}, \"type\": \"function\"}}",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.input_tokens.cached": 1024,
+      "gen_ai.usage.output_tokens": 40,
+      "gen_ai.usage.total_tokens": 1240
+     },
+     "status": null,
+     "start": 1791264388.443233,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "openai.chat.tool_call",
+   "integration": "openai",
+   "package": "openai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "openai": "2.54.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 40,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 0,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp-tool",
+      "finish": "tool_calls",
+      "total": 1240
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": true,
+   "tags": [
+    "usage",
+    "tools"
+   ],
+   "mode": "legacy",
+   "seconds": 6.31,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "legacy"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "legacy"
+    },
+    {
+     "rule": "identity.finish_missing",
+     "check": "identity",
+     "severity": "medium",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": 0,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "tool_calls",
+     "actual": null,
+     "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+     "mode": "legacy"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-sp-tool",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "legacy"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "5a9a086d573a4d478a98be2134483f23",
+     "span_id": "b0e320e201bcb8d2",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "openai.chat.tool_call",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791264388.44159,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "5a9a086d573a4d478a98be2134483f23",
+     "span_id": "975938a125d5220b",
+     "parent_span_id": "b0e320e201bcb8d2",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.openai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.system": "openai",
+      "gen_ai.response.streaming": false,
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.tool.definitions": "[{\"type\": \"function\", \"name\": \"get_weather\", \"description\": \"Weather for a city\", \"parameters\": {\"type\": \"object\", \"properties\": {\"city\": {\"type\": \"string\"}}, \"required\": [\"city\"]}}]",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.input_tokens.cached": 1024,
+      "gen_ai.usage.output_tokens": 40,
+      "gen_ai.usage.total_tokens": 1240,
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "spanproof",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "openai.chat.tool_call",
+      "sentry.segment.id": "b0e320e201bcb8d2",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791264388.44563,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "openai.chat.tool_call",
+   "integration": "openai",
+   "package": "openai",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "openai": "2.54.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 40,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 0,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp-tool",
+      "finish": "tool_calls",
+      "total": 1240
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": false,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "usage",
+    "tools"
+   ],
+   "mode": "nodc",
+   "seconds": 6.32,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "nodc"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "nodc"
+    },
+    {
+     "rule": "identity.finish_missing",
+     "check": "identity",
+     "severity": "medium",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": 0,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "tool_calls",
+     "actual": null,
+     "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+     "mode": "nodc"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "openai.chat.tool_call",
+     "integration": "openai",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-sp-tool",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "nodc"
+    }
+   ]
+  }
+ ]
+}

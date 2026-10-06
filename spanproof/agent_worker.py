@@ -178,7 +178,7 @@ def main() -> int:
             except BaseException as e:  # noqa: BLE001
                 exc = {"type": type(e).__name__, "value": str(e)[:300], "tb": traceback.format_exc()[-800:]}
         requests = list(srv.script.requests)
-    sentry_sdk.flush(timeout=5)
+    sentry_sdk.flush(timeout=30 if os.environ.get("SPANPROOF_DSN") else 5)
     out = capture.flatten(transport)
     out.update(exception=exc, requests=[{"path": r["path"]} for r in requests], framework=fw,
                data_collection=not a.no_data_collection)

@@ -177,15 +177,17 @@ FINDINGS = [
     {
         "id": "SP-12",
         "title": "JS Anthropic: input_tokens excludes cache; cache attributes never emitted",
-        "sdk": "js", "integration": "anthropic", "severity": "high", "intent": "unintended", "status": "new",
-        "issue": "https://github.com/getsentry/sentry-javascript/issues/20579",
+        "sdk": "js", "integration": "anthropic", "severity": "high", "intent": "unintended",
+        "status": "reported: sentry-javascript#25069",
+        "issue": "https://github.com/getsentry/sentry-javascript/issues/25069",
         "evidence": [f"{JS_VER}: build/cjs/ai/core/utils.js:25-42 setTokenUsageAttributes adds the two cache "
                      "counts into total_tokens only; anthropic-ai/index.js:68-74 passes cache_creation and "
                      "cache_read into slots named cachedInputTokens/cachedOutputTokens"],
         "scenarios": ["js.anthropic.messages.sync", "js.anthropic.messages.stream", "js.anthropic.messages.stream_helper"],
         "impact": "Same response: Python reports input 2600 (inclusive, per the conventions) with cached 2048 and "
                   "cache-write 512; JS reports input 40, no cache attributes, and total 2720 that contradicts "
-                  "input+output. Any cost computed from these attributes misses the cache read/write charges.",
+                  "input+output. On a real Sentry account the trace view shows '40 in + 120 out = 160 total' for this "
+                  "call (Python shows 2.6K in) and the stored cost is $0.00128 instead of $0.00297 (57% low).",
         "fix": "Emit cache_read/cache_creation attributes and make input_tokens inclusive, as Python does.",
     },
     {
@@ -201,15 +203,18 @@ FINDINGS = [
     },
     {
         "id": "SP-14",
-        "title": "finish_reasons / available_tools emitted as lists; the registry types them as strings",
-        "sdk": "python", "integration": "anthropic, langchain, langgraph", "severity": "low",
-        "intent": "needs decision", "status": "known (noted in #5506)",
-        "issue": "https://github.com/getsentry/sentry-python/pull/5506",
+        "title": "List-valued finish_reasons cannot be searched in Sentry with the default gen_ai transport",
+        "sdk": "python", "integration": "anthropic, langchain, langgraph", "severity": "medium",
+        "intent": "unintended", "status": "reported: sentry-python#7873",
+        "issue": "https://github.com/getsentry/sentry-python/issues/7873",
         "evidence": [f"{PY}/sentry_sdk/integrations/anthropic.py#L683", f"{PY}/sentry_sdk/integrations/langgraph.py#L178",
                      "sentry-conventions gen_ai__response__finish_reasons.json: type string; OTel defines an array"],
         "scenarios": ["anthropic.messages.sync", "langgraph.react_agent"],
-        "impact": "Integrations disagree with each other (some JSON-stringify, some send arrays).",
-        "fix": "Either change the registry to string[] (matches OTel) or stringify consistently.",
+        "impact": "Measured on a real Sentry account: with stream_gen_ai_spans (the default) the list is stored "
+                  "but has:gen_ai.response.finish_reasons matches 0 spans; with the legacy transport, or the JS "
+                  "SDK's JSON string, it matches. Python users cannot filter for truncated answers.",
+        "fix": "Send a JSON string, as the conventions type it (the Pydantic AI fix does this and is searchable "
+               "in both modes on a real account).",
     },
     {
         "id": "SP-15",
@@ -251,6 +256,12 @@ FINDINGS.append({
 })
 
 NEGATIVE_RESULTS = [
+    "On a real Sentry account, the built-in AI Agents dashboard does not double count: its per-model token "
+    "totals equal the LLM-call-only sums exactly (486,010 / 79,906 / 19,500). The double counting (SP-06) affects "
+    "custom queries, dashboards and alerts that sum across all gen_ai spans (+27% cost, +50% input tokens over "
+    "the whole test run).",
+    "On a real Sentry account, every span that was sent was stored with the same token values, and Sentry's cost "
+    "calculation matched hand-computed prices exactly whenever the SDK sent correct numbers.",
     "Google GenAI (generate_content, stream, early close): usage, cached and thinking tokens all match the "
     "provider, on google-genai 1.29.0 through 2.28.0.",
     "Privacy gating: with data collection off, no prompt or completion content appeared on any span, in any "
