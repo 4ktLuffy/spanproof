@@ -1,0 +1,65 @@
+<!doctype html><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>SpanProof Nightly</title><style>:root{--bg:#f7f8fa;--panel:#fff;--ink:#17202c;--muted:#5d6878;--rule:#dde2ea;--bad:#b42318;--good:#17733f;
+--new:#2563a6;--mono:ui-monospace,Menlo,monospace;--body:system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10151c;--panel:#171e27;--ink:#e3e8ef;
+--muted:#98a3b2;--rule:#2a3442;--bad:#f2877c;--good:#6fcf97;--new:#7fb2ea;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10151c;--panel:#171e27;--ink:#e3e8ef;--muted:#98a3b2;--rule:#2a3442;--bad:#f2877c;
+--good:#6fcf97;--new:#7fb2ea;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body);margin:0}
+.w{max-width:1000px;margin:0 auto;padding-inline:18px;padding-block:28px 56px}
+h1{font-size:1.7rem;margin:0}h2{font-size:1.15rem;margin-top:2rem;border-top:1px solid var(--rule);padding-top:1rem}
+.m{color:var(--muted);font:.82rem var(--mono)}.s{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;
+background:var(--panel);margin-top:.6rem}table{border-collapse:collapse;width:100%;font-size:.86rem}
+th,td{padding:6px 10px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}.bad{color:var(--bad)}.good{color:var(--good)}
+.new{color:var(--new);font-weight:600}code{font-family:var(--mono);font-size:.85em}a{color:var(--new)}</style><div class='w'>
+<h1>SpanProof nightly: Sentry AI monitoring vs. provider truth</h1>
+<p class='m'>last run 2026-10-06 · sentry-python 6a4eb20f · 25 cells · 18 open findings · <a href='https://github.com/4ktLuffy/spanproof'>repository</a></p>
+<p>Every night this replays recorded provider responses through Sentry's AI integrations on the latest sentry-python, against the oldest supported, latest and pre-release versions of each provider SDK, and compares the spans with the truth. A finding that disappears means it was fixed; one that appears means a release broke something.</p>
+<h2>Open findings tonight</h2><div class='s'><table><tr><th>id</th><th>finding</th><th>where</th></tr>
+<tr><td class=''>KNOWN-JS-23993</td><td>Vercel AI reasoning tokens (known: getsentry/sentry-javascript#23993)</td><td class='m'>@sentry/node@11.4.0</td></tr>
+<tr><td class=''>old SDK</td><td>Provider SDK version predates the usage field (not a Sentry fault)</td><td class='m'>langchain-base@0.1.20</td></tr>
+<tr><td class=''>old SDK</td><td>Provider SDK version predates the usage field (not a Sentry fault)</td><td class='m'>openai-base@1.0.1</td></tr>
+<tr><td class=''>SP-01</td><td>LiteLLM drops cached, reasoning and cache-write tokens</td><td class='m'>litellm@1.104.0, litellm@1.105.0rc1, litellm@1.77.7</td></tr>
+<tr><td class=''>SP-02</td><td>OpenAI stream closed early: the gen_ai span is never sent (Chat and Responses)</td><td class='m'>openai-base@3.24.0</td></tr>
+<tr><td class=''>SP-03</td><td>LiteLLM stream closed early: the gen_ai span is never sent</td><td class='m'>litellm@1.104.0, litellm@1.105.0rc1, litellm@1.77.7</td></tr>
+<tr><td class=''>SP-04</td><td>OpenAI Responses cache_write_tokens never recorded (Python and JavaScript)</td><td class='m'>@sentry/node@11.4.0, openai-base@3.24.0</td></tr>
+<tr><td class=''>SP-05</td><td>Anthropic with_raw_response: span closes before parse(), so no usage, model or id</td><td class='m'>anthropic@0.16.0, anthropic@1.11.0</td></tr>
+<tr><td class=''>SP-06</td><td>Summing tokens across span levels double counts agent runs (2.00x to 3.00x billed)</td><td class='m'>@sentry/node@11.4.0, langgraph@0.6.11, langgraph@1.2.13, openai_agents@0.0.19, openai_agents@0.23.1</td></tr>
+<tr><td class=''>SP-07</td><td>Nested agent (Agent.as_tool) reports usage that includes its parent&#x27;s tokens</td><td class='m'>openai_agents@0.0.19, openai_agents@0.23.1</td></tr>
+<tr><td class=''>SP-08</td><td>LangGraph graph.stream()/astream(): no invoke_agent span</td><td class='m'>langgraph@0.6.11, langgraph@1.2.13</td></tr>
+<tr><td class=''>SP-09</td><td>Pydantic AI Agent.iter(): no agent or tool spans</td><td class='m'>pydantic_ai@1.0.18, pydantic_ai@2.54.0</td></tr>
+<tr><td class=''>SP-10</td><td>Finish reasons not recorded by OpenAI, OpenAI Agents, Pydantic AI (and LiteLLM)</td><td class='m'>@sentry/node@11.4.0, anthropic@0.16.0, anthropic@1.11.0, litellm@1.104.0, litellm@1.105.0rc1, litellm@1.77.7 …</td></tr>
+<tr><td class=''>SP-11</td><td>JS OpenAI ignores cached and reasoning tokens</td><td class='m'>@sentry/node@11.4.0</td></tr>
+<tr><td class=''>SP-12</td><td>JS Anthropic: input_tokens excludes cache; cache attributes never emitted</td><td class='m'>@sentry/node@11.4.0</td></tr>
+<tr><td class=''>SP-13</td><td>JS Vercel AI streamText stopped early: parent span never sent, child orphaned</td><td class='m'>@sentry/node@11.4.0</td></tr>
+<tr><td class=''>SP-14</td><td>List-valued finish_reasons cannot be searched in Sentry with the default gen_ai transport</td><td class='m'>anthropic@0.16.0, anthropic@1.11.0, langchain-base@0.1.20, langchain-base@1.4.3, langgraph@0.6.11, langgraph@1.2.13</td></tr>
+<tr><td class=''>SP-15</td><td>LiteLLM streams report the requested model instead of the provider&#x27;s model</td><td class='m'>litellm@1.104.0, litellm@1.105.0rc1, litellm@1.77.7</td></tr>
+</table></div><h2>History</h2><div class='s'><table><tr><th>night</th><th>sentry-python</th><th>cells</th><th>open</th><th>new</th><th>fixed</th><th>problems running</th></tr>
+<tr><td>2026-10-06</td><td class='m'>6a4eb20f</td><td>25</td><td>18</td><td class='new'>0</td><td class='good'>0</td><td class=''>0</td></tr>
+</table></div><h2>Cells tonight</h2><div class='s'><table><tr><th>integration @ version</th><th>runs</th></tr>
+<tr><td class='m'>openai-base@1.0.1</td><td class=''>22</td></tr>
+<tr><td class='m'>openai-base@3.24.0</td><td class=''>22</td></tr>
+<tr><td class='m'>openai-base@3.24.0</td><td class=''>22</td></tr>
+<tr><td class='m'>anthropic@0.16.0</td><td class=''>20</td></tr>
+<tr><td class='m'>anthropic@1.11.0</td><td class=''>20</td></tr>
+<tr><td class='m'>anthropic@1.11.0</td><td class=''>20</td></tr>
+<tr><td class='m'>litellm@1.77.7</td><td class=''>10</td></tr>
+<tr><td class='m'>litellm@1.104.0</td><td class=''>10</td></tr>
+<tr><td class='m'>litellm@1.105.0rc1</td><td class=''>10</td></tr>
+<tr><td class='m'>google_genai@1.29.0</td><td class=''>6</td></tr>
+<tr><td class='m'>google_genai@2.28.0</td><td class=''>6</td></tr>
+<tr><td class='m'>google_genai@2.28.0</td><td class=''>6</td></tr>
+<tr><td class='m'>openai_agents@0.0.19</td><td class=''>6</td></tr>
+<tr><td class='m'>openai_agents@0.23.1</td><td class=''>6</td></tr>
+<tr><td class='m'>openai_agents@0.23.1</td><td class=''>6</td></tr>
+<tr><td class='m'>pydantic_ai@1.0.18</td><td class=''>4</td></tr>
+<tr><td class='m'>pydantic_ai@2.54.0</td><td class=''>4</td></tr>
+<tr><td class='m'>pydantic_ai@2.54.0</td><td class=''>4</td></tr>
+<tr><td class='m'>langchain-base@0.1.20</td><td class=''>4</td></tr>
+<tr><td class='m'>langchain-base@1.4.3</td><td class=''>4</td></tr>
+<tr><td class='m'>langchain-base@1.4.3</td><td class=''>4</td></tr>
+<tr><td class='m'>langgraph@0.6.11</td><td class=''>8</td></tr>
+<tr><td class='m'>langgraph@1.2.13</td><td class=''>8</td></tr>
+<tr><td class='m'>langgraph@1.2.13</td><td class=''>8</td></tr>
+<tr><td class='m'>@sentry/node@11.4.0</td><td class=''>30</td></tr>
+</table></div></div>

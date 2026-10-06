@@ -1,0 +1,122 @@
+[
+ {
+  "date": "2026-10-06",
+  "sdk_sha": "6a4eb20f1db3de7b025bda6eedb73b9073cfbc91",
+  "cells": [
+   "openai-base@1.0.1",
+   "openai-base@3.24.0",
+   "openai-base@3.24.0",
+   "anthropic@0.16.0",
+   "anthropic@1.11.0",
+   "anthropic@1.11.0",
+   "litellm@1.77.7",
+   "litellm@1.104.0",
+   "litellm@1.105.0rc1",
+   "google_genai@1.29.0",
+   "google_genai@2.28.0",
+   "google_genai@2.28.0",
+   "openai_agents@0.0.19",
+   "openai_agents@0.23.1",
+   "openai_agents@0.23.1",
+   "pydantic_ai@1.0.18",
+   "pydantic_ai@2.54.0",
+   "pydantic_ai@2.54.0",
+   "langchain-base@0.1.20",
+   "langchain-base@1.4.3",
+   "langchain-base@1.4.3",
+   "langgraph@0.6.11",
+   "langgraph@1.2.13",
+   "langgraph@1.2.13",
+   "@sentry/node@11.4.0"
+  ],
+  "problems": [
+   "KNOWN-JS-23993",
+   "OLD-SDK:langchain-base@0.1.20",
+   "OLD-SDK:openai-base@1.0.1",
+   "SP-01",
+   "SP-02",
+   "SP-03",
+   "SP-04",
+   "SP-05",
+   "SP-06",
+   "SP-07",
+   "SP-08",
+   "SP-09",
+   "SP-10",
+   "SP-11",
+   "SP-12",
+   "SP-13",
+   "SP-14",
+   "SP-15"
+  ],
+  "new": [],
+  "fixed": [],
+  "crashes": [],
+  "where": {
+   "OLD-SDK:openai-base@1.0.1": [
+    "openai"
+   ],
+   "SP-10": [
+    "anthropic",
+    "js.anthropic",
+    "litellm",
+    "openai",
+    "openai_agents",
+    "pydantic_ai"
+   ],
+   "SP-02": [
+    "openai"
+   ],
+   "SP-04": [
+    "js.openai",
+    "openai"
+   ],
+   "SP-14": [
+    "anthropic",
+    "langchain",
+    "langgraph"
+   ],
+   "SP-05": [
+    "anthropic"
+   ],
+   "SP-01": [
+    "litellm"
+   ],
+   "SP-15": [
+    "litellm"
+   ],
+   "SP-03": [
+    "litellm"
+   ],
+   "SP-06": [
+    "js.vercel_ai",
+    "langgraph",
+    "openai_agents"
+   ],
+   "SP-07": [
+    "openai_agents"
+   ],
+   "SP-09": [
+    "pydantic_ai"
+   ],
+   "OLD-SDK:langchain-base@0.1.20": [
+    "langchain"
+   ],
+   "SP-08": [
+    "langgraph"
+   ],
+   "SP-11": [
+    "js.openai"
+   ],
+   "SP-12": [
+    "js.anthropic"
+   ],
+   "KNOWN-JS-23993": [
+    "js.vercel_ai"
+   ],
+   "SP-13": [
+    "js.vercel_ai"
+   ]
+  }
+ }
+]

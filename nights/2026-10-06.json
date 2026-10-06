@@ -1,0 +1,533 @@
+{
+ "entry": {
+  "date": "2026-10-06",
+  "sdk_sha": "6a4eb20f1db3de7b025bda6eedb73b9073cfbc91",
+  "cells": [
+   "openai-base@1.0.1",
+   "openai-base@3.24.0",
+   "openai-base@3.24.0",
+   "anthropic@0.16.0",
+   "anthropic@1.11.0",
+   "anthropic@1.11.0",
+   "litellm@1.77.7",
+   "litellm@1.104.0",
+   "litellm@1.105.0rc1",
+   "google_genai@1.29.0",
+   "google_genai@2.28.0",
+   "google_genai@2.28.0",
+   "openai_agents@0.0.19",
+   "openai_agents@0.23.1",
+   "openai_agents@0.23.1",
+   "pydantic_ai@1.0.18",
+   "pydantic_ai@2.54.0",
+   "pydantic_ai@2.54.0",
+   "langchain-base@0.1.20",
+   "langchain-base@1.4.3",
+   "langchain-base@1.4.3",
+   "langgraph@0.6.11",
+   "langgraph@1.2.13",
+   "langgraph@1.2.13",
+   "@sentry/node@11.4.0"
+  ],
+  "problems": [
+   "KNOWN-JS-23993",
+   "OLD-SDK:langchain-base@0.1.20",
+   "OLD-SDK:openai-base@1.0.1",
+   "SP-01",
+   "SP-02",
+   "SP-03",
+   "SP-04",
+   "SP-05",
+   "SP-06",
+   "SP-07",
+   "SP-08",
+   "SP-09",
+   "SP-10",
+   "SP-11",
+   "SP-12",
+   "SP-13",
+   "SP-14",
+   "SP-15"
+  ],
+  "new": [],
+  "fixed": [],
+  "crashes": [],
+  "where": {
+   "OLD-SDK:openai-base@1.0.1": [
+    "openai"
+   ],
+   "SP-10": [
+    "anthropic",
+    "js.anthropic",
+    "litellm",
+    "openai",
+    "openai_agents",
+    "pydantic_ai"
+   ],
+   "SP-02": [
+    "openai"
+   ],
+   "SP-04": [
+    "js.openai",
+    "openai"
+   ],
+   "SP-14": [
+    "anthropic",
+    "langchain",
+    "langgraph"
+   ],
+   "SP-05": [
+    "anthropic"
+   ],
+   "SP-01": [
+    "litellm"
+   ],
+   "SP-15": [
+    "litellm"
+   ],
+   "SP-03": [
+    "litellm"
+   ],
+   "SP-06": [
+    "js.vercel_ai",
+    "langgraph",
+    "openai_agents"
+   ],
+   "SP-07": [
+    "openai_agents"
+   ],
+   "SP-09": [
+    "pydantic_ai"
+   ],
+   "OLD-SDK:langchain-base@0.1.20": [
+    "langchain"
+   ],
+   "SP-08": [
+    "langgraph"
+   ],
+   "SP-11": [
+    "js.openai"
+   ],
+   "SP-12": [
+    "js.anthropic"
+   ],
+   "KNOWN-JS-23993": [
+    "js.vercel_ai"
+   ],
+   "SP-13": [
+    "js.vercel_ai"
+   ]
+  }
+ },
+ "problems": {
+  "OLD-SDK:openai-base@1.0.1": {
+   "id": "OLD-SDK",
+   "integration": "openai",
+   "rule": "usage.missing.cached",
+   "cells": [
+    "openai-base@1.0.1"
+   ],
+   "integrations": [
+    "openai"
+   ],
+   "example": "cached not reported (provider said 1024)"
+  },
+  "SP-10": {
+   "id": "SP-10",
+   "integration": "openai",
+   "rule": "identity.finish_missing",
+   "cells": [
+    "@sentry/node@11.4.0",
+    "anthropic@0.16.0",
+    "anthropic@1.11.0",
+    "litellm@1.104.0",
+    "litellm@1.105.0rc1",
+    "litellm@1.77.7",
+    "openai-base@1.0.1",
+    "openai-base@3.24.0",
+    "openai_agents@0.0.19",
+    "openai_agents@0.23.1",
+    "pydantic_ai@1.0.18",
+    "pydantic_ai@2.54.0"
+   ],
+   "integrations": [
+    "anthropic",
+    "js.anthropic",
+    "litellm",
+    "openai",
+    "openai_agents",
+    "pydantic_ai"
+   ],
+   "example": "finish reason not recorded (truncation and tool-stop are invisible)"
+  },
+  "SP-02": {
+   "id": "SP-02",
+   "integration": "openai",
+   "rule": "lifecycle.lost_span",
+   "cells": [
+    "openai-base@3.24.0"
+   ],
+   "integrations": [
+    "openai"
+   ],
+   "example": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry"
+  },
+  "SP-04": {
+   "id": "SP-04",
+   "integration": "openai",
+   "rule": "usage.missing.cache_write",
+   "cells": [
+    "@sentry/node@11.4.0",
+    "openai-base@3.24.0"
+   ],
+   "integrations": [
+    "js.openai",
+    "openai"
+   ],
+   "example": "cache_write not reported (provider said 96)"
+  },
+  "SP-14": {
+   "id": "SP-14",
+   "integration": "anthropic",
+   "rule": "conventions.type",
+   "cells": [
+    "anthropic@0.16.0",
+    "anthropic@1.11.0",
+    "langchain-base@0.1.20",
+    "langchain-base@1.4.3",
+    "langgraph@0.6.11",
+    "langgraph@1.2.13"
+   ],
+   "integrations": [
+    "anthropic",
+    "langchain",
+    "langgraph"
+   ],
+   "example": "gen_ai.response.finish_reasons should be string, got list"
+  },
+  "SP-05": {
+   "id": "SP-05",
+   "integration": "anthropic",
+   "rule": "usage.wrong.input_tokens",
+   "cells": [
+    "anthropic@0.16.0",
+    "anthropic@1.11.0"
+   ],
+   "integrations": [
+    "anthropic"
+   ],
+   "example": "input_tokens is 0, provider said 2600"
+  },
+  "SP-01": {
+   "id": "SP-01",
+   "integration": "litellm",
+   "rule": "usage.missing.cached",
+   "cells": [
+    "litellm@1.104.0",
+    "litellm@1.105.0rc1",
+    "litellm@1.77.7"
+   ],
+   "integrations": [
+    "litellm"
+   ],
+   "example": "cached not reported (provider said 1024)"
+  },
+  "SP-15": {
+   "id": "SP-15",
+   "integration": "litellm",
+   "rule": "identity.model_wrong",
+   "cells": [
+    "litellm@1.104.0",
+    "litellm@1.105.0rc1",
+    "litellm@1.77.7"
+   ],
+   "integrations": [
+    "litellm"
+   ],
+   "example": "response model differs from what the provider returned"
+  },
+  "SP-03": {
+   "id": "SP-03",
+   "integration": "litellm",
+   "rule": "lifecycle.lost_span",
+   "cells": [
+    "litellm@1.104.0",
+    "litellm@1.105.0rc1",
+    "litellm@1.77.7"
+   ],
+   "integrations": [
+    "litellm"
+   ],
+   "example": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry"
+  },
+  "SP-06": {
+   "id": "SP-06",
+   "integration": "openai_agents",
+   "rule": "aggregation.double_count.input_tokens",
+   "cells": [
+    "@sentry/node@11.4.0",
+    "langgraph@0.6.11",
+    "langgraph@1.2.13",
+    "openai_agents@0.0.19",
+    "openai_agents@0.23.1"
+   ],
+   "integrations": [
+    "js.vercel_ai",
+    "langgraph",
+    "openai_agents"
+   ],
+   "example": "sum(input_tokens) over the trace is 6700, billed 3350 (x2.00); hierarchical spans double count"
+  },
+  "SP-07": {
+   "id": "SP-07",
+   "integration": "openai_agents",
+   "rule": "aggregation.rollup.input_tokens",
+   "cells": [
+    "openai_agents@0.0.19",
+    "openai_agents@0.23.1"
+   ],
+   "integrations": [
+    "openai_agents"
+   ],
+   "example": "agent 'router' reports input_tokens=1650 but the LLM calls inside it sum to 3350"
+  },
+  "SP-09": {
+   "id": "SP-09",
+   "integration": "pydantic_ai",
+   "rule": "structure.no_agent_span",
+   "cells": [
+    "pydantic_ai@1.0.18",
+    "pydantic_ai@2.54.0"
+   ],
+   "integrations": [
+    "pydantic_ai"
+   ],
+   "example": "agent run produced no gen_ai.invoke_agent span"
+  },
+  "OLD-SDK:langchain-base@0.1.20": {
+   "id": "OLD-SDK",
+   "integration": "langchain",
+   "rule": "usage.missing.cached",
+   "cells": [
+    "langchain-base@0.1.20"
+   ],
+   "integrations": [
+    "langchain"
+   ],
+   "example": "cached not reported (provider said 1024)"
+  },
+  "SP-08": {
+   "id": "SP-08",
+   "integration": "langgraph",
+   "rule": "structure.no_agent_span",
+   "cells": [
+    "langgraph@0.6.11",
+    "langgraph@1.2.13"
+   ],
+   "integrations": [
+    "langgraph"
+   ],
+   "example": "agent run produced no gen_ai.invoke_agent span"
+  },
+  "SP-11": {
+   "id": "SP-11",
+   "integration": "js.openai",
+   "rule": "usage.missing.cached",
+   "cells": [
+    "@sentry/node@11.4.0"
+   ],
+   "integrations": [
+    "js.openai"
+   ],
+   "example": "cached not reported (provider said 1024)"
+  },
+  "SP-12": {
+   "id": "SP-12",
+   "integration": "js.anthropic",
+   "rule": "usage.wrong.input_tokens",
+   "cells": [
+    "@sentry/node@11.4.0"
+   ],
+   "integrations": [
+    "js.anthropic"
+   ],
+   "example": "input_tokens is 40, provider said 2600"
+  },
+  "KNOWN-JS-23993": {
+   "id": "KNOWN-JS-23993",
+   "integration": "js.vercel_ai",
+   "rule": "usage.missing.reasoning",
+   "cells": [
+    "@sentry/node@11.4.0"
+   ],
+   "integrations": [
+    "js.vercel_ai"
+   ],
+   "example": "reasoning not reported (provider said 256)"
+  },
+  "SP-13": {
+   "id": "SP-13",
+   "integration": "js.vercel_ai",
+   "rule": "structure.orphan",
+   "cells": [
+    "@sentry/node@11.4.0"
+   ],
+   "integrations": [
+    "js.vercel_ai"
+   ],
+   "example": "span gen_ai.generate_content has a parent that was never sent"
+  }
+ },
+ "cells": [
+  {
+   "cell": "openai-base@1.0.1",
+   "requested": "1.0.1",
+   "error": false,
+   "runs": 22
+  },
+  {
+   "cell": "openai-base@3.24.0",
+   "requested": "latest",
+   "error": false,
+   "runs": 22
+  },
+  {
+   "cell": "openai-base@3.24.0",
+   "requested": "pre",
+   "error": false,
+   "runs": 22
+  },
+  {
+   "cell": "anthropic@0.16.0",
+   "requested": "0.16.0",
+   "error": false,
+   "runs": 20
+  },
+  {
+   "cell": "anthropic@1.11.0",
+   "requested": "latest",
+   "error": false,
+   "runs": 20
+  },
+  {
+   "cell": "anthropic@1.11.0",
+   "requested": "pre",
+   "error": false,
+   "runs": 20
+  },
+  {
+   "cell": "litellm@1.77.7",
+   "requested": "1.77.7",
+   "error": false,
+   "runs": 10
+  },
+  {
+   "cell": "litellm@1.104.0",
+   "requested": "latest",
+   "error": false,
+   "runs": 10
+  },
+  {
+   "cell": "litellm@1.105.0rc1",
+   "requested": "pre",
+   "error": false,
+   "runs": 10
+  },
+  {
+   "cell": "google_genai@1.29.0",
+   "requested": "1.29.0",
+   "error": false,
+   "runs": 6
+  },
+  {
+   "cell": "google_genai@2.28.0",
+   "requested": "latest",
+   "error": false,
+   "runs": 6
+  },
+  {
+   "cell": "google_genai@2.28.0",
+   "requested": "pre",
+   "error": false,
+   "runs": 6
+  },
+  {
+   "cell": "openai_agents@0.0.19",
+   "requested": "0.0.19",
+   "error": false,
+   "runs": 6
+  },
+  {
+   "cell": "openai_agents@0.23.1",
+   "requested": "latest",
+   "error": false,
+   "runs": 6
+  },
+  {
+   "cell": "openai_agents@0.23.1",
+   "requested": "pre",
+   "error": false,
+   "runs": 6
+  },
+  {
+   "cell": "pydantic_ai@1.0.18",
+   "requested": "1.0.18",
+   "error": false,
+   "runs": 4
+  },
+  {
+   "cell": "pydantic_ai@2.54.0",
+   "requested": "latest",
+   "error": false,
+   "runs": 4
+  },
+  {
+   "cell": "pydantic_ai@2.54.0",
+   "requested": "pre",
+   "error": false,
+   "runs": 4
+  },
+  {
+   "cell": "langchain-base@0.1.20",
+   "requested": "0.1.20",
+   "error": false,
+   "runs": 4
+  },
+  {
+   "cell": "langchain-base@1.4.3",
+   "requested": "latest",
+   "error": false,
+   "runs": 4
+  },
+  {
+   "cell": "langchain-base@1.4.3",
+   "requested": "pre",
+   "error": false,
+   "runs": 4
+  },
+  {
+   "cell": "langgraph@0.6.11",
+   "requested": "0.6.11",
+   "error": false,
+   "runs": 8
+  },
+  {
+   "cell": "langgraph@1.2.13",
+   "requested": "latest",
+   "error": false,
+   "runs": 8
+  },
+  {
+   "cell": "langgraph@1.2.13",
+   "requested": "pre",
+   "error": false,
+   "runs": 8
+  },
+  {
+   "cell": "@sentry/node@11.4.0",
+   "requested": "latest",
+   "error": false,
+   "runs": 30
+  }
+ ]
+}
