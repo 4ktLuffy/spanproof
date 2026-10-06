@@ -246,14 +246,15 @@ def build() -> str:
     new = [f for f in FINDINGS if str(f["status"]).startswith(("new", "reported")) and f["intent"] == "unintended"]
     defects = [f for f in FINDINGS if f["intent"] == "unintended"]
     h = []
-    h.append('<title>SpanProof for Sentry</title>')
+    h.append('<!doctype html><meta charset="utf-8">'
+             '<meta name="viewport" content="width=device-width,initial-scale=1"><title>SpanProof for Sentry</title>')
     h.append('<link rel="preconnect" href="https://fonts.googleapis.com">'
              '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&'
              'family=IBM+Plex+Sans+Condensed:wght@600&family=IBM+Plex+Sans:wght@400;600&display=swap">')
     h.append(f"<style>{CSS}</style><div class=\"wrap\">")
     h.append('<div class="eyebrow">SpanProof · Sentry AI monitoring · findings</div>')
     h.append('<h1>Do Sentry\'s AI spans match what the provider billed?</h1>')
-    h.append('<p class="lede">SpanProof replays recorded provider responses through Sentry\'s real AI integrations, '
+    h.append('<p class="lede">SpanProof replays scripted provider responses through Sentry\'s real AI integrations, '
              'in Python and JavaScript, across the provider versions in Sentry\'s own <code>tox.ini</code>, and '
              'compares every emitted span with the provider\'s own numbers. On top of that it runs agent '
              'failure-class detectors that turn span trees into issues. Everything below was reproduced by '
@@ -270,8 +271,11 @@ def build() -> str:
              '</div>')
 
     # ---- fixes
-    h.append('<h2>What was fixed</h2>')
-    h.append('<h3 style="margin-top:1rem">sentry-python#5455: LiteLLM cached, reasoning and cache-write tokens</h3>')
+    h.append('<h2>Patches</h2>')
+    h.append('<p class="dim">Written and tested here; none is merged yet.</p>')
+    h.append('<h3 style="margin-top:1rem">sentry-python#5455: LiteLLM cached, reasoning and cache-write tokens '
+             '(draft PR <a href="https://github.com/getsentry/sentry-python/pull/7880">#7880</a>, invited by the '
+             'maintainers)</h3>')
     h.append('<p>The LiteLLM integration read only prompt, completion and total tokens. LiteLLM normalizes every '
              'provider into <code>prompt_tokens_details</code> and <code>completion_tokens_details</code>, so the '
              'callback already has the data. The fix reads it (with LiteLLM\'s private fallbacks) and passes it to '
@@ -281,20 +285,21 @@ def build() -> str:
     for ver, a, b in fixes:
         h.append(f'<tr><td class="mono">{esc(ver)}</td><td class="num bad">{a}</td><td class="num good">{b}</td></tr>')
     h.append('</table></div>')
-    h.append('<p>sentry-python\'s own LiteLLM suite under tox: <b>173 / 173</b> on litellm 1.96.0 and on the '
-             'oldest supported 1.77.7. Two new regression tests fail on the original code and pass with the fix.</p>')
-    h.append('<h3 style="margin-top:1.2rem">Three more fixes</h3>')
+    h.append('<p>sentry-python\'s own LiteLLM suite under tox: <b>178 / 178</b> on litellm 1.96.0 and on the '
+             'oldest supported 1.77.7. Five new tests (sync, async, streaming, Anthropic-shaped usage, usage without '
+             'details); the first four fail on the original code and pass with the fix.</p>')
+    h.append('<h3 style="margin-top:1.2rem">Three more patches</h3>')
     h.append('<div class="scroll"><table><tr><th>finding</th><th>change</th><th>SpanProof before → after</th>'
              '<th>sentry-python suite under tox</th></tr>'
-             '<tr><td>SP-04 OpenAI cache-write tokens (new)</td><td>read <code>cache_write_tokens</code> on Chat and '
+             '<tr><td>SP-04 OpenAI cache-write tokens (#7870)</td><td>read <code>cache_write_tokens</code> on Chat and '
              'Responses, 14 lines</td><td class="mono">OpenAI usage findings <span class="bad">8</span> → '
              '<span class="good">0</span></td><td>687/687 (openai 2.54.0), 683 + 4 skipped (1.109.1)</td></tr>'
-             '<tr><td>SP-08 LangGraph <code>stream()</code> agent span (new)</td><td>wrap stream/astream, '
+             '<tr><td>SP-08 LangGraph <code>stream()</code> agent span (#7871)</td><td>wrap stream/astream, '
              're-entrancy guard so invoke stays at one span, finish in <code>finally</code></td><td class="mono">'
              'agent spans for .stream() <span class="bad">0</span> → <span class="good">1</span>; .invoke() stays '
              '1; structure findings <span class="bad">8</span> → <span class="good">0</span></td>'
              '<td>150/150 on langgraph 1.2.12 and 0.6.11</td></tr>'
-             '<tr><td>SP-10 Pydantic AI finish reasons</td><td>record the normalized stop reason, 9 lines</td>'
+             '<tr><td>SP-10 Pydantic AI finish reasons (#7872)</td><td>record the normalized stop reason, 9 lines</td>'
              '<td class="mono">truncation detector recall <span class="bad">0.33</span> → <span class="good">0.67'
              '</span></td><td>332/332</td></tr></table></div>')
     h.append('<p>Every new test fails on the original code and passes with the fix. Each fix is one commit on its '
@@ -493,22 +498,27 @@ def build() -> str:
         h.append(f'<p>A detector that is right on a finished trace can still be wrong in production: spans arrive '
                  f'late and out of order, deliveries fail, the process dies. <code>spanproof.watch_replay</code> '
                  f'feeds {rp["traces"]} saved traces to Watch span by span, in {rp["seeds"]} random arrival orders, '
-                 f'as Sentry would deliver them, with {rp["fail"]:.0%} of deliveries failing and the process dying in '
+                 f'as Sentry would deliver them, polled every 5 minutes through the same query as in production '
+                 f'(agent or LLM-call spans, last hour, newest 100), with {rp["fail"]:.0%} of deliveries failing and '
+                 f'the process dying mid-cycle in '
                  f'{rp["crash"]:.0%} of cycles. Truth is what the detectors find on each complete trace, so this '
                  f'counts only what the service adds.</p>')
         h.append('<div class="scroll"><table><tr><th>version</th><th class="num">failures to file</th>'
-                 '<th class="num">filed early or false</th><th class="num">never filed</th>'
+                 '<th class="num">false</th><th class="num">right, spans still in flight</th><th class="num">never filed</th>'
                  '<th class="num">stored twice</th><th class="num">median delay</th></tr>'
-                 + "".join(f'<tr><td>{esc(v)}</td><td class="num">{r["true"]}</td><td class="num">{r["false"]}</td>'
+                 + "".join(f'<tr><td>{esc(v)}</td><td class="num">{r["true"]}</td><td class="num">{r["false"]}</td><td class="num">{r["early"]}</td>'
                            f'<td class="num">{r["missed"]}</td><td class="num">{r["duplicates"]}</td>'
                            f'<td class="num">{r["median_delay"]:.0f} s</td></tr>' for v, r in rp["versions"].items())
                  + '</table></div>')
         h.append('<p class="dim">first-sight: the first version (judge a trace when it appears). settle-only: wait '
                  'for 300 quiet seconds. watch: the current version, which judges a trace when its top-level agent '
-                 'span has arrived and no span is waiting for its parent, re-reads it once for late spans, and '
+                 'span has arrived, no span is waiting for its parent and for 60 seconds nothing has started or arrived, '
+                 're-reads it five minutes later for late spans, and '
                  'gives each failure a stable event id so retries are dropped by Sentry (checked on a real '
-                 'project: one event sent three times was stored once). What it still misses are spans that '
-                 'arrive more than five minutes after their trace was judged.</p>')
+                 'project: one event sent three times was stored once). "Spans still in flight" are correct issues '
+                 f'filed while some of the trace\'s spans were still arriving; filed before the top-level agent span '
+                 f'had arrived: {rp["versions"]["watch"]["early_before_agent"]} for watch. Delay is the median, '
+                 'over every correctly filed failure, from the trace\'s last span arriving to its first filing.</p>')
 
     # ---- negatives
     h.append('<h2>Negative results</h2><ul class="plain">' + "".join(f"<li>{esc(n)}</li>" for n in NEGATIVE_RESULTS)

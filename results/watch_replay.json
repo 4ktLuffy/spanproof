@@ -5,28 +5,34 @@
  "crash": 0.02,
  "versions": {
   "first-sight": {
-   "false": 548,
-   "missed": 820,
-   "duplicates": 67,
+   "early_before_agent": 98,
+   "false": 179,
+   "missed": 163,
+   "early": 159,
+   "duplicates": 1347,
    "true": 1945,
-   "posts": 1740,
-   "median_delay": 14.926562306147389
+   "posts": 3308,
+   "median_delay": 237.97138867893773
   },
   "settle-only": {
-   "false": 94,
-   "missed": 78,
-   "duplicates": 9,
+   "early_before_agent": 19,
+   "false": 60,
+   "missed": 51,
+   "early": 85,
+   "duplicates": 19,
    "true": 1945,
-   "posts": 1970,
-   "median_delay": 312.44207088028975
+   "posts": 1973,
+   "median_delay": 421.5020518478991
   },
   "watch": {
+   "early_before_agent": 0,
    "false": 0,
-   "missed": 14,
+   "missed": 1,
+   "early": 33,
    "duplicates": 0,
    "true": 1945,
-   "posts": 1934,
-   "median_delay": 72.44207088028973
+   "posts": 1951,
+   "median_delay": 444.16691347776714
   }
  }
 }

@@ -44,8 +44,13 @@ def raised_in_sentry_sdk(tb: str) -> bool:
 
 def run_one(python: str, sid: str, mode: str, timeout: int = 120) -> dict:
     t0 = time.time()
-    p = subprocess.run([python, "-m", "spanproof.worker", sid, *MODES[mode]], cwd=ROOT, capture_output=True,
-                       text=True, timeout=timeout)
+    try:
+        p = subprocess.run([python, "-m", "spanproof.worker", sid, *MODES[mode]], cwd=ROOT, capture_output=True,
+                           text=True, timeout=timeout)
+    except subprocess.TimeoutExpired as e:  # a hung worker is one crashed run, not the end of the whole run
+        err = e.stderr.decode(errors="replace") if isinstance(e.stderr, bytes) else (e.stderr or "")
+        return {"scenario": sid, "mode": mode, "crashed": True, "stderr": f"timed out after {timeout}s\n{err[-3000:]}",
+                "seconds": round(time.time() - t0, 2)}
     mark = "@@SPANPROOF-RESULT@@"
     if p.returncode != 0 or mark not in p.stdout:
         return {"scenario": sid, "mode": mode, "crashed": True, "stderr": p.stderr[-3000:],

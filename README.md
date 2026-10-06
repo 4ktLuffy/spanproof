@@ -3,8 +3,8 @@
 Checks that Sentry's AI monitoring reports what the LLM provider actually returned, and turns agent
 traces into issues.
 
-SpanProof replays recorded provider responses through Sentry's real AI integrations (sentry-python and
-@sentry/node), across the provider versions in sentry-python's own `tox.ini`, and compares every emitted
+SpanProof replays scripted provider responses (built to each provider's published wire format) through
+Sentry's real AI integrations (sentry-python and @sentry/node), across the provider versions in sentry-python's own `tox.ini`, and compares every emitted
 span with the provider's numbers. A second layer reads span trees and raises issues for common agent
 failures. Nothing is mocked inside the SDK or the client library: each scenario runs in a fresh interpreter
 against a local scripted server that speaks the provider's wire format.
@@ -56,6 +56,15 @@ every envelope is recorded locally and also sent, then `python -m spanproof.real
 compares what was sent, what Sentry stored and the truth, and `python -m spanproof.from_sentry` re-scores the
 detectors on traces read back from Sentry.
 
+Against a live model: `SPANPROOF_LIVE=1` forwards every request to an OpenAI-compatible provider instead of
+the script, and the provider's own response becomes the truth. Set `SPANPROOF_UPSTREAM` (e.g.
+`https://api.groq.com/openai`), `SPANPROOF_UPSTREAM_KEY`, `SPANPROOF_UPSTREAM_MODEL`, optionally
+`SPANPROOF_CASSETTES=<dir>` to save every raw response and `SPANPROOF_PACE=<seconds>` for rate limits, then run
+`python -m spanproof.runner --jobs 1 --only openai.chat.,litellm.completion.openai,langchain.`. Select only
+OpenAI-compatible scenarios: in live mode every request goes upstream, so Anthropic and Google scenarios would
+fail. `python -m spanproof.live_agents` runs real
+openai-agents, LangGraph and Pydantic AI agents the same way, with faults injected into their tools and provider.
+
 CI: `spanproof.gate` compares a run with a checked-in baseline of known findings, fails only on new ones,
 and lists the known ones that disappeared. `ci/spanproof.yml` is an example nightly + pull-request workflow.
 
@@ -65,19 +74,22 @@ and lists the known ones that disappeared. `ci/spanproof.yml` is an example nigh
 Sentry as issues: tool loops, retry storms, silent tool errors, LLM calls missing from the trace, dead ends,
 truncated and empty answers, and per-agent token spikes. Each detection becomes an event with a stable
 fingerprint (failure class, agent, tool), tags for filtering and a link to the trace, so repeats group into one
-issue. It needs only a read-only auth token plus a DSN to file into. It waits until a trace has been quiet
-for `--settle` seconds (default 300) before judging it, keeps local state so a trace is filed once, retries a
-trace whose events could not be handed off, and builds each agent's token baseline in time order. `--dry-run`
-shows what it would file and saves no state.
+issue. It needs only a read-only auth token plus a DSN to file into, keeps local state so each failure is
+filed once, and builds each agent's token baseline in time order. `--dry-run` shows what it would file and saves
+no state; with `--once` it looks twice, 60 seconds apart, since a trace is only judged once it stops changing.
 
 A trace is judged when its top-level agent span has arrived (it ends last, so it is sent last), no span is
-waiting for its parent, and 60 seconds have passed with nothing new; traces without an agent span wait 300
-seconds. Each trace is read once more five minutes later for late spans, failed deliveries are retried, and
-each failure gets a stable event id, so a retry is dropped by Sentry instead of counted twice (checked on a real
-project). `python -m spanproof.watch_replay` replays 301 saved traces into Watch the way Sentry delivers them
-(late, out of order, with failed deliveries and crashes). Over 10 arrival orders, out of 1,945 failures: 0 filed
-early or falsely, 14 never filed (spans more than five minutes late), 0 stored twice, median 72 s after the
-trace finished. Judging a trace when it first appears filed 548 false or premature issues on the same arrivals.
+waiting for its parent, and for 60 seconds no new span has started and the span list has not changed (300
+seconds for traces without an agent span). After each judgment that saw new spans, the trace is read again
+five minutes later for late tool and provider-call spans. Failed deliveries are retried, and each failure gets
+a stable event id, so a retry is dropped by Sentry instead of counted twice (checked on a real project).
+
+`python -m spanproof.watch_replay` replays 301 saved traces into Watch the way Sentry delivers them: late, out
+of order, found through the same one-hour, 100-trace search, polled every 5 minutes, with 10% of deliveries
+failing and the process dying mid-cycle in 2% of cycles. Over 10 arrival orders, out of 1,945 failures: 0 false issues,
+1 never filed, 0 stored twice, none filed before the trace's top-level agent span arrived; the median correct
+issue is filed 444 s after the trace's last span arrived. Judging a trace when it first appears filed 179 false issues and
+stored 1,347 duplicates on the same arrivals (`results/watch_replay.json`).
 
 Checked on 94 traces with known outcomes, read back from a real Sentry account (58 synthetic, plus 36 real
 agent runs on a live model with injected faults): no false alarms on 35 problem-free traces, every tool loop,
@@ -98,14 +110,15 @@ spanproof/detectors.py    agent failure classes;  issues.py: Sentry events, OTLP
 spanproof/corpus.py, agent_worker.py, evaluate.py, fingerprint.py   detector measurement
 spanproof/watch.py        SpanProof Watch: agent failures in a Sentry org filed back as Sentry issues
 spanproof/watch_replay.py replays saved traces into Watch with late spans, failed deliveries and crashes
-spanproof/live.py, live_agents.py, live_agent_worker.py   live provider truth (record/replay) and real agents
+spanproof/live.py, live_agents.py, live_agent_worker.py   live provider truth (recorded responses) and real agents
 spanproof/gate.py         CI baseline gate;  report.py: findings page;  catalog.py: curated findings
 tests/                    unit tests, each check with a positive case and a negative control
 ```
 
 ## Limits
 
-- Ground truth is built from each provider's published schema and parsed with the provider SDK's types; it
-  is not a recording of live calls (no API keys are used).
+- In the default runs, ground truth is built from each provider's published schema and parsed with the
+  provider SDK's types; no API keys are needed. Live runs (above) use the provider's real responses; the ones
+  in `results/` were made against Groq (`results/cassettes/groq/`).
 - The detector corpus is synthetic. Results on production traces are the next step.
 - JavaScript coverage is @sentry/node with OpenAI, Anthropic and Vercel AI.

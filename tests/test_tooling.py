@@ -139,3 +139,24 @@ def test_text_length_fingerprint_decides_empty_without_content():
     assert "gen_ai.response.text" not in empty[1]["data"]
     assert [d.kind for d in detect_trace(empty)] == ["empty_answer"]
     assert detect_trace(full) == []
+
+
+def test_gate_unsupported_scenario_did_not_run():
+    # the library lacks the API: nothing was checked, so its known findings cannot be called fixed
+    results = [{"scenario": "s", "mode": "default", "unsupported": True, "findings": []},
+               {"scenario": "t", "mode": "default", "findings": []}]
+    _, ran = gate.findings(results, "medium")
+    assert [k.split("|")[1] for k in ran] == ["t"]
+
+
+def test_a_hung_worker_is_one_crashed_run(monkeypatch):
+    import subprocess
+
+    from spanproof import runner
+
+    def hang(*a, **k):
+        raise subprocess.TimeoutExpired(cmd="worker", timeout=120, stderr=b"stuck")
+
+    monkeypatch.setattr(runner.subprocess, "run", hang)
+    r = runner.run_one("python", "openai.chat.sync", "default")
+    assert r["crashed"] and r["stderr"].startswith("timed out after 120s")

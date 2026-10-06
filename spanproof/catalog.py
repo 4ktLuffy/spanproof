@@ -31,8 +31,8 @@ FINDINGS = [
         "fix": "Patched in this work (draft PR getsentry/sentry-python#7880, not merged): read "
                "prompt_tokens_details.cached_tokens / cache_write_tokens and "
                "completion_tokens_details.reasoning_tokens (with LiteLLM's private fallbacks). SpanProof usage "
-               "findings for LiteLLM: 8 -> 0 on HEAD; sentry-python's LiteLLM suite 173/173 under tox, with two "
-               "new regression tests that fail on the original code.",
+               "findings for LiteLLM: 8 -> 0 on HEAD; sentry-python's LiteLLM suite 178/178 under tox, with five "
+               "new tests, four of which fail on the original code.",
     },
     {
         "id": "SP-02",

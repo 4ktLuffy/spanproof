@@ -226,7 +226,7 @@ th{font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}.bad{
          f"@sentry/node {esc(js.get('@sentry/node', '-'))} · {len(last['cells'])} cells · "
          f"{len(tonight['signatures'])} open findings under {len(last['problems'])} ids · "
          "<a href='https://github.com/4ktLuffy/spanproof'>repository</a></p>",
-         "<p>Every night this replays recorded provider responses through Sentry's AI integrations on the latest "
+         "<p>Every night this replays scripted provider responses through Sentry's AI integrations on the latest "
          "sentry-python, against the oldest supported, latest and pre-release versions of each provider SDK, and "
          "compares the spans with the truth. Nights are compared finding by finding (cell, scenario, mode, rule, "
          "attribute, call); the catalog id is a label. A finding counts as fixed only if its own cell, scenario and "
@@ -234,6 +234,8 @@ th{font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}.bad{
          "unsupported, missing), the finding is listed as did not run and kept open.</p>"]
     if prev:
         h.append(f"<h2>Since the previous night ({esc(prev['date'])})</h2>")
+        if not v["note"]:
+            h.append(f"<p><b>{len(v['new'])} new, {len(v['fixed'])} fixed, {len(v['unknown'])} did not run.</b></p>")
     if v["note"]:
         h.append(f"<p class='m'>{esc(v['note'])}</p>")
     glob, per_cell = v.get("changes", ([], {}))

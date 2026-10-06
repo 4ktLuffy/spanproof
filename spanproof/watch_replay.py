@@ -5,13 +5,16 @@
 Each trace is stretched to a production-like duration and placed at a random time in a
 six-hour window. A span becomes visible when it has ended (after all of its children) plus
 an ingestion delay with a long tail, so a running agent shows up as a partial trace whose
-top-level agent span is missing. Watch polls every 60 seconds against this fake Sentry.
-Deliveries fail at random and the process crashes at random, losing whatever it had not
-saved yet. The fake Sentry drops repeated event ids, as the real one does (checked on a real
+top-level agent span is missing. Watch polls every 300 seconds (its default) against this fake Sentry.
+Deliveries fail at random, and in some cycles the process dies after its first 1-3 deliveries,
+losing whatever it had not saved yet. The fake Sentry drops repeated event ids, as the real one does (checked on a real
 project: one event sent three times with the same id was stored once).
 
 Truth is what the detectors find on each complete trace, so the replay measures only what
-Watch's lifecycle adds: issues filed too early, failures never filed, and events stored twice.
+Watch's lifecycle adds: false issues (not in the complete trace), correct issues filed while
+some of the trace's spans were still in flight, failures never filed,
+and events stored twice. Trace discovery uses the real query: agent or LLM-call spans that
+ended in the last hour, newest 100 traces.
 Three versions run on the same arrivals:
 
   first-sight   judge a trace when it first appears, random event ids, a delivery error ends the cycle
@@ -26,13 +29,15 @@ from __future__ import annotations
 import argparse
 import json
 import random
+import statistics
 import uuid
 from collections import Counter
 
 from . import watch
-from .detectors import detect_trace
+from .detectors import _is_client, detect_trace
 
-INTERVAL = 60.0
+INTERVAL = 300.0  # watch.py's default --interval
+LIMIT = 100  # watch.py's default --limit
 
 
 def load(paths: list[str]) -> list[list[dict]]:
@@ -93,13 +98,14 @@ class World:
                 for s in self.traces[tid] if s["_arrive"] <= self.now]
 
     def recent_traces(self, since, limit):
+        # the real query: agent spans or LLM-call spans, ended within the last hour, newest 100 traces
         rows = []
         for tid, sp in self.traces.items():
-            # like the real span search, which only matches gen_ai spans
-            seen = [s for s in sp if s["_arrive"] <= self.now and (s.get("op") or "").startswith("gen_ai.")]
+            seen = [s for s in sp if s["_arrive"] <= self.now and s["_end"] >= self.now - 3600
+                    and (s.get("op") == "gen_ai.invoke_agent" or _is_client(s))]
             if seen:
                 rows.append((tid, "p", max(s["start"] for s in seen), len(seen)))
-        return sorted(rows, key=lambda r: -r[2])
+        return sorted(rows, key=lambda r: -r[2])[:limit]
 
     def fetch_trace(self, trace, project):
         return self.visible(trace)
@@ -166,7 +172,7 @@ def run(version: str, traces, seed: int, fail: float, crash: float) -> dict:
                 elif version == "settle-only":
                     settle_only_cycle(state, world, file_events)
                 else:
-                    watch.cycle(state, "1h", 10**6, None, False, 5.0, 5, settle=300.0, now=world.now, quiet=60.0)
+                    watch.cycle(state, "1h", LIMIT, None, False, 5.0, 5, settle=300.0, now=world.now, quiet=60.0)
             except (Crash, OSError):
                 state = json.loads(saved)  # the process died: restart from the last saved state
                 continue
@@ -177,17 +183,38 @@ def run(version: str, traces, seed: int, fail: float, crash: float) -> dict:
     want = truth(traces)
     got = Counter((e["contexts"]["agent_failure"]["trace_id"], e["_key"]) for e in world.stored)
     finish = {sp[0]["trace_id"]: max(s["_arrive"] for s in sp) for sp in traces}
-    delays = sorted(filed_at[k] - finish[k[0]] for k in want if k in filed_at)
-    return {"false": sum(1 for k in got if k not in want), "missed": sum(1 for k in want if k not in got),
+    delays = [filed_at[k] - finish[k[0]] for k in want if k in filed_at]
+    agent_at = {sp[0]["trace_id"]: top_agent_arrival(sp) for sp in traces}
+    return {"delays": delays,
+            "early_before_agent": sum(1 for k in got if agent_at[k[0]] is not None and k in filed_at
+                                      and filed_at[k] < agent_at[k[0]]),"false": sum(1 for k in got if k not in want), "missed": sum(1 for k in want if k not in got),
+            "early": sum(1 for k in got if k in want and filed_at[k] < finish[k[0]]),
             "duplicates": sum(n - 1 for n in got.values()), "true": len(want), "posts": world.posts,
-            "median_delay": delays[len(delays) // 2] if delays else None}
+            }
 
 
 _FILE_EVENTS = watch.file_events
 
 
+def top_agent_arrival(sp: list[dict]) -> float | None:
+    """When the trace's first top-level agent span (not one running as a tool of another agent) arrived."""
+    ops = {s["span_id"]: s["op"] for s in sp}
+    parent = {s["span_id"]: s.get("parent_span_id") for s in sp}
+    out = []
+    for s in sp:
+        if s["op"] != "gen_ai.invoke_agent":
+            continue
+        p, nested = parent[s["span_id"]], False
+        while p in ops and not nested:
+            nested = ops[p] in ("gen_ai.invoke_agent", "gen_ai.execute_tool")
+            p = parent.get(p)
+        if not nested:
+            out.append(s["_arrive"])
+    return min(out, default=None)
+
+
 def first_sight_cycle(state, world, file_events):
-    for trace, project, *_ in reversed(world.recent_traces("1h", 10**6)):
+    for trace, project, *_ in reversed(world.recent_traces("1h", LIMIT)):
         if trace in state["seen"]:
             continue
         spans = world.fetch_trace(trace, project)
@@ -199,7 +226,7 @@ def first_sight_cycle(state, world, file_events):
 
 
 def settle_only_cycle(state, world, file_events):
-    for trace, project, last, _ in reversed(world.recent_traces("1h", 10**6)):
+    for trace, project, last, _ in reversed(world.recent_traces("1h", LIMIT)):
         if trace in state["seen"] or world.now - last < 300:
             continue
         spans = world.fetch_trace(trace, project)
@@ -220,9 +247,10 @@ def settle_only_cycle(state, world, file_events):
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("traces", nargs="*", default=["results/live_agents1.jsonl", "results/corpus_dc_on.jsonl"])
-    ap.add_argument("--seeds", type=int, default=5)
+    ap.add_argument("--seeds", type=int, default=10)
     ap.add_argument("--fail", type=float, default=0.1, help="share of deliveries that fail")
-    ap.add_argument("--crash", type=float, default=0.02, help="share of cycles in which the process dies")
+    ap.add_argument("--crash", type=float, default=0.02,
+                    help="share of cycles in which a crash is armed: the process dies at its next delivery after 1-3")
     ap.add_argument("--json")
     a = ap.parse_args(argv)
     base = load(a.traces)
@@ -233,15 +261,15 @@ def main(argv=None) -> int:
         for seed in range(a.seeds):
             traces = schedule(base, random.Random(seed))
             r = run(version, traces, seed, a.fail, a.crash)
-            delays.append(r.pop("median_delay"))
+            delays += r.pop("delays")
             tot.update(r)
-        rows[version] = dict(tot, median_delay=sorted(d for d in delays if d is not None)[len(delays) // 2])
+        rows[version] = dict(tot, median_delay=statistics.median(delays))  # first filing of each true failure
     print(f"{len(base)} traces x {a.seeds} arrival orders; {a.fail:.0%} of deliveries fail, "
-          f"the process dies in {a.crash:.0%} of cycles")
-    print(f"{'version':12} {'true':>6} {'filed early/false':>18} {'never filed':>12} {'stored twice':>13}"
+          f"a crash is armed in {a.crash:.0%} of cycles")
+    print(f"{'version':12} {'true':>6} {'false':>6} {'right, spans in flight':>23} {'never filed':>12} {'stored twice':>13}"
           f" {'median delay':>13}")
     for v, r in rows.items():
-        print(f"{v:12} {r['true']:6} {r['false']:18} {r['missed']:12} {r['duplicates']:13}"
+        print(f"{v:12} {r['true']:6} {r['false']:6} {r['early']:23} {r['missed']:12} {r['duplicates']:13}"
               f" {r['median_delay']:12.0f}s")
     if a.json:
         json.dump({"traces": len(base), "seeds": a.seeds, "fail": a.fail, "crash": a.crash, "versions": rows},

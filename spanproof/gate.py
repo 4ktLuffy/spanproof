@@ -62,7 +62,7 @@ def results_of(run: dict) -> tuple[list[dict], list[str]]:
 def findings(results: list[dict], min_sev: str) -> tuple[dict[str, dict], set[str]]:
     found, ran = {}, set()
     for r in results:
-        if r.get("crashed"):
+        if r.get("crashed") or r.get("unsupported"):  # unsupported: the library lacks the API, nothing was checked
             continue
         ran.add(f"{_cell(r)}|{r.get('scenario')}|{r.get('mode', 'default')}")
         for f in r.get("findings", []):

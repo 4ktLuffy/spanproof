@@ -53,7 +53,8 @@ def main() -> int:
 
     exc = None
     real_stdout = sys.stdout
-    with MockServer(sc.replies()) as srv, contextlib.redirect_stdout(sys.stderr):
+    # live: every request goes to the real provider (queued replies would be served first, as faults)
+    with MockServer([] if mockserver.LIVE else sc.replies()) as srv, contextlib.redirect_stdout(sys.stderr):
         root = (sentry_sdk.traces.start_span(name=sc.id) if a.span_streaming
                 else sentry_sdk.start_transaction(op="spanproof.scenario", name=sc.id))
         with root:

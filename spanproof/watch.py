@@ -55,6 +55,7 @@ def save_state(path: str, state: dict) -> None:
     # keep the state small: forget traces judged more than 7 days ago, keep the last 200 runs per agent
     cutoff = time.time() - 7 * 86400
     state["seen"] = {k: v for k, v in state["seen"].items() if _seen(v)["at"] > cutoff}
+    state["pending"] = {k: v for k, v in state.get("pending", {}).items() if v["since"] > cutoff}
     state["tokens"] = {k: v[-200:] for k, v in state["tokens"].items()}
     tmp = path + ".tmp"
     json.dump(state, open(tmp, "w"))
@@ -144,7 +145,7 @@ def build_event(d: Detection) -> dict:
 class Sender:
     """Posts one event per envelope to a DSN and raises unless Sentry accepted it."""
 
-    def __init__(self, dsn: str, timeout: float = 15.0):
+    def __init__(self, dsn: str, timeout: float = 30.0):  # ingest occasionally takes ~20 s (measured)
         u = urllib.parse.urlsplit(dsn)
         self.url = f"{u.scheme}://{u.hostname}{f':{u.port}' if u.port else ''}/api/{u.path.strip('/')}/envelope/"
         self.auth = f"Sentry sentry_version=7, sentry_key={u.username}, sentry_client=spanproof-watch/1"
@@ -196,35 +197,47 @@ def complete(spans: list[dict]) -> bool:
 def cycle(state: dict, since: str, limit: int, send, dry_run: bool, factor: float, min_peers: int,
           settle: float = 300.0, now: float | None = None, quiet: float = 60.0, max_wait: float = 1800.0) -> list:
     """Judge each trace once it is finished: its top-level agent span has arrived, no span is
-    waiting for its parent and nothing new started for `quiet` seconds. Without an agent span
-    (bare LLM calls, agents that died) it waits `settle` quiet seconds, and with spans still
-    waiting for their parents up to `max_wait` (data that never arrives must not block forever).
-    A trace that grows after it was judged is judged again and only failures not filed before
-    are filed; growth is seen in the span list, and each trace is read once more `settle` seconds
-    after it was judged, for late spans the list does not show (provider calls are not gen_ai spans). A trace is marked done only after its events were accepted, so failed deliveries
-    are retried; event ids are stable, so retries never double count."""
+    waiting for its parent, and for `quiet` seconds no new span has started and the span list
+    has not changed (counted from when this watcher first saw the trace). Without an agent span
+    (bare LLM calls, agents that died) both must hold for `settle` seconds, and with spans still
+    waiting for their parents it waits up to `max_wait` (data that never arrives must not block
+    forever). Every judgment that saw new spans schedules one more read `settle` seconds later,
+    for late spans the span list does not show (tool and provider-call spans); if that read finds
+    more, the trace is judged again, only failures not filed before are filed, and another read
+    is scheduled.
+    Nothing is recorded until its events were accepted, so failed deliveries are retried, and
+    event ids are stable, so retries never double count."""
     found = []
     now = time.time() if now is None else now
+    pending = state.setdefault("pending", {})
     # Oldest first: each agent's token history must be built in the order runs happened,
     # or older normal runs get judged against newer, smaller ones (measured: 10 false spikes
     # out of 15 newest-first, 0 out of 5 oldest-first on the same traces).
     for trace, project, last_start, count in reversed(recent_traces(since, limit)):
-        rec = _seen(state["seen"][trace]) if trace in state["seen"] else None
+        rec = dict(_seen(state["seen"][trace])) if trace in state["seen"] else None  # a copy: commit on success
         grown = not rec or last_start > rec["last"] or count > rec.get("n", 10**9)
-        if rec and not grown and not (rec.get("recheck") and now >= rec["recheck"]):
+        due = bool(rec and rec.get("recheck") and now >= rec["recheck"])
+        if not grown and not due:
             continue
-        idle = now - last_start
-        if idle < min(quiet, settle):
-            continue  # spans are still arriving
+        if grown:
+            # when the span list last changed, as seen by this watcher (spans arrive late and out of order)
+            p = pending.get(trace)
+            if not p or p["n"] != count or p["last"] != last_start:
+                p = pending[trace] = {"n": count, "last": last_start, "since": now}
+            # quiet on both clocks: no span started recently, and the span list stopped changing
+            idle = min(now - last_start, now - p["since"])
+            if idle < min(quiet, settle):
+                continue  # spans are still starting or still arriving
         spans = fetch_trace(trace, project)
         if not spans:
             continue
-        if rec and not grown:
-            rec["recheck"] = None  # the one late re-read
+        if not grown:  # the late re-read
             if len(spans) <= rec.get("spans", 0):
-                state["seen"][trace] = rec
+                state["seen"][trace] = dict(rec, recheck=None)
                 continue
-        if not complete(spans) and (idle < settle or (orphans(spans) and idle < max_wait)):
+            if orphans(spans) and now - rec["at"] < max_wait:
+                continue  # late spans are still waiting for their parents: read again next cycle
+        elif not complete(spans) and (idle < settle or (orphans(spans) and idle < max_wait)):
             continue  # still running or still arriving: judge it on a later cycle
         agent = spans_agent(spans)
         hist = list(state["tokens"].get(agent or "", []))
@@ -242,9 +255,11 @@ def cycle(state: dict, since: str, limit: int, send, dry_run: bool, factor: floa
                     state["tokens"][agent] = hist
                 print(f"    filing failed for trace {trace}, will retry: {exc}", file=sys.stderr, flush=True)
                 continue
-        state["seen"][trace] = {"at": now, "last": last_start, "n": count, "spans": len(spans),
-                                "recheck": now + settle if not rec else None,
+        # every judgment that saw new data schedules one more re-read for spans still in flight
+        state["seen"][trace] = {"at": now, "last": max(last_start, rec["last"] if rec else 0), "n": count,
+                                "spans": len(spans), "recheck": now + settle,
                                 "filed": sorted(filed | {key(d) for d in new})}
+        pending.pop(trace, None)
         found.extend(new)
     return found
 
@@ -278,6 +293,13 @@ def main(argv=None) -> int:
         t0 = dt.datetime.now().strftime("%H:%M:%S")
         dets = cycle(state, a.since, a.limit, send, a.dry_run, a.spike_factor, a.spike_min_peers, a.settle,
                      quiet=a.quiet)
+        if a.once and state.get("pending"):
+            # a trace is judged only after it was seen unchanged for --quiet seconds: look a second time
+            print(f"[{t0}] {len(state['pending'])} trace(s) seen for the first time; looking again in "
+                  f"{a.quiet:.0f} s", flush=True)
+            time.sleep(a.quiet)
+            dets += cycle(state, a.since, a.limit, send, a.dry_run, a.spike_factor, a.spike_min_peers, a.settle,
+                          quiet=a.quiet)
         if not a.dry_run:
             save_state(a.state, state)
         groups = Counter((d.kind, d.agent or "-", str(d.detail.get("tool", "-"))) for d in dets)

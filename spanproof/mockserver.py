@@ -64,6 +64,9 @@ class Script:
 def _handler(script: Script):
     class H(BaseHTTPRequestHandler):
         protocol_version = "HTTP/1.1"
+        # live mode joins request threads on close: an idle keep-alive connection must not keep
+        # server_close() waiting forever (scripted runs do not join, so they keep no timeout)
+        timeout = 15 if LIVE else None
 
         def log_message(self, *a):  # silence
             pass
