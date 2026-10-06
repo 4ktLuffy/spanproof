@@ -1,0 +1,88 @@
+name: nightly
+
+# Every night: replay SpanProof's scenarios through Sentry's AI integrations on the latest
+# sentry-python, against the oldest supported, latest and pre-release provider SDKs, and
+# publish the result next to the previous nights. Uses scripted and recorded provider
+# responses only: no API keys, no Sentry account, no secrets.
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: nightly
+  cancel-in-progress: false
+
+jobs:
+  nightly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check out sentry-python (latest master)
+        uses: actions/checkout@v4
+        with:
+          repository: getsentry/sentry-python
+          path: sentry-python
+
+      - name: Check out previous results
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: site
+
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install the runner
+        run: |
+          uv venv -p 3.12 .venv
+          uv pip install -p .venv/bin/python -e ./sentry-python openai anthropic litellm google-genai \
+            openai-agents langchain langchain-openai langgraph "pydantic-ai-slim[openai]" pydantic
+          (cd js && npm install --no-audit --no-fund @sentry/node openai @anthropic-ai/sdk ai @ai-sdk/openai)
+
+      - name: Python matrix (oldest supported, latest, pre-release)
+        env:
+          UV_HTTP_TIMEOUT: "180"
+          SPANPROOF_CELL_JOBS: "2"
+        run: |
+          .venv/bin/python -m spanproof.matrix --sdk ./sentry-python --envs ~/spanproof-envs --slim \
+            --modes default,legacy --out results/nightly_matrix.json
+
+      - name: JavaScript (latest @sentry/node)
+        run: .venv/bin/python -m spanproof.js_bridge --modes default,nodc --out results/nightly_js.json
+
+      - name: Nightly page
+        run: |
+          mkdir -p site
+          .venv/bin/python -m spanproof.nightly --matrix results/nightly_matrix.json --js results/nightly_js.json \
+            --site site --sdk-sha "$(git -C sentry-python rev-parse HEAD)"
+
+      - name: Open an issue in this repository when something new appears
+        if: hashFiles('site/new.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue create --title "Nightly: new finding $(date +%F)" --body-file site/new.md
+
+      - name: Publish to gh-pages
+        run: |
+          cd site
+          rm -f new.md
+          git init -q -b gh-pages 2>/dev/null || true
+          git config user.name "spanproof-nightly"
+          git config user.email "spanproof-nightly@users.noreply.github.com"
+          git add -A
+          git commit -q -m "nightly $(date +%F)" || exit 0
+          git push -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:gh-pages

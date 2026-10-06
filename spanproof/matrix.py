@@ -11,6 +11,7 @@ that breaks instrumentation shows up the night it is published.
 from __future__ import annotations
 
 import argparse
+import shutil
 import re
 import json
 import os
@@ -22,7 +23,7 @@ from pathlib import Path
 
 from .runner import list_scenarios, run_one
 
-UV = os.environ.get("UV", str(Path.home() / ".local/bin/uv"))
+UV = os.environ.get("UV") or shutil.which("uv") or str(Path.home() / ".local/bin/uv")
 
 # tox env name -> (scenario prefix, distribution, extra packages for scenarios)
 TOX_ENVS = {
@@ -91,6 +92,8 @@ def main(argv=None) -> int:
     ap.add_argument("--only", default="")
     ap.add_argument("--modes", default="default")
     ap.add_argument("--out", default="results/matrix.json")
+    ap.add_argument("--slim", action="store_true",
+                    help="per integration only the oldest supported version, latest and pre-release (nightly)")
     ap.add_argument("--resume", action="store_true",
                     help="keep cells from --out that installed and ran cleanly; redo the rest")
     a = ap.parse_args(argv)
@@ -99,6 +102,16 @@ def main(argv=None) -> int:
 
     plan = [c for c in tox_cells(os.path.join(os.path.expanduser(a.sdk), "tox.ini"))
             if not a.only or c["env"].split("-")[0] in a.only.split(",")]
+    if a.slim:
+        def ver(c):
+            return tuple(int(x) for x in c["requested"].split(".") if x.isdigit())
+
+        oldest = {}
+        for c in plan:
+            if c["requested"] not in ("latest", "pre"):
+                if c["env"] not in oldest or ver(c) < ver(oldest[c["env"]]):
+                    oldest[c["env"]] = c
+        plan = [c for c in plan if c["requested"] in ("latest", "pre") or oldest.get(c["env"]) is c]
 
     done = {}
     if a.resume and Path(a.out).exists():
