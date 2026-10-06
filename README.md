@@ -67,10 +67,10 @@ fingerprint (failure class, agent, tool), tags for filtering and a link to the t
 issue. It needs only a read-only auth token plus a DSN to file into, keeps local state so nothing is filed
 twice, and builds each agent's cost baseline in time order. `--dry-run` shows what it would file.
 
-Checked on a real Sentry account against 102 traces with known outcomes (synthetic corpus plus 45 real
+Checked on 94 traces with known outcomes, read back from a real Sentry account (58 synthetic, plus 36 real
 agent runs on a live model with injected faults): no false alarms on 35 problem-free traces, every tool loop,
-retry storm, cost spike, lost LLM call, silent tool error and empty answer caught; truncation is missed where the
-integration does not record finish reasons (openai-agents, Pydantic AI before the fix in `patches/`).
+retry storm, dead end, cost spike, lost LLM call, silent tool error and empty answer caught; truncation is missed
+where the integration does not record finish reasons (openai-agents, Pydantic AI before the fix in `patches/`).
 
 ## Layout
 

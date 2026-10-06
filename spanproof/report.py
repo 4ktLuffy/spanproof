@@ -243,7 +243,7 @@ def build() -> str:
     m = load("matrix_tox_head.json") or {"cells": []}
     n_cells = sum(1 for c in m["cells"] if c.get("results"))
     n_runs_matrix = sum(len(c.get("results", [])) for c in m["cells"])
-    new = [f for f in FINDINGS if str(f["status"]).startswith("new") and f["intent"] == "unintended"]
+    new = [f for f in FINDINGS if str(f["status"]).startswith(("new", "reported")) and f["intent"] == "unintended"]
     defects = [f for f in FINDINGS if f["intent"] == "unintended"]
     h = []
     h.append('<title>SpanProof for Sentry</title>')
@@ -261,7 +261,7 @@ def build() -> str:
     h.append(f'<div class="meta"><span>sentry-python {PY_SHA[:8]} (2.71.0)</span><span>@sentry/node 11.4.0</span>'
              f'<span>2026-10-06</span><span>no API keys, no live calls</span></div>')
     h.append('<div class="stats">'
-             f'<div class="stat"><b>{len(defects)}</b><span>unintended defects ({len(new)} with no existing issue)</span></div>'
+             f'<div class="stat"><b>{len(defects)}</b><span>unintended defects ({len(new)} had no existing issue)</span></div>'
              f'<div class="stat"><b>4</b><span>fixes with tests and before/after measurements</span></div>'
              f'<div class="stat"><b>{n_cells}</b><span>tox matrix cells, {n_runs_matrix} runs</span></div>'
              f'<div class="stat"><b>{n_runs_full}</b><span>runs on latest, 4 transport modes</span></div>'
@@ -467,12 +467,13 @@ def build() -> str:
              'Sentry organization and files each failure back as a grouped Sentry issue with a link to the trace. '
              'It was run on a real account against 45 real agent runs on a live model (Groq gpt-oss-20b, '
              'openai-agents, LangGraph and Pydantic AI) with faults injected into their tools and provider, plus '
-             'the synthetic corpus. Truth came from the runs themselves (tool-call logs, injected errors, the '
-             'answer text), never from Sentry\'s spans.</p>')
+             '58 synthetic traces. 8 runs crashed loudly and were left out and 1 was not found in Sentry, so 94 '
+             'traces were scored as Sentry stored them. Truth came from the runs themselves (tool-call logs, '
+             'injected errors, the answer text), never from Sentry\'s spans.</p>')
     h.append('<div class="scroll"><table><tr><th>failure class</th><th class="num">caught</th>'
              '<th class="num">false alarms</th><th class="num">missed</th></tr>'
              + "".join(f'<tr><td>{c}</td><td class="num">{a}</td><td class="num">{b}</td><td class="num">{m}</td></tr>'
-                       for c, a, b, m in (("tool loop", 13, 0, 0), ("retry storm", 15, 0, 0), ("dead end", 14, 0, 1),
+                       for c, a, b, m in (("tool loop", 12, 0, 0), ("retry storm", 15, 0, 0), ("dead end", 7, 0, 0),
                                           ("cost spike", 5, 0, 0), ("LLM call missing from trace", 5, 0, 0),
                                           ("silent tool error", 4, 0, 0), ("empty answer", 4, 0, 0),
                                           ("truncated answer", 4, 0, 4)))
