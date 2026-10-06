@@ -28,9 +28,10 @@ Each scenario runs in four transport modes: default, data collection off, legacy
 ## Agent failure classes
 
 `tool_loop`, `retry_storm`, `silent_tool_error`, `lost_llm_span`, `dead_end`, `truncated_answer`,
-`empty_answer`, `cost_spike`. The detectors read only what Sentry already receives (gen_ai and http.client
-spans) and emit events with stable fingerprints, so repeats group into one issue. They also read OTLP/JSON,
-so any OpenTelemetry GenAI exporter works.
+`empty_answer`, `cost_spike` (a token-count spike against the agent's own history; prices are not
+applied). The detectors read only what Sentry already receives (gen_ai and http.client spans) and emit
+events with stable fingerprints, so repeats group into one issue. They also read OTLP/JSON (tested with the
+attribute names Sentry's own SDKs emit; other GenAI exporters are untested).
 
 They are measured on a labelled corpus produced by running openai-agents, LangGraph and Pydantic AI with
 Sentry's real instrumentation against a scripted model (`spanproof.corpus`), including hard negatives
@@ -62,14 +63,16 @@ and lists the known ones that disappeared. `ci/spanproof.yml` is an example nigh
 
 `python -m spanproof.watch --interval 300` watches a Sentry organization and files agent failures back into
 Sentry as issues: tool loops, retry storms, silent tool errors, LLM calls missing from the trace, dead ends,
-truncated and empty answers, and per-agent cost spikes. Each detection becomes an event with a stable
+truncated and empty answers, and per-agent token spikes. Each detection becomes an event with a stable
 fingerprint (failure class, agent, tool), tags for filtering and a link to the trace, so repeats group into one
-issue. It needs only a read-only auth token plus a DSN to file into, keeps local state so nothing is filed
-twice, and builds each agent's cost baseline in time order. `--dry-run` shows what it would file.
+issue. It needs only a read-only auth token plus a DSN to file into. It waits until a trace has been quiet
+for `--settle` seconds (default 300) before judging it, keeps local state so a trace is filed once, retries a
+trace whose events could not be handed off, and builds each agent's token baseline in time order. `--dry-run`
+shows what it would file and saves no state.
 
 Checked on 94 traces with known outcomes, read back from a real Sentry account (58 synthetic, plus 36 real
 agent runs on a live model with injected faults): no false alarms on 35 problem-free traces, every tool loop,
-retry storm, dead end, cost spike, lost LLM call, silent tool error and empty answer caught; truncation is missed
+retry storm, dead end, token spike, lost LLM call, silent tool error and empty answer caught; truncation is missed
 where the integration does not record finish reasons (openai-agents, Pydantic AI before the fix in `patches/`).
 
 ## Layout

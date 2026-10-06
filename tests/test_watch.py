@@ -21,7 +21,7 @@ def spans(agent="a", tokens=100, loop=False):
 
 
 def test_cycle_files_once_and_skips_seen(monkeypatch):
-    monkeypatch.setattr(watch, "recent_traces", lambda since, limit: [("t1", "p"), ("t2", "p")])
+    monkeypatch.setattr(watch, "recent_traces", lambda since, limit: [("t1", "p", 0.0), ("t2", "p", 0.0)])
     monkeypatch.setattr(watch, "fetch_trace", lambda trace, project: spans(loop=(trace == "t1")))
     filed = []
     monkeypatch.setattr(watch, "file_events", lambda client, dets: filed.extend(dets))
@@ -33,10 +33,47 @@ def test_cycle_files_once_and_skips_seen(monkeypatch):
 
 
 def test_dry_run_files_nothing(monkeypatch):
-    monkeypatch.setattr(watch, "recent_traces", lambda since, limit: [("t1", "p")])
+    monkeypatch.setattr(watch, "recent_traces", lambda since, limit: [("t1", "p", 0.0)])
     monkeypatch.setattr(watch, "fetch_trace", lambda trace, project: spans(loop=True))
     monkeypatch.setattr(watch, "file_events", lambda client, dets: (_ for _ in ()).throw(AssertionError("filed")))
     assert watch.cycle({"seen": {}, "tokens": {}}, "1h", 10, None, True, 5, 5)
+
+
+def test_recent_trace_waits_until_quiet(monkeypatch):
+    # a trace whose newest span started 60s ago may still be running: judge it on a later cycle
+    monkeypatch.setattr(watch, "recent_traces", lambda since, limit: [("t1", "p", 1000.0)])
+    monkeypatch.setattr(watch, "fetch_trace", lambda trace, project: spans(loop=True))
+    monkeypatch.setattr(watch, "file_events", lambda client, dets: None)
+    state = {"seen": {}, "tokens": {}}
+    assert watch.cycle(state, "1h", 10, object(), False, 5, 5, settle=300, now=1060.0) == []
+    assert "t1" not in state["seen"]
+    assert [d.kind for d in watch.cycle(state, "1h", 10, object(), False, 5, 5, settle=300, now=1400.0)] == ["tool_loop"]
+    assert "t1" in state["seen"]
+
+
+def test_failed_filing_is_retried(monkeypatch):
+    monkeypatch.setattr(watch, "recent_traces", lambda since, limit: [("t1", "p", 0.0)])
+    monkeypatch.setattr(watch, "fetch_trace", lambda trace, project: spans(loop=True))
+    calls = []
+
+    def flaky(client, dets):
+        calls.append(len(dets))
+        if len(calls) == 1:
+            raise OSError("network down")
+
+    monkeypatch.setattr(watch, "file_events", flaky)
+    state = {"seen": {}, "tokens": {}}
+    assert watch.cycle(state, "1h", 10, object(), False, 5, 5) == [] and "t1" not in state["seen"]
+    assert state["tokens"].get("a", []) == []  # the failed attempt did not count towards cost history
+    assert watch.cycle(state, "1h", 10, object(), False, 5, 5) and "t1" in state["seen"] and len(calls) == 2
+
+
+def test_dry_run_writes_no_state(monkeypatch, tmp_path):
+    monkeypatch.setattr(watch, "recent_traces", lambda since, limit: [("t1", "p", 0.0)])
+    monkeypatch.setattr(watch, "fetch_trace", lambda trace, project: spans(loop=True))
+    path = tmp_path / "state.json"
+    assert watch.main(["--once", "--dry-run", "--state", str(path)]) == 0
+    assert not path.exists()  # a later real run still files these traces
 
 
 def test_cost_spike_uses_the_agents_own_history():
@@ -86,7 +123,7 @@ def test_state_is_pruned(tmp_path):
 def test_history_is_built_oldest_first(monkeypatch):
     # recent_traces returns newest first: five small new runs, then five large old runs.
     sizes = {f"n{i}": 100 for i in range(5)} | {f"o{i}": 1000 for i in range(5)}
-    monkeypatch.setattr(watch, "recent_traces", lambda since, limit: [(t, "p") for t in sizes])
+    monkeypatch.setattr(watch, "recent_traces", lambda since, limit: [(t, "p", 0.0) for t in sizes])
     monkeypatch.setattr(watch, "fetch_trace", lambda trace, project: spans(tokens=sizes[trace]))
     dets = watch.cycle({"seen": {}, "tokens": {}}, "1h", 50, None, True, 5, 5)
     # judged in time order, the drop to 100 is not a spike and the old 1000s are not either

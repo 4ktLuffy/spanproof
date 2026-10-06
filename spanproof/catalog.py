@@ -28,7 +28,8 @@ FINDINGS = [
         "impact": "Every cached or reasoning token through LiteLLM is invisible; for an Anthropic model behind "
                   "LiteLLM the cache-write tokens (billed at 1.25x) are missing too.",
         "fixed": "python",
-        "fix": "FIXED in this work: read prompt_tokens_details.cached_tokens / cache_write_tokens and "
+        "fix": "Patched in this work (draft PR getsentry/sentry-python#7880, not merged): read "
+               "prompt_tokens_details.cached_tokens / cache_write_tokens and "
                "completion_tokens_details.reasoning_tokens (with LiteLLM's private fallbacks). SpanProof usage "
                "findings for LiteLLM: 8 -> 0 on HEAD; sentry-python's LiteLLM suite 173/173 under tox, with two "
                "new regression tests that fail on the original code.",
@@ -61,14 +62,16 @@ FINDINGS = [
     {
         "id": "SP-04",
         "title": "OpenAI Responses cache_write_tokens never recorded (Python and JavaScript)",
-        "sdk": "python+js", "integration": "openai", "severity": "medium", "intent": "unintended", "status": "new",
+        "sdk": "python+js", "integration": "openai", "severity": "medium", "intent": "unintended",
+        "status": "reported: sentry-python#7870", "issue": "https://github.com/getsentry/sentry-python/issues/7870",
         "evidence": [f"{PY}/sentry_sdk/integrations/openai.py#L283-L289",
                      f"{JS_VER}: build/cjs/ai/openai/utils.js:25-37",
                      "openai-python 2.54.0 openai/types/responses/response_usage.py:11 (InputTokensDetails."
                      "cache_write_tokens is a required field)"],
         "scenarios": ["openai.responses.sync", "openai.responses.stream", "js.openai.responses.sync"],
         "impact": "Prompt-cache writes are billed above the normal input rate and are not visible in Sentry.",
-        "fix": "FIXED in this work for Python (Chat Completions and Responses): read cache_write_tokens and pass "
+        "fix": "Patched in this work for Python, not merged (Chat Completions and Responses): read cache_write_tokens "
+               "and pass "
                "input_tokens_cache_write to record_token_usage. SpanProof OpenAI usage findings 8 -> 0; "
                "sentry-python OpenAI suite 687/687 (openai 2.54.0) and 683 + 4 skipped (openai 1.109.1); the new "
                "test fails on the original code. JS still open.",
@@ -121,14 +124,16 @@ FINDINGS = [
     {
         "id": "SP-08",
         "title": "LangGraph graph.stream()/astream(): no invoke_agent span",
-        "sdk": "python", "integration": "langgraph", "severity": "high", "intent": "unintended", "status": "new",
+        "sdk": "python", "integration": "langgraph", "severity": "high", "intent": "unintended",
+        "status": "reported: sentry-python#7871", "issue": "https://github.com/getsentry/sentry-python/issues/7871",
         "evidence": [f"{PY}/sentry_sdk/integrations/langgraph.py#L44-L53 (only Pregel.invoke/ainvoke are "
                      "wrapped; the comment assumes stream runs through invoke, but in langgraph 1.2.13 invoke "
                      "calls stream, not the reverse)"],
         "scenarios": ["langgraph.react_agent.stream"],
         "impact": "Streaming LangGraph agents (the common UI case) have no agent span: no agent name, no "
                   "grouping in the Agents dashboard. JS has a matching report (sentry-javascript#19626).",
-        "fix": "FIXED in this work: wrap Pregel.stream/astream; a context variable set inside invoke/ainvoke "
+        "fix": "Patched in this work (not merged): wrap Pregel.stream/astream; a context variable set inside "
+               "invoke/ainvoke "
                "stops the inner stream call from opening a second span; the span ends in a finally, so early "
                "close is covered. SpanProof: invoke_agent spans for .stream() 0 -> 1, .invoke() stays at 1, "
                "structure findings 8 -> 0 (plus astream and early-close scenarios). LangGraph suite 150/150 on "
@@ -150,7 +155,8 @@ FINDINGS = [
         "title": "Finish reasons not recorded by OpenAI, OpenAI Agents, Pydantic AI (and LiteLLM)",
         "fixed": "partial",
         "sdk": "python", "integration": "openai, openai_agents, pydantic_ai, litellm", "severity": "medium",
-        "intent": "unintended", "status": "new (LiteLLM part known: #5808)",
+        "intent": "unintended",
+        "status": "new (LiteLLM part known: #5808; Pydantic AI part reported: sentry-python#7872)",
         "issue": "https://github.com/getsentry/sentry-python/issues/5808",
         "evidence": ["grep FINISH_REASON: set in anthropic.py:683, langchain.py:660, google_genai, huggingface_hub; "
                      "absent from openai.py, litellm.py, openai_agents/, pydantic_ai/",
@@ -159,7 +165,8 @@ FINDINGS = [
         "impact": "Truncated answers (finish_reason=length) and tool-stops are invisible. The failure-class "
                   "detector for truncation reaches recall 1.0 where finish reasons exist and cannot work where "
                   "they do not (see detector results).",
-        "fix": "Pydantic AI part FIXED in this work (9 lines): truncation detector recall 0.33 -> 0.67, Pydantic AI "
+        "fix": "Pydantic AI part patched in this work (9 lines, not merged): truncation detector recall 0.33 -> "
+               "0.67, Pydantic AI "
                "suite 332/332, new test fails on the original code. OpenAI and openai-agents still open "
                "(openai-agents' ModelResponse carries no finish reason, so that one needs upstream support).",
     },

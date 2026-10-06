@@ -8,7 +8,7 @@ Each cycle it
   2. reads each trace's spans back (and the final LLM call's finish reason from the span
      detail view, because list-valued finish reasons are not searchable: getsentry/sentry-python#7873),
   3. runs the failure-class detectors (tool loops, retry storms, silent tool errors, lost
-     LLM calls, dead ends, truncated and empty answers) and a per-agent cost-spike check
+     LLM calls, dead ends, truncated and empty answers) and a per-agent token-spike check
      against that agent's own recent runs,
   4. files every detection as an event with a stable fingerprint, so repeats of the same
      failure group into one issue, with the trace linked.
@@ -16,7 +16,9 @@ Each cycle it
 Credentials come from ~/.spanproof.env: SENTRY_AUTH_TOKEN (read-only scopes are enough),
 SENTRY_ORG, SENTRY_REGION_URL, and SPANPROOF_WATCH_DSN (the project issues are filed into;
 defaults to SENTRY_DSN_PY). State (traces already seen, per-agent token history) is kept
-in ~/.spanproof-watch.json so nothing is filed twice.
+in ~/.spanproof-watch.json so a trace is filed once. A trace is only judged after it has been
+quiet for --settle seconds (late spans would otherwise look like dead ends or lost calls), and
+only marked done once its events were handed to the SDK. --dry-run never writes the state file.
 """
 
 from __future__ import annotations
@@ -57,14 +59,14 @@ def save_state(path: str, state: dict) -> None:
     os.chmod(path, 0o600)
 
 
-def recent_traces(since: str, limit: int) -> list[tuple[str, str]]:
-    """(trace id, project slug) of traces with agent/LLM spans in the window, newest first."""
+def recent_traces(since: str, limit: int) -> list[tuple[str, str, float]]:
+    """(trace id, project slug, newest span start) of traces with agent/LLM spans in the window, newest first."""
     e = api.env()
     rows = api.get(f"organizations/{e['SENTRY_ORG']}/events/",
                    [("dataset", "spans"), ("query", AGENT_QUERY), ("statsPeriod", since), ("field", "trace"),
                     ("field", "project"), ("field", "max(precise.start_ts)"), ("sort", "-max(precise.start_ts)"),
                     ("per_page", str(limit))]).get("data", [])
-    return [(r["trace"], r["project"]) for r in rows if r.get("trace")]
+    return [(r["trace"], r["project"], float(r.get("max(precise.start_ts)") or 0)) for r in rows if r.get("trace")]
 
 
 def fetch_trace(trace: str, project: str) -> list[dict]:
@@ -87,7 +89,7 @@ def fetch_trace(trace: str, project: str) -> list[dict]:
 
 
 def cost_spike(state: dict, spans: list[dict], factor: float, min_peers: int) -> Detection | None:
-    agent = next((s["data"].get("gen_ai.agent.name") for s in spans if s.get("op") == "gen_ai.invoke_agent"), None)
+    agent = spans_agent(spans)
     tokens = run_tokens(spans)
     if not agent or not tokens:
         return None
@@ -122,27 +124,41 @@ def file_events(client, dets: list[Detection]) -> None:
     client.flush(timeout=30)
 
 
-def cycle(state: dict, since: str, limit: int, client, dry_run: bool, factor: float, min_peers: int) -> list:
+def cycle(state: dict, since: str, limit: int, client, dry_run: bool, factor: float, min_peers: int,
+          settle: float = 300.0, now: float | None = None) -> list:
     found = []
+    now = time.time() if now is None else now
     # Oldest first: each agent's cost history must be built in the order runs happened,
     # or older normal runs get judged against newer, smaller ones (measured: 10 false spikes
     # out of 15 newest-first, 0 out of 5 oldest-first on the same traces).
-    for trace, project in reversed(recent_traces(since, limit)):
+    for trace, project, last_start in reversed(recent_traces(since, limit)):
         if trace in state["seen"]:
             continue
+        if now - last_start < settle:
+            continue  # still active or spans still arriving: judge it on a later cycle
         spans = fetch_trace(trace, project)
         if not spans:
             continue
+        hist = list(state["tokens"].get(spans_agent(spans) or "", []))
         dets = detect_trace(spans)
         spike = cost_spike(state, spans, factor, min_peers)
         if spike:
             dets.append(spike)
-        state["seen"][trace] = time.time()
-        if dets:
-            found.extend(dets)
-            if not dry_run:
+        if dets and not dry_run:
+            try:
                 file_events(client, dets)
+            except Exception as exc:  # noqa: BLE001 - retry this trace next cycle
+                if spans_agent(spans):
+                    state["tokens"][spans_agent(spans)] = hist
+                print(f"    filing failed for trace {trace}, will retry: {exc}", file=sys.stderr, flush=True)
+                continue
+        state["seen"][trace] = time.time()
+        found.extend(dets)
     return found
+
+
+def spans_agent(spans: list[dict]) -> str | None:
+    return next((s["data"].get("gen_ai.agent.name") for s in spans if s.get("op") == "gen_ai.invoke_agent"), None)
 
 
 def main(argv=None) -> int:
@@ -150,7 +166,9 @@ def main(argv=None) -> int:
     ap.add_argument("--since", default="1h", help="how far back to look for new traces (e.g. 15m, 24h)")
     ap.add_argument("--interval", type=int, default=300, help="seconds between cycles")
     ap.add_argument("--once", action="store_true")
-    ap.add_argument("--dry-run", action="store_true", help="detect and print, file nothing")
+    ap.add_argument("--dry-run", action="store_true", help="detect and print, file nothing, save no state")
+    ap.add_argument("--settle", type=float, default=300.0,
+                    help="seconds a trace must be quiet before it is judged (default 300)")
     ap.add_argument("--limit", type=int, default=100, help="max traces per cycle")
     ap.add_argument("--state", default=STATE)
     ap.add_argument("--spike-factor", type=float, default=5.0)
@@ -167,8 +185,9 @@ def main(argv=None) -> int:
     state = load_state(a.state)
     while True:
         t0 = dt.datetime.now().strftime("%H:%M:%S")
-        dets = cycle(state, a.since, a.limit, client, a.dry_run, a.spike_factor, a.spike_min_peers)
-        save_state(a.state, state)
+        dets = cycle(state, a.since, a.limit, client, a.dry_run, a.spike_factor, a.spike_min_peers, a.settle)
+        if not a.dry_run:
+            save_state(a.state, state)
         groups = Counter((d.kind, d.agent or "-", str(d.detail.get("tool", "-"))) for d in dets)
         print(f"[{t0}] {len(dets)} detection(s) in {len(groups)} group(s)"
               f"{' (dry run, nothing filed)' if a.dry_run else ''}", flush=True)

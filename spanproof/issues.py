@@ -5,8 +5,8 @@
 Input formats:
   spanproof  one SpanProof result per line (what the corpus and runner write)
   sentry     one JSON list of spans per line, as Sentry's span JSON (attributes or data)
-  otlp       one OTLP/JSON export per line (resourceSpans -> scopeSpans -> spans); any OpenTelemetry
-             GenAI exporter works, so the detectors are not tied to Sentry's SDKs
+  otlp       one OTLP/JSON export per line (resourceSpans -> scopeSpans -> spans), read with
+             the GenAI attribute names Sentry's SDKs emit; other exporters are untested
 
 Each detection becomes an event whose fingerprint is (failure class, agent, tool), so
 the 50th tool loop of the same agent lands in the same issue as the first, the way
@@ -30,7 +30,7 @@ TITLES = {
     "dead_end": "Agent stopped without a final answer",
     "truncated_answer": "Agent answer truncated by the token limit",
     "empty_answer": "Agent returned an empty answer",
-    "cost_spike": "Agent run cost spike",
+    "cost_spike": "Agent run token spike",
 }
 
 
