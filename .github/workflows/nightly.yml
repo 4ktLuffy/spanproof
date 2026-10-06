@@ -68,7 +68,7 @@ jobs:
         run: |
           mkdir -p site
           .venv/bin/python -m spanproof.nightly --matrix results/nightly_matrix.json --js results/nightly_js.json \
-            --site site --sdk-sha "$(git -C sentry-python rev-parse HEAD)"
+            --site site --sdk-sha "$(git -C sentry-python rev-parse HEAD)" --runner-sha "$(git rev-parse HEAD)"
 
       - name: Open an issue in this repository when something new appears
         if: hashFiles('site/new.md') != ''
