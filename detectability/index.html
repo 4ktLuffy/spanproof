@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Failure Detectability</title>
+<meta name="description" content="Which AI agent failures Sentry's telemetry lets you detect today, measured on real agent runs.">
+<style>
+:root {
+  --bg: #fbfaf8; --fg: #1f1d24; --muted: #625f6b; --line: #e3e0e8; --card: #ffffff;
+  --yes: #e3f4e8; --yes-fg: #17602f; --no: #fde7e2; --no-fg: #962d16; --part: #fdf3d8; --part-fg: #7a5a00;
+  --nt: #f1eff4; --nt-fg: #57535f; --na: transparent; --accent: #6a4fc4;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17151c; --fg: #ece9f2; --muted: #a7a2b3; --line: #34303d; --card: #1f1c26;
+    --yes: #173823; --yes-fg: #8fdca6; --no: #44201a; --no-fg: #f6a893; --part: #3d3315; --part-fg: #f0d27a;
+    --nt: #2a2632; --nt-fg: #b9b4c4; --accent: #b4a1f2;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17151c; --fg: #ece9f2; --muted: #a7a2b3; --line: #34303d; --card: #1f1c26;
+  --yes: #173823; --yes-fg: #8fdca6; --no: #44201a; --no-fg: #f6a893; --part: #3d3315; --part-fg: #f0d27a;
+  --nt: #2a2632; --nt-fg: #b9b4c4; --accent: #b4a1f2;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+main { max-width: 1180px; margin: 0 auto; padding: 32px 16px 56px; }
+h1 { font-size: 1.75rem; line-height: 1.25; margin: 0 0 8px; }
+h2 { font-size: 1.15rem; margin: 36px 0 10px; }
+p.lead { color: var(--muted); margin: 0 0 20px; max-width: 70ch; }
+a { color: var(--accent); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
+.legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; border: 1px solid var(--line); }
+.legend .yes::before { background: var(--yes); } .legend .no::before { background: var(--no); }
+.legend .nt::before { background: var(--nt); } .legend .na::before { background: var(--card); }
+.wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
+th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+thead th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); background: var(--card); white-space: nowrap; }
+tbody th { font-weight: 600; min-width: 210px; }
+tbody tr:last-child > * { border-bottom: 0; }
+.n { display: block; }
+.mode, .runs { display: inline-block; font-weight: 500; font-size: 0.75rem; margin-top: 3px; margin-right: 6px; color: var(--muted); }
+.mode { border: 1px solid var(--line); border-radius: 999px; padding: 0 7px; }
+.mode.off { color: var(--no-fg); border-color: currentColor; }
+td .m { display: block; font-weight: 600; white-space: nowrap; }
+td .s { display: block; font-size: 0.78rem; margin-top: 2px; }
+td.yes { background: var(--yes); color: var(--yes-fg); }
+td.no { background: var(--no); color: var(--no-fg); }
+td.part { background: var(--part); color: var(--part-fg); }
+td.nt { background: var(--nt); color: var(--nt-fg); }
+td.na { color: var(--muted); }
+ol.why { padding-left: 20px; margin: 0; }
+ol.why li { margin: 0 0 14px; }
+ol.why code { font-size: 0.82rem; background: var(--nt); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+ol.why .src { font-size: 0.82rem; color: var(--muted); }
+ol.why .src a { overflow-wrap: anywhere; }
+ul.how li { margin-bottom: 6px; }
+footer { margin-top: 32px; font-size: 0.85rem; color: var(--muted); }
+@media (max-width: 760px) {
+  h1 { font-size: 1.4rem; }
+  .wrap { border: 0; background: none; overflow: visible; }
+  table, thead, tbody, tr, th, td { display: block; }
+  thead { display: none; }
+  tbody tr { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 12px; overflow: hidden; background: var(--card); }
+  tbody th { border-bottom: 1px solid var(--line); }
+  td { display: flex; justify-content: space-between; gap: 12px; }
+  td::before { content: attr(data-label); font-weight: 600; color: var(--fg); flex: 0 0 40%; }
+  td > span { text-align: right; }
+  td .m, td .s { text-align: right; }
+  td { flex-wrap: wrap; } td .s { flex-basis: 100%; }
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Which AI agent failures can Sentry detect today?</h1>
+<p class="lead">With AI data on, Sentry's spans caught every tool loop, retry storm, dead end and cut-off answer that happened, except cut-off answers in OpenAI Agents and Pydantic AI. With AI data off, tool loops went undetected in all 4 setups measured that way. Empty answers were never detectable, and the silent tool error never happened because the model always noticed it.</p>
+<div class="legend"><span class="yes">detectable: a detector caught it from the spans</span><span class="no">not detectable: it happened, the spans did not show it</span><span class="nt">not triggered: we injected it, the agent did something else</span><span class="na">n/a: did not occur</span></div>
+<div class="wrap">
+<table>
+<thead><tr><th scope="col">Integration</th><th scope="col">Tool loop</th><th scope="col">Retry storm</th><th scope="col">Silent tool error</th><th scope="col">Dead end</th><th scope="col">Cut-off answer</th><th scope="col">Empty answer</th></tr></thead>
+<tbody>
+<tr><th scope="row"><span class="n">Node · LangGraph.js 1</span><span class="mode on">AI data on</span><span class="runs">24 runs</span></th><td class="yes" data-label="Tool loop"><span class="m">detectable 5/5</span></td><td class="yes" data-label="Retry storm"><span class="m">detectable 4/4</span></td><td class="nt" data-label="Silent tool error"><span class="m">not triggered</span><span class="s">4 runs: the model reported the tool error; the agent retried until its step limit</span></td><td class="yes" data-label="Dead end"><span class="m">detectable 10/10</span></td><td class="yes" data-label="Cut-off answer"><span class="m">detectable 4/4</span></td><td class="na" data-label="Empty answer"><span class="m">n/a</span></td></tr>
+<tr><th scope="row"><span class="n">Node · Vercel AI SDK 7, generateText / streamText</span><span class="mode on">AI data on</span><span class="runs">24 runs</span></th><td class="yes" data-label="Tool loop"><span class="m">detectable 5/5</span></td><td class="yes" data-label="Retry storm"><span class="m">detectable 4/4</span></td><td class="nt" data-label="Silent tool error"><span class="m">not triggered</span><span class="s">4 runs: the model reported the tool error; the agent gave no answer</span></td><td class="yes" data-label="Dead end"><span class="m">detectable 7/7</span></td><td class="yes" data-label="Cut-off answer"><span class="m">detectable 4/4</span></td><td class="no" data-label="Empty answer"><span class="m">not detectable 0/2</span><span class="s">empty answer looks unrecorded</span></td></tr>
+<tr><th scope="row"><span class="n">Node · Vercel AI SDK 7, ToolLoopAgent</span><span class="mode on">AI data on</span><span class="runs">12 runs</span></th><td class="yes" data-label="Tool loop"><span class="m">detectable 3/3</span></td><td class="yes" data-label="Retry storm"><span class="m">detectable 2/2</span></td><td class="nt" data-label="Silent tool error"><span class="m">not triggered</span><span class="s">2 runs: the model reported the tool error</span></td><td class="yes" data-label="Dead end"><span class="m">detectable 4/4</span></td><td class="yes" data-label="Cut-off answer"><span class="m">detectable 2/2</span></td><td class="na" data-label="Empty answer"><span class="m">n/a</span></td></tr>
+<tr><th scope="row"><span class="n">Node · Vercel AI SDK 7, ToolLoopAgent</span><span class="mode off">AI data off</span><span class="runs">12 runs</span></th><td class="no" data-label="Tool loop"><span class="m">not detectable 0/2</span><span class="s">tool arguments not recorded</span></td><td class="yes" data-label="Retry storm"><span class="m">detectable 2/2</span></td><td class="nt" data-label="Silent tool error"><span class="m">not triggered</span><span class="s">2 runs: the model reported the tool error</span></td><td class="yes" data-label="Dead end"><span class="m">detectable 3/3</span></td><td class="yes" data-label="Cut-off answer"><span class="m">detectable 2/2</span></td><td class="no" data-label="Empty answer"><span class="m">not detectable 0/1</span><span class="s">answer not recorded</span></td></tr>
+<tr><th scope="row"><span class="n">Python · LangGraph (async)</span><span class="mode on">AI data on</span><span class="runs">12 runs</span></th><td class="yes" data-label="Tool loop"><span class="m">detectable 1/1</span></td><td class="yes" data-label="Retry storm"><span class="m">detectable 2/2</span></td><td class="nt" data-label="Silent tool error"><span class="m">not triggered</span><span class="s">2 runs: the model reported the tool error</span></td><td class="yes" data-label="Dead end"><span class="m">detectable 4/4</span></td><td class="yes" data-label="Cut-off answer"><span class="m">detectable 2/2</span></td><td class="na" data-label="Empty answer"><span class="m">n/a</span></td></tr>
+<tr><th scope="row"><span class="n">Python · LangGraph (async)</span><span class="mode off">AI data off</span><span class="runs">12 runs</span></th><td class="no" data-label="Tool loop"><span class="m">not detectable 0/2</span><span class="s">tool arguments not recorded</span></td><td class="yes" data-label="Retry storm"><span class="m">detectable 2/2</span></td><td class="nt" data-label="Silent tool error"><span class="m">not triggered</span><span class="s">2 runs: the model reported the tool error; the agent retried until its step limit</span></td><td class="yes" data-label="Dead end"><span class="m">detectable 4/4</span></td><td class="yes" data-label="Cut-off answer"><span class="m">detectable 2/2</span></td><td class="na" data-label="Empty answer"><span class="m">n/a</span></td></tr>
+<tr><th scope="row"><span class="n">Python · OpenAI Agents SDK (async)</span><span class="mode on">AI data on</span><span class="runs">12 runs</span></th><td class="yes" data-label="Tool loop"><span class="m">detectable 2/2</span></td><td class="yes" data-label="Retry storm"><span class="m">detectable 2/2</span></td><td class="nt" data-label="Silent tool error"><span class="m">not triggered</span><span class="s">2 runs: the agent retried until its step limit</span></td><td class="yes" data-label="Dead end"><span class="m">detectable 6/6</span></td><td class="no" data-label="Cut-off answer"><span class="m">not detectable 0/2</span><span class="s">no finish reason</span></td><td class="na" data-label="Empty answer"><span class="m">n/a</span></td></tr>
+<tr><th scope="row"><span class="n">Python · OpenAI Agents SDK (async)</span><span class="mode off">AI data off</span><span class="runs">12 runs</span></th><td class="no" data-label="Tool loop"><span class="m">not detectable 0/2</span><span class="s">tool arguments not recorded</span></td><td class="yes" data-label="Retry storm"><span class="m">detectable 2/2</span></td><td class="nt" data-label="Silent tool error"><span class="m">not triggered</span><span class="s">2 runs: the model reported the tool error</span></td><td class="yes" data-label="Dead end"><span class="m">detectable 3/3</span></td><td class="no" data-label="Cut-off answer"><span class="m">not detectable 0/2</span><span class="s">no finish reason</span></td><td class="na" data-label="Empty answer"><span class="m">n/a</span></td></tr>
+<tr><th scope="row"><span class="n">Python · Pydantic AI (async)</span><span class="mode on">AI data on</span><span class="runs">12 runs</span></th><td class="yes" data-label="Tool loop"><span class="m">detectable 1/1</span></td><td class="yes" data-label="Retry storm"><span class="m">detectable 2/2</span></td><td class="nt" data-label="Silent tool error"><span class="m">not triggered</span><span class="s">2 runs: the model reported the tool error</span></td><td class="yes" data-label="Dead end"><span class="m">detectable 4/4</span></td><td class="no" data-label="Cut-off answer"><span class="m">not detectable 0/2</span><span class="s">no finish reason</span></td><td class="na" data-label="Empty answer"><span class="m">n/a</span></td></tr>
+<tr><th scope="row"><span class="n">Python · Pydantic AI (async)</span><span class="mode off">AI data off</span><span class="runs">12 runs</span></th><td class="no" data-label="Tool loop"><span class="m">not detectable 0/1</span><span class="s">tool arguments not recorded</span></td><td class="yes" data-label="Retry storm"><span class="m">detectable 2/2</span></td><td class="nt" data-label="Silent tool error"><span class="m">not triggered</span><span class="s">2 runs: the model reported the tool error</span></td><td class="yes" data-label="Dead end"><span class="m">detectable 3/3</span></td><td class="no" data-label="Cut-off answer"><span class="m">not detectable 0/2</span><span class="s">no finish reason</span></td><td class="na" data-label="Empty answer"><span class="m">n/a</span></td></tr>
+</tbody>
+</table>
+</div>
+<p class="lead" style="margin-top:10px;font-size:0.85rem">k/n = runs where the failure really happened (n) and a detector caught it (k). "AI data" = prompts, answers and tool inputs/outputs on spans: Python <code>send_default_pii</code>, Node <code>dataCollection.genAI</code>. In @sentry/node 11.4.0, <code>sendDefaultPii</code> does not control AI data: 24 Node runs with it off still recorded everything and are counted as "on".</p>
+
+<p class="lead" style="font-size:0.85rem">Not measured yet: Node LangGraph.js and Vercel generateText with AI data off, and Python LangGraph sync. The Groq free-tier daily token cap (200k) ran out; the one sync attempt was rate limited after 2 healthy runs and is left out.</p>
+
+<h2>Why not: the missing data, and where the SDK decides</h2>
+<ol class="why">
+<li><strong>Tool loop needs the tool arguments.</strong> Missing: <code>gen_ai.tool.call.arguments (Node) / gen_ai.tool.input (Python)</code>. A loop is the same tool called with the same arguments again and again. Without the arguments, repeated calls cannot be told from normal retries with new inputs. Recorded only when AI data is on.<br><span class="src"><a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/langchain.py#L756-L768">Python LangGraph (LangChain callback)</a> · <a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/openai_agents/patches/tools.py#L62-L72">Python OpenAI Agents</a> · <a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/pydantic_ai/spans/execute_tool.py#L65-L66">Python Pydantic AI</a> · <a href="https://unpkg.com/@sentry/server-utils@11.4.0/build/esm/ai/langchain/index.js">Node LangChain/LangGraph: ai/langchain/index.js:182-184</a> · <a href="https://unpkg.com/@sentry/server-utils@11.4.0/build/esm/integrations/vercel-ai/vercel-ai-dc-subscriber.js">Node Vercel AI: getRecordingOptions, vercel-ai-dc-subscriber.js:470-490</a></span></li>
+<li><strong>Silent tool error needs the tool result.</strong> Missing: <code>gen_ai.tool.call.result (Node) / gen_ai.tool.output (Python)</code>. A tool that returns an error message as normal output does not set an error status. Only the result text shows it. Recorded only when AI data is on.<br><span class="src"><a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/langchain.py#L782-L790">Python LangGraph (LangChain callback)</a> · <a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/openai_agents/spans/execute_tool.py#L72-L76">Python OpenAI Agents</a> · <a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/pydantic_ai/spans/execute_tool.py#L78-L84">Python Pydantic AI</a> · <a href="https://unpkg.com/@sentry/server-utils@11.4.0/build/esm/ai/langchain/index.js">Node LangChain/LangGraph: ai/langchain/index.js:203-208</a> · <a href="https://unpkg.com/@sentry/server-utils@11.4.0/build/esm/integrations/vercel-ai/vercel-ai-dc-subscriber.js">Node Vercel AI: vercel-ai-dc-subscriber.js:297-301</a></span></li>
+<li><strong>Silent tool error and empty answer need the answer text.</strong> Missing: <code>gen_ai.output.messages / gen_ai.response.text</code>. To tell &quot;the agent passed on bad data&quot; from &quot;the agent said it failed&quot;, the final answer has to be on a span. Recorded only when AI data is on.<br><span class="src"><a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/langchain.py#L607-L620">Python LangGraph (LangChain chat model end)</a> · <a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/langgraph.py#L65-L71">Python LangGraph agent span</a> · <a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/openai_agents/utils.py#L209-L220">Python OpenAI Agents</a> · <a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/pydantic_ai/utils.py#L85-L90">Python Pydantic AI</a> · <a href="https://unpkg.com/@sentry/server-utils@11.4.0/build/esm/ai/core/utils.js">Node: resolveAIRecordingOptions, ai/core/utils.js:9-16</a></span></li>
+<li><strong>Cut-off answer needs the finish reason, and two Python integrations never record it.</strong> Missing: <code>gen_ai.response.finish_reasons</code>. The provider says the answer stopped at the token limit (length / max_output_tokens). The OpenAI Agents and Pydantic AI integrations set usage, model and output on the LLM span but never the finish reason, so this is missed even with AI data on.<br><span class="src"><a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/openai_agents/spans/ai_client.py#L256-L283">OpenAI Agents update_ai_client_span</a> · <a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/pydantic_ai/spans/ai_client.py#L348-L361">Pydantic AI update_ai_client_span</a></span></li>
+<li><strong>Empty answer is recorded as &quot;nothing&quot;.</strong> Missing: <code>gen_ai.output.messages (no length or empty marker)</code>. When the model returns no text, the Vercel AI integration writes no output attribute at all. An empty answer then looks exactly like an answer that was not recorded, so a detector cannot call it empty.<br><span class="src"><a href="https://unpkg.com/@sentry/server-utils@11.4.0/build/esm/integrations/vercel-ai/vercel-ai-dc-subscriber.js">Node Vercel AI: buildOutputMessages, vercel-ai-dc-subscriber.js:402-405</a></span></li>
+</ol>
+<p class="lead" style="font-size:0.85rem">Python links: sentry-python at commit 6a4eb20f (the runs used sentry-sdk 2.71.0 from PyPI; the cited files are byte-identical). Node links: @sentry/server-utils 11.4.0 build files, as installed with @sentry/node 11.4.0.</p>
+
+<h2>How it was measured</h2>
+<ul class="how">
+<li>Real agents (OpenAI Agents SDK, Pydantic AI, LangGraph, LangGraph.js, Vercel AI SDK 7) on Groq <code>openai/gpt-oss-20b</code>, run through the assessment harness's own runner with Sentry's SDKs installed as users would.</li>
+<li>Faults were injected only through tools, step and token limits, and the provider (three HTTP 500s). The model was never told to fail.</li>
+<li>What really happened in each run comes from the program's own log (tool calls, arguments, answer, how it ended) and the recorded provider exchanges, never from Sentry's spans.</li>
+<li>24 healthy control runs produced 0 false alarms. 144 runs in total.</li>
+</ul>
+
+<footer>
+<a href="https://github.com/4ktLuffy/testing-ai-sdk-integrations/tree/failure-detectability">Harness branch: failure-detectability</a> · <a href="https://github.com/4ktLuffy/spanproof">SpanProof detectors</a>
+</footer>
+</main>
+</body>
+</html>
