@@ -34,6 +34,7 @@ The hard part is timing. Spans arrive late and out of order, so Watch waits unti
 
 - **[A provider-truth check for Sentry's internal test harness](https://github.com/4ktLuffy/testing-ai-sdk-integrations/tree/provider-truth):** records what the provider really returned and flags spans that disagree. Their current check passes any positive token count.
 - **[An agent-failure matrix](https://github.com/4ktLuffy/testing-ai-sdk-integrations/tree/failure-detectability):** injects tool loops, retry storms, dead ends and cut-off answers into real agents and shows which ones Sentry's data can detect, per integration. For example, a cut-off answer is invisible in OpenAI Agents and Pydantic AI because no finish reason is recorded. The results: **https://4ktluffy.github.io/spanproof/detectability/**
+- **[Replay mode](https://github.com/4ktLuffy/testing-ai-sdk-integrations/tree/provider-replay):** record the provider's responses once, then rerun the harness with no API keys and get the same findings every time. Free, deterministic, and it works on pull requests from forks, which today run without secrets.
 - **[A tool-loop issue detector inside Sentry](https://github.com/4ktLuffy/sentry/tree/ai-agent-tool-loop-detector):** written the way Sentry's own performance detectors are. On 45 real agent runs it caught all 8 loops with no false alarms.
 
 ## Run it
