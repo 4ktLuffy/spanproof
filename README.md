@@ -58,6 +58,20 @@ detectors on traces read back from Sentry.
 CI: `spanproof.gate` compares a run with a checked-in baseline of known findings, fails only on new ones,
 and lists the known ones that disappeared. `ci/spanproof.yml` is an example nightly + pull-request workflow.
 
+## SpanProof Watch
+
+`python -m spanproof.watch --interval 300` watches a Sentry organization and files agent failures back into
+Sentry as issues: tool loops, retry storms, silent tool errors, LLM calls missing from the trace, dead ends,
+truncated and empty answers, and per-agent cost spikes. Each detection becomes an event with a stable
+fingerprint (failure class, agent, tool), tags for filtering and a link to the trace, so repeats group into one
+issue. It needs only a read-only auth token plus a DSN to file into, keeps local state so nothing is filed
+twice, and builds each agent's cost baseline in time order. `--dry-run` shows what it would file.
+
+Checked on a real Sentry account against 102 traces with known outcomes (synthetic corpus plus 45 real
+agent runs on a live model with injected faults): no false alarms on 35 problem-free traces, every tool loop,
+retry storm, cost spike, lost LLM call, silent tool error and empty answer caught; truncation is missed where the
+integration does not record finish reasons (openai-agents, Pydantic AI before the fix in `patches/`).
+
 ## Layout
 
 ```
@@ -70,6 +84,8 @@ spanproof/matrix.py       version matrix derived from sentry-python's tox.ini
 spanproof/js_bridge.py    the same fixtures through @sentry/node (js/worker.cjs)
 spanproof/detectors.py    agent failure classes;  issues.py: Sentry events, OTLP and Sentry span input
 spanproof/corpus.py, agent_worker.py, evaluate.py, fingerprint.py   detector measurement
+spanproof/watch.py        SpanProof Watch: agent failures in a Sentry org filed back as Sentry issues
+spanproof/live.py, live_agents.py, live_agent_worker.py   live provider truth (record/replay) and real agents
 spanproof/gate.py         CI baseline gate;  report.py: findings page;  catalog.py: curated findings
 tests/                    unit tests, each check with a positive case and a negative control
 ```

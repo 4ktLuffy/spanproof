@@ -29,9 +29,11 @@ def main() -> int:
     os.environ.setdefault("OPENAI_AGENTS_DISABLE_TRACING", "1")
     os.environ.setdefault("LITELLM_LOCAL_MODEL_COST_MAP", "True")
 
-    from . import capture
+    from . import capture, mockserver
     from .mockserver import MockServer
     from .scenario import load_all
+
+    mockserver.LIVE = mockserver.live_from_env()
 
     sc = load_all()[a.scenario]
     extra = {}
@@ -62,6 +64,7 @@ def main() -> int:
                        "tb": traceback.format_exc()[-1500:]}
         requests = list(srv.script.requests)
     # A real DSN needs time to deliver before this process exits.
+    recordings = list(srv.script.recordings)  # after the server closed and joined its threads
     sentry_sdk.flush(timeout=30 if os.environ.get("SPANPROOF_DSN") else 5)
 
     def ver(p):
@@ -71,6 +74,23 @@ def main() -> int:
             return None
 
     out = capture.flatten(transport)
+    calls = [{"truth": c.truth.as_dict() if c.truth else None, "op": c.op, "completes": c.completes}
+             for c in sc.calls]
+    if mockserver.LIVE:
+        # Live: the truth is what the provider really returned for each request, in order.
+        from .live import truth_from_recording
+
+        early = any(not c.completes for c in sc.calls)
+        calls = []
+        for rec in recordings:
+            t = truth_from_recording(rec)
+            calls.append({"truth": None if early else (t.as_dict() if t else None), "op": "gen_ai.chat",
+                          "completes": not early, "provider_usage": t.as_dict() if t else None})
+        cas = os.environ.get("SPANPROOF_CASSETTES")
+        if cas:
+            os.makedirs(cas, exist_ok=True)
+            mode = "nodc" if a.no_data_collection else ("legacy" if a.legacy_transport else "default")
+            json.dump(recordings, open(os.path.join(cas, f"{sc.id}.{mode}.json"), "w"), indent=1)
     out.update(
         scenario=sc.id,
         integration=sc.integration,
@@ -79,10 +99,10 @@ def main() -> int:
         python=sys.version.split()[0],
         exception=exc,
         requests=[{"path": r["path"]} for r in requests],
-        calls=[{"truth": c.truth.as_dict() if c.truth else None, "op": c.op, "completes": c.completes}
-               for c in sc.calls],
+        calls=calls,
+        live=bool(mockserver.LIVE),
         expects_exception=sc.expects_exception,
-        agent=sc.agent,
+        agent=(dict(sc.agent, tools=[]) if (sc.agent and mockserver.LIVE) else sc.agent),
         data_collection=not a.no_data_collection,
         span_streaming=a.span_streaming,
         legacy_transport=a.legacy_transport,

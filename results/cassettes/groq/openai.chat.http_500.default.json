@@ -1,0 +1,22 @@
+[
+ {
+  "path": "/v1/chat/completions",
+  "status": 200,
+  "content_type": "application/json",
+  "request": {
+   "messages": [
+    {
+     "role": "system",
+     "content": "Be brief."
+    },
+    {
+     "role": "user",
+     "content": "Capital of France?"
+    }
+   ],
+   "model": "openai/gpt-oss-20b",
+   "max_tokens": 512
+  },
+  "raw": "{\"id\":\"chatcmpl-cd16810d-5b88-4fbd-9bb9-6436c84f3d15\",\"object\":\"chat.completion\",\"created\":1791271455,\"model\":\"openai/gpt-oss-20b\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Paris.\",\"reasoning\":\"The user asks: \\\"Capital of France?\\\" It's a straightforward question. According to instruction: \\\"Be brief.\\\" So answer: \\\"Paris.\\\"\"},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"queue_time\":0.23896956,\"prompt_tokens\":81,\"prompt_time\":0.006060737,\"completion_tokens\":40,\"completion_time\":0.055326273,\"total_tokens\":121,\"total_time\":0.06138701,\"completion_tokens_details\":{\"reasoning_tokens\":29}},\"usage_breakdown\":null,\"system_fingerprint\":\"fp_c9afb2bdb4\",\"x_groq\":{\"id\":\"req_01m481jjewe5psvrfkmg6apcw4\",\"seed\":103637494},\"service_tier\":\"on_demand\"}\n"
+ }
+]

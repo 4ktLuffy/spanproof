@@ -1,0 +1,42 @@
+[
+ {
+  "path": "/v1/chat/completions",
+  "status": 200,
+  "content_type": "application/json",
+  "request": {
+   "messages": [
+    {
+     "role": "system",
+     "content": "Be brief."
+    },
+    {
+     "role": "user",
+     "content": "Capital of France?"
+    }
+   ],
+   "model": "openai/gpt-oss-20b",
+   "tools": [
+    {
+     "type": "function",
+     "function": {
+      "name": "get_weather",
+      "description": "Weather for a city",
+      "parameters": {
+       "type": "object",
+       "properties": {
+        "city": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "city"
+       ]
+      }
+     }
+    }
+   ],
+   "max_tokens": 512
+  },
+  "raw": "{\"id\":\"chatcmpl-d53aa59d-1170-4e25-8d05-00606d645ed4\",\"object\":\"chat.completion\",\"created\":1791271564,\"model\":\"openai/gpt-oss-20b\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"The capital of France is Paris.\",\"reasoning\":\"The user asks: \\\"Capital of France?\\\" It's a simple knowledge question. The assistant should respond succinctly: \\\"The capital of France is Paris.\\\" No need for function.\"},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"queue_time\":0.261365153,\"prompt_tokens\":128,\"prompt_time\":0.007165525,\"completion_tokens\":52,\"completion_time\":0.052618277,\"total_tokens\":180,\"total_time\":0.059783802,\"completion_tokens_details\":{\"reasoning_tokens\":36}},\"usage_breakdown\":null,\"system_fingerprint\":\"fp_84bb35977d\",\"x_groq\":{\"id\":\"req_01m481nwy1ew5rhm9e3hzzea0j\",\"seed\":2056432063},\"service_tier\":\"on_demand\"}\n"
+ }
+]

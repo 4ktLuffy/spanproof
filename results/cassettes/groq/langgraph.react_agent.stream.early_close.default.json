@@ -1,0 +1,39 @@
+[
+ {
+  "path": "/v1/chat/completions",
+  "status": 200,
+  "content_type": "application/json",
+  "request": {
+   "messages": [
+    {
+     "content": "What is the weather in Paris?",
+     "role": "user"
+    }
+   ],
+   "model": "openai/gpt-oss-20b",
+   "stream": false,
+   "tools": [
+    {
+     "type": "function",
+     "function": {
+      "name": "get_weather",
+      "description": "Weather for a city.",
+      "parameters": {
+       "properties": {
+        "city": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "city"
+       ],
+       "type": "object"
+      }
+     }
+    }
+   ],
+   "max_tokens": 512
+  },
+  "raw": "{\"id\":\"chatcmpl-e16bae17-f28c-4fa7-b09e-fbac7708b3d6\",\"object\":\"chat.completion\",\"created\":1791271342,\"model\":\"openai/gpt-oss-20b\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"reasoning\":\"User asks for weather in Paris. We can call function.\",\"tool_calls\":[{\"id\":\"fc_98481d9c-61ec-4501-b137-c053a400a025\",\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"arguments\":\"{\\\"city\\\":\\\"Paris\\\"}\"}}]},\"logprobs\":null,\"finish_reason\":\"tool_calls\"}],\"usage\":{\"queue_time\":0.384174439,\"prompt_tokens\":125,\"prompt_time\":0.006875638,\"completion_tokens\":36,\"completion_time\":0.036570168,\"total_tokens\":161,\"total_time\":0.043445806,\"completion_tokens_details\":{\"reasoning_tokens\":13}},\"usage_breakdown\":null,\"system_fingerprint\":\"fp_a8c584dda7\",\"x_groq\":{\"id\":\"req_01m481f3zfe6qbfx2d4njg6y1h\",\"seed\":2052050697},\"service_tier\":\"on_demand\"}\n"
+ }
+]

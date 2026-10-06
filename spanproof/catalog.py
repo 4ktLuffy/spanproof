@@ -255,7 +255,25 @@ FINDINGS.append({
     "fix": "Backport to v10 or close for 11.x.",
 })
 
+FINDINGS.append({
+    "id": "SP-18",
+    "title": "Pydantic AI drops reasoning tokens",
+    "sdk": "python", "integration": "pydantic_ai", "severity": "medium", "intent": "unintended",
+    "status": "reported: sentry-python#7876", "issue": "https://github.com/getsentry/sentry-python/issues/7876",
+    "evidence": [f"{PY}/sentry_sdk/integrations/pydantic_ai/spans/utils.py#L49-L87 (_set_usage_data reads input, "
+                 "cache, output and total tokens but never usage.details['reasoning_tokens'], where pydantic-ai "
+                 "puts them)"],
+    "scenarios": ["pydantic_ai.run_sync (live, Groq gpt-oss-20b)"],
+    "impact": "Found only with live traffic: Groq reported 9, 14 and 16 reasoning tokens on real calls and Sentry "
+              "recorded none. Scripted fixtures never exercised it.",
+    "fix": "Read usage.details.get('reasoning_tokens') and record it as output_tokens.reasoning (7 lines + test; "
+           "Pydantic AI suite 332/332, the new test fails on the original code).",
+})
+
 NEGATIVE_RESULTS = [
+    "Live Groq streams repeat the usage block on two chunks; Sentry's OpenAI integration takes the final report "
+    "and records the right numbers. LangChain, however, adds the two reports together (75 + 75 = 150 input "
+    "tokens), with or without Sentry, so LangChain-on-Groq users see doubled tokens in Sentry. Not a Sentry fault.",
     "On a real Sentry account, the built-in AI Agents dashboard does not double count: its per-model token "
     "totals equal the LLM-call-only sums exactly (486,010 / 79,906 / 19,500). The double counting (SP-06) affects "
     "custom queries, dashboards and alerts that sum across all gen_ai spans (+27% cost, +50% input tokens over "

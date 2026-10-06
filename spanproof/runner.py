@@ -79,8 +79,16 @@ def main(argv=None) -> int:
 
     sids = [s for s in list_scenarios(a.python) if s.startswith(tuple(a.only.split(",")))]
     jobs = [(sid, m) for sid in sids for m in a.modes.split(",")]
+    pace = float(os.environ.get("SPANPROOF_PACE", "0"))  # seconds between runs (provider rate limits)
+
+    def paced(j):
+        r = run_one(a.python, *j)
+        if pace:
+            time.sleep(pace)
+        return r
+
     with ThreadPoolExecutor(a.jobs) as ex:
-        results = list(ex.map(lambda j: run_one(a.python, *j), jobs))
+        results = list(ex.map(paced, jobs))
     out = Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     json.dump({"label": a.label, "python": a.python, "generated": time.strftime("%Y-%m-%dT%H:%M:%S"),

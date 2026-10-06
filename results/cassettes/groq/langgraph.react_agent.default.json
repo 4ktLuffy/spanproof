@@ -1,0 +1,96 @@
+[
+ {
+  "path": "/v1/chat/completions",
+  "status": 200,
+  "content_type": "application/json",
+  "request": {
+   "messages": [
+    {
+     "content": "What is the weather in Paris?",
+     "role": "user"
+    }
+   ],
+   "model": "openai/gpt-oss-20b",
+   "stream": false,
+   "tools": [
+    {
+     "type": "function",
+     "function": {
+      "name": "get_weather",
+      "description": "Weather for a city.",
+      "parameters": {
+       "properties": {
+        "city": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "city"
+       ],
+       "type": "object"
+      }
+     }
+    }
+   ],
+   "max_tokens": 512
+  },
+  "raw": "{\"id\":\"chatcmpl-49308463-970f-439a-b2bd-22d044e95fcf\",\"object\":\"chat.completion\",\"created\":1791271283,\"model\":\"openai/gpt-oss-20b\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"reasoning\":\"We need to call the get_weather function with city \\\"Paris\\\".\",\"tool_calls\":[{\"id\":\"fc_d2ea763a-4f00-477a-aa16-6ee39d576c28\",\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"arguments\":\"{\\\"city\\\":\\\"Paris\\\"}\"}}]},\"logprobs\":null,\"finish_reason\":\"tool_calls\"}],\"usage\":{\"queue_time\":0.330709109,\"prompt_tokens\":125,\"prompt_time\":0.007016139,\"completion_tokens\":37,\"completion_time\":0.041838414,\"total_tokens\":162,\"total_time\":0.048854553,\"completion_tokens_details\":{\"reasoning_tokens\":14}},\"usage_breakdown\":null,\"system_fingerprint\":\"fp_d3e146e1a5\",\"x_groq\":{\"id\":\"req_01m481dap9ebp87meefmvrejk9\",\"seed\":457867816},\"service_tier\":\"on_demand\"}\n"
+ },
+ {
+  "path": "/v1/chat/completions",
+  "status": 200,
+  "content_type": "application/json",
+  "request": {
+   "messages": [
+    {
+     "content": "What is the weather in Paris?",
+     "role": "user"
+    },
+    {
+     "content": null,
+     "name": "weather_agent",
+     "role": "assistant",
+     "tool_calls": [
+      {
+       "type": "function",
+       "id": "fc_d2ea763a-4f00-477a-aa16-6ee39d576c28",
+       "function": {
+        "name": "get_weather",
+        "arguments": "{\"city\": \"Paris\"}"
+       }
+      }
+     ]
+    },
+    {
+     "content": "Sunny in Paris",
+     "role": "tool",
+     "tool_call_id": "fc_d2ea763a-4f00-477a-aa16-6ee39d576c28"
+    }
+   ],
+   "model": "openai/gpt-oss-20b",
+   "stream": false,
+   "tools": [
+    {
+     "type": "function",
+     "function": {
+      "name": "get_weather",
+      "description": "Weather for a city.",
+      "parameters": {
+       "properties": {
+        "city": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "city"
+       ],
+       "type": "object"
+      }
+     }
+    }
+   ],
+   "max_tokens": 512
+  },
+  "raw": "{\"id\":\"chatcmpl-ed59961f-e0b4-4241-bbdb-fa186142d280\",\"object\":\"chat.completion\",\"created\":1791271284,\"model\":\"openai/gpt-oss-20b\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Sunny in Paris\",\"reasoning\":\"The user asked \\\"What is the weather in Paris?\\\" We responded with \\\"Sunny in Paris\\\" which is fine. But we should consider that we used the tool. The assistant response should be the tool call, then the tool returned \\\"Sunny in Paris\\\". According to instruction: \\\"When calling a tool, you must do it as the only content in the message. ... When you get a tool result, you respond with a regular message. The tool's result is not a tool call.\\\" So the final response should be \\\"Sunny in Paris\\\". We already returned that. That is correct.\"},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"queue_time\":0.199879254,\"prompt_tokens\":156,\"prompt_time\":0.00750544,\"completion_tokens\":131,\"completion_time\":0.13686625,\"total_tokens\":287,\"total_time\":0.14437169,\"completion_tokens_details\":{\"reasoning_tokens\":119}},\"usage_breakdown\":null,\"system_fingerprint\":\"fp_99996fee8e\",\"x_groq\":{\"id\":\"req_01m481db90ef5vbzmtjbcncegg\",\"seed\":1383540601},\"service_tier\":\"on_demand\"}\n"
+ }
+]

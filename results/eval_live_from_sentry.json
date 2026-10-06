@@ -1,0 +1,147 @@
+{
+ "n": 36,
+ "scores": {
+  "tool_loop": {
+   "tp": 2,
+   "fp": 4,
+   "fn": 0,
+   "precision": 0.3333333333333333,
+   "recall": 1.0,
+   "precision_ci": [
+    0.09676933255921683,
+    0.7000116786584712
+   ],
+   "recall_ci": [
+    0.34237195288961925,
+    1.0
+   ]
+  },
+  "retry_storm": {
+   "tp": 9,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.7008472464490407,
+    1.0
+   ],
+   "recall_ci": [
+    0.7008472464490407,
+    1.0
+   ]
+  },
+  "silent_tool_error": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "precision": NaN,
+   "recall": NaN,
+   "precision_ci": [
+    NaN,
+    NaN
+   ],
+   "recall_ci": [
+    NaN,
+    NaN
+   ]
+  },
+  "lost_llm_span": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "precision": NaN,
+   "recall": NaN,
+   "precision_ci": [
+    NaN,
+    NaN
+   ],
+   "recall_ci": [
+    NaN,
+    NaN
+   ]
+  },
+  "dead_end": {
+   "tp": 0,
+   "fp": 1,
+   "fn": 0,
+   "precision": 0.0,
+   "recall": NaN,
+   "precision_ci": [
+    0.0,
+    0.7934567085261071
+   ],
+   "recall_ci": [
+    NaN,
+    NaN
+   ]
+  },
+  "truncated_answer": {
+   "tp": 0,
+   "fp": 2,
+   "fn": 0,
+   "precision": 0.0,
+   "recall": NaN,
+   "precision_ci": [
+    0.0,
+    0.6576280471103807
+   ],
+   "recall_ci": [
+    NaN,
+    NaN
+   ]
+  },
+  "empty_answer": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "precision": NaN,
+   "recall": NaN,
+   "precision_ci": [
+    NaN,
+    NaN
+   ],
+   "recall_ci": [
+    NaN,
+    NaN
+   ]
+  },
+  "cost_spike": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 0,
+   "precision": NaN,
+   "recall": NaN,
+   "precision_ci": [
+    NaN,
+    NaN
+   ],
+   "recall_ci": [
+    NaN,
+    NaN
+   ]
+  },
+  "_healthy_false_alarm_rate": {
+   "k": 6,
+   "n": 25,
+   "ci": [
+    0.11496157730326725,
+    0.43430059955238565
+   ]
+  }
+ },
+ "errors": {
+  "('heldout', 'healthy', 'langgraph:tool_failure_acknowledged')": {
+   "FP:tool_loop": 1
+  },
+  "('heldout', 'healthy', 'langgraph:healthy_gave_up')": {
+   "FP:truncated_answer": 2
+  },
+  "('heldout', 'tool_loop', 'langgraph:tool_loop')": {
+   "FP:dead_end": 1
+  },
+  "('heldout', 'healthy', 'openai_agents:tool_failure_acknowledged')": {
+   "FP:tool_loop": 3
+  }
+ }
+}

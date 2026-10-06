@@ -1,0 +1,109 @@
+[
+ {
+  "path": "/v1/chat/completions",
+  "status": 200,
+  "content_type": "application/json",
+  "request": {
+   "messages": [
+    {
+     "content": "Use tools.",
+     "role": "system"
+    },
+    {
+     "role": "user",
+     "content": "What is the weather in Paris?"
+    }
+   ],
+   "model": "openai/gpt-oss-20b",
+   "tools": [
+    {
+     "type": "function",
+     "function": {
+      "name": "get_weather",
+      "description": "Weather for a city.",
+      "parameters": {
+       "properties": {
+        "city": {
+         "title": "City",
+         "type": "string"
+        }
+       },
+       "required": [
+        "city"
+       ],
+       "title": "get_weather_args",
+       "type": "object",
+       "additionalProperties": false
+      },
+      "strict": true
+     }
+    }
+   ],
+   "max_tokens": 512
+  },
+  "raw": "{\"id\":\"chatcmpl-3cc4fd36-1338-4229-9e40-e469bf220213\",\"object\":\"chat.completion\",\"created\":1791271844,\"model\":\"openai/gpt-oss-20b\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"reasoning\":\"We need to call the function get_weather with city=Paris.\",\"tool_calls\":[{\"id\":\"fc_9da8b770-9af1-4fa8-8b3b-f9a1be823ffd\",\"type\":\"function\",\"function\":{\"name\":\"get_weather\",\"arguments\":\"{\\\"city\\\":\\\"Paris\\\"}\"}}]},\"logprobs\":null,\"finish_reason\":\"tool_calls\"}],\"usage\":{\"queue_time\":0.384449249,\"prompt_tokens\":140,\"prompt_time\":0.006896804,\"completion_tokens\":37,\"completion_time\":0.039327103,\"total_tokens\":177,\"total_time\":0.046223907,\"completion_tokens_details\":{\"reasoning_tokens\":14}},\"usage_breakdown\":null,\"system_fingerprint\":\"fp_75c733514d\",\"x_groq\":{\"id\":\"req_01m481yeabesgtqstdf92dmakb\",\"seed\":1877930324},\"service_tier\":\"on_demand\"}\n"
+ },
+ {
+  "path": "/v1/chat/completions",
+  "status": 200,
+  "content_type": "application/json",
+  "request": {
+   "messages": [
+    {
+     "content": "Use tools.",
+     "role": "system"
+    },
+    {
+     "role": "user",
+     "content": "What is the weather in Paris?"
+    },
+    {
+     "role": "assistant",
+     "content": null,
+     "tool_calls": [
+      {
+       "id": "fc_9da8b770-9af1-4fa8-8b3b-f9a1be823ffd",
+       "type": "function",
+       "function": {
+        "name": "get_weather",
+        "arguments": "{\"city\":\"Paris\"}"
+       }
+      }
+     ]
+    },
+    {
+     "role": "tool",
+     "tool_call_id": "fc_9da8b770-9af1-4fa8-8b3b-f9a1be823ffd",
+     "content": "Sunny in Paris"
+    }
+   ],
+   "model": "openai/gpt-oss-20b",
+   "tools": [
+    {
+     "type": "function",
+     "function": {
+      "name": "get_weather",
+      "description": "Weather for a city.",
+      "parameters": {
+       "properties": {
+        "city": {
+         "title": "City",
+         "type": "string"
+        }
+       },
+       "required": [
+        "city"
+       ],
+       "title": "get_weather_args",
+       "type": "object",
+       "additionalProperties": false
+      },
+      "strict": true
+     }
+    }
+   ],
+   "max_tokens": 512
+  },
+  "raw": "{\"id\":\"chatcmpl-95b1486b-511c-4565-86e5-504a31abdc97\",\"object\":\"chat.completion\",\"created\":1791271846,\"model\":\"openai/gpt-oss-20b\",\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"Sure! Currently, the weather in Paris is **sunny**. If you need more details (like temperature or forecast), just let me know!\",\"reasoning\":\"We have the response \\\"Sunny in Paris\\\". The user asked: \\\"What is the weather in Paris?\\\" The assistant responded. That seems correct. Now we need to respond back to user. Probably just confirm.\"},\"logprobs\":null,\"finish_reason\":\"stop\"}],\"usage\":{\"queue_time\":1.17706622,\"prompt_tokens\":167,\"prompt_time\":0.013779615,\"completion_tokens\":82,\"completion_time\":0.08836546,\"total_tokens\":249,\"total_time\":0.102145075,\"completion_tokens_details\":{\"reasoning_tokens\":43}},\"usage_breakdown\":null,\"system_fingerprint\":\"fp_e23fc997ca\",\"x_groq\":{\"id\":\"req_01m481yf47edksq0pw5qfyhr9r\",\"seed\":1210686073},\"service_tier\":\"on_demand\"}\n"
+ }
+]

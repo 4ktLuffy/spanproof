@@ -461,6 +461,30 @@ def build() -> str:
              '<tr><td>Detectors on traces read from Sentry</td><td class="good">same results as local, no false '
              'alarms on healthy traces</td></tr></table></div>')
 
+    # ---- watch + live agents
+    h.append('<h2>SpanProof Watch, on real agents</h2>')
+    h.append('<p>The detectors also run as a service, <code>spanproof.watch</code>, that reads agent traces from a '
+             'Sentry organization and files each failure back as a grouped Sentry issue with a link to the trace. '
+             'It was run on a real account against 45 real agent runs on a live model (Groq gpt-oss-20b, '
+             'openai-agents, LangGraph and Pydantic AI) with faults injected into their tools and provider, plus '
+             'the synthetic corpus. Truth came from the runs themselves (tool-call logs, injected errors, the '
+             'answer text), never from Sentry\'s spans.</p>')
+    h.append('<div class="scroll"><table><tr><th>failure class</th><th class="num">caught</th>'
+             '<th class="num">false alarms</th><th class="num">missed</th></tr>'
+             + "".join(f'<tr><td>{c}</td><td class="num">{a}</td><td class="num">{b}</td><td class="num">{m}</td></tr>'
+                       for c, a, b, m in (("tool loop", 13, 0, 0), ("retry storm", 15, 0, 0), ("dead end", 14, 0, 1),
+                                          ("cost spike", 5, 0, 0), ("LLM call missing from trace", 5, 0, 0),
+                                          ("silent tool error", 4, 0, 0), ("empty answer", 4, 0, 0),
+                                          ("truncated answer", 4, 0, 4)))
+             + '<tr><td>problem-free traces with any alarm</td><td colspan="3" class="num good">0 of 35</td></tr>'
+             '</table></div>')
+    h.append('<p class="dim">Real models did not fail the way the injected faults predicted: they retried failing '
+             'tools 3 to 5 times with identical arguments, spent their whole token budget and returned nothing, or '
+             'hit the step limit. Scoring by the injected fault showed 7 "false alarms"; scoring by what each agent '
+             'actually did showed none. The four missed truncations come from integrations that do not record '
+             'finish reasons. A first version built cost baselines newest-first and raised 10 false cost spikes; '
+             'building them in time order removed all of them.</p>')
+
     # ---- negatives
     h.append('<h2>Negative results</h2><ul class="plain">' + "".join(f"<li>{esc(n)}</li>" for n in NEGATIVE_RESULTS)
              + '</ul>')
