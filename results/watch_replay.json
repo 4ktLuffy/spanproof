@@ -1,0 +1,32 @@
+{
+ "traces": 301,
+ "seeds": 10,
+ "fail": 0.1,
+ "crash": 0.02,
+ "versions": {
+  "first-sight": {
+   "false": 548,
+   "missed": 820,
+   "duplicates": 67,
+   "true": 1945,
+   "posts": 1740,
+   "median_delay": 14.926562306147389
+  },
+  "settle-only": {
+   "false": 94,
+   "missed": 78,
+   "duplicates": 9,
+   "true": 1945,
+   "posts": 1970,
+   "median_delay": 312.44207088028975
+  },
+  "watch": {
+   "false": 0,
+   "missed": 14,
+   "duplicates": 0,
+   "true": 1945,
+   "posts": 1934,
+   "median_delay": 72.44207088028973
+  }
+ }
+}

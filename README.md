@@ -70,6 +70,15 @@ for `--settle` seconds (default 300) before judging it, keeps local state so a t
 trace whose events could not be handed off, and builds each agent's token baseline in time order. `--dry-run`
 shows what it would file and saves no state.
 
+A trace is judged when its top-level agent span has arrived (it ends last, so it is sent last), no span is
+waiting for its parent, and 60 seconds have passed with nothing new; traces without an agent span wait 300
+seconds. Each trace is read once more five minutes later for late spans, failed deliveries are retried, and
+each failure gets a stable event id, so a retry is dropped by Sentry instead of counted twice (checked on a real
+project). `python -m spanproof.watch_replay` replays 301 saved traces into Watch the way Sentry delivers them
+(late, out of order, with failed deliveries and crashes). Over 10 arrival orders, out of 1,945 failures: 0 filed
+early or falsely, 14 never filed (spans more than five minutes late), 0 stored twice, median 72 s after the
+trace finished. Judging a trace when it first appears filed 548 false or premature issues on the same arrivals.
+
 Checked on 94 traces with known outcomes, read back from a real Sentry account (58 synthetic, plus 36 real
 agent runs on a live model with injected faults): no false alarms on 35 problem-free traces, every tool loop,
 retry storm, dead end, token spike, lost LLM call, silent tool error and empty answer caught; truncation is missed
@@ -88,6 +97,7 @@ spanproof/js_bridge.py    the same fixtures through @sentry/node (js/worker.cjs)
 spanproof/detectors.py    agent failure classes;  issues.py: Sentry events, OTLP and Sentry span input
 spanproof/corpus.py, agent_worker.py, evaluate.py, fingerprint.py   detector measurement
 spanproof/watch.py        SpanProof Watch: agent failures in a Sentry org filed back as Sentry issues
+spanproof/watch_replay.py replays saved traces into Watch with late spans, failed deliveries and crashes
 spanproof/live.py, live_agents.py, live_agent_worker.py   live provider truth (record/replay) and real agents
 spanproof/gate.py         CI baseline gate;  report.py: findings page;  catalog.py: curated findings
 tests/                    unit tests, each check with a positive case and a negative control

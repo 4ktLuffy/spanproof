@@ -487,6 +487,28 @@ def build() -> str:
              'actually did showed none. The four missed truncations come from integrations that do not record '
              'finish reasons. A first version built cost baselines newest-first and raised 10 false token spikes; '
              'building them in time order removed all of them.</p>')
+    rp = load("watch_replay.json")
+    if rp:
+        h.append('<h3>Delivery and timing, replayed</h3>')
+        h.append(f'<p>A detector that is right on a finished trace can still be wrong in production: spans arrive '
+                 f'late and out of order, deliveries fail, the process dies. <code>spanproof.watch_replay</code> '
+                 f'feeds {rp["traces"]} saved traces to Watch span by span, in {rp["seeds"]} random arrival orders, '
+                 f'as Sentry would deliver them, with {rp["fail"]:.0%} of deliveries failing and the process dying in '
+                 f'{rp["crash"]:.0%} of cycles. Truth is what the detectors find on each complete trace, so this '
+                 f'counts only what the service adds.</p>')
+        h.append('<div class="scroll"><table><tr><th>version</th><th class="num">failures to file</th>'
+                 '<th class="num">filed early or false</th><th class="num">never filed</th>'
+                 '<th class="num">stored twice</th><th class="num">median delay</th></tr>'
+                 + "".join(f'<tr><td>{esc(v)}</td><td class="num">{r["true"]}</td><td class="num">{r["false"]}</td>'
+                           f'<td class="num">{r["missed"]}</td><td class="num">{r["duplicates"]}</td>'
+                           f'<td class="num">{r["median_delay"]:.0f} s</td></tr>' for v, r in rp["versions"].items())
+                 + '</table></div>')
+        h.append('<p class="dim">first-sight: the first version (judge a trace when it appears). settle-only: wait '
+                 'for 300 quiet seconds. watch: the current version, which judges a trace when its top-level agent '
+                 'span has arrived and no span is waiting for its parent, re-reads it once for late spans, and '
+                 'gives each failure a stable event id so retries are dropped by Sentry (checked on a real '
+                 'project: one event sent three times was stored once). What it still misses are spans that '
+                 'arrive more than five minutes after their trace was judged.</p>')
 
     # ---- negatives
     h.append('<h2>Negative results</h2><ul class="plain">' + "".join(f"<li>{esc(n)}</li>" for n in NEGATIVE_RESULTS)
