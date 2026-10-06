@@ -1,0 +1,1485 @@
+{
+ "generated": "2026-10-06",
+ "known": {
+  "-|anthropic.messages.async|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.async|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.async|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.async|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|default|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 512)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|default|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 2048)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|default|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 2600)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|default|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 120)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|default|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 2720)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|legacy|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 512)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|legacy|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 2048)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|legacy|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 2600)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|legacy|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 120)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|legacy|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 2720)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|nodc|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 512)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|nodc|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 2048)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|nodc|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 2600)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|nodc|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 120)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|nodc|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 2720)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|stream|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 512)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|stream|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 2048)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|stream|usage.missing.input_tokens|gen_ai.usage.input_tokens|0": {
+   "message": "input_tokens not reported (provider said 2600)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|stream|usage.missing.output_tokens|gen_ai.usage.output_tokens|0": {
+   "message": "output_tokens not reported (provider said 120)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.raw_response|stream|usage.missing.total|gen_ai.usage.total_tokens|0": {
+   "message": "total not reported (provider said 2720)",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.stream.async|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.stream.async|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.stream.async|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.stream.async|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.stream_helper|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.stream_helper|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.stream_helper|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.stream_helper|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.stream|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.stream|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.stream|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.stream|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.sync|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.sync|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.sync|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.sync|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.tool_use|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.tool_use|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.tool_use|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|anthropic.messages.tool_use|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langchain.chat_openai.invoke|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langchain.chat_openai.invoke|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langchain.chat_openai.invoke|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langchain.chat_openai.invoke|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langchain.chat_openai.stream|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langchain.chat_openai.stream|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langchain.chat_openai.stream|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langchain.chat_openai.stream|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|default|conventions.type|gen_ai.request.available_tools|None": {
+   "message": "gen_ai.request.available_tools should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|default|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|default|structure.tool_outside_agent|parent_span_id|None": {
+   "message": "tool span not inside the agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|legacy|conventions.type|gen_ai.request.available_tools|None": {
+   "message": "gen_ai.request.available_tools should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|legacy|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|legacy|structure.tool_outside_agent|parent_span_id|None": {
+   "message": "tool span not inside the agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|nodc|conventions.type|gen_ai.request.available_tools|None": {
+   "message": "gen_ai.request.available_tools should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|nodc|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|nodc|structure.tool_outside_agent|parent_span_id|None": {
+   "message": "tool span not inside the agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|stream|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.astream|stream|structure.tool_outside_agent|parent_span_id|None": {
+   "message": "tool span not inside the agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream.early_close|default|conventions.type|gen_ai.request.available_tools|None": {
+   "message": "gen_ai.request.available_tools should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream.early_close|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream.early_close|default|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream.early_close|legacy|conventions.type|gen_ai.request.available_tools|None": {
+   "message": "gen_ai.request.available_tools should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream.early_close|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream.early_close|legacy|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream.early_close|nodc|conventions.type|gen_ai.request.available_tools|None": {
+   "message": "gen_ai.request.available_tools should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream.early_close|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream.early_close|nodc|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream.early_close|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream.early_close|stream|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|default|conventions.type|gen_ai.request.available_tools|None": {
+   "message": "gen_ai.request.available_tools should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|default|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|default|structure.tool_outside_agent|parent_span_id|None": {
+   "message": "tool span not inside the agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|legacy|conventions.type|gen_ai.request.available_tools|None": {
+   "message": "gen_ai.request.available_tools should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|legacy|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|legacy|structure.tool_outside_agent|parent_span_id|None": {
+   "message": "tool span not inside the agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|nodc|conventions.type|gen_ai.request.available_tools|None": {
+   "message": "gen_ai.request.available_tools should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|nodc|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|nodc|structure.tool_outside_agent|parent_span_id|None": {
+   "message": "tool span not inside the agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|stream|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent.stream|stream|structure.tool_outside_agent|parent_span_id|None": {
+   "message": "tool span not inside the agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|default|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 3400, billed 1700 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|default|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 100, billed 50 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|default|conventions.type|gen_ai.request.available_tools|None": {
+   "message": "gen_ai.request.available_tools should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|default|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|legacy|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 3400, billed 1700 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|legacy|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 100, billed 50 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|legacy|conventions.type|gen_ai.request.available_tools|None": {
+   "message": "gen_ai.request.available_tools should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|legacy|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|nodc|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 3400, billed 1700 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|nodc|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 100, billed 50 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|nodc|conventions.type|gen_ai.request.available_tools|None": {
+   "message": "gen_ai.request.available_tools should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|nodc|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|stream|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 3400, billed 1700 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|stream|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 100, billed 50 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|langgraph.react_agent|stream|conventions.type|gen_ai.response.finish_reasons|None": {
+   "message": "gen_ai.response.finish_reasons should be string, got list",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.acompletion.openai|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.acompletion.openai|default|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1024)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.acompletion.openai|default|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.acompletion.openai|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.acompletion.openai|legacy|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1024)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.acompletion.openai|legacy|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.acompletion.openai|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.acompletion.openai|nodc|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1024)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.acompletion.openai|nodc|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.acompletion.openai|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.acompletion.openai|stream|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1024)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.acompletion.openai|stream|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.anthropic|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.anthropic|default|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 512)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.anthropic|default|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 2048)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.anthropic|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.anthropic|legacy|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 512)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.anthropic|legacy|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 2048)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.anthropic|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.anthropic|nodc|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 512)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.anthropic|nodc|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 2048)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.anthropic|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.anthropic|stream|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 512)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.anthropic|stream|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 2048)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream.early_close|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream.early_close|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream.early_close|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream.early_close|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|default|identity.model_wrong|gen_ai.response.model|0": {
+   "message": "response model differs from what the provider returned",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|default|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1024)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|default|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|legacy|identity.model_wrong|gen_ai.response.model|0": {
+   "message": "response model differs from what the provider returned",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|legacy|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1024)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|legacy|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|nodc|identity.model_wrong|gen_ai.response.model|0": {
+   "message": "response model differs from what the provider returned",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|nodc|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1024)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|nodc|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|stream|identity.model_wrong|gen_ai.response.model|0": {
+   "message": "response model differs from what the provider returned",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|stream|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1024)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai.stream|stream|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai|default|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1024)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai|default|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai|legacy|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1024)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai|legacy|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai|nodc|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1024)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai|nodc|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai|stream|usage.missing.cached|gen_ai.usage.cache_read.input_tokens|0": {
+   "message": "cached not reported (provider said 1024)",
+   "until": null,
+   "ref": null
+  },
+  "-|litellm.completion.openai|stream|usage.missing.reasoning|gen_ai.usage.reasoning.output_tokens|0": {
+   "message": "reasoning not reported (provider said 256)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.async|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.async|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.async|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.async|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.stream.async|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.stream.async|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.stream.async|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.stream.async|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.stream.early_close|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.stream.early_close|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.stream.early_close|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.stream.early_close|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.stream|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.stream|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.stream|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.stream|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.sync|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.sync|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.sync|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.sync|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.tool_call|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.tool_call|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.tool_call|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.chat.tool_call|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.responses.stream.early_close|default|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.responses.stream.early_close|legacy|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.responses.stream.early_close|nodc|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.responses.stream.early_close|stream|lifecycle.lost_span|None|None": {
+   "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.responses.stream|default|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 96)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.responses.stream|legacy|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 96)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.responses.stream|nodc|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 96)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.responses.stream|stream|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 96)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.responses.sync|default|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 96)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.responses.sync|legacy|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 96)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.responses.sync|nodc|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 96)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai.responses.sync|stream|usage.missing.cache_write|gen_ai.usage.cache_creation.input_tokens|0": {
+   "message": "cache_write not reported (provider said 96)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|default|aggregation.double_count.cached|cached|None": {
+   "message": "sum(cached) over the trace is 3840, billed 1280 (x3.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|default|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 9100, billed 3350 (x2.72); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|default|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 255, billed 90 (x2.83); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|default|aggregation.rollup.input_tokens|gen_ai.usage.input_tokens|None": {
+   "message": "agent 'weather_agent' reports input_tokens=2400 but the LLM calls inside it sum to 1700",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|default|aggregation.rollup.output_tokens|gen_ai.usage.output_tokens|None": {
+   "message": "agent 'weather_agent' reports output_tokens=75 but the LLM calls inside it sum to 50",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|default|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|default|identity.finish_missing|gen_ai.response.finish_reasons|2": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|default|identity.finish_missing|gen_ai.response.finish_reasons|3": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|legacy|aggregation.double_count.cached|cached|None": {
+   "message": "sum(cached) over the trace is 3840, billed 1280 (x3.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|legacy|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 9100, billed 3350 (x2.72); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|legacy|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 255, billed 90 (x2.83); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|legacy|aggregation.rollup.input_tokens|gen_ai.usage.input_tokens|None": {
+   "message": "agent 'weather_agent' reports input_tokens=2400 but the LLM calls inside it sum to 1700",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|legacy|aggregation.rollup.output_tokens|gen_ai.usage.output_tokens|None": {
+   "message": "agent 'weather_agent' reports output_tokens=75 but the LLM calls inside it sum to 50",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|legacy|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|legacy|identity.finish_missing|gen_ai.response.finish_reasons|2": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|legacy|identity.finish_missing|gen_ai.response.finish_reasons|3": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|nodc|aggregation.double_count.cached|cached|None": {
+   "message": "sum(cached) over the trace is 3840, billed 1280 (x3.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|nodc|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 9100, billed 3350 (x2.72); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|nodc|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 255, billed 90 (x2.83); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|nodc|aggregation.rollup.input_tokens|gen_ai.usage.input_tokens|None": {
+   "message": "agent 'weather_agent' reports input_tokens=2400 but the LLM calls inside it sum to 1700",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|nodc|aggregation.rollup.output_tokens|gen_ai.usage.output_tokens|None": {
+   "message": "agent 'weather_agent' reports output_tokens=75 but the LLM calls inside it sum to 50",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|nodc|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|nodc|identity.finish_missing|gen_ai.response.finish_reasons|2": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|nodc|identity.finish_missing|gen_ai.response.finish_reasons|3": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|stream|aggregation.double_count.cached|cached|None": {
+   "message": "sum(cached) over the trace is 3840, billed 1280 (x3.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|stream|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 9100, billed 3350 (x2.72); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|stream|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 255, billed 90 (x2.83); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|stream|aggregation.rollup.input_tokens|gen_ai.usage.input_tokens|None": {
+   "message": "agent 'weather_agent' reports input_tokens=2400 but the LLM calls inside it sum to 1700",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|stream|aggregation.rollup.output_tokens|gen_ai.usage.output_tokens|None": {
+   "message": "agent 'weather_agent' reports output_tokens=75 but the LLM calls inside it sum to 50",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|stream|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|stream|identity.finish_missing|gen_ai.response.finish_reasons|2": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.agent_as_tool|stream|identity.finish_missing|gen_ai.response.finish_reasons|3": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|default|aggregation.double_count.cached|cached|None": {
+   "message": "sum(cached) over the trace is 2560, billed 1280 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|default|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 3400, billed 1700 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|default|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 100, billed 50 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|default|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|legacy|aggregation.double_count.cached|cached|None": {
+   "message": "sum(cached) over the trace is 2560, billed 1280 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|legacy|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 3400, billed 1700 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|legacy|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 100, billed 50 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|legacy|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|nodc|aggregation.double_count.cached|cached|None": {
+   "message": "sum(cached) over the trace is 2560, billed 1280 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|nodc|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 3400, billed 1700 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|nodc|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 100, billed 50 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|nodc|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|stream|aggregation.double_count.cached|cached|None": {
+   "message": "sum(cached) over the trace is 2560, billed 1280 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|stream|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 3400, billed 1700 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|stream|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 100, billed 50 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.chat|stream|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.responses|default|aggregation.double_count.cached|cached|None": {
+   "message": "sum(cached) over the trace is 2560, billed 1280 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.responses|default|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 3400, billed 1700 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.responses|default|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 100, billed 50 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.responses|legacy|aggregation.double_count.cached|cached|None": {
+   "message": "sum(cached) over the trace is 2560, billed 1280 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.responses|legacy|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 3400, billed 1700 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.responses|legacy|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 100, billed 50 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.responses|nodc|aggregation.double_count.cached|cached|None": {
+   "message": "sum(cached) over the trace is 2560, billed 1280 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.responses|nodc|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 3400, billed 1700 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.responses|nodc|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 100, billed 50 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.responses|stream|aggregation.double_count.cached|cached|None": {
+   "message": "sum(cached) over the trace is 2560, billed 1280 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.responses|stream|aggregation.double_count.input_tokens|input_tokens|None": {
+   "message": "sum(input_tokens) over the trace is 3400, billed 1700 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|openai_agents.run.responses|stream|aggregation.double_count.output_tokens|output_tokens|None": {
+   "message": "sum(output_tokens) over the trace is 100, billed 50 (x2.00); hierarchical spans double count",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|default|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|default|structure.missing_tool_span|gen_ai.tool.name|None": {
+   "message": "tool get_weather ran but has no gen_ai.execute_tool span",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|default|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|legacy|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|legacy|structure.missing_tool_span|gen_ai.tool.name|None": {
+   "message": "tool get_weather ran but has no gen_ai.execute_tool span",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|legacy|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|nodc|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|nodc|structure.missing_tool_span|gen_ai.tool.name|None": {
+   "message": "tool get_weather ran but has no gen_ai.execute_tool span",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|nodc|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|stream|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|stream|structure.missing_tool_span|gen_ai.tool.name|None": {
+   "message": "tool get_weather ran but has no gen_ai.execute_tool span",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.iter|stream|structure.no_agent_span|op|None": {
+   "message": "agent run produced no gen_ai.invoke_agent span",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.run_sync|default|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.run_sync|default|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.run_sync|legacy|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.run_sync|legacy|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.run_sync|nodc|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.run_sync|nodc|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.run_sync|stream|identity.finish_missing|gen_ai.response.finish_reasons|0": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  },
+  "-|pydantic_ai.run_sync|stream|identity.finish_missing|gen_ai.response.finish_reasons|1": {
+   "message": "finish reason not recorded (truncation and tool-stop are invisible)",
+   "until": null,
+   "ref": null
+  }
+ }
+}

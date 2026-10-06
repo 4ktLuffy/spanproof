@@ -1,0 +1,29 @@
+# Example workflow for getsentry/sentry-python (a proposal, not installed anywhere).
+# Nightly: replays every scenario across the tox matrix, including provider pre-releases,
+# so a provider release that breaks instrumentation is caught the night it ships.
+# On PRs touching AI integrations: runs only the touched integrations and fails on
+# findings that are not in the checked-in baseline.
+name: spanproof
+on:
+  schedule: [{cron: "17 4 * * *"}]
+  pull_request:
+    paths: ["sentry_sdk/integrations/**", "sentry_sdk/ai/**"]
+jobs:
+  spanproof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install SpanProof
+        run: uv pip install --system "spanproof @ git+https://github.com/4ktLuffy/spanproof"
+      - name: Pick integrations
+        id: pick
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin ${{ github.base_ref }} --depth 1
+            echo "only=$(git diff --name-only origin/${{ github.base_ref }} | sed -n 's#sentry_sdk/integrations/\([a-z_]*\).*#\1#p' | sort -u | paste -sd, -)" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Run matrix
+        run: spanproof-matrix --sdk . --envs ~/.spanproof-envs --only "${{ steps.pick.outputs.only }}" --modes default,legacy --out spanproof.json
+      - name: Gate
+        run: spanproof-gate spanproof.json --baseline .spanproof-baseline.json --summary "$GITHUB_STEP_SUMMARY"

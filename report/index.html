@@ -1,0 +1,308 @@
+<title>SpanProof for Sentry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@600&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column for prose, full-width bands for the ledger tables. */
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --ink:#18202b; --muted:#5b6676; --rule:#dfe3ea;
+  --accent:#2563a6; --accent-soft:#e6eef8;
+  --hi:#b42318; --hi-soft:#fdecea; --med:#a15c07; --med-soft:#fdf2e1; --lo:#54606f; --lo-soft:#eef0f3;
+  --ok:#17733f; --ok-soft:#e3f4ea;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141b; --panel:#161d26; --ink:#e4e9f0; --muted:#97a3b3; --rule:#283241;
+  --accent:#7fb2ea; --accent-soft:#1b2a3c;
+  --hi:#f2877c; --hi-soft:#3a1d1b; --med:#e8b36a; --med-soft:#36291a; --lo:#a3adba; --lo-soft:#222a35;
+  --ok:#6fcf97; --ok-soft:#173326; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141b; --panel:#161d26; --ink:#e4e9f0; --muted:#97a3b3; --rule:#283241;
+  --accent:#7fb2ea; --accent-soft:#1b2a3c;
+  --hi:#f2877c; --hi-soft:#3a1d1b; --med:#e8b36a; --med-soft:#36291a; --lo:#a3adba; --lo-soft:#222a35;
+  --ok:#6fcf97; --ok-soft:#173326; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--body);margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:28px 64px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:2.3rem;font-weight:600;letter-spacing:-.01em}
+h2{font-size:1.45rem;font-weight:600;margin-top:2.6rem;padding-top:1.2rem;border-top:1px solid var(--rule)}
+h3{font-size:1.05rem;font-weight:600}
+p{max-width:68ch;margin:.6rem 0}
+a{color:var(--accent)} a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+code,.mono{font-family:var(--mono);font-size:.86em}
+.eyebrow{font:600 .72rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lede{font-size:1.08rem;color:var(--ink);max-width:70ch}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--muted);font:.8rem var(--mono);margin-top:.8rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:1.4rem}
+.stat{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:12px 14px}
+.stat b{display:block;font:600 1.7rem/1.1 var(--display);font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:.82rem}
+.scroll{overflow-x:auto;margin-top:.8rem;border:1px solid var(--rule);border-radius:6px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.86rem;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font:600 .72rem var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right}
+.pill{display:inline-block;font:600 .7rem/1 var(--mono);padding:4px 7px;border-radius:999px;white-space:nowrap}
+.sev-high{background:var(--hi-soft);color:var(--hi)} .sev-medium{background:var(--med-soft);color:var(--med)}
+.sev-low,.sev-info{background:var(--lo-soft);color:var(--lo)}
+.st-new{background:var(--accent-soft);color:var(--accent)} .st-known{background:var(--lo-soft);color:var(--lo)}
+.st-fixed{background:var(--ok-soft);color:var(--ok)}
+.bad{color:var(--hi);font-weight:600} .good{color:var(--ok);font-weight:600} .dim{color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:1rem}
+.filters button{font:500 .8rem var(--body);border:1px solid var(--rule);background:var(--panel);color:var(--ink);
+  border-radius:999px;padding:5px 12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+details.f{background:var(--panel);border:1px solid var(--rule);border-radius:6px;margin-top:8px}
+details.f>summary{list-style:none;cursor:pointer;padding:11px 14px;display:grid;grid-template-columns:4.2rem 1fr auto;gap:10px;align-items:start}
+details.f>summary::-webkit-details-marker{display:none}
+details.f[open]>summary{border-bottom:1px solid var(--rule)}
+.fid{font:600 .8rem var(--mono);color:var(--muted);padding-top:2px}
+.ftitle{font-weight:600;min-width:0}
+.fsub{color:var(--muted);font-size:.8rem;font-weight:400}
+.tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.fbody{padding:12px 14px 14px;display:grid;gap:10px}
+.fbody dl{display:grid;grid-template-columns:7.5rem 1fr;gap:6px 14px;margin:0}
+.fbody dt{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.fbody dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.fbody ul{margin:0;padding-left:1.1rem}
+.cell{text-align:center;font:600 .82rem var(--mono);min-width:3.4rem}
+.c0{background:var(--ok-soft);color:var(--ok)} .c1{background:var(--med-soft);color:var(--med)}
+.c2{background:var(--hi-soft);color:var(--hi)} .cx{background:var(--lo-soft);color:var(--muted)}
+.bar{position:relative;height:8px;background:var(--lo-soft);border-radius:4px;min-width:90px}
+.bar i{position:absolute;top:0;bottom:0;background:var(--accent);opacity:.35;border-radius:4px}
+.bar b{position:absolute;top:-3px;width:3px;height:14px;background:var(--accent);border-radius:1px}
+.note{background:var(--panel);border-left:3px solid var(--accent);padding:10px 14px;margin-top:1rem;max-width:72ch}
+pre{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:12px;overflow-x:auto;font:.8rem/1.5 var(--mono)}
+ul.plain{padding-left:1.1rem;max-width:72ch}
+@media (max-width:640px){h1{font-size:1.8rem}details.f>summary{grid-template-columns:1fr}.tags{justify-content:flex-start}
+  .fbody dl{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style><div class="wrap">
+<div class="eyebrow">SpanProof · Sentry AI monitoring · findings</div>
+<h1>Do Sentry's AI spans match what the provider billed?</h1>
+<p class="lede">SpanProof replays recorded provider responses through Sentry's real AI integrations, in Python and JavaScript, across the provider versions in Sentry's own <code>tox.ini</code>, and compares every emitted span with the provider's own numbers. On top of that it runs agent failure-class detectors that turn span trees into issues. Everything below was reproduced by running code.</p>
+<div class="meta"><span>sentry-python 6a4eb20f (2.71.0)</span><span>@sentry/node 11.4.0</span><span>2026-10-06</span><span>no API keys, no live calls</span></div>
+<div class="stats"><div class="stat"><b>14</b><span>unintended defects (9 with no existing issue)</span></div><div class="stat"><b>4</b><span>fixes with tests and before/after measurements</span></div><div class="stat"><b>42</b><span>tox matrix cells, 414 runs</span></div><div class="stat"><b>160</b><span>runs on latest, 4 transport modes</span></div><div class="stat"><b>8</b><span>agent failure classes, 256 traces + 480 held out</span></div></div>
+<h2>What was fixed</h2>
+<h3 style="margin-top:1rem">sentry-python#5455: LiteLLM cached, reasoning and cache-write tokens</h3>
+<p>The LiteLLM integration read only prompt, completion and total tokens. LiteLLM normalizes every provider into <code>prompt_tokens_details</code> and <code>completion_tokens_details</code>, so the callback already has the data. The fix reads it (with LiteLLM's private fallbacks) and passes it to the existing <code>record_token_usage</code>.</p>
+<div class="scroll"><table><tr><th>LiteLLM version (tox cell)</th><th class="num">usage findings on HEAD</th><th class="num">with the fix</th></tr>
+<tr><td class="mono">1.77.7</td><td class="num bad">16</td><td class="num good">0</td></tr>
+<tr><td class="mono">1.83.14</td><td class="num bad">16</td><td class="num good">0</td></tr>
+<tr><td class="mono">1.89.7</td><td class="num bad">16</td><td class="num good">0</td></tr>
+<tr><td class="mono">1.96.0</td><td class="num bad">16</td><td class="num good">0</td></tr>
+<tr><td class="mono">1.104.0</td><td class="num bad">16</td><td class="num good">0</td></tr>
+<tr><td class="mono">1.105.0rc1</td><td class="num bad">16</td><td class="num good">0</td></tr>
+</table></div>
+<p>sentry-python's own LiteLLM suite under tox: <b>173 / 173</b> on litellm 1.96.0 and on the oldest supported 1.77.7. Two new regression tests fail on the original code and pass with the fix.</p>
+<h3 style="margin-top:1.2rem">Three more fixes</h3>
+<div class="scroll"><table><tr><th>finding</th><th>change</th><th>SpanProof before → after</th><th>sentry-python suite under tox</th></tr><tr><td>SP-04 OpenAI cache-write tokens (new)</td><td>read <code>cache_write_tokens</code> on Chat and Responses, 14 lines</td><td class="mono">OpenAI usage findings <span class="bad">8</span> → <span class="good">0</span></td><td>687/687 (openai 2.54.0), 683 + 4 skipped (1.109.1)</td></tr><tr><td>SP-08 LangGraph <code>stream()</code> agent span (new)</td><td>wrap stream/astream, re-entrancy guard so invoke stays at one span, finish in <code>finally</code></td><td class="mono">agent spans for .stream() <span class="bad">0</span> → <span class="good">1</span>; .invoke() stays 1; structure findings <span class="bad">8</span> → <span class="good">0</span></td><td>150/150 on langgraph 1.2.12 and 0.6.11</td></tr><tr><td>SP-10 Pydantic AI finish reasons</td><td>record the normalized stop reason, 9 lines</td><td class="mono">truncation detector recall <span class="bad">0.33</span> → <span class="good">0.67</span></td><td>332/332</td></tr></table></div>
+<p>Every new test fails on the original code and passes with the fix. Each fix is one commit on its own branch off sentry-python 6a4eb20f, at <a href="https://github.com/4ktLuffy/sentry-python/branches">4ktLuffy/sentry-python</a>.</p>
+<h2>Findings</h2>
+<p>Intent labels: <b>unintended</b> means the code does not do what its own design says; <b>simplification</b> is a deliberate shortcut with a cost; <b>needs decision</b> means the SDK and the conventions disagree; <b>not a fault</b> is listed so nobody chases it. "New" means no matching issue or PR was found on 2026-10-06.</p>
+<div class="filters" role="group" aria-label="Filter findings"><button data-filter="all" aria-pressed="true">All</button><button data-filter="new" aria-pressed="false">New</button><button data-filter="python" aria-pressed="false">Python</button><button data-filter="js" aria-pressed="false">JavaScript</button><button data-filter="high" aria-pressed="false">High severity</button></div>
+<details class="f" data-tags="fixed high python"><summary><span class="fid">SP-01</span><span class="ftitle">LiteLLM drops cached, reasoning and cache-write tokens<br><span class="fsub">python · litellm · unintended</span></span><span class="tags"><span class="pill sev-high">high</span><span class="pill st-fixed">fixed here</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Every cached or reasoning token through LiteLLM is invisible; for an Anthropic model behind LiteLLM the cache-write tokens (billed at 1.25x) are missing too.</dd>
+<dt>Evidence</dt><dd><ul><li><a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/litellm.py#L258-L265">sentry_sdk/integrations/litellm.py#L258-L265</a></li><li>litellm/types/utils.py:1762-1910 (litellm 1.104.0): Usage carries prompt_tokens_details and completion_tokens_details, so the data is available to the callback</li></ul></dd>
+<dt>Issue</dt><dd><a href="https://github.com/getsentry/sentry-python/issues/5455">sentry-python#5455</a> (known)</dd>
+<dt>Reproduce</dt><dd class="mono">litellm.completion.openai, litellm.acompletion.openai, litellm.completion.openai.stream, litellm.completion.anthropic</dd>
+<dt>Fix</dt><dd>FIXED in this work: read prompt_tokens_details.cached_tokens / cache_write_tokens and completion_tokens_details.reasoning_tokens (with LiteLLM&#x27;s private fallbacks). SpanProof usage findings for LiteLLM: 8 -&gt; 0 on HEAD; sentry-python&#x27;s LiteLLM suite 173/173 under tox, with two new regression tests that fail on the original code.</dd>
+<dt>2nd model</dt><dd>Confirmed: input/output/total 1200/300/1500, cached and reasoning absent.</dd>
+</dl></div></details>
+<details class="f" data-tags="high known python"><summary><span class="fid">SP-02</span><span class="ftitle">OpenAI stream closed early: the gen_ai span is never sent (Chat and Responses)<br><span class="fsub">python · openai · unintended</span></span><span class="tags"><span class="pill sev-high">high</span><span class="pill st-known">known issue</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>A user who stops reading a stream (UI cancel, first-token routing) makes the LLM call disappear from Sentry: no latency, no tokens, no cost. The JS SDK handles the same case correctly (js.openai.chat.stream.early_close is green), as does Python Anthropic.</dd>
+<dt>Evidence</dt><dd><ul><li><a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/openai.py#L1001-L1286">sentry_sdk/integrations/openai.py#L1001-L1286</a> (span exits only after the for loop; no finally, no Stream.close hook)</li></ul></dd>
+<dt>Issue</dt><dd><a href="https://github.com/getsentry/sentry-python/issues/7847">sentry-python#7847</a> (known)</dd>
+<dt>Reproduce</dt><dd class="mono">openai.chat.stream.early_close, openai.responses.stream.early_close</dd>
+<dt>Fix</dt><dd>Mirror anthropic.py&#x27;s _StreamSpanContext/_wrap_close: finish the span exactly once in a finally and on close()/aclose(); only mark an error for real exceptions, not GeneratorExit.</dd>
+<dt>2nd model</dt><dd>Confirmed: 0 spans after break+close on Chat and Responses; 2 spans when fully consumed.</dd>
+</dl></div></details>
+<details class="f" data-tags="high new python"><summary><span class="fid">SP-03</span><span class="ftitle">LiteLLM stream closed early: the gen_ai span is never sent<br><span class="fsub">python · litellm · unintended</span></span><span class="tags"><span class="pill sev-high">high</span><span class="pill st-new">new</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Same blind spot as SP-02 for every provider routed through LiteLLM.</dd>
+<dt>Evidence</dt><dd><ul><li><a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/litellm.py#L298-L312">sentry_sdk/integrations/litellm.py#L298-L312</a> (span finished only when complete_streaming_response arrives; LiteLLM fires no callback for an abandoned stream)</li></ul></dd>
+<dt>Reproduce</dt><dd class="mono">litellm.completion.openai.stream.early_close</dd>
+<dt>Fix</dt><dd>Finish the stored span from a wrapper on CustomStreamWrapper iteration/close when the final callback never fires.</dd>
+<dt>2nd model</dt><dd>Confirmed: 0 spans after abandoning the stream, even after a 2 s grace period.</dd>
+</dl></div></details>
+<details class="f" data-tags="fixed js medium python"><summary><span class="fid">SP-04</span><span class="ftitle">OpenAI Responses cache_write_tokens never recorded (Python and JavaScript)<br><span class="fsub">python+js · openai · unintended</span></span><span class="tags"><span class="pill sev-medium">medium</span><span class="pill st-fixed">fixed here</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Prompt-cache writes are billed above the normal input rate and are not visible in Sentry.</dd>
+<dt>Evidence</dt><dd><ul><li><a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/openai.py#L283-L289">sentry_sdk/integrations/openai.py#L283-L289</a></li><li>@sentry/server-utils 11.4.0 (npm): build/cjs/ai/openai/utils.js:25-37</li><li>openai-python 2.54.0 openai/types/responses/response_usage.py:11 (InputTokensDetails.cache_write_tokens is a required field)</li></ul></dd>
+<dt>Reproduce</dt><dd class="mono">openai.responses.sync, openai.responses.stream, js.openai.responses.sync</dd>
+<dt>Fix</dt><dd>FIXED in this work for Python (Chat Completions and Responses): read cache_write_tokens and pass input_tokens_cache_write to record_token_usage. SpanProof OpenAI usage findings 8 -&gt; 0; sentry-python OpenAI suite 687/687 (openai 2.54.0) and 683 + 4 skipped (openai 1.109.1); the new test fails on the original code. JS still open.</dd>
+<dt>2nd model</dt><dd>Confirmed in Python and JS; the field is declared in openai-python&#x27;s InputTokensDetails.</dd>
+</dl></div></details>
+<details class="f" data-tags="high new python"><summary><span class="fid">SP-05</span><span class="ftitle">Anthropic with_raw_response: span closes before parse(), so no usage, model or id<br><span class="fsub">python · anthropic · unintended</span></span><span class="tags"><span class="pill sev-high">high</span><span class="pill st-new">new</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Apps that read headers (rate limits, request ids) via with_raw_response lose all token data.</dd>
+<dt>Evidence</dt><dd><ul><li><a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/anthropic.py#L790-L817">sentry_sdk/integrations/anthropic.py#L790-L817</a> (APIResponse has no .usage, falls to the unknown-response branch and exits the span)</li></ul></dd>
+<dt>Reproduce</dt><dd class="mono">anthropic.messages.raw_response</dd>
+<dt>Fix</dt><dd>Detect APIResponse/AsyncAPIResponse and finish the span after parse() (wrap parse on the instance), running the existing output handling on the parsed Message.</dd>
+<dt>2nd model</dt><dd>Confirmed: no gen_ai.usage.* keys; .create() on the same response records 2600/2048/512.</dd>
+</dl></div></details>
+<details class="f" data-tags="high js known python"><summary><span class="fid">SP-06</span><span class="ftitle">Summing tokens across span levels double counts agent runs (2.00x to 3.00x billed)<br><span class="fsub">python+js · openai_agents, langgraph, vercel_ai · unintended</span></span><span class="tags"><span class="pill sev-high">high</span><span class="pill st-known">known issue</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Measured: a naive sum(input_tokens) over all spans = 2.00x billed (openai-agents, langgraph, Vercel generateText), 2.72x for an agent used as a tool, cached tokens 3.00x. The agent aggregate is itself correct (except SP-07); the inflation comes from summing both levels, which is what a dashboard sum() does unless it filters to LLM-call spans.</dd>
+<dt>Evidence</dt><dd><ul><li>invoke_agent spans carry the run&#x27;s total usage and the LLM spans inside carry the same tokens again; the conventions text asks queries to filter operation.type=ai_client</li><li>sentry-python PR #7515 (merged to major/3.0, not master) stops setting tokens on invoke_agent spans</li></ul></dd>
+<dt>Issue</dt><dd><a href="https://github.com/getsentry/sentry/issues/114914">sentry#114914</a> (known)</dd>
+<dt>Reproduce</dt><dd class="mono">openai_agents.run.chat, openai_agents.run.responses, openai_agents.agent_as_tool, langgraph.react_agent, js.vercel_ai.generate_text</dd>
+<dt>Fix</dt><dd>SpanProof gives #114914 a regression test: whichever fix lands (Relay-side filter or SDK-side removal as in #7515), the aggregation check must go green on these five scenarios.</dd>
+<dt>2nd model</dt><dd>Confirmed (600 vs 300 billed). Qualification: a naive sum across span levels, not double billing.</dd>
+</dl></div></details>
+<details class="f" data-tags="high new python"><summary><span class="fid">SP-07</span><span class="ftitle">Nested agent (Agent.as_tool) reports usage that includes its parent&#x27;s tokens<br><span class="fsub">python · openai_agents · unintended</span></span><span class="tags"><span class="pill sev-high">high</span><span class="pill st-new">new</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Inner agent reports input 2400 / output 75; its own calls sum to 1700 / 50. The extra 700 / 25 are the outer agent&#x27;s first call, so per-agent cost is wrong in the Agents dashboard.</dd>
+<dt>Evidence</dt><dd><ul><li>sentry_sdk/integrations/openai_agents/spans/invoke_agent.py:117-119 reads context.usage at the end of the run</li><li>openai-agents shares one Usage object into nested runs (agents/agent.py as_tool, run_context.py:1330,1339); openai-agents&#x27; own spans use snapshot/usage_delta</li></ul></dd>
+<dt>Reproduce</dt><dd class="mono">openai_agents.agent_as_tool</dd>
+<dt>Fix</dt><dd>Snapshot usage when the invoke_agent span starts and report the delta, as openai-agents does.</dd>
+<dt>2nd model</dt><dd>Confirmed: inner agent 300 vs its own 200; the extra is the outer agent&#x27;s first call.</dd>
+</dl></div></details>
+<details class="f" data-tags="fixed high python"><summary><span class="fid">SP-08</span><span class="ftitle">LangGraph graph.stream()/astream(): no invoke_agent span<br><span class="fsub">python · langgraph · unintended</span></span><span class="tags"><span class="pill sev-high">high</span><span class="pill st-fixed">fixed here</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Streaming LangGraph agents (the common UI case) have no agent span: no agent name, no grouping in the Agents dashboard. JS has a matching report (sentry-javascript#19626).</dd>
+<dt>Evidence</dt><dd><ul><li><a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/langgraph.py#L44-L53">sentry_sdk/integrations/langgraph.py#L44-L53</a> (only Pregel.invoke/ainvoke are wrapped; the comment assumes stream runs through invoke, but in langgraph 1.2.13 invoke calls stream, not the reverse)</li></ul></dd>
+<dt>Reproduce</dt><dd class="mono">langgraph.react_agent.stream</dd>
+<dt>Fix</dt><dd>FIXED in this work: wrap Pregel.stream/astream; a context variable set inside invoke/ainvoke stops the inner stream call from opening a second span; the span ends in a finally, so early close is covered. SpanProof: invoke_agent spans for .stream() 0 -&gt; 1, .invoke() stays at 1, structure findings 8 -&gt; 0 (plus astream and early-close scenarios). LangGraph suite 150/150 on langgraph 1.2.12 and 0.6.11 with four new tests.</dd>
+<dt>2nd model</dt><dd>Confirmed: .invoke() 1 invoke_agent span, .stream() 0.</dd>
+</dl></div></details>
+<details class="f" data-tags="high known python"><summary><span class="fid">SP-09</span><span class="ftitle">Pydantic AI Agent.iter(): no agent or tool spans<br><span class="fsub">python · pydantic_ai · unintended</span></span><span class="tags"><span class="pill sev-high">high</span><span class="pill st-known">known issue</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Reproduced on pydantic-ai 2.54 at HEAD; the issue has no staff reply yet.</dd>
+<dt>Evidence</dt><dd><ul><li>scenario pydantic_ai.iter vs pydantic_ai.run_sync on the same script</li></ul></dd>
+<dt>Issue</dt><dd><a href="https://github.com/getsentry/sentry-python/issues/5606">sentry-python#5606</a> (known)</dd>
+<dt>Reproduce</dt><dd class="mono">pydantic_ai.iter</dd>
+<dt>Fix</dt><dd>Instrument the AgentRun context manager returned by iter().</dd>
+<dt>2nd model</dt><dd>Confirmed: iter() 0 invoke_agent / 0 execute_tool; run() 1 / 1.</dd>
+</dl></div></details>
+<details class="f" data-tags="fixed medium python"><summary><span class="fid">SP-10</span><span class="ftitle">Finish reasons not recorded by OpenAI, OpenAI Agents, Pydantic AI (and LiteLLM)<br><span class="fsub">python · openai, openai_agents, pydantic_ai, litellm · unintended</span></span><span class="tags"><span class="pill sev-medium">medium</span><span class="pill st-fixed">partly fixed here</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Truncated answers (finish_reason=length) and tool-stops are invisible. The failure-class detector for truncation reaches recall 1.0 where finish reasons exist and cannot work where they do not (see detector results).</dd>
+<dt>Evidence</dt><dd><ul><li>grep FINISH_REASON: set in anthropic.py:683, langchain.py:660, google_genai, huggingface_hub; absent from openai.py, litellm.py, openai_agents/, pydantic_ai/</li><li>@sentry/node records finish reasons for OpenAI (JS openai/utils.js:39-43): a parity gap</li></ul></dd>
+<dt>Issue</dt><dd><a href="https://github.com/getsentry/sentry-python/issues/5808">sentry-python#5808</a> (new (LiteLLM part known: #5808))</dd>
+<dt>Reproduce</dt><dd class="mono">openai.chat.sync, openai_agents.run.chat, pydantic_ai.run_sync, litellm.completion.openai</dd>
+<dt>Fix</dt><dd>Pydantic AI part FIXED in this work (9 lines): truncation detector recall 0.33 -&gt; 0.67, Pydantic AI suite 332/332, new test fails on the original code. OpenAI and openai-agents still open (openai-agents&#x27; ModelResponse carries no finish reason, so that one needs upstream support).</dd>
+<dt>2nd model</dt><dd>Confirmed for Python OpenAI; JS OpenAI does record finish reasons.</dd>
+</dl></div></details>
+<details class="f" data-tags="js medium new"><summary><span class="fid">SP-11</span><span class="ftitle">JS OpenAI ignores cached and reasoning tokens<br><span class="fsub">js · openai · unintended</span></span><span class="tags"><span class="pill sev-medium">medium</span><span class="pill st-new">new</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>The Python SDK reports 1024 cached / 256 reasoning tokens for the same response; the JS SDK reports none. The open tracker #20578 lists attribute renames, not this gap.</dd>
+<dt>Evidence</dt><dd><ul><li>@sentry/server-utils 11.4.0 (npm): build/cjs/ai/openai/utils.js:25-37 reads prompt/completion/total only</li></ul></dd>
+<dt>Issue</dt><dd><a href="https://github.com/getsentry/sentry-javascript/issues/20578">sentry-javascript#20578</a> (new)</dd>
+<dt>Reproduce</dt><dd class="mono">js.openai.chat.sync, js.openai.chat.stream, js.openai.responses.sync</dd>
+<dt>Fix</dt><dd>Read prompt_tokens_details / input_tokens_details and the output details.</dd>
+<dt>2nd model</dt><dd>Confirmed.</dd>
+</dl></div></details>
+<details class="f" data-tags="high js new"><summary><span class="fid">SP-12</span><span class="ftitle">JS Anthropic: input_tokens excludes cache; cache attributes never emitted<br><span class="fsub">js · anthropic · unintended</span></span><span class="tags"><span class="pill sev-high">high</span><span class="pill st-new">new</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Same response: Python reports input 2600 (inclusive, per the conventions) with cached 2048 and cache-write 512; JS reports input 40, no cache attributes, and total 2720 that contradicts input+output. Any cost computed from these attributes misses the cache read/write charges.</dd>
+<dt>Evidence</dt><dd><ul><li>@sentry/server-utils 11.4.0 (npm): build/cjs/ai/core/utils.js:25-42 setTokenUsageAttributes adds the two cache counts into total_tokens only; anthropic-ai/index.js:68-74 passes cache_creation and cache_read into slots named cachedInputTokens/cachedOutputTokens</li></ul></dd>
+<dt>Issue</dt><dd><a href="https://github.com/getsentry/sentry-javascript/issues/20579">sentry-javascript#20579</a> (new)</dd>
+<dt>Reproduce</dt><dd class="mono">js.anthropic.messages.sync, js.anthropic.messages.stream, js.anthropic.messages.stream_helper</dd>
+<dt>Fix</dt><dd>Emit cache_read/cache_creation attributes and make input_tokens inclusive, as Python does.</dd>
+<dt>2nd model</dt><dd>Confirmed: input 40, total 2720, no cache attributes.</dd>
+</dl></div></details>
+<details class="f" data-tags="js medium new"><summary><span class="fid">SP-13</span><span class="ftitle">JS Vercel AI streamText stopped early: parent span never sent, child orphaned<br><span class="fsub">js · vercel_ai · unintended</span></span><span class="tags"><span class="pill sev-medium">medium</span><span class="pill st-new">new</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Trace view shows a detached model call; agent-level grouping is lost.</dd>
+<dt>Evidence</dt><dd><ul><li>scenario js.vercel_ai.stream_text.early_close: gen_ai.generate_content arrives with a parent_span_id that is not delivered, checked after flush and SDK close; a fully consumed stream delivers the parent</li></ul></dd>
+<dt>Reproduce</dt><dd class="mono">js.vercel_ai.stream_text.early_close</dd>
+<dt>Fix</dt><dd>End the streamText span when the consumer stops reading (return() on the async iterator).</dd>
+<dt>2nd model</dt><dd>Confirmed after flush and SDK close; fully consumed stream delivers the parent.</dd>
+</dl></div></details>
+<details class="f" data-tags="known low python"><summary><span class="fid">SP-14</span><span class="ftitle">finish_reasons / available_tools emitted as lists; the registry types them as strings<br><span class="fsub">python · anthropic, langchain, langgraph · needs decision</span></span><span class="tags"><span class="pill sev-low">low</span><span class="pill st-known">known issue</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Integrations disagree with each other (some JSON-stringify, some send arrays).</dd>
+<dt>Evidence</dt><dd><ul><li><a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/anthropic.py#L683">sentry_sdk/integrations/anthropic.py#L683</a></li><li><a href="https://github.com/getsentry/sentry-python/blob/6a4eb20f1db3de7b025bda6eedb73b9073cfbc91/sentry_sdk/integrations/langgraph.py#L178">sentry_sdk/integrations/langgraph.py#L178</a></li><li>sentry-conventions gen_ai__response__finish_reasons.json: type string; OTel defines an array</li></ul></dd>
+<dt>Issue</dt><dd><a href="https://github.com/getsentry/sentry-python/pull/5506">sentry-python#5506</a> (known (noted in #5506))</dd>
+<dt>Reproduce</dt><dd class="mono">anthropic.messages.sync, langgraph.react_agent</dd>
+<dt>Fix</dt><dd>Either change the registry to string[] (matches OTel) or stringify consistently.</dd>
+</dl></div></details>
+<details class="f" data-tags="low new python"><summary><span class="fid">SP-15</span><span class="ftitle">LiteLLM streams report the requested model instead of the provider&#x27;s model<br><span class="fsub">python · litellm · not a fault</span></span><span class="tags"><span class="pill sev-low">low</span><span class="pill st-new">new</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>gen_ai.response.model shows &#x27;gpt-5-mini&#x27; instead of &#x27;gpt-5-mini-2026-08-07&#x27; for streams only, so model-version dashboards split.</dd>
+<dt>Evidence</dt><dd><ul><li>litellm streaming_handler.py:1421 sets model_response.model = self.model on every chunk; the provider model survives in _hidden_params[&#x27;provider_response_model&#x27;]</li></ul></dd>
+<dt>Reproduce</dt><dd class="mono">litellm.completion.openai.stream</dd>
+<dt>Fix</dt><dd>LiteLLM normalizes the chunk model itself (reproduced without Sentry), so this is upstream behaviour. Sentry could still prefer _hidden_params[&#x27;provider_response_model&#x27;] when present.</dd>
+<dt>2nd model</dt><dd>Confirmed span value; LiteLLM normalizes the model before Sentry sees it (also without Sentry).</dd>
+</dl></div></details>
+<details class="f" data-tags="info known python"><summary><span class="fid">SP-16</span><span class="ftitle">OpenAI Agents as_tool split traces (#4786): not reproducible at HEAD<br><span class="fsub">python · openai_agents · not a fault</span></span><span class="tags"><span class="pill sev-info">info</span><span class="pill st-known">known issue</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>Negative result: matches the maintainer&#x27;s own 2025-10-02 attempt. Candidate to close or to ask the reporter for a repro.</dd>
+<dt>Evidence</dt><dd><ul><li>openai_agents.agent_as_tool: 11 spans, one trace, correct nesting (router &gt; ask_weather &gt; weather_agent &gt; get_weather)</li></ul></dd>
+<dt>Issue</dt><dd><a href="https://github.com/getsentry/sentry-python/issues/4786">sentry-python#4786</a> (known)</dd>
+<dt>Reproduce</dt><dd class="mono">openai_agents.agent_as_tool</dd>
+<dt>Fix</dt><dd>None needed.</dd>
+<dt>2nd model</dt><dd>Confirmed non-reproduction on this path.</dd>
+</dl></div></details>
+<details class="f" data-tags="js known medium"><summary><span class="fid">SP-17</span><span class="ftitle">Anthropic stream via .asResponse(): span never ends on @sentry/node 10.76.0, fixed in 11.x<br><span class="fsub">js · anthropic · unintended</span></span><span class="tags"><span class="pill sev-medium">medium</span><span class="pill st-known">known issue</span></span></summary><div class="fbody"><dl>
+<dt>Impact</dt><dd>The issue is still open. SpanProof shows it is fixed on the 11.x line and still present on the latest 10.x release, which helps decide whether to backport or close.</dd>
+<dt>Evidence</dt><dd><ul><li>JS matrix: lifecycle finding on @sentry/node 10.76.0 (with openai 5 and 7), absent on 11.4.0</li></ul></dd>
+<dt>Issue</dt><dd><a href="https://github.com/getsentry/sentry-javascript/issues/24258">sentry-javascript#24258</a> (known)</dd>
+<dt>Reproduce</dt><dd class="mono">js.anthropic.messages.stream.as_response</dd>
+<dt>Fix</dt><dd>Backport to v10 or close for 11.x.</dd>
+</dl></div></details>
+<h2>One response, two SDKs</h2>
+<p>The same recorded provider response, replayed through sentry-python and @sentry/node. The "provider" row is the ground truth in Sentry's convention (input includes cached tokens, output includes reasoning tokens). Empty means the attribute was not emitted.</p>
+<div class="scroll"><table><tr><th>scenario</th><th>source</th><th class="num">input</th><th class="num">cached</th><th class="num">cache write</th><th class="num">output</th><th class="num">reasoning</th><th class="num">total</th><th>finish reason</th></tr>
+<tr><td class="mono" rowspan="3">openai.chat.sync</td><td>provider</td><td class="num">1200</td><td class="num">1024</td><td class="num">0</td><td class="num">300</td><td class="num">256</td><td class="num">1500</td><td></td></tr>
+<tr><td>Python</td><td class="num good">1200</td><td class="num good">1024</td><td class="num dim"></td><td class="num good">300</td><td class="num good">256</td><td class="num good">1500</td><td><span class="bad">missing</span></td></tr>
+<tr><td>JS</td><td class="num good">1200</td><td class="num bad"></td><td class="num dim"></td><td class="num good">300</td><td class="num bad"></td><td class="num good">1500</td><td>yes</td></tr>
+<tr><td class="mono" rowspan="3">openai.chat.stream</td><td>provider</td><td class="num">1200</td><td class="num">1024</td><td class="num">0</td><td class="num">300</td><td class="num">256</td><td class="num">1500</td><td></td></tr>
+<tr><td>Python</td><td class="num good">1200</td><td class="num good">1024</td><td class="num dim"></td><td class="num good">300</td><td class="num good">256</td><td class="num good">1500</td><td><span class="bad">missing</span></td></tr>
+<tr><td>JS</td><td class="num good">1200</td><td class="num bad"></td><td class="num dim"></td><td class="num good">300</td><td class="num bad"></td><td class="num good">1500</td><td>yes</td></tr>
+<tr><td class="mono" rowspan="3">openai.chat.tool_call</td><td>provider</td><td class="num">1200</td><td class="num">1024</td><td class="num">0</td><td class="num">40</td><td class="num">0</td><td class="num">1240</td><td></td></tr>
+<tr><td>Python</td><td class="num good">1200</td><td class="num good">1024</td><td class="num dim"></td><td class="num good">40</td><td class="num dim"></td><td class="num good">1240</td><td><span class="bad">missing</span></td></tr>
+<tr><td>JS</td><td class="num good">1200</td><td class="num bad"></td><td class="num dim"></td><td class="num good">40</td><td class="num dim"></td><td class="num good">1240</td><td>yes</td></tr>
+<tr><td class="mono" rowspan="3">openai.responses.sync</td><td>provider</td><td class="num">1500</td><td class="num">1280</td><td class="num">96</td><td class="num">400</td><td class="num">320</td><td class="num">1900</td><td></td></tr>
+<tr><td>Python</td><td class="num good">1500</td><td class="num good">1280</td><td class="num bad"></td><td class="num good">400</td><td class="num good">320</td><td class="num good">1900</td><td><span class="bad">missing</span></td></tr>
+<tr><td>JS</td><td class="num good">1500</td><td class="num bad"></td><td class="num bad"></td><td class="num good">400</td><td class="num bad"></td><td class="num good">1900</td><td>yes</td></tr>
+<tr><td class="mono" rowspan="3">openai.responses.stream</td><td>provider</td><td class="num">1500</td><td class="num">1280</td><td class="num">96</td><td class="num">400</td><td class="num">320</td><td class="num">1900</td><td></td></tr>
+<tr><td>Python</td><td class="num good">1500</td><td class="num good">1280</td><td class="num bad"></td><td class="num good">400</td><td class="num good">320</td><td class="num good">1900</td><td><span class="bad">missing</span></td></tr>
+<tr><td>JS</td><td class="num good">1500</td><td class="num bad"></td><td class="num bad"></td><td class="num good">400</td><td class="num bad"></td><td class="num good">1900</td><td>yes</td></tr>
+<tr><td class="mono" rowspan="3">anthropic.messages.sync</td><td>provider</td><td class="num">2600</td><td class="num">2048</td><td class="num">512</td><td class="num">120</td><td class="num">0</td><td class="num">2720</td><td></td></tr>
+<tr><td>Python</td><td class="num good">2600</td><td class="num good">2048</td><td class="num good">512</td><td class="num good">120</td><td class="num dim"></td><td class="num good">2720</td><td>yes</td></tr>
+<tr><td>JS</td><td class="num bad">40</td><td class="num bad"></td><td class="num bad"></td><td class="num good">120</td><td class="num dim"></td><td class="num good">2720</td><td><span class="bad">missing</span></td></tr>
+<tr><td class="mono" rowspan="3">anthropic.messages.stream</td><td>provider</td><td class="num">2600</td><td class="num">2048</td><td class="num">512</td><td class="num">120</td><td class="num">0</td><td class="num">2720</td><td></td></tr>
+<tr><td>Python</td><td class="num good">2600</td><td class="num good">2048</td><td class="num good">512</td><td class="num good">120</td><td class="num dim"></td><td class="num good">2720</td><td>yes</td></tr>
+<tr><td>JS</td><td class="num bad">40</td><td class="num bad"></td><td class="num bad"></td><td class="num good">120</td><td class="num dim"></td><td class="num good">2720</td><td>yes</td></tr>
+<tr><td class="mono" rowspan="3">anthropic.messages.stream_helper</td><td>provider</td><td class="num">2600</td><td class="num">2048</td><td class="num">512</td><td class="num">120</td><td class="num">0</td><td class="num">2720</td><td></td></tr>
+<tr><td>Python</td><td class="num good">2600</td><td class="num good">2048</td><td class="num good">512</td><td class="num good">120</td><td class="num dim"></td><td class="num good">2720</td><td>yes</td></tr>
+<tr><td>JS</td><td class="num bad">40</td><td class="num bad"></td><td class="num bad"></td><td class="num good">120</td><td class="num dim"></td><td class="num good">2720</td><td>yes</td></tr>
+<tr><td class="mono" rowspan="3">anthropic.messages.raw_response</td><td>provider</td><td class="num">2600</td><td class="num">2048</td><td class="num">512</td><td class="num">120</td><td class="num">0</td><td class="num">2720</td><td></td></tr>
+<tr><td>Python</td><td class="num bad"></td><td class="num bad"></td><td class="num bad"></td><td class="num bad"></td><td class="num dim"></td><td class="num bad"></td><td><span class="bad">missing</span></td></tr>
+<tr><td>JS</td><td class="num bad">40</td><td class="num bad"></td><td class="num bad"></td><td class="num good">120</td><td class="num dim"></td><td class="num good">2720</td><td><span class="bad">missing</span></td></tr>
+</table></div>
+<h2>Version matrix</h2>
+<p>Cells come from sentry-python's own <code>tox.ini</code> (same provider versions, same pinned lock files), plus <b>latest</b> and <b>pre</b>-release. Each cell runs every scenario for that integration in two transport modes. The number is the count of distinct medium/high findings; it is stable across versions, which means the defects are in Sentry's code, not in a provider release.</p><div class="scroll"><table><tr><th>integration</th><th>versions → distinct findings</th></tr>
+<tr><td class="mono">openai</td><td><div class="tags" style="justify-content:flex-start"><span class="pill c2" title="22 runs">1.0.1 · 6 · 16 n/a</span><span class="pill c2" title="22 runs">1.109.1 · 9</span><span class="pill c2" title="22 runs">2.54.0 · 9</span><span class="pill c2" title="22 runs">3.24.0 · 9</span><span class="pill c2" title="22 runs">3.24.0 · 9</span><span class="pill c2" title="22 runs">3.24.0 · 9</span></div></td></tr>
+<tr><td class="mono">anthropic</td><td><div class="tags" style="justify-content:flex-start"><span class="pill c2" title="20 runs">0.16.0 · 11 · 2 n/a</span><span class="pill c2" title="20 runs">0.125.0 · 12</span><span class="pill c2" title="20 runs">1.11.0 · 12</span><span class="pill c2" title="20 runs">1.11.0 · 12</span><span class="pill c2" title="20 runs">1.11.0 · 12</span></div></td></tr>
+<tr><td class="mono">litellm</td><td><div class="tags" style="justify-content:flex-start"><span class="pill c2" title="10 runs">1.77.7 · 14</span><span class="pill c2" title="10 runs">1.83.14 · 14</span><span class="pill c2" title="10 runs">1.89.7 · 14</span><span class="pill c2" title="10 runs">1.96.0 · 14</span><span class="pill c2" title="10 runs">1.104.0 · 14</span><span class="pill c2" title="10 runs">1.105.0rc1 · 14</span></div></td></tr>
+<tr><td class="mono">google_genai</td><td><div class="tags" style="justify-content:flex-start"><span class="pill c0" title="6 runs">1.29.0 · 0</span><span class="pill c0" title="6 runs">1.75.0 · 0</span><span class="pill c0" title="6 runs">2.28.0 · 0</span><span class="pill c0" title="6 runs">2.28.0 · 0</span><span class="pill c0" title="6 runs">2.28.0 · 0</span></div></td></tr>
+<tr><td class="mono">openai_agents</td><td><div class="tags" style="justify-content:flex-start"><span class="pill c2" title="6 runs">0.0.19 · 14</span><span class="pill c2" title="6 runs">0.8.4 · 13</span><span class="pill c2" title="6 runs">0.16.1 · 13</span><span class="pill c2" title="6 runs">0.23.1 · 13</span><span class="pill c2" title="6 runs">0.23.1 · 13</span><span class="pill c2" title="6 runs">0.23.1 · 13</span></div></td></tr>
+<tr><td class="mono">pydantic_ai</td><td><div class="tags" style="justify-content:flex-start"><span class="pill c2" title="4 runs">1.0.18 · 4</span><span class="pill c2" title="4 runs">1.107.7 · 4</span><span class="pill c2" title="4 runs">2.54.0 · 4</span><span class="pill c2" title="4 runs">2.54.0 · 4</span><span class="pill c2" title="4 runs">2.54.0 · 4</span></div></td></tr>
+<tr><td class="mono">langchain</td><td><div class="tags" style="justify-content:flex-start"><span class="pill c2" title="4 runs">0.1.20 · 4 · 2 n/a</span><span class="pill c1" title="4 runs">0.3.30 · 2</span><span class="pill c1" title="4 runs">1.4.3 · 2</span><span class="pill c1" title="4 runs">1.4.3 · 2</span><span class="pill c1" title="4 runs">1.4.3 · 2</span></div></td></tr>
+<tr><td class="mono">langgraph</td><td><div class="tags" style="justify-content:flex-start"><span class="pill c2" title="4 runs">0.6.11 · 8</span><span class="pill c2" title="4 runs">1.2.12 · 8</span><span class="pill c2" title="4 runs">1.2.13 · 8</span><span class="pill c2" title="4 runs">1.2.13 · 8</span></div></td></tr>
+</table></div><p class="dim">"n/a" counts runs where that old SDK lacks the API a scenario uses (for example the Responses API in openai 1.0.1); those runs report nothing rather than a false finding.</p>
+<h2>Agent failure classes as issues</h2>
+<p>The Agent Tracing team's stated next step is "common agent failure classes surfaced as issues". These detectors read only spans Sentry already receives (gen_ai and http.client) and emit issue-like records with stable fingerprints. They were measured on 256 traces produced by running openai-agents, LangGraph and Pydantic AI with Sentry's real instrumentation against a scripted model, so each label is known by construction. 72 of the traces are healthy hard negatives built to look like failures: pagination, a single retry, a tool that says "no errors found", a long answer, a 2x larger run. Bars show recall with its 95% Wilson interval.</p>
+<div class="scroll"><table><tr><th>class</th><th>Data collection on</th><th>Data collection off (today&#x27;s SDK)</th><th>Data off + two proposed non-content attributes</th><th>Data on + Pydantic AI finish-reason fix</th><th>Held-out set 1 (Codex), before tuning</th><th>Held-out set 2 (Codex), never seen before scoring</th></tr>
+<tr><td class="mono">tool_loop</td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="0.00 [0.00, 0.14]"><i style="left:0%;width:14%"></i><b style="left:calc(0% - 1px)"></b></div><span class="dim mono">recall 0.00 · precision n/a</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 0.82</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td></tr>
+<tr><td class="mono">retry_storm</td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td></tr>
+<tr><td class="mono">silent_tool_error</td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="0.00 [0.00, 0.14]"><i style="left:0%;width:14%"></i><b style="left:calc(0% - 1px)"></b></div><span class="dim mono">recall 0.00 · precision n/a</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="0.00 [0.00, 0.14]"><i style="left:0%;width:14%"></i><b style="left:calc(0% - 1px)"></b></div><span class="dim mono">recall 0.00 · precision n/a</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="0.67 [0.44, 0.84]"><i style="left:44%;width:40%"></i><b style="left:calc(67% - 1px)"></b></div><span class="dim mono">recall 0.67 · precision 0.75</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="0.83 [0.61, 0.94]"><i style="left:61%;width:33%"></i><b style="left:calc(83% - 1px)"></b></div><span class="dim mono">recall 0.83 · precision 1.00</span></div></td></tr>
+<tr><td class="mono">lost_llm_span</td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td></tr>
+<tr><td class="mono">dead_end</td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td></tr>
+<tr><td class="mono">truncated_answer</td><td><div style="display:grid;gap:4px"><div class="bar" title="0.33 [0.18, 0.53]"><i style="left:18%;width:35%"></i><b style="left:calc(33% - 1px)"></b></div><span class="dim mono">recall 0.33 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="0.33 [0.18, 0.53]"><i style="left:18%;width:35%"></i><b style="left:calc(33% - 1px)"></b></div><span class="dim mono">recall 0.33 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="0.33 [0.18, 0.53]"><i style="left:18%;width:35%"></i><b style="left:calc(33% - 1px)"></b></div><span class="dim mono">recall 0.33 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="0.67 [0.47, 0.82]"><i style="left:47%;width:35%"></i><b style="left:calc(67% - 1px)"></b></div><span class="dim mono">recall 0.67 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td></tr>
+<tr><td class="mono">empty_answer</td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.81, 1.00]"><i style="left:81%;width:19%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="0.00 [0.00, 0.19]"><i style="left:0%;width:19%"></i><b style="left:calc(0% - 1px)"></b></div><span class="dim mono">recall 0.00 · precision n/a</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.81, 1.00]"><i style="left:81%;width:19%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.81, 1.00]"><i style="left:81%;width:19%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="0.83 [0.61, 0.94]"><i style="left:61%;width:33%"></i><b style="left:calc(83% - 1px)"></b></div><span class="dim mono">recall 0.83 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td></tr>
+<tr><td class="mono">cost_spike</td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.86, 1.00]"><i style="left:86%;width:14%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td><td><div style="display:grid;gap:4px"><div class="bar" title="1.00 [0.82, 1.00]"><i style="left:82%;width:18%"></i><b style="left:calc(100% - 1px)"></b></div><span class="dim mono">recall 1.00 · precision 1.00</span></div></td></tr>
+<tr><td class="mono">healthy, any alarm</td><td class="mono">0 / 72</td><td class="mono">0 / 72</td><td class="mono">0 / 72</td><td class="mono">0 / 72</td><td class="mono">8 / 96</td><td class="mono">0 / 96</td></tr></table></div>
+<p>The two held-out sets were written by a second model (Codex) from the label definitions only, without seeing the detector code, and are built to break detectors: nested agents, handoffs, Python-repr encodings, shuffled span order, acknowledged failures. Set 1 was scored once, the misses were fixed (five causes, each with a regression test), and set 2 was generated afterwards with new constructions, so its column is the out-of-sample number. Its three misses (a JSON error payload whose "error" key is not first) were fixed afterwards with a structural check; that later improvement is not counted in the column.</p>
+<div class="note"><b>What the columns show.</b> With data collection off the detectors abstain rather than guess: tool arguments, tool results and answers are not sent, so loops, silent tool errors and empty answers cannot be asserted (a name-only loop rule measured precision 0.14; a one-token answer is not proof of an empty one). Two attributes an SDK could send without content restore most of it: a salted hash of the tool arguments brings loop recall to 1.00, and the character count of the answer brings empty-answer recall to 1.00, both with no false alarms. Silent tool errors still need the answer text. Truncation is missed exactly where the integration does not record finish reasons (openai-agents, Pydantic AI); the nine-line Pydantic AI fix moves recall from 0.33 to 0.67.</div>
+<p class="dim">A second model also reviewed SpanProof's own code and found 14 correctness issues (a gate that went green when nothing ran, a divide-by-zero, an unbounded parent walk, missing content treated as evidence, and others). All 14 are fixed, each with a regression test (tests/test_review_regressions.py); stored results were re-scored and no real finding changed.</p>
+<h2>Negative results</h2><ul class="plain"><li>Google GenAI (generate_content, stream, early close): usage, cached and thinking tokens all match the provider, on google-genai 1.29.0 through 2.28.0.</li><li>Privacy gating: with data collection off, no prompt or completion content appeared on any span, in any integration, in any of the four transport modes.</li><li>Anthropic Python streams closed early and the JS OpenAI stream closed early finish their spans correctly.</li><li>Duplicate chat spans appear only if both a framework integration and OpenAIIntegration are listed explicitly; Sentry&#x27;s default auto-enabling deactivates the plain integration, so this is not an SDK bug.</li><li>openai-agents 0.8.4/0.16.1 crash with openai&gt;=2.5x (InputTokensDetails.cache_write_tokens became required); that is dependency skew in openai-agents, not Sentry. SpanProof runs those cells with tox&#x27;s pins.</li></ul>
+<h2>Method and limits</h2><ul class="plain"><li>Ground truth comes from wire responses built to each provider's published schema and parsed with the provider SDK's own response types before use, so a fixture that drifts from the real schema fails loudly. They are not recordings of live calls (no API keys were used).</li><li>Each scenario runs in a fresh interpreter against a local scripted server; nothing is mocked inside the SDK or the client library.</li><li>The detector corpus is synthetic and was generated by the same author as the detectors. The hard negatives and the second-model review are there to counter that; a held-out run on real production traces is the next step.</li><li>JavaScript coverage is @sentry/node 11.4.0 with OpenAI, Anthropic and Vercel AI; LangChain JS and Google GenAI JS were not run.</li></ul>
+<div class="note"><b>Independent reproduction.</b> A second model (Codex CLI) wrote its own reproduction scripts from scratch, without reading or importing SpanProof, and confirmed all 15 claims with controls (full consumption, plain-API baselines, no-Sentry runs). Its qualifications are adopted above: SP-06 is a naive cross-level sum, not proof of double billing; SP-15 is LiteLLM&#x27;s own normalization; SP-13&#x27;s missing parent was checked after flush and SDK close. Scripts: review/codex/.</div>
+<h2>Run it</h2><pre>python -m spanproof.runner --modes default,nodc,legacy,stream
+python -m spanproof.matrix --sdk path/to/sentry-python --envs ~/.spanproof-envs
+python -m spanproof.js_bridge
+python -m spanproof.corpus --n 8 &amp;&amp; python -m spanproof.evaluate results/corpus.jsonl
+python -m spanproof.report</pre>
+</div><script>
+(function(){
+  var btns=document.querySelectorAll('.filters button');
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(x){x.setAttribute('aria-pressed', x===b?'true':'false')});
+    var f=b.dataset.filter;
+    document.querySelectorAll('details.f').forEach(function(d){
+      d.hidden = !(f==='all' || (d.dataset.tags||'').split(' ').indexOf(f)>=0);
+    });
+  });});
+})();
+</script>

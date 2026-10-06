@@ -1,0 +1,2000 @@
+{
+ "attributes": {
+  "ai.citations": {
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "brief": "References or sources cited by the AI model in its response.",
+   "deprecation": {
+    "_status": null
+   },
+   "example": [
+    "Citation 1",
+    "Citation 2"
+   ],
+   "is_in_otel": false,
+   "key": "ai.citations",
+   "type": "string[]",
+   "visibility": "public"
+  },
+  "ai.completion_tokens.used": {
+   "alias": [
+    "gen_ai.usage.output_tokens",
+    "gen_ai.usage.completion_tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of tokens used to respond to the message.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.usage.output_tokens"
+   },
+   "example": 10,
+   "is_in_otel": false,
+   "key": "ai.completion_tokens.used",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "ai.documents": {
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "brief": "Documents or content chunks used as context for the AI model.",
+   "deprecation": {
+    "_status": null
+   },
+   "example": [
+    "document1.txt",
+    "document2.pdf"
+   ],
+   "is_in_otel": false,
+   "key": "ai.documents",
+   "type": "string[]",
+   "visibility": "public"
+  },
+  "ai.finish_reason": {
+   "alias": [
+    "gen_ai.response.finish_reasons"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The reason why the model stopped generating.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.response.finish_reasons"
+   },
+   "example": "COMPLETE",
+   "is_in_otel": false,
+   "key": "ai.finish_reason",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.frequency_penalty": {
+   "alias": [
+    "gen_ai.request.frequency_penalty"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Used to reduce repetitiveness of generated tokens. The higher the value, the stronger a penalty is applied to previously present tokens, proportional to how many times they have already appeared in the prompt or prior generation.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.request.frequency_penalty"
+   },
+   "example": 0.5,
+   "is_in_otel": false,
+   "key": "ai.frequency_penalty",
+   "type": "double",
+   "visibility": "public"
+  },
+  "ai.function_call": {
+   "alias": [
+    "gen_ai.tool.name",
+    "mcp.tool.name"
+   ],
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "brief": "For an AI model call, the function that was called. This is deprecated for OpenAI, and replaced by tool_calls",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.tool.name"
+   },
+   "example": "function_name",
+   "is_in_otel": false,
+   "key": "ai.function_call",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.generation_id": {
+   "alias": [
+    "gen_ai.response.id",
+    "ai.response.id"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Unique identifier for the completion.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.response.id"
+   },
+   "example": "gen_123abc",
+   "is_in_otel": false,
+   "key": "ai.generation_id",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.input_messages": {
+   "alias": [
+    "gen_ai.request.messages"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The input messages sent to the model",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.input.messages"
+   },
+   "example": "[{\"role\": \"user\", \"message\": \"hello\"}]",
+   "is_in_otel": false,
+   "key": "ai.input_messages",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.is_search_required": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Boolean indicating if the model needs to perform a search.",
+   "deprecation": {
+    "_status": null
+   },
+   "example": false,
+   "is_in_otel": false,
+   "key": "ai.is_search_required",
+   "type": "boolean",
+   "visibility": "public"
+  },
+  "ai.metadata": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Extra metadata passed to an AI pipeline step.",
+   "deprecation": {
+    "_status": null
+   },
+   "example": "{\"user_id\": 123, \"session_id\": \"abc123\"}",
+   "is_in_otel": false,
+   "key": "ai.metadata",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.model.id": {
+   "alias": [
+    "gen_ai.request.model",
+    "ai.model_id"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The id of the model used by the Vercel AI SDK.",
+   "deprecation": {
+    "_status": "backfill",
+    "reason": "This attribute is being deprecated in favor of gen_ai.request.model.",
+    "replacement": "gen_ai.request.model"
+   },
+   "examples": [
+    "gpt-4o"
+   ],
+   "is_in_otel": false,
+   "key": "ai.model.id",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.model.provider": {
+   "alias": [
+    "gen_ai.provider.name",
+    "gen_ai.system"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The provider of the model.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.provider.name"
+   },
+   "example": "openai",
+   "is_in_otel": false,
+   "key": "ai.model.provider",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.model_id": {
+   "alias": [
+    "gen_ai.request.model",
+    "ai.model.id"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The vendor-specific ID of the model used.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.request.model"
+   },
+   "example": "gpt-4",
+   "is_in_otel": false,
+   "key": "ai.model_id",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.pipeline.name": {
+   "alias": [
+    "gen_ai.pipeline.name",
+    "langchain.chain.name"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The name of the AI pipeline.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.pipeline.name"
+   },
+   "example": "Autofix Pipeline",
+   "is_in_otel": false,
+   "key": "ai.pipeline.name",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.preamble": {
+   "alias": [
+    "gen_ai.system_instructions"
+   ],
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "brief": "For an AI model call, the preamble parameter. Preambles are a part of the prompt used to adjust the model's overall behavior and conversation style.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.system_instructions"
+   },
+   "example": "You are now a clown.",
+   "is_in_otel": false,
+   "key": "ai.preamble",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.presence_penalty": {
+   "alias": [
+    "gen_ai.request.presence_penalty"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Used to reduce repetitiveness of generated tokens. Similar to frequency_penalty, except that this penalty is applied equally to all tokens that have already appeared, regardless of their exact frequencies.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.request.presence_penalty"
+   },
+   "example": 0.5,
+   "is_in_otel": false,
+   "key": "ai.presence_penalty",
+   "type": "double",
+   "visibility": "public"
+  },
+  "ai.prompt": {
+   "alias": [
+    "gen_ai.input.messages",
+    "ai.texts",
+    "ai.prompt.messages",
+    "gen_ai.prompt"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The prompt passed to the Vercel AI SDK, as a stringified object.",
+   "deprecation": {
+    "_status": "backfill",
+    "reason": "This attribute is being deprecated in favor of gen_ai.input.messages.",
+    "replacement": "gen_ai.input.messages"
+   },
+   "examples": [
+    "{\"prompt\":\"What is the weather in Paris?\"}"
+   ],
+   "is_in_otel": false,
+   "key": "ai.prompt",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.prompt.messages": {
+   "alias": [
+    "gen_ai.input.messages",
+    "ai.texts",
+    "gen_ai.prompt",
+    "ai.prompt"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The input messages sent to the AI model.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.input.messages"
+   },
+   "example": "[{\"role\": \"user\", \"message\": \"hello\"}]",
+   "is_in_otel": false,
+   "key": "ai.prompt.messages",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.prompt.tools": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The tools made available to the model, as an array of stringified tool definitions.",
+   "deprecation": {
+    "_status": "backfill",
+    "reason": "This attribute is being deprecated in favor of gen_ai.tool.definitions.",
+    "replacement": "gen_ai.tool.definitions"
+   },
+   "examples": [
+    [
+     "{\"type\":\"function\",\"name\":\"get_weather\"}"
+    ]
+   ],
+   "is_in_otel": false,
+   "key": "ai.prompt.tools",
+   "type": "string[]",
+   "visibility": "public"
+  },
+  "ai.prompt_tokens.used": {
+   "alias": [
+    "gen_ai.usage.prompt_tokens",
+    "gen_ai.usage.input_tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of tokens used to process just the prompt.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.usage.input_tokens"
+   },
+   "example": 20,
+   "is_in_otel": false,
+   "key": "ai.prompt_tokens.used",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "ai.raw_prompting": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "When enabled, the user\u2019s prompt will be sent to the model without any pre-processing.",
+   "deprecation": {
+    "_status": null
+   },
+   "example": true,
+   "is_in_otel": false,
+   "key": "ai.raw_prompting",
+   "type": "boolean",
+   "visibility": "public"
+  },
+  "ai.response.id": {
+   "alias": [
+    "gen_ai.response.id",
+    "ai.generation_id"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The id of the response returned by the model.",
+   "deprecation": {
+    "_status": "backfill",
+    "reason": "This attribute is being deprecated in favor of gen_ai.response.id.",
+    "replacement": "gen_ai.response.id"
+   },
+   "examples": [
+    "chatcmpl-BuKJgVSKAMTUYbBSjHTMUuNGKzOPY"
+   ],
+   "is_in_otel": false,
+   "key": "ai.response.id",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.response.model": {
+   "alias": [
+    "gen_ai.response.model"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The id of the model that produced the response.",
+   "deprecation": {
+    "_status": "backfill",
+    "reason": "This attribute is being deprecated in favor of gen_ai.response.model.",
+    "replacement": "gen_ai.response.model"
+   },
+   "examples": [
+    "gpt-4o-2024-08-06"
+   ],
+   "is_in_otel": false,
+   "key": "ai.response.model",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.response.object": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The type of the object returned by the model.",
+   "deprecation": {
+    "_status": null,
+    "reason": "This attribute is deprecated. The Sentry conventions have no replacement for the raw Vercel AI response object type."
+   },
+   "examples": [
+    "chat.completion"
+   ],
+   "is_in_otel": false,
+   "key": "ai.response.object",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.response.text": {
+   "alias": [
+    "gen_ai.output.messages",
+    "ai.response.toolCalls"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The text response from the AI model.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.output.messages"
+   },
+   "example": "The weather in Paris is currently rainy.",
+   "is_in_otel": false,
+   "key": "ai.response.text",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.response.timestamp": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The ISO 8601 timestamp at which the response was produced.",
+   "deprecation": {
+    "_status": null,
+    "reason": "This attribute is deprecated. The span start and end timestamps carry the same information."
+   },
+   "examples": [
+    "2026-02-19T15:32:11.000Z"
+   ],
+   "is_in_otel": false,
+   "key": "ai.response.timestamp",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.response.toolCalls": {
+   "alias": [
+    "gen_ai.output.messages",
+    "ai.response.text"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The tool calls in the AI model response.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.output.messages"
+   },
+   "example": "[{\"name\": \"get_weather\", \"arguments\": {\"location\": \"Paris\"}}]",
+   "is_in_otel": false,
+   "key": "ai.response.toolCalls",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.response_format": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "For an AI model call, the format of the response",
+   "deprecation": {
+    "_status": null
+   },
+   "example": "json_object",
+   "is_in_otel": false,
+   "key": "ai.response_format",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.responses": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The response messages sent back by the AI model.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.output.messages"
+   },
+   "example": [
+    "hello",
+    "world"
+   ],
+   "is_in_otel": false,
+   "key": "ai.responses",
+   "type": "string[]",
+   "visibility": "public"
+  },
+  "ai.schema": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The stringified JSON schema the model output must conform to.",
+   "deprecation": {
+    "_status": null,
+    "reason": "This attribute is deprecated. The Sentry conventions have no replacement for the requested output schema."
+   },
+   "examples": [
+    "{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\"}}}"
+   ],
+   "is_in_otel": false,
+   "key": "ai.schema",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.search_queries": {
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "brief": "Queries used to search for relevant context or documents.",
+   "deprecation": {
+    "_status": null
+   },
+   "example": [
+    "climate change effects",
+    "renewable energy"
+   ],
+   "is_in_otel": false,
+   "key": "ai.search_queries",
+   "type": "string[]",
+   "visibility": "public"
+  },
+  "ai.search_results": {
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "brief": "Results returned from search queries for context.",
+   "deprecation": {
+    "_status": null
+   },
+   "example": [
+    "search_result_1, search_result_2"
+   ],
+   "is_in_otel": false,
+   "key": "ai.search_results",
+   "type": "string[]",
+   "visibility": "public"
+  },
+  "ai.seed": {
+   "alias": [
+    "gen_ai.request.seed"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The seed, ideally models given the same seed and same other parameters will produce the exact same output.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.request.seed"
+   },
+   "example": "1234567890",
+   "is_in_otel": false,
+   "key": "ai.seed",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.streaming": {
+   "alias": [
+    "gen_ai.response.streaming"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Whether the request was streamed back.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.response.streaming"
+   },
+   "example": true,
+   "is_in_otel": false,
+   "key": "ai.streaming",
+   "type": "boolean",
+   "visibility": "public"
+  },
+  "ai.tags": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Tags that describe an AI pipeline step.",
+   "deprecation": {
+    "_status": null
+   },
+   "example": "{\"executed_function\": \"add_integers\"}",
+   "is_in_otel": false,
+   "key": "ai.tags",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.temperature": {
+   "alias": [
+    "gen_ai.request.temperature"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "For an AI model call, the temperature parameter. Temperature essentially means how random the output will be.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.request.temperature"
+   },
+   "example": 0.1,
+   "is_in_otel": false,
+   "key": "ai.temperature",
+   "type": "double",
+   "visibility": "public"
+  },
+  "ai.texts": {
+   "alias": [
+    "gen_ai.input.messages",
+    "ai.prompt.messages",
+    "gen_ai.prompt",
+    "ai.prompt"
+   ],
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "brief": "Raw text inputs provided to the model.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.input.messages"
+   },
+   "example": [
+    "Hello, how are you?",
+    "What is the capital of France?"
+   ],
+   "is_in_otel": false,
+   "key": "ai.texts",
+   "type": "string[]",
+   "visibility": "public"
+  },
+  "ai.toolCall.args": {
+   "alias": [
+    "gen_ai.tool.call.arguments",
+    "gen_ai.tool.input"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The arguments of the tool call.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.tool.call.arguments"
+   },
+   "example": "{\"location\": \"Paris\"}",
+   "is_in_otel": false,
+   "key": "ai.toolCall.args",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.toolCall.result": {
+   "alias": [
+    "gen_ai.tool.call.result",
+    "gen_ai.tool.output",
+    "gen_ai.tool.message",
+    "mcp.tool.result.content",
+    "anthropic.tool_result.content"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The result of the tool call.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.tool.call.result"
+   },
+   "example": "rainy, 57\u00b0F",
+   "is_in_otel": false,
+   "key": "ai.toolCall.result",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.tool_calls": {
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "brief": "For an AI model call, the tool calls that were made.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.output.messages"
+   },
+   "example": [
+    "tool_call_1",
+    "tool_call_2"
+   ],
+   "is_in_otel": false,
+   "key": "ai.tool_calls",
+   "type": "string[]",
+   "visibility": "public"
+  },
+  "ai.tools": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "For an AI model call, the functions that are available",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.tool.definitions"
+   },
+   "example": [
+    "function_1",
+    "function_2"
+   ],
+   "is_in_otel": false,
+   "key": "ai.tools",
+   "type": "string[]",
+   "visibility": "public"
+  },
+  "ai.top_k": {
+   "alias": [
+    "gen_ai.request.top_k"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Limits the model to only consider the K most likely next tokens, where K is an integer (e.g., top_k=20 means only the 20 highest probability tokens are considered).",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.request.top_k"
+   },
+   "example": 35,
+   "is_in_otel": false,
+   "key": "ai.top_k",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "ai.top_p": {
+   "alias": [
+    "gen_ai.request.top_p"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Limits the model to only consider tokens whose cumulative probability mass adds up to p, where p is a float between 0 and 1 (e.g., top_p=0.7 means only tokens that sum up to 70% of the probability mass are considered).",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.request.top_p"
+   },
+   "example": 0.7,
+   "is_in_otel": false,
+   "key": "ai.top_p",
+   "type": "double",
+   "visibility": "public"
+  },
+  "ai.total_cost": {
+   "alias": [
+    "gen_ai.cost.total_tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The total cost for the tokens used.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.cost.total_tokens"
+   },
+   "example": 12.34,
+   "is_in_otel": false,
+   "key": "ai.total_cost",
+   "search_alias": {
+    "name": "ai.total_cost",
+    "type": "currency"
+   },
+   "type": "double",
+   "visibility": "public"
+  },
+  "ai.total_tokens.used": {
+   "alias": [
+    "gen_ai.usage.total_tokens",
+    "ai.usage.tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The total number of tokens used to process the prompt.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.usage.total_tokens"
+   },
+   "example": 30,
+   "is_in_otel": false,
+   "key": "ai.total_tokens.used",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "ai.usage.tokens": {
+   "alias": [
+    "gen_ai.usage.total_tokens",
+    "ai.total_tokens.used"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The total number of tokens used for the request and the response.",
+   "deprecation": {
+    "_status": "backfill",
+    "reason": "This attribute is being deprecated in favor of gen_ai.usage.total_tokens.",
+    "replacement": "gen_ai.usage.total_tokens"
+   },
+   "examples": [
+    150
+   ],
+   "is_in_otel": false,
+   "key": "ai.usage.tokens",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "ai.values": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The stringified values produced by a Vercel AI SDK object or array generation.",
+   "deprecation": {
+    "_status": null,
+    "reason": "This attribute is deprecated. Use gen_ai.output.messages for model output instead."
+   },
+   "examples": [
+    "[{\"city\":\"Paris\"}]"
+   ],
+   "is_in_otel": false,
+   "key": "ai.values",
+   "type": "string",
+   "visibility": "public"
+  },
+  "ai.warnings": {
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "brief": "Warning messages generated during model execution.",
+   "deprecation": {
+    "_status": null
+   },
+   "example": [
+    "Token limit exceeded"
+   ],
+   "is_in_otel": false,
+   "key": "ai.warnings",
+   "type": "string[]",
+   "visibility": "public"
+  },
+  "gen_ai.agent.name": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The name of the agent being used.",
+   "example": "ResearchAssistant",
+   "is_in_otel": true,
+   "key": "gen_ai.agent.name",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.context.utilization": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The fraction of the model context window utilized by this generation.",
+   "example": 0.75,
+   "is_in_otel": false,
+   "key": "gen_ai.context.utilization",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.context.window_size": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The maximum context window size supported by the model for this generation.",
+   "example": 128000,
+   "is_in_otel": false,
+   "key": "gen_ai.context.window_size",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.conversation.id": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The unique identifier for a conversation (session, thread), used to store and correlate messages within this conversation.",
+   "example": "conv_5j66UpCpwteGg4YSxUnt7lPY",
+   "is_in_otel": true,
+   "key": "gen_ai.conversation.id",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.cost.cache_creation.input_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to calculate total cost, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "Despite the name 'cost.cache_creation.input_tokens', this value is cost in USD, not a token count. For token counts, use gen_ai.usage.cache_creation.input_tokens.",
+    "This is a subset of gen_ai.cost.input_tokens, not an independent cost. Do not sum this with gen_ai.cost.input_tokens \u2014 it is already included."
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The cost of input tokens written to cache in USD.",
+   "example": 12.34,
+   "is_in_otel": false,
+   "key": "gen_ai.cost.cache_creation.input_tokens",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.cost.cache_read.input_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to calculate total cost, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "Despite the name 'cost.cache_read.input_tokens', this value is cost in USD, not a token count. For token counts, use gen_ai.usage.cache_read.input_tokens.",
+    "This is a subset of gen_ai.cost.input_tokens, not an independent cost. Do not sum this with gen_ai.cost.input_tokens \u2014 it is already included."
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The cost of cached input tokens in USD.",
+   "example": 12.34,
+   "is_in_otel": false,
+   "key": "gen_ai.cost.cache_read.input_tokens",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.cost.input_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to calculate total cost, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "Despite the name 'cost.input_tokens', this value is cost in USD, not a token count. For token counts, use gen_ai.usage.input_tokens.",
+    "This is the total cost of all input tokens, including cached and cache creation tokens at their respective rates. For the cached portion, see gen_ai.cost.cache_read.input_tokens. For the cache creation portion, see gen_ai.cost.cache_creation.input_tokens."
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The total cost of all input tokens in USD (includes cached and cache creation tokens).",
+   "example": 123.45,
+   "is_in_otel": false,
+   "key": "gen_ai.cost.input_tokens",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.cost.output_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to calculate total cost, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "Despite the name 'cost.output_tokens', this value is cost in USD, not a token count. For token counts, use gen_ai.usage.output_tokens.",
+    "This is the total cost of all output tokens, including reasoning tokens at their respective rate. For the reasoning portion, see gen_ai.cost.reasoning.output_tokens."
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The total cost of all output tokens in USD (includes reasoning tokens).",
+   "example": 123.45,
+   "is_in_otel": false,
+   "key": "gen_ai.cost.output_tokens",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.cost.reasoning.output_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to calculate total cost, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "Despite the name 'cost.reasoning.output_tokens', this value is cost in USD, not a token count. For token counts, use gen_ai.usage.reasoning.output_tokens.",
+    "This is a subset of gen_ai.cost.output_tokens, not an independent cost. Do not sum this with gen_ai.cost.output_tokens \u2014 it is already included."
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The cost of reasoning output tokens in USD.",
+   "example": 12.34,
+   "is_in_otel": false,
+   "key": "gen_ai.cost.reasoning.output_tokens",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.cost.total_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to calculate total cost, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "Despite the name 'cost.total_tokens', this value is cost in USD, not a token count. For token counts, use gen_ai.usage.total_tokens."
+   ],
+   "alias": [
+    "ai.total_cost"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The total cost for the tokens used.",
+   "example": 12.34,
+   "is_in_otel": false,
+   "key": "gen_ai.cost.total_tokens",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.embeddings.input": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The input to the embeddings model.",
+   "example": "What's the weather in Paris?",
+   "is_in_otel": false,
+   "key": "gen_ai.embeddings.input",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.function_id": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Framework-specific tracing label for the execution of a function or other unit of execution in a generative AI system.",
+   "example": "my-awesome-function",
+   "is_in_otel": false,
+   "key": "gen_ai.function_id",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.input.messages": {
+   "alias": [
+    "ai.texts",
+    "ai.prompt.messages",
+    "gen_ai.prompt",
+    "ai.prompt"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The messages passed to the model. It has to be a stringified version of an array of objects. The `role` attribute of each object must be `\"user\"`, `\"assistant\"`, `\"tool\"`, or `\"system\"`. For messages of the role `\"tool\"`, the `content` can be a string or an arbitrary object with information about the tool call. For other messages the `content` can be either a string or a list of objects in the format `{type: \"text\", text:\"...\"}`. For `gen_ai.evaluate` operations, the array holds one object `{type: \"evaluation\", state: ..., questions: {...}}` with the evaluated state and the questions keyed by name, as the caller passed them.",
+   "example": "[{\"role\": \"user\", \"parts\": [{\"type\": \"text\", \"content\": \"Weather in Paris?\"}]}, {\"role\": \"assistant\", \"parts\": [{\"type\": \"tool_call\", \"id\": \"call_VSPygqKTWdrhaFErNvMV18Yl\", \"name\": \"get_weather\", \"arguments\": {\"location\": \"Paris\"}}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_VSPygqKTWdrhaFErNvMV18Yl\", \"result\": \"rainy, 57\u00b0F\"}]}]",
+   "is_in_otel": true,
+   "key": "gen_ai.input.messages",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.operation.name": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The name of the operation being performed. It has the following list of well-known values: 'chat', 'create_agent', 'embeddings', 'execute_tool', 'generate_content', 'invoke_agent', 'text_completion'. If one of them applies, then that value MUST be used. Otherwise a custom value MAY be used.",
+   "example": "chat",
+   "is_in_otel": true,
+   "key": "gen_ai.operation.name",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.operation.type": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The type of AI operation. Must be one of 'agent' (invoke_agent and create_agent spans), 'ai_client' (any LLM call), 'tool' (execute_tool spans), 'handoff' (handoff spans), 'other' (input and output processors, skill loading, guardrails etc.) . Added during ingestion based on span.op and gen_ai.operation.type. Used to filter and aggregate data in the UI",
+   "example": "tool",
+   "is_in_otel": false,
+   "key": "gen_ai.operation.type",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.output.messages": {
+   "alias": [
+    "ai.response.toolCalls",
+    "ai.response.text"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The model's response messages. It has to be a stringified version of an array of message objects, which can include text responses and tool calls. For `gen_ai.evaluate` operations, the array holds one object `{type: \"evaluation\", answers: {...}}` with the answers keyed by question name, as the provider returned them.",
+   "example": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"text\", \"content\": \"The weather in Paris is currently rainy with a temperature of 57\u00b0F.\"}], \"finish_reason\": \"stop\"}]",
+   "is_in_otel": true,
+   "key": "gen_ai.output.messages",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.pipeline.name": {
+   "alias": [
+    "ai.pipeline.name",
+    "langchain.chain.name"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Name of the AI pipeline or chain being executed.",
+   "example": "Autofix Pipeline",
+   "is_in_otel": false,
+   "key": "gen_ai.pipeline.name",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.prompt": {
+   "alias": [
+    "gen_ai.input.messages",
+    "ai.texts",
+    "ai.prompt.messages",
+    "ai.prompt"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The input messages sent to the model",
+   "deprecation": {
+    "_status": "backfill",
+    "reason": "Deprecated from OTEL, use gen_ai.input.messages with the new format instead.",
+    "replacement": "gen_ai.input.messages"
+   },
+   "example": "[{\"role\": \"user\", \"message\": \"hello\"}]",
+   "is_in_otel": true,
+   "key": "gen_ai.prompt",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.prompt.name": {
+   "alias": [
+    "mcp.prompt.name"
+   ],
+   "apply_scrubbing": {
+    "key": "manual",
+    "reason": "Prompt names may reveal user behavior patterns or sensitive operations"
+   },
+   "brief": "The name of the prompt that uniquely identifies it.",
+   "example": "summarize_text",
+   "is_in_otel": true,
+   "key": "gen_ai.prompt.name",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.provider.name": {
+   "alias": [
+    "ai.model.provider",
+    "gen_ai.system"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The Generative AI provider as identified by the client or server instrumentation.",
+   "example": "openai",
+   "is_in_otel": true,
+   "key": "gen_ai.provider.name",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.request.available_tools": {
+   "alias": [
+    "gen_ai.tool.definitions"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The available tools for the model. It has to be a stringified version of an array of objects.",
+   "deprecation": {
+    "_status": "normalize",
+    "replacement": "gen_ai.tool.definitions"
+   },
+   "example": "[{\"name\": \"get_weather\", \"description\": \"Get the weather for a given location\"}, {\"name\": \"get_news\", \"description\": \"Get the news for a given topic\"}]",
+   "is_in_otel": false,
+   "key": "gen_ai.request.available_tools",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.request.frequency_penalty": {
+   "alias": [
+    "ai.frequency_penalty"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Used to reduce repetitiveness of generated tokens. The higher the value, the stronger a penalty is applied to previously present tokens, proportional to how many times they have already appeared in the prompt or prior generation.",
+   "example": 0.5,
+   "is_in_otel": true,
+   "key": "gen_ai.request.frequency_penalty",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.request.max_tokens": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The maximum number of tokens to generate in the response.",
+   "example": 2048,
+   "is_in_otel": true,
+   "key": "gen_ai.request.max_tokens",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.request.messages": {
+   "alias": [
+    "ai.input_messages"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The messages passed to the model. It has to be a stringified version of an array of objects. The `role` attribute of each object must be `\"user\"`, `\"assistant\"`, `\"tool\"`, or `\"system\"`. For messages of the role `\"tool\"`, the `content` can be a string or an arbitrary object with information about the tool call. For other messages the `content` can be either a string or a list of objects in the format `{type: \"text\", text:\"...\"}`.",
+   "deprecation": {
+    "_status": "transform",
+    "replacement": "gen_ai.input.messages",
+    "transformation": "gen_ai_request_messages_to_input_messages"
+   },
+   "example": "[{\"role\": \"system\", \"content\": \"Generate a random number.\"}, {\"role\": \"user\", \"content\": [{\"text\": \"Generate a random number between 0 and 10.\", \"type\": \"text\"}]}, {\"role\": \"tool\", \"content\": {\"toolCallId\": \"1\", \"toolName\": \"Weather\", \"output\": \"rainy\"}}]",
+   "is_in_otel": false,
+   "key": "gen_ai.request.messages",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.request.model": {
+   "alias": [
+    "ai.model_id",
+    "ai.model.id"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The model identifier being used for the request.",
+   "example": "gpt-4-turbo-preview",
+   "is_in_otel": true,
+   "key": "gen_ai.request.model",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.request.presence_penalty": {
+   "alias": [
+    "ai.presence_penalty"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Used to reduce repetitiveness of generated tokens. Similar to frequency_penalty, except that this penalty is applied equally to all tokens that have already appeared, regardless of their exact frequencies.",
+   "example": 0.5,
+   "is_in_otel": true,
+   "key": "gen_ai.request.presence_penalty",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.request.reasoning.level": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The reasoning or thinking effort level requested for a GenAI model.",
+   "example": "high",
+   "is_in_otel": true,
+   "key": "gen_ai.request.reasoning.level",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.request.schema": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The stringified JSON schema the model output must conform to.",
+   "deprecation": {
+    "_status": null,
+    "reason": "This attribute is deprecated. The Sentry conventions have no replacement for the requested output schema."
+   },
+   "examples": [
+    "{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\"}}}"
+   ],
+   "is_in_otel": false,
+   "key": "gen_ai.request.schema",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.request.seed": {
+   "alias": [
+    "ai.seed"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The seed, ideally models given the same seed and same other parameters will produce the exact same output.",
+   "example": "1234567890",
+   "is_in_otel": true,
+   "key": "gen_ai.request.seed",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.request.stop_sequences": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "List of sequences that the model will use to stop generating further tokens.",
+   "example": [
+    "forest",
+    "lived"
+   ],
+   "is_in_otel": true,
+   "key": "gen_ai.request.stop_sequences",
+   "type": "string[]",
+   "visibility": "public"
+  },
+  "gen_ai.request.temperature": {
+   "alias": [
+    "ai.temperature"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "For an AI model call, the temperature parameter. Temperature essentially means how random the output will be.",
+   "example": 0.1,
+   "is_in_otel": true,
+   "key": "gen_ai.request.temperature",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.request.top_k": {
+   "alias": [
+    "ai.top_k"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Limits the model to only consider the K most likely next tokens, where K is an integer (e.g., top_k=20 means only the 20 highest probability tokens are considered).",
+   "example": 35,
+   "is_in_otel": true,
+   "key": "gen_ai.request.top_k",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.request.top_p": {
+   "alias": [
+    "ai.top_p"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Limits the model to only consider tokens whose cumulative probability mass adds up to p, where p is a float between 0 and 1 (e.g., top_p=0.7 means only tokens that sum up to 70% of the probability mass are considered).",
+   "example": 0.7,
+   "is_in_otel": true,
+   "key": "gen_ai.request.top_p",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.response.finish_reason": {
+   "alias": [
+    "gen_ai.response.finish_reasons"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The reason why the model stopped generating (singular form).",
+   "deprecation": {
+    "_status": "normalize",
+    "replacement": "gen_ai.response.finish_reasons"
+   },
+   "example": "COMPLETE",
+   "is_in_otel": false,
+   "key": "gen_ai.response.finish_reason",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.response.finish_reasons": {
+   "alias": [
+    "ai.finish_reason",
+    "gen_ai.response.finish_reason"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The reason why the model stopped generating.",
+   "example": "COMPLETE",
+   "is_in_otel": true,
+   "key": "gen_ai.response.finish_reasons",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.response.id": {
+   "alias": [
+    "ai.generation_id",
+    "ai.response.id"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Unique identifier for the completion.",
+   "example": "gen_123abc",
+   "is_in_otel": true,
+   "key": "gen_ai.response.id",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.response.model": {
+   "alias": [
+    "ai.response.model"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The vendor-specific ID of the model used.",
+   "example": "gpt-4",
+   "is_in_otel": true,
+   "key": "gen_ai.response.model",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.response.object": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The type of the object returned by the model.",
+   "deprecation": {
+    "_status": null,
+    "reason": "This attribute is deprecated. The Sentry conventions have no replacement for the raw response object type."
+   },
+   "examples": [
+    "chat.completion"
+   ],
+   "is_in_otel": false,
+   "key": "gen_ai.response.object",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.response.streaming": {
+   "alias": [
+    "ai.streaming"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Whether or not the AI model call's response was streamed back asynchronously",
+   "example": true,
+   "is_in_otel": false,
+   "key": "gen_ai.response.streaming",
+   "type": "boolean",
+   "visibility": "public"
+  },
+  "gen_ai.response.text": {
+   "alias": [],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The model's response text messages. It has to be a stringified version of an array of response text messages.",
+   "deprecation": {
+    "_status": "transform",
+    "replacement": "gen_ai.output.messages",
+    "transformation": "gen_ai_response_to_output_messages"
+   },
+   "example": "[\"The weather in Paris is rainy and overcast, with temperatures around 57\u00b0F\", \"The weather in London is sunny and warm, with temperatures around 65\u00b0F\"]",
+   "is_in_otel": false,
+   "key": "gen_ai.response.text",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.response.time_to_first_chunk": {
+   "alias": [
+    "gen_ai.response.time_to_first_token"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Time in seconds when the first response content chunk arrived in streaming responses.",
+   "example": 0.6853435,
+   "is_in_otel": true,
+   "key": "gen_ai.response.time_to_first_chunk",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.response.time_to_first_token": {
+   "alias": [
+    "gen_ai.response.time_to_first_chunk"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Time in seconds when the first response content chunk arrived in streaming responses.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.response.time_to_first_chunk"
+   },
+   "example": 0.6853435,
+   "is_in_otel": false,
+   "key": "gen_ai.response.time_to_first_token",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.response.tokens_per_second": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The total output tokens per seconds throughput",
+   "example": 12345.67,
+   "is_in_otel": false,
+   "key": "gen_ai.response.tokens_per_second",
+   "type": "double",
+   "visibility": "public"
+  },
+  "gen_ai.response.tool_calls": {
+   "alias": [],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The tool calls in the model's response. It has to be a stringified version of an array of objects.",
+   "deprecation": {
+    "_status": "transform",
+    "replacement": "gen_ai.output.messages",
+    "transformation": "gen_ai_response_to_output_messages"
+   },
+   "example": "[{\"name\": \"get_weather\", \"arguments\": {\"location\": \"Paris\"}}]",
+   "is_in_otel": false,
+   "key": "gen_ai.response.tool_calls",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.system": {
+   "alias": [
+    "ai.model.provider",
+    "gen_ai.provider.name"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The provider of the model.",
+   "deprecation": {
+    "_status": "normalize",
+    "replacement": "gen_ai.provider.name"
+   },
+   "example": "openai",
+   "is_in_otel": true,
+   "key": "gen_ai.system",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.system.message": {
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "brief": "The system instructions passed to the model.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.system_instructions"
+   },
+   "example": "You are a helpful assistant",
+   "is_in_otel": false,
+   "key": "gen_ai.system.message",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.system_instructions": {
+   "alias": [
+    "ai.preamble"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The system instructions passed to the model.",
+   "example": "You are a helpful assistant",
+   "is_in_otel": true,
+   "key": "gen_ai.system_instructions",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.tool.call.arguments": {
+   "alias": [
+    "gen_ai.tool.input",
+    "ai.toolCall.args"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The arguments of the tool call. It has to be a stringified version of the arguments to the tool.",
+   "example": "{\"location\": \"Paris\"}",
+   "is_in_otel": true,
+   "key": "gen_ai.tool.call.arguments",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.tool.call.result": {
+   "alias": [
+    "gen_ai.tool.output",
+    "gen_ai.tool.message",
+    "mcp.tool.result.content",
+    "ai.toolCall.result",
+    "anthropic.tool_result.content"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The result of the tool call. It has to be a stringified version of the result of the tool.",
+   "example": "rainy, 57\u00b0F",
+   "is_in_otel": true,
+   "key": "gen_ai.tool.call.result",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.tool.definitions": {
+   "alias": [
+    "gen_ai.request.available_tools"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The list of source system tool definitions available to the GenAI agent or model.",
+   "example": "[{\"type\": \"function\", \"name\": \"get_current_weather\", \"description\": \"Get the current weather in a given location\", \"parameters\": {\"type\": \"object\", \"properties\": {\"location\": {\"type\": \"string\", \"description\": \"The city and state, e.g. San Francisco, CA\"}, \"unit\": {\"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\"]}}, \"required\": [\"location\", \"unit\"]}}]",
+   "is_in_otel": true,
+   "key": "gen_ai.tool.definitions",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.tool.description": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The description of the tool being used.",
+   "example": "Searches the web for current information about a topic",
+   "is_in_otel": true,
+   "key": "gen_ai.tool.description",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.tool.input": {
+   "alias": [
+    "gen_ai.tool.call.arguments",
+    "ai.toolCall.args"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The input of the tool being used. It has to be a stringified version of the input to the tool.",
+   "deprecation": {
+    "_status": "normalize",
+    "replacement": "gen_ai.tool.call.arguments"
+   },
+   "example": "{\"location\": \"Paris\"}",
+   "is_in_otel": false,
+   "key": "gen_ai.tool.input",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.tool.message": {
+   "alias": [
+    "gen_ai.tool.call.result",
+    "gen_ai.tool.output",
+    "mcp.tool.result.content",
+    "ai.toolCall.result",
+    "anthropic.tool_result.content"
+   ],
+   "apply_scrubbing": {
+    "key": "auto"
+   },
+   "brief": "The response from a tool or function call passed to the model.",
+   "deprecation": {
+    "_status": "normalize",
+    "replacement": "gen_ai.tool.call.result"
+   },
+   "example": "rainy, 57\u00b0F",
+   "is_in_otel": false,
+   "key": "gen_ai.tool.message",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.tool.name": {
+   "alias": [
+    "ai.function_call",
+    "mcp.tool.name"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "Name of the tool utilized by the agent.",
+   "example": "Flights",
+   "is_in_otel": true,
+   "key": "gen_ai.tool.name",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.tool.output": {
+   "alias": [
+    "gen_ai.tool.call.result",
+    "gen_ai.tool.message",
+    "mcp.tool.result.content",
+    "ai.toolCall.result",
+    "anthropic.tool_result.content"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The output of the tool being used. It has to be a stringified version of the output of the tool.",
+   "deprecation": {
+    "_status": "normalize",
+    "replacement": "gen_ai.tool.call.result"
+   },
+   "example": "rainy, 57\u00b0F",
+   "is_in_otel": false,
+   "key": "gen_ai.tool.output",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.tool.type": {
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The type of tool being used.",
+   "deprecation": {
+    "_status": null,
+    "reason": "The gen_ai.tool.type attribute is deprecated and should no longer be set."
+   },
+   "example": "function",
+   "is_in_otel": true,
+   "key": "gen_ai.tool.type",
+   "type": "string",
+   "visibility": "public"
+  },
+  "gen_ai.usage.cache_creation.input_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to count tokens, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans."
+   ],
+   "alias": [
+    "gen_ai.usage.input_tokens.cache_write",
+    "gen_ai.usage.cache_creation_input_tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of tokens written to the cache when processing the AI input (prompt).",
+   "example": 100,
+   "is_in_otel": true,
+   "key": "gen_ai.usage.cache_creation.input_tokens",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.usage.cache_creation_input_tokens": {
+   "alias": [
+    "gen_ai.usage.cache_creation.input_tokens",
+    "gen_ai.usage.input_tokens.cache_write"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of tokens written to the cache when processing the AI input (prompt).",
+   "deprecation": {
+    "_status": "backfill",
+    "reason": "This attribute is being deprecated in favor of gen_ai.usage.cache_creation.input_tokens.",
+    "replacement": "gen_ai.usage.cache_creation.input_tokens"
+   },
+   "examples": [
+    100
+   ],
+   "is_in_otel": false,
+   "key": "gen_ai.usage.cache_creation_input_tokens",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.usage.cache_read.input_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to count tokens, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "This is a subset of gen_ai.usage.input_tokens, not an independent count. Do not sum this with gen_ai.usage.input_tokens \u2014 it is already included."
+   ],
+   "alias": [
+    "gen_ai.usage.input_tokens.cached",
+    "gen_ai.usage.cache_read_input_tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of cached tokens used to process the AI input (prompt).",
+   "example": 50,
+   "is_in_otel": true,
+   "key": "gen_ai.usage.cache_read.input_tokens",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.usage.cache_read_input_tokens": {
+   "alias": [
+    "gen_ai.usage.cache_read.input_tokens",
+    "gen_ai.usage.input_tokens.cached"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of cached tokens used to process the AI input (prompt).",
+   "deprecation": {
+    "_status": "backfill",
+    "reason": "This attribute is being deprecated in favor of gen_ai.usage.cache_read.input_tokens.",
+    "replacement": "gen_ai.usage.cache_read.input_tokens"
+   },
+   "examples": [
+    50
+   ],
+   "is_in_otel": false,
+   "key": "gen_ai.usage.cache_read_input_tokens",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.usage.completion_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to count tokens, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans."
+   ],
+   "alias": [
+    "ai.completion_tokens.used",
+    "gen_ai.usage.output_tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of tokens used in the GenAI response (completion).",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.usage.output_tokens"
+   },
+   "example": 10,
+   "is_in_otel": true,
+   "key": "gen_ai.usage.completion_tokens",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.usage.input_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to count tokens, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "This count includes cached input tokens. gen_ai.usage.cache_read.input_tokens is a subset of this value, not an independent count \u2014 do not sum them together."
+   ],
+   "alias": [
+    "ai.prompt_tokens.used",
+    "gen_ai.usage.prompt_tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of tokens used to process the AI input (prompt) including cached input tokens.",
+   "example": 10,
+   "is_in_otel": true,
+   "key": "gen_ai.usage.input_tokens",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.usage.input_tokens.cache_write": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to count tokens, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans."
+   ],
+   "alias": [
+    "gen_ai.usage.cache_creation.input_tokens",
+    "gen_ai.usage.cache_creation_input_tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of tokens written to the cache when processing the AI input (prompt).",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.usage.cache_creation.input_tokens"
+   },
+   "example": 100,
+   "is_in_otel": false,
+   "key": "gen_ai.usage.input_tokens.cache_write",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.usage.input_tokens.cached": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to count tokens, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "This is a subset of gen_ai.usage.input_tokens, not an independent count. Do not sum this with gen_ai.usage.input_tokens \u2014 it is already included."
+   ],
+   "alias": [
+    "gen_ai.usage.cache_read.input_tokens",
+    "gen_ai.usage.cache_read_input_tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of cached tokens used to process the AI input (prompt).",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.usage.cache_read.input_tokens"
+   },
+   "example": 50,
+   "is_in_otel": false,
+   "key": "gen_ai.usage.input_tokens.cached",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.usage.output_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to count tokens, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "This count includes reasoning tokens. gen_ai.usage.reasoning.output_tokens is a subset of this value, not an independent count \u2014 do not sum them together."
+   ],
+   "alias": [
+    "ai.completion_tokens.used",
+    "gen_ai.usage.completion_tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of tokens used for creating the AI output (including reasoning tokens).",
+   "example": 10,
+   "is_in_otel": true,
+   "key": "gen_ai.usage.output_tokens",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.usage.output_tokens.reasoning": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to count tokens, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "This is a subset of gen_ai.usage.output_tokens, not an independent count. Do not sum this with gen_ai.usage.output_tokens \u2014 it is already included."
+   ],
+   "alias": [
+    "gen_ai.usage.reasoning.output_tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of tokens used for reasoning to create the AI output.",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.usage.reasoning.output_tokens"
+   },
+   "example": 75,
+   "is_in_otel": false,
+   "key": "gen_ai.usage.output_tokens.reasoning",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.usage.prompt_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to count tokens, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans."
+   ],
+   "alias": [
+    "ai.prompt_tokens.used",
+    "gen_ai.usage.input_tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of tokens used in the GenAI input (prompt).",
+   "deprecation": {
+    "_status": "backfill",
+    "replacement": "gen_ai.usage.input_tokens"
+   },
+   "example": 20,
+   "is_in_otel": true,
+   "key": "gen_ai.usage.prompt_tokens",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.usage.reasoning.output_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to count tokens, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "This is a subset of gen_ai.usage.output_tokens, not an independent count. Do not sum this with gen_ai.usage.output_tokens \u2014 it is already included."
+   ],
+   "alias": [
+    "gen_ai.usage.output_tokens.reasoning"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The number of tokens used for reasoning to create the AI output.",
+   "example": 75,
+   "is_in_otel": true,
+   "key": "gen_ai.usage.reasoning.output_tokens",
+   "type": "integer",
+   "visibility": "public"
+  },
+  "gen_ai.usage.total_tokens": {
+   "additional_context": [
+    "This attribute appears on both agent parent spans (aggregated totals) and LLM child spans (per-call values). When using sum() to count tokens, filter to gen_ai.operation.type:ai_client to avoid double-counting hierarchical spans.",
+    "This is the sum of gen_ai.usage.input_tokens and gen_ai.usage.output_tokens. Do not sum this with either of them \u2014 they are already included."
+   ],
+   "alias": [
+    "ai.total_tokens.used",
+    "ai.usage.tokens"
+   ],
+   "apply_scrubbing": {
+    "key": "manual"
+   },
+   "brief": "The total number of tokens used to process the prompt. (input tokens plus output todkens)",
+   "example": 20,
+   "is_in_otel": false,
+   "key": "gen_ai.usage.total_tokens",
+   "type": "integer",
+   "visibility": "public"
+  }
+ },
+ "sha": "6f0307c3218a0017a36156272a166b8859cd280e",
+ "source": "getsentry/sentry-conventions"
+}

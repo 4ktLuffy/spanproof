@@ -1,0 +1,14 @@
+{
+  "name": "spanproof-js",
+  "private": true,
+  "version": "0.1.0",
+  "description": "SpanProof JavaScript worker: replays fixtures through @sentry/node AI integrations",
+  "type": "commonjs",
+  "dependencies": {
+    "@ai-sdk/openai": "^4.0.84",
+    "@anthropic-ai/sdk": "^0.131.0",
+    "@sentry/node": "^11.4.0",
+    "ai": "^7.0.128",
+    "openai": "^7.28.0"
+  }
+}

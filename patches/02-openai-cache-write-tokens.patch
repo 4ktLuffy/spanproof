@@ -1,0 +1,196 @@
+diff --git a/sentry_sdk/integrations/openai.py b/sentry_sdk/integrations/openai.py
+index 742b6932..6e313910 100644
+--- a/sentry_sdk/integrations/openai.py
++++ b/sentry_sdk/integrations/openai.py
+@@ -185,6 +185,7 @@ def _calculate_completions_token_usage(
+     """Extract and record token usage from a Chat Completions API response."""
+     input_tokens: "Optional[int]" = 0
+     input_tokens_cached: "Optional[int]" = 0
++    input_tokens_cache_write: "Optional[int]" = 0
+     output_tokens: "Optional[int]" = 0
+     output_tokens_reasoning: "Optional[int]" = 0
+     total_tokens: "Optional[int]" = 0
+@@ -207,6 +208,11 @@ def _calculate_completions_token_usage(
+             cached = getattr(usage.prompt_tokens_details, "cached_tokens", None)
+             if isinstance(cached, int):
+                 input_tokens_cached = cached
++            cache_write = getattr(
++                usage.prompt_tokens_details, "cache_write_tokens", None
++            )
++            if isinstance(cache_write, int):
++                input_tokens_cache_write = cache_write
+ 
+         if hasattr(usage, "completion_tokens_details"):
+             reasoning = getattr(
+@@ -242,6 +248,7 @@ def _calculate_completions_token_usage(
+     # Do not set token data if it is 0
+     input_tokens = input_tokens or None
+     input_tokens_cached = input_tokens_cached or None
++    input_tokens_cache_write = input_tokens_cache_write or None
+     output_tokens = output_tokens or None
+     output_tokens_reasoning = output_tokens_reasoning or None
+     total_tokens = total_tokens or None
+@@ -250,6 +257,7 @@ def _calculate_completions_token_usage(
+         span,
+         input_tokens=input_tokens,
+         input_tokens_cached=input_tokens_cached,
++        input_tokens_cache_write=input_tokens_cache_write,
+         output_tokens=output_tokens,
+         output_tokens_reasoning=output_tokens_reasoning,
+         total_tokens=total_tokens,
+@@ -266,6 +274,7 @@ def _calculate_responses_token_usage(
+     """Extract and record token usage from a Responses API response."""
+     input_tokens: "Optional[int]" = 0
+     input_tokens_cached: "Optional[int]" = 0
++    input_tokens_cache_write: "Optional[int]" = 0
+     output_tokens: "Optional[int]" = 0
+     output_tokens_reasoning: "Optional[int]" = 0
+     total_tokens: "Optional[int]" = 0
+@@ -284,6 +293,11 @@ def _calculate_responses_token_usage(
+             cached = getattr(usage.input_tokens_details, "cached_tokens", None)
+             if isinstance(cached, int):
+                 input_tokens_cached = cached
++            cache_write = getattr(
++                usage.input_tokens_details, "cache_write_tokens", None
++            )
++            if isinstance(cache_write, int):
++                input_tokens_cache_write = cache_write
+ 
+         if hasattr(usage, "output_tokens_details"):
+             reasoning = getattr(usage.output_tokens_details, "reasoning_tokens", None)
+@@ -320,6 +334,7 @@ def _calculate_responses_token_usage(
+     # Do not set token data if it is 0
+     input_tokens = input_tokens or None
+     input_tokens_cached = input_tokens_cached or None
++    input_tokens_cache_write = input_tokens_cache_write or None
+     output_tokens = output_tokens or None
+     output_tokens_reasoning = output_tokens_reasoning or None
+     total_tokens = total_tokens or None
+@@ -328,6 +343,7 @@ def _calculate_responses_token_usage(
+         span,
+         input_tokens=input_tokens,
+         input_tokens_cached=input_tokens_cached,
++        input_tokens_cache_write=input_tokens_cache_write,
+         output_tokens=output_tokens,
+         output_tokens_reasoning=output_tokens_reasoning,
+         total_tokens=total_tokens,
+diff --git a/tests/integrations/openai/test_openai.py b/tests/integrations/openai/test_openai.py
+index 96866886..fcbab062 100644
+--- a/tests/integrations/openai/test_openai.py
++++ b/tests/integrations/openai/test_openai.py
+@@ -4706,6 +4706,7 @@ def test_completions_token_usage_from_response():
+             span,
+             input_tokens=20,
+             input_tokens_cached=None,
++            input_tokens_cache_write=None,
+             output_tokens=10,
+             output_tokens_reasoning=None,
+             total_tokens=30,
+@@ -4744,6 +4745,7 @@ def test_completions_token_usage_with_detailed_fields():
+             span,
+             input_tokens=20,
+             input_tokens_cached=5,
++            input_tokens_cache_write=None,
+             output_tokens=10,
+             output_tokens_reasoning=8,
+             total_tokens=30,
+@@ -4783,6 +4785,7 @@ def test_completions_token_usage_manual_input_counting():
+             span,
+             input_tokens=11,
+             input_tokens_cached=None,
++            input_tokens_cache_write=None,
+             output_tokens=10,
+             output_tokens_reasoning=None,
+             total_tokens=10,
+@@ -4822,6 +4825,7 @@ def test_completions_token_usage_manual_output_counting_streaming():
+             span,
+             input_tokens=20,
+             input_tokens_cached=None,
++            input_tokens_cache_write=None,
+             output_tokens=11,
+             output_tokens_reasoning=None,
+             total_tokens=20,
+@@ -4874,6 +4878,7 @@ def test_completions_token_usage_manual_output_counting_choices():
+             span,
+             input_tokens=20,
+             input_tokens_cached=None,
++            input_tokens_cache_write=None,
+             output_tokens=11,
+             output_tokens_reasoning=None,
+             total_tokens=20,
+@@ -4906,6 +4911,7 @@ def test_completions_token_usage_no_usage_data():
+             span,
+             input_tokens=None,
+             input_tokens_cached=None,
++            input_tokens_cache_write=None,
+             output_tokens=None,
+             output_tokens_reasoning=None,
+             total_tokens=None,
+@@ -4939,6 +4945,7 @@ def test_responses_token_usage_from_response():
+             span,
+             input_tokens=20,
+             input_tokens_cached=5,
++            input_tokens_cache_write=None,
+             output_tokens=10,
+             output_tokens_reasoning=8,
+             total_tokens=30,
+@@ -4968,6 +4975,7 @@ def test_responses_token_usage_no_usage_data():
+             span,
+             input_tokens=None,
+             input_tokens_cached=None,
++            input_tokens_cache_write=None,
+             output_tokens=None,
+             output_tokens_reasoning=None,
+             total_tokens=None,
+@@ -5032,6 +5040,7 @@ def test_responses_token_usage_manual_output_counting_response_output():
+             span,
+             input_tokens=20,
+             input_tokens_cached=None,
++            input_tokens_cache_write=None,
+             output_tokens=11,
+             output_tokens_reasoning=None,
+             total_tokens=20,
+@@ -8185,3 +8194,43 @@ async def test_streaming_responses_api_ttft_async(
+ 
+     assert isinstance(ttft, float)
+     assert ttft > 0
++
++
++def test_cache_write_tokens_are_recorded():
++    """Prompt-cache writes are billed separately and must not be dropped."""
++    span = mock.MagicMock()
++
++    def count_tokens(msg):
++        return len(str(msg))
++
++    chat = mock.MagicMock()
++    chat.usage.prompt_tokens = 20
++    chat.usage.prompt_tokens_details.cached_tokens = 5
++    chat.usage.prompt_tokens_details.cache_write_tokens = 3
++    chat.usage.completion_tokens = 10
++    chat.usage.completion_tokens_details.reasoning_tokens = 8
++    chat.usage.total_tokens = 30
++
++    responses = mock.MagicMock()
++    responses.usage.input_tokens = 20
++    responses.usage.input_tokens_details.cached_tokens = 5
++    responses.usage.input_tokens_details.cache_write_tokens = 3
++    responses.usage.output_tokens = 10
++    responses.usage.output_tokens_details.reasoning_tokens = 8
++    responses.usage.total_tokens = 30
++
++    with mock.patch(
++        "sentry_sdk.integrations.openai.record_token_usage"
++    ) as mock_record_token_usage:
++        _calculate_completions_token_usage(
++            messages=[],
++            response=chat,
++            span=span,
++            streaming_message_responses=[],
++            streaming_message_total_token_usage=None,
++            count_tokens=count_tokens,
++        )
++        _calculate_responses_token_usage([], responses, span, None, count_tokens)
++
++    for call in mock_record_token_usage.call_args_list:
++        assert call.kwargs["input_tokens_cache_write"] == 3

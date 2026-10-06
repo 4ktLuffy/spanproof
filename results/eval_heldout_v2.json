@@ -1,0 +1,138 @@
+{
+ "n": 240,
+ "scores": {
+  "tool_loop": {
+   "tp": 18,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8241154494176252,
+    1.0
+   ],
+   "recall_ci": [
+    0.8241154494176252,
+    1.0
+   ]
+  },
+  "retry_storm": {
+   "tp": 18,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8241154494176252,
+    1.0
+   ],
+   "recall_ci": [
+    0.8241154494176252,
+    1.0
+   ]
+  },
+  "silent_tool_error": {
+   "tp": 15,
+   "fp": 0,
+   "fn": 3,
+   "precision": 1.0,
+   "recall": 0.8333333333333334,
+   "precision_ci": [
+    0.7961107336956521,
+    1.0
+   ],
+   "recall_ci": [
+    0.6077750036164076,
+    0.9416352959953425
+   ]
+  },
+  "lost_llm_span": {
+   "tp": 18,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8241154494176252,
+    1.0
+   ],
+   "recall_ci": [
+    0.8241154494176252,
+    1.0
+   ]
+  },
+  "dead_end": {
+   "tp": 18,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8241154494176252,
+    1.0
+   ],
+   "recall_ci": [
+    0.8241154494176252,
+    1.0
+   ]
+  },
+  "truncated_answer": {
+   "tp": 18,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8241154494176252,
+    1.0
+   ],
+   "recall_ci": [
+    0.8241154494176252,
+    1.0
+   ]
+  },
+  "empty_answer": {
+   "tp": 18,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8241154494176252,
+    1.0
+   ],
+   "recall_ci": [
+    0.8241154494176252,
+    1.0
+   ]
+  },
+  "cost_spike": {
+   "tp": 18,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8241154494176252,
+    1.0
+   ],
+   "recall_ci": [
+    0.8241154494176252,
+    1.0
+   ]
+  },
+  "_healthy_false_alarm_rate": {
+   "k": 0,
+   "n": 96,
+   "ci": [
+    0.0,
+    0.03847694748481595
+   ]
+  }
+ },
+ "errors": {
+  "('heldout', 'silent_tool_error', 'structured_denial_ignored')": {
+   "FN:silent_tool_error": 3
+  }
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "reviewer": "Codex CLI 0.153.4 (codex exec, default model), independent scripts, no SpanProof code",
+ "summary": "A second model (Codex CLI) wrote its own reproduction scripts from scratch, without reading or importing SpanProof, and confirmed all 15 claims with controls (full consumption, plain-API baselines, no-Sentry runs). Its qualifications are adopted above: SP-06 is a naive cross-level sum, not proof of double billing; SP-15 is LiteLLM's own normalization; SP-13's missing parent was checked after flush and SDK close. Scripts: review/codex/.",
+ "verdicts": {
+  "SP-01": "Confirmed: input/output/total 1200/300/1500, cached and reasoning absent.",
+  "SP-02": "Confirmed: 0 spans after break+close on Chat and Responses; 2 spans when fully consumed.",
+  "SP-03": "Confirmed: 0 spans after abandoning the stream, even after a 2 s grace period.",
+  "SP-04": "Confirmed in Python and JS; the field is declared in openai-python's InputTokensDetails.",
+  "SP-05": "Confirmed: no gen_ai.usage.* keys; .create() on the same response records 2600/2048/512.",
+  "SP-06": "Confirmed (600 vs 300 billed). Qualification: a naive sum across span levels, not double billing.",
+  "SP-07": "Confirmed: inner agent 300 vs its own 200; the extra is the outer agent's first call.",
+  "SP-08": "Confirmed: .invoke() 1 invoke_agent span, .stream() 0.",
+  "SP-09": "Confirmed: iter() 0 invoke_agent / 0 execute_tool; run() 1 / 1.",
+  "SP-10": "Confirmed for Python OpenAI; JS OpenAI does record finish reasons.",
+  "SP-11": "Confirmed.",
+  "SP-12": "Confirmed: input 40, total 2720, no cache attributes.",
+  "SP-13": "Confirmed after flush and SDK close; fully consumed stream delivers the parent.",
+  "SP-15": "Confirmed span value; LiteLLM normalizes the model before Sentry sees it (also without Sentry).",
+  "SP-16": "Confirmed non-reproduction on this path."
+ }
+}

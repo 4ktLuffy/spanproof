@@ -1,0 +1,138 @@
+{
+ "n": 256,
+ "scores": {
+  "tool_loop": {
+   "tp": 24,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8620194241710247,
+    1.0
+   ],
+   "recall_ci": [
+    0.8620194241710247,
+    1.0
+   ]
+  },
+  "retry_storm": {
+   "tp": 24,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8620194241710247,
+    1.0
+   ],
+   "recall_ci": [
+    0.8620194241710247,
+    1.0
+   ]
+  },
+  "silent_tool_error": {
+   "tp": 24,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8620194241710247,
+    1.0
+   ],
+   "recall_ci": [
+    0.8620194241710247,
+    1.0
+   ]
+  },
+  "lost_llm_span": {
+   "tp": 24,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8620194241710247,
+    1.0
+   ],
+   "recall_ci": [
+    0.8620194241710247,
+    1.0
+   ]
+  },
+  "dead_end": {
+   "tp": 24,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8620194241710247,
+    1.0
+   ],
+   "recall_ci": [
+    0.8620194241710247,
+    1.0
+   ]
+  },
+  "truncated_answer": {
+   "tp": 16,
+   "fp": 0,
+   "fn": 8,
+   "precision": 1.0,
+   "recall": 0.6666666666666666,
+   "precision_ci": [
+    0.8063865817272802,
+    1.0
+   ],
+   "recall_ci": [
+    0.4670595949408046,
+    0.8202802131162036
+   ]
+  },
+  "empty_answer": {
+   "tp": 16,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8063865817272802,
+    1.0
+   ],
+   "recall_ci": [
+    0.8063865817272802,
+    1.0
+   ]
+  },
+  "cost_spike": {
+   "tp": 24,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8620194241710247,
+    1.0
+   ],
+   "recall_ci": [
+    0.8620194241710247,
+    1.0
+   ]
+  },
+  "_healthy_false_alarm_rate": {
+   "k": 0,
+   "n": 72,
+   "ci": [
+    0.0,
+    0.05065293981139638
+   ]
+  }
+ },
+ "errors": {
+  "('openai_agents', 'truncated_answer', None)": {
+   "FN:truncated_answer": 8
+  }
+ }
+}

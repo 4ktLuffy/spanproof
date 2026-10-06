@@ -1,0 +1,736 @@
+{
+ "label": "",
+ "python": "~/spanproof-work/.venv-fix2/bin/python",
+ "generated": "2026-10-06T00:43:03",
+ "results": [
+  {
+   "spans": [
+    {
+     "trace_id": "12acf78d0cec4ffdb499bd4364808228",
+     "span_id": "a23c8e7495166811",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "pydantic_ai.iter",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791236582.880132,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "12acf78d0cec4ffdb499bd4364808228",
+     "span_id": "916ac2a64fc35a5f",
+     "parent_span_id": "a23c8e7495166811",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.pydantic_ai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.response.streaming": false,
+      "gen_ai.system": "openai",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.system_instructions": "[{\"type\": \"text\", \"content\": \"Use tools.\"}]",
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"What is the weather in Paris?\"}]}]",
+      "gen_ai.usage.input_tokens": 800,
+      "gen_ai.usage.input_tokens.cached": 512,
+      "gen_ai.usage.input_tokens.cache_write": 0,
+      "gen_ai.usage.output_tokens": 30,
+      "gen_ai.usage.total_tokens": 830,
+      "gen_ai.response.finish_reasons": [
+       "tool_call"
+      ],
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.output.messages": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"tool_call\", \"name\": \"get_weather\", \"arguments\": \"{\\\"city\\\":\\\"Paris\\\"}\"}]}]",
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "production",
+      "server.address": "Eyassus-MacBook-Pro.local",
+      "sentry.segment.name": "pydantic_ai.iter",
+      "sentry.segment.id": "a23c8e7495166811",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791236582.972802,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "12acf78d0cec4ffdb499bd4364808228",
+     "span_id": "84e916b55b886f4e",
+     "parent_span_id": "a23c8e7495166811",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.pydantic_ai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.response.streaming": false,
+      "gen_ai.system": "openai",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.system_instructions": "[{\"type\": \"text\", \"content\": \"Use tools.\"}, {\"type\": \"text\", \"content\": \"Use tools.\"}]",
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"What is the weather in Paris?\"}]}, {\"role\": \"assistant\", \"tool_calls\": [{\"name\": \"get_weather\", \"arguments\": \"{\\\"city\\\":\\\"Paris\\\"}\"}]}, {\"role\": \"tool\", \"content\": [{\"type\": \"text\", \"text\": \"Sunny in Paris\"}], \"tool_call_id\": \"get_weather\"}]",
+      "gen_ai.usage.input_tokens": 900,
+      "gen_ai.usage.input_tokens.cached": 768,
+      "gen_ai.usage.input_tokens.cache_write": 0,
+      "gen_ai.usage.output_tokens": 20,
+      "gen_ai.usage.total_tokens": 920,
+      "gen_ai.response.finish_reasons": [
+       "stop"
+      ],
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.output.messages": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"text\", \"content\": \"It is sunny in Paris.\"}]}]",
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "production",
+      "server.address": "Eyassus-MacBook-Pro.local",
+      "sentry.segment.name": "pydantic_ai.iter",
+      "sentry.segment.id": "a23c8e7495166811",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791236582.99832,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "pydantic_ai.iter",
+   "integration": "pydantic_ai",
+   "package": "pydantic-ai-slim",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "pydantic-ai-slim": "2.31.1"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    },
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 800,
+      "output_tokens": 30,
+      "cached": 512,
+      "cache_write": 0,
+      "reasoning": 0,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-ag1",
+      "finish": "tool_calls",
+      "total": 830
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    },
+    {
+     "truth": {
+      "input_tokens": 900,
+      "output_tokens": 20,
+      "cached": 768,
+      "cache_write": 0,
+      "reasoning": 0,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-ag2",
+      "finish": "stop",
+      "total": 920
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": {
+    "tools": [
+     "get_weather"
+    ],
+    "agent_name": "weather_agent"
+   },
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "structure",
+    "agent"
+   ],
+   "mode": "default",
+   "seconds": 3.85,
+   "findings": [
+    {
+     "rule": "structure.no_agent_span",
+     "check": "structure",
+     "severity": "high",
+     "scenario": "pydantic_ai.iter",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "op",
+     "expected": "gen_ai.invoke_agent",
+     "actual": null,
+     "message": "agent run produced no gen_ai.invoke_agent span",
+     "mode": "default"
+    },
+    {
+     "rule": "structure.missing_tool_span",
+     "check": "structure",
+     "severity": "high",
+     "scenario": "pydantic_ai.iter",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.tool.name",
+     "expected": "get_weather",
+     "actual": [],
+     "message": "tool get_weather ran but has no gen_ai.execute_tool span",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.iter",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.iter",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.iter",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.iter",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cache_write",
+     "expected": "gen_ai.usage.cache_creation.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cache_write",
+     "message": "gen_ai.usage.input_tokens.cache_write is deprecated; use gen_ai.usage.cache_creation.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.type",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "pydantic_ai.iter",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "string",
+     "actual": "list",
+     "message": "gen_ai.response.finish_reasons should be string, got list",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.finish_wrong",
+     "check": "identity",
+     "severity": "high",
+     "scenario": "pydantic_ai.iter",
+     "integration": "pydantic_ai",
+     "call": 0,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "tool_calls",
+     "actual": [
+      "tool_call"
+     ],
+     "message": "finish reason ['tool_call'] differs from the provider's 'tool_calls'",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "pydantic_ai.iter",
+     "integration": "pydantic_ai",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-ag1",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "pydantic_ai.iter",
+     "integration": "pydantic_ai",
+     "call": 1,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-ag2",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "dba422c4eafc4560aeb45e5be479cea7",
+     "span_id": "88f247d610de34b4",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "pydantic_ai.run_sync",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791236582.878023,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "dba422c4eafc4560aeb45e5be479cea7",
+     "span_id": "9bc498da1bae4ca2",
+     "parent_span_id": "88f247d610de34b4",
+     "op": "gen_ai.invoke_agent",
+     "description": "invoke_agent weather_agent",
+     "data": {
+      "sentry.op": "gen_ai.invoke_agent",
+      "sentry.origin": "auto.ai.pydantic_ai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "invoke_agent",
+      "gen_ai.agent.name": "weather_agent",
+      "gen_ai.request.available_tools": "[{\"name\": \"get_weather\", \"description\": \"Weather for a city.\", \"parameters\": {\"additionalProperties\": false, \"properties\": {\"city\": {\"type\": \"string\"}}, \"required\": [\"city\"], \"type\": \"object\"}}]",
+      "gen_ai.request.messages": "[{\"content\": [{\"text\": \"Use tools.\", \"type\": \"text\"}], \"role\": \"system\"}, {\"content\": [{\"text\": \"What is the weather in Paris?\", \"type\": \"text\"}], \"role\": \"user\"}]",
+      "gen_ai.response.text": "It is sunny in Paris.",
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "production",
+      "server.address": "Eyassus-MacBook-Pro.local",
+      "sentry.segment.name": "pydantic_ai.run_sync",
+      "sentry.segment.id": "88f247d610de34b4",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791236582.953057,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "dba422c4eafc4560aeb45e5be479cea7",
+     "span_id": "80e55bef588c1086",
+     "parent_span_id": "9bc498da1bae4ca2",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.pydantic_ai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.response.streaming": false,
+      "gen_ai.agent.name": "weather_agent",
+      "gen_ai.system": "openai",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.request.available_tools": "[{\"name\": \"get_weather\", \"description\": \"Weather for a city.\", \"parameters\": {\"additionalProperties\": false, \"properties\": {\"city\": {\"type\": \"string\"}}, \"required\": [\"city\"], \"type\": \"object\"}}]",
+      "gen_ai.system_instructions": "[{\"type\": \"text\", \"content\": \"Use tools.\"}]",
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"What is the weather in Paris?\"}]}]",
+      "gen_ai.usage.input_tokens": 800,
+      "gen_ai.usage.input_tokens.cached": 512,
+      "gen_ai.usage.input_tokens.cache_write": 0,
+      "gen_ai.usage.output_tokens": 30,
+      "gen_ai.usage.total_tokens": 830,
+      "gen_ai.response.finish_reasons": [
+       "tool_call"
+      ],
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.output.messages": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"tool_call\", \"name\": \"get_weather\", \"arguments\": \"{\\\"city\\\":\\\"Paris\\\"}\"}]}]",
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "production",
+      "server.address": "Eyassus-MacBook-Pro.local",
+      "sentry.segment.name": "pydantic_ai.run_sync",
+      "sentry.segment.id": "88f247d610de34b4",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791236582.972794,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "dba422c4eafc4560aeb45e5be479cea7",
+     "span_id": "baaf1b278443d876",
+     "parent_span_id": "9bc498da1bae4ca2",
+     "op": "gen_ai.execute_tool",
+     "description": "execute_tool get_weather",
+     "data": {
+      "sentry.op": "gen_ai.execute_tool",
+      "sentry.origin": "auto.ai.pydantic_ai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "execute_tool",
+      "gen_ai.tool.name": "get_weather",
+      "gen_ai.tool.description": "Weather for a city.",
+      "gen_ai.agent.name": "weather_agent",
+      "gen_ai.tool.input": "{\"city\": \"Paris\"}",
+      "gen_ai.tool.output": "Sunny in Paris",
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "production",
+      "server.address": "Eyassus-MacBook-Pro.local",
+      "sentry.segment.name": "pydantic_ai.run_sync",
+      "sentry.segment.id": "88f247d610de34b4",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791236582.996996,
+     "finished": true,
+     "is_root": false
+    },
+    {
+     "trace_id": "dba422c4eafc4560aeb45e5be479cea7",
+     "span_id": "a3e77ec17a602409",
+     "parent_span_id": "9bc498da1bae4ca2",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.pydantic_ai",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.response.streaming": false,
+      "gen_ai.agent.name": "weather_agent",
+      "gen_ai.system": "openai",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.request.available_tools": "[{\"name\": \"get_weather\", \"description\": \"Weather for a city.\", \"parameters\": {\"additionalProperties\": false, \"properties\": {\"city\": {\"type\": \"string\"}}, \"required\": [\"city\"], \"type\": \"object\"}}]",
+      "gen_ai.system_instructions": "[{\"type\": \"text\", \"content\": \"Use tools.\"}, {\"type\": \"text\", \"content\": \"Use tools.\"}]",
+      "gen_ai.request.messages": "[{\"role\": \"user\", \"content\": [{\"type\": \"text\", \"text\": \"What is the weather in Paris?\"}]}, {\"role\": \"assistant\", \"tool_calls\": [{\"name\": \"get_weather\", \"arguments\": \"{\\\"city\\\":\\\"Paris\\\"}\"}]}, {\"role\": \"tool\", \"content\": [{\"type\": \"text\", \"text\": \"Sunny in Paris\"}], \"tool_call_id\": \"get_weather\"}]",
+      "gen_ai.usage.input_tokens": 900,
+      "gen_ai.usage.input_tokens.cached": 768,
+      "gen_ai.usage.input_tokens.cache_write": 0,
+      "gen_ai.usage.output_tokens": 20,
+      "gen_ai.usage.total_tokens": 920,
+      "gen_ai.response.finish_reasons": [
+       "stop"
+      ],
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.output.messages": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"text\", \"content\": \"It is sunny in Paris.\"}]}]",
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "production",
+      "server.address": "Eyassus-MacBook-Pro.local",
+      "sentry.segment.name": "pydantic_ai.run_sync",
+      "sentry.segment.id": "88f247d610de34b4",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791236582.998149,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "pydantic_ai.run_sync",
+   "integration": "pydantic_ai",
+   "package": "pydantic-ai-slim",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "pydantic-ai-slim": "2.31.1"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    },
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 800,
+      "output_tokens": 30,
+      "cached": 512,
+      "cache_write": 0,
+      "reasoning": 0,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-ag1",
+      "finish": "tool_calls",
+      "total": 830
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    },
+    {
+     "truth": {
+      "input_tokens": 900,
+      "output_tokens": 20,
+      "cached": 768,
+      "cache_write": 0,
+      "reasoning": 0,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-ag2",
+      "finish": "stop",
+      "total": 920
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": {
+    "tools": [
+     "get_weather"
+    ],
+    "agent_name": "weather_agent"
+   },
+   "data_collection": true,
+   "span_streaming": false,
+   "legacy_transport": false,
+   "tags": [
+    "structure",
+    "aggregation",
+    "agent"
+   ],
+   "mode": "default",
+   "seconds": 3.85,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.request.available_tools",
+     "expected": "gen_ai.tool.definitions",
+     "actual": "gen_ai.request.available_tools",
+     "message": "gen_ai.request.available_tools is deprecated; use gen_ai.tool.definitions",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.request.available_tools",
+     "expected": "gen_ai.tool.definitions",
+     "actual": "gen_ai.request.available_tools",
+     "message": "gen_ai.request.available_tools is deprecated; use gen_ai.tool.definitions",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cache_write",
+     "expected": "gen_ai.usage.cache_creation.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cache_write",
+     "message": "gen_ai.usage.input_tokens.cache_write is deprecated; use gen_ai.usage.cache_creation.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.type",
+     "check": "conventions",
+     "severity": "medium",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "string",
+     "actual": "list",
+     "message": "gen_ai.response.finish_reasons should be string, got list",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.tool.input",
+     "expected": "gen_ai.tool.call.arguments",
+     "actual": "gen_ai.tool.input",
+     "message": "gen_ai.tool.input is deprecated; use gen_ai.tool.call.arguments",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": null,
+     "attribute": "gen_ai.tool.output",
+     "expected": "gen_ai.tool.call.result",
+     "actual": "gen_ai.tool.output",
+     "message": "gen_ai.tool.output is deprecated; use gen_ai.tool.call.result",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.finish_wrong",
+     "check": "identity",
+     "severity": "high",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": 0,
+     "attribute": "gen_ai.response.finish_reasons",
+     "expected": "tool_calls",
+     "actual": [
+      "tool_call"
+     ],
+     "message": "finish reason ['tool_call'] differs from the provider's 'tool_calls'",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-ag1",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "pydantic_ai.run_sync",
+     "integration": "pydantic_ai",
+     "call": 1,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-ag2",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "default"
+    }
+   ]
+  }
+ ]
+}

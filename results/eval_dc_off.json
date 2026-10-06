@@ -1,0 +1,165 @@
+{
+ "n": 256,
+ "scores": {
+  "tool_loop": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 24,
+   "precision": NaN,
+   "recall": 0.0,
+   "precision_ci": [
+    NaN,
+    NaN
+   ],
+   "recall_ci": [
+    0.0,
+    0.13798057582897535
+   ]
+  },
+  "retry_storm": {
+   "tp": 24,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8620194241710247,
+    1.0
+   ],
+   "recall_ci": [
+    0.8620194241710247,
+    1.0
+   ]
+  },
+  "silent_tool_error": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 24,
+   "precision": NaN,
+   "recall": 0.0,
+   "precision_ci": [
+    NaN,
+    NaN
+   ],
+   "recall_ci": [
+    0.0,
+    0.13798057582897535
+   ]
+  },
+  "lost_llm_span": {
+   "tp": 24,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8620194241710247,
+    1.0
+   ],
+   "recall_ci": [
+    0.8620194241710247,
+    1.0
+   ]
+  },
+  "dead_end": {
+   "tp": 24,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8620194241710247,
+    1.0
+   ],
+   "recall_ci": [
+    0.8620194241710247,
+    1.0
+   ]
+  },
+  "truncated_answer": {
+   "tp": 8,
+   "fp": 0,
+   "fn": 16,
+   "precision": 1.0,
+   "recall": 0.3333333333333333,
+   "precision_ci": [
+    0.6755843804891231,
+    1.0
+   ],
+   "recall_ci": [
+    0.17971978688379642,
+    0.5329404050591954
+   ]
+  },
+  "empty_answer": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 16,
+   "precision": NaN,
+   "recall": 0.0,
+   "precision_ci": [
+    NaN,
+    NaN
+   ],
+   "recall_ci": [
+    0.0,
+    0.19361341827271994
+   ]
+  },
+  "cost_spike": {
+   "tp": 24,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "precision_ci": [
+    0.8620194241710247,
+    1.0
+   ],
+   "recall_ci": [
+    0.8620194241710247,
+    1.0
+   ]
+  },
+  "_healthy_false_alarm_rate": {
+   "k": 0,
+   "n": 72,
+   "ci": [
+    0.0,
+    0.05065293981139638
+   ]
+  }
+ },
+ "errors": {
+  "('openai_agents', 'tool_loop', None)": {
+   "FN:tool_loop": 8
+  },
+  "('openai_agents', 'silent_tool_error', None)": {
+   "FN:silent_tool_error": 8
+  },
+  "('openai_agents', 'truncated_answer', None)": {
+   "FN:truncated_answer": 8
+  },
+  "('openai_agents', 'empty_answer', None)": {
+   "FN:empty_answer": 8
+  },
+  "('langgraph', 'tool_loop', None)": {
+   "FN:tool_loop": 8
+  },
+  "('langgraph', 'silent_tool_error', None)": {
+   "FN:silent_tool_error": 8
+  },
+  "('langgraph', 'empty_answer', None)": {
+   "FN:empty_answer": 8
+  },
+  "('pydantic_ai', 'tool_loop', None)": {
+   "FN:tool_loop": 8
+  },
+  "('pydantic_ai', 'silent_tool_error', None)": {
+   "FN:silent_tool_error": 8
+  },
+  "('pydantic_ai', 'truncated_answer', None)": {
+   "FN:truncated_answer": 8
+  }
+ }
+}

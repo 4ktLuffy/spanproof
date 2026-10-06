@@ -1,0 +1,1 @@
+PASS: all 15 claims and full-consumption / no-Sentry controls checked against transport output.

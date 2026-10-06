@@ -1,0 +1,29 @@
+[project]
+name = "spanproof"
+version = "0.1.0"
+description = "Differential conformance checks and agent failure detectors for Sentry's AI monitoring"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+dependencies = ["sentry-sdk>=2.40"]
+
+[project.optional-dependencies]
+providers = ["openai", "anthropic", "litellm", "google-genai", "openai-agents", "langchain", "langchain-openai",
+             "langgraph", "pydantic-ai-slim[openai]"]
+test = ["pytest"]
+
+[project.scripts]
+spanproof = "spanproof.runner:main"
+spanproof-matrix = "spanproof.matrix:main"
+spanproof-gate = "spanproof.gate:main"
+spanproof-issues = "spanproof.issues:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["spanproof*"]
+
+[tool.setuptools.package-data]
+spanproof = ["conventions_snapshot/*.json"]

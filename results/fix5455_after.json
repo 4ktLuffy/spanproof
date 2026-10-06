@@ -1,0 +1,862 @@
+{
+ "label": "",
+ "python": "~/spanproof-work/.venv-latest/bin/python",
+ "generated": "2026-10-06T00:05:55",
+ "results": [
+  {
+   "spans": [
+    {
+     "trace_id": "c256fa29cdf346a9a7a26c9d48cd71cf",
+     "span_id": "a44fe5f5e53f35a0",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "litellm.acompletion.openai",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791234352.876009,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "c256fa29cdf346a9a7a26c9d48cd71cf",
+     "span_id": "88dbb10409770fc2",
+     "parent_span_id": "a44fe5f5e53f35a0",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.litellm",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.system": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.messages": "[{\"role\": \"system\", \"content\": \"Be brief.\"}, {\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.response.streaming": false,
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.response.text": "{\"content\": \"Paris.\", \"role\": \"assistant\", \"tool_calls\": \"None\", \"function_call\": \"None\", \"provider_specific_fields\": {\"refusal\": \"None\"}}",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.input_tokens.cached": 1024,
+      "gen_ai.usage.input_tokens.cache_write": 0,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.output_tokens.reasoning": 256,
+      "gen_ai.usage.total_tokens": 1500,
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "production",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "litellm.acompletion.openai",
+      "sentry.segment.id": "a44fe5f5e53f35a0",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791234352.89883,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "litellm.acompletion.openai",
+   "integration": "litellm",
+   "package": "litellm",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "litellm": "1.104.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 300,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 256,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp-litellm",
+      "total": 1500
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "tags": [
+    "usage",
+    "async"
+   ],
+   "mode": "default",
+   "seconds": 8.18,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.acompletion.openai",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.acompletion.openai",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.acompletion.openai",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.acompletion.openai",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.acompletion.openai",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cache_write",
+     "expected": "gen_ai.usage.cache_creation.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cache_write",
+     "message": "gen_ai.usage.input_tokens.cache_write is deprecated; use gen_ai.usage.cache_creation.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.acompletion.openai",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "litellm.acompletion.openai",
+     "integration": "litellm",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-sp-litellm",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "2590f08ff1bc4efd87346cc5507dee38",
+     "span_id": "951386b6b795bcf2",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "litellm.completion.anthropic",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791234352.808648,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "2590f08ff1bc4efd87346cc5507dee38",
+     "span_id": "896b4d09d6108a35",
+     "parent_span_id": "951386b6b795bcf2",
+     "op": "gen_ai.chat",
+     "description": "chat claude-sonnet-5-5",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.litellm",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.system": "anthropic",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.messages": "[{\"role\": \"system\", \"content\": \"Be brief.\"}, {\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.request.model": "claude-sonnet-5-5",
+      "gen_ai.response.streaming": false,
+      "gen_ai.request.max_tokens": 256,
+      "gen_ai.response.model": "claude-sonnet-5-5",
+      "gen_ai.response.text": "{\"content\": \"Paris.\", \"role\": \"assistant\", \"tool_calls\": \"None\", \"function_call\": \"None\", \"provider_specific_fields\": {\"citations\": \"None\", \"thinking_blocks\": \"None\"}}",
+      "gen_ai.usage.input_tokens": 2600,
+      "gen_ai.usage.input_tokens.cached": 2048,
+      "gen_ai.usage.input_tokens.cache_write": 512,
+      "gen_ai.usage.output_tokens": 120,
+      "gen_ai.usage.output_tokens.reasoning": 0,
+      "gen_ai.usage.total_tokens": 2720,
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "production",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "litellm.completion.anthropic",
+      "sentry.segment.id": "951386b6b795bcf2",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791234352.910991,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "litellm.completion.anthropic",
+   "integration": "litellm",
+   "package": "litellm",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "litellm": "1.104.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/messages"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 2600,
+      "output_tokens": 120,
+      "cached": 2048,
+      "cache_write": 512,
+      "reasoning": 0,
+      "model": "claude-sonnet-5-5",
+      "response_id": "msg_sp_litellm",
+      "total": 2720
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "tags": [
+    "usage",
+    "cached",
+    "cache_write"
+   ],
+   "mode": "default",
+   "seconds": 7.62,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.anthropic",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.anthropic",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.anthropic",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.anthropic",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.anthropic",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cache_write",
+     "expected": "gen_ai.usage.cache_creation.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cache_write",
+     "message": "gen_ai.usage.input_tokens.cache_write is deprecated; use gen_ai.usage.cache_creation.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.anthropic",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "litellm.completion.anthropic",
+     "integration": "litellm",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "msg_sp_litellm",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "d98467a7eebe4d46b64d73913884c94a",
+     "span_id": "86d31a928b82e11b",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "litellm.completion.openai",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791234352.837965,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "d98467a7eebe4d46b64d73913884c94a",
+     "span_id": "9098a1fff0294d3f",
+     "parent_span_id": "86d31a928b82e11b",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.litellm",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.system": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.messages": "[{\"role\": \"system\", \"content\": \"Be brief.\"}, {\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.response.streaming": false,
+      "gen_ai.response.model": "gpt-5-mini-2026-08-07",
+      "gen_ai.response.text": "{\"content\": \"Paris.\", \"role\": \"assistant\", \"tool_calls\": \"None\", \"function_call\": \"None\", \"provider_specific_fields\": {\"refusal\": \"None\"}}",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.input_tokens.cached": 1024,
+      "gen_ai.usage.input_tokens.cache_write": 0,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.output_tokens.reasoning": 256,
+      "gen_ai.usage.total_tokens": 1500,
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "production",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "litellm.completion.openai",
+      "sentry.segment.id": "86d31a928b82e11b",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791234352.862138,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "litellm.completion.openai",
+   "integration": "litellm",
+   "package": "litellm",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "litellm": "1.104.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 300,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 256,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp-litellm",
+      "total": 1500
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "tags": [
+    "usage",
+    "cached",
+    "reasoning"
+   ],
+   "mode": "default",
+   "seconds": 8.15,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.openai",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.openai",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.openai",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.openai",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.openai",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cache_write",
+     "expected": "gen_ai.usage.cache_creation.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cache_write",
+     "message": "gen_ai.usage.input_tokens.cache_write is deprecated; use gen_ai.usage.cache_creation.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.openai",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "litellm.completion.openai",
+     "integration": "litellm",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-sp-litellm",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "2683ce0c8d284f1a834c2c509d54de38",
+     "span_id": "b7d92d76a7c776d6",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "litellm.completion.openai.stream",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791234352.794952,
+     "finished": true,
+     "is_root": true
+    },
+    {
+     "trace_id": "2683ce0c8d284f1a834c2c509d54de38",
+     "span_id": "ac37ce325b37f394",
+     "parent_span_id": "b7d92d76a7c776d6",
+     "op": "gen_ai.chat",
+     "description": "chat gpt-5-mini",
+     "data": {
+      "sentry.op": "gen_ai.chat",
+      "sentry.origin": "auto.ai.litellm",
+      "thread.id": "8309121472",
+      "thread.name": "MainThread",
+      "gen_ai.system": "openai",
+      "gen_ai.operation.name": "chat",
+      "gen_ai.request.messages": "[{\"role\": \"system\", \"content\": \"Be brief.\"}, {\"role\": \"user\", \"content\": \"Capital of France?\"}]",
+      "gen_ai.request.model": "gpt-5-mini",
+      "gen_ai.response.streaming": true,
+      "gen_ai.response.model": "gpt-5-mini",
+      "gen_ai.usage.input_tokens": 1200,
+      "gen_ai.usage.input_tokens.cached": 1024,
+      "gen_ai.usage.input_tokens.cache_write": 0,
+      "gen_ai.usage.output_tokens": 300,
+      "gen_ai.usage.output_tokens.reasoning": 256,
+      "gen_ai.usage.total_tokens": 1500,
+      "gen_ai.response.text": "{\"content\": \"The capital is Paris. \", \"role\": \"assistant\", \"tool_calls\": \"None\", \"function_call\": \"None\", \"provider_specific_fields\": \"None\"}",
+      "sentry.release": "70d66e6b9966ac44f4ea58d2c3e55280b2644641",
+      "sentry.environment": "production",
+      "server.address": "faliso-s-M13",
+      "sentry.segment.name": "litellm.completion.openai.stream",
+      "sentry.segment.id": "b7d92d76a7c776d6",
+      "sentry.sdk.name": "sentry.python",
+      "sentry.sdk.version": "2.71.0",
+      "process.runtime.name": "CPython",
+      "process.runtime.version": "3.12.13"
+     },
+     "status": "ok",
+     "start": 1791234352.819035,
+     "finished": true,
+     "is_root": false
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "litellm.completion.openai.stream",
+   "integration": "litellm",
+   "package": "litellm",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "litellm": "1.104.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "calls": [
+    {
+     "truth": {
+      "input_tokens": 1200,
+      "output_tokens": 300,
+      "cached": 1024,
+      "cache_write": 0,
+      "reasoning": 256,
+      "model": "gpt-5-mini-2026-08-07",
+      "response_id": "chatcmpl-sp-litellm-s",
+      "total": 1500
+     },
+     "op": "gen_ai.chat",
+     "completes": true
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "tags": [
+    "usage",
+    "stream"
+   ],
+   "mode": "default",
+   "seconds": 8.15,
+   "findings": [
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.openai.stream",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.system",
+     "expected": "gen_ai.provider.name",
+     "actual": "gen_ai.system",
+     "message": "gen_ai.system is deprecated; use gen_ai.provider.name",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.openai.stream",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.request.messages",
+     "expected": "gen_ai.input.messages",
+     "actual": "gen_ai.request.messages",
+     "message": "gen_ai.request.messages is deprecated; use gen_ai.input.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.openai.stream",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cached",
+     "expected": "gen_ai.usage.cache_read.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cached",
+     "message": "gen_ai.usage.input_tokens.cached is deprecated; use gen_ai.usage.cache_read.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.openai.stream",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.usage.input_tokens.cache_write",
+     "expected": "gen_ai.usage.cache_creation.input_tokens",
+     "actual": "gen_ai.usage.input_tokens.cache_write",
+     "message": "gen_ai.usage.input_tokens.cache_write is deprecated; use gen_ai.usage.cache_creation.input_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.openai.stream",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.usage.output_tokens.reasoning",
+     "expected": "gen_ai.usage.reasoning.output_tokens",
+     "actual": "gen_ai.usage.output_tokens.reasoning",
+     "message": "gen_ai.usage.output_tokens.reasoning is deprecated; use gen_ai.usage.reasoning.output_tokens",
+     "mode": "default"
+    },
+    {
+     "rule": "conventions.deprecated",
+     "check": "conventions",
+     "severity": "low",
+     "scenario": "litellm.completion.openai.stream",
+     "integration": "litellm",
+     "call": null,
+     "attribute": "gen_ai.response.text",
+     "expected": "gen_ai.output.messages",
+     "actual": "gen_ai.response.text",
+     "message": "gen_ai.response.text is deprecated; use gen_ai.output.messages",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.model_wrong",
+     "check": "identity",
+     "severity": "medium",
+     "scenario": "litellm.completion.openai.stream",
+     "integration": "litellm",
+     "call": 0,
+     "attribute": "gen_ai.response.model",
+     "expected": "gpt-5-mini-2026-08-07",
+     "actual": "gpt-5-mini",
+     "message": "response model differs from what the provider returned",
+     "mode": "default"
+    },
+    {
+     "rule": "identity.response_id_missing",
+     "check": "identity",
+     "severity": "low",
+     "scenario": "litellm.completion.openai.stream",
+     "integration": "litellm",
+     "call": 0,
+     "attribute": "gen_ai.response.id",
+     "expected": "chatcmpl-sp-litellm-s",
+     "actual": null,
+     "message": "provider response id not recorded (cannot join with provider logs)",
+     "mode": "default"
+    }
+   ]
+  },
+  {
+   "spans": [
+    {
+     "trace_id": "6bd168897ade481084b75ab6d3e35e51",
+     "span_id": "9fed94981b7b1d4f",
+     "parent_span_id": null,
+     "op": "spanproof.scenario",
+     "description": "litellm.completion.openai.stream.early_close",
+     "data": {
+      "thread.id": "8309121472",
+      "thread.name": "MainThread"
+     },
+     "status": null,
+     "start": 1791234352.912027,
+     "finished": true,
+     "is_root": true
+    }
+   ],
+   "errors": [],
+   "transactions": 1,
+   "scenario": "litellm.completion.openai.stream.early_close",
+   "integration": "litellm",
+   "package": "litellm",
+   "versions": {
+    "sentry-sdk": "2.71.0",
+    "litellm": "1.104.0"
+   },
+   "python": "3.12.13",
+   "exception": null,
+   "requests": [
+    {
+     "path": "/v1/chat/completions"
+    }
+   ],
+   "calls": [
+    {
+     "truth": null,
+     "op": "gen_ai.chat",
+     "completes": false
+    }
+   ],
+   "expects_exception": false,
+   "agent": null,
+   "data_collection": true,
+   "span_streaming": false,
+   "tags": [
+    "lifecycle",
+    "stream"
+   ],
+   "mode": "default",
+   "seconds": 8.18,
+   "findings": [
+    {
+     "rule": "lifecycle.lost_span",
+     "check": "lifecycle",
+     "severity": "high",
+     "scenario": "litellm.completion.openai.stream.early_close",
+     "integration": "litellm",
+     "call": null,
+     "attribute": null,
+     "expected": 1,
+     "actual": 0,
+     "message": "1 provider call(s) but 0 finished gen_ai span(s) delivered (early-close); the call is invisible in Sentry",
+     "mode": "default"
+    }
+   ]
+  }
+ ]
+}
