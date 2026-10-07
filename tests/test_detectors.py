@@ -121,3 +121,63 @@ def test_structured_error_payload_anywhere_in_the_object():
     assert "silent_tool_error" in kinds(bad)
     fine = [AG, tool("t", 1, out='{"ok": true, "error": null, "items": 3}'), chat("c", 2)]
     assert "silent_tool_error" not in kinds(fine)
+
+
+# ---- boundary cases added after mutation testing (these mutants were not caught by any test)
+
+def _silent(out):
+    return "silent_tool_error" in kinds([AG, tool("t", 1, out=out), chat("c", 2, text='["Done, all good."]')])
+
+
+def test_structured_error_variants_each_count_and_empty_error_values_do_not():
+    for bad in ('{"error": "boom"}', '{"ok": false}', '{"success": false}', '{"status": "ERROR"}',
+                '{"status": "failed"}', '{"status": "Failure"}'):
+        assert _silent(bad), bad
+    for fine in ('{"error": null}', '{"error": false}', '{"error": ""}', '{"error": {}}', '{"error": []}',
+                 '{"ok": true}', '{"success": true}', '{"status": "ok"}', '{"status": 200}', '[{"error": "x"}]'):
+        assert not _silent(fine), fine
+
+
+def test_lost_llm_span_counts_http_399_but_not_400():
+    assert "lost_llm_span" in kinds([AG, http("h1", 1, 200), http("h2", 2, 399), chat("c", 3)])
+    assert "lost_llm_span" not in kinds([AG, http("h1", 1, 200), http("h2", 2, 400), chat("c", 3)])
+
+
+def _agent_run(tokens):
+    return [AG, chat("c", 1, **{"gen_ai.usage.input_tokens": tokens, "gen_ai.usage.output_tokens": 0})]
+
+
+def test_cost_spike_threshold_is_strictly_greater_than_factor_times_median():
+    peers = [_agent_run(100) for _ in range(5)]
+    assert detect_cost_spikes(peers + [_agent_run(500)]) == {}  # exactly 5x the median: not a spike
+    assert set(detect_cost_spikes(peers + [_agent_run(501)])) == {5}
+
+
+def test_cost_spike_needs_enough_peers():
+    run = _agent_run
+    # the minimum is min_peers runs of the agent: the outlier plus min_peers-1 peers
+    assert set(detect_cost_spikes([run(100)] * 4 + [run(9999)])) == {4}
+    assert detect_cost_spikes([run(100)] * 3 + [run(9999)]) == {}  # one run short
+    # a peer with zero tokens does not count towards the peers, so only 3 are left
+    assert detect_cost_spikes([run(0), run(100), run(100), run(100), run(9999)]) == {}
+    assert set(detect_cost_spikes([run(0), run(100), run(100), run(100), run(100), run(9999)])) == {5}
+
+
+def test_silent_tool_error_needs_the_answer_to_come_after_the_failed_tool():
+    after = [AG, tool("t", 1, out='{"error": "x"}'), chat("c", 2, text='["Done, all good."]')]
+    before = [AG, chat("c", 1, text='["Done, all good."]'), tool("t", 2, out='{"error": "x"}')]
+    same_time = [AG, tool("t", 1, out='{"error": "x"}'), chat("c", 1, text='["Done, all good."]')]
+    stopped = [AG, tool("t", 1, out='{"error": "x"}'), chat("c", 2, finish="tool_calls", text='["Done."]')]
+    assert "silent_tool_error" in kinds(after)
+    for case in (before, same_time, stopped):
+        assert "silent_tool_error" not in kinds(case)
+
+
+def test_dead_end_after_an_errored_run_needs_a_tool_started_after_the_last_answer():
+    failed_agent = dict(AG, status="internal_error")
+    late_tool = [failed_agent, chat("c", 1, text='["partial"]'), tool("t", 2)]
+    early_tool = [failed_agent, tool("t", 1), chat("c", 2, text='["partial"]')]
+    same_time = [failed_agent, tool("t", 1), chat("c", 1, text='["partial"]')]
+    assert "dead_end" in kinds(late_tool)
+    assert "dead_end" not in kinds(early_tool) and "dead_end" not in kinds(same_time)
+    assert "dead_end" not in kinds([AG, chat("c", 1, text='["partial"]'), tool("t", 2)])  # the run did not fail

@@ -227,3 +227,79 @@ def test_output_tool_calls_read_from_deprecated_keys():
     d = dict(GOOD, **{"ai.tool_calls": '[{"name": "get_weather", "parameters": {"city": "Paris"}}]'})
     r = result([span(**d)], calls=_calls(tool_calls=[["get_weather", {"city": "Paris"}]]))
     assert oracles.check_output(r) == []
+
+
+# ---- boundary and detail checks added after mutation testing (a flipped comparison or constant went unnoticed)
+
+def _conv(**over):
+    d = {"gen_ai.usage.input_tokens": 100, "gen_ai.usage.output_tokens": 50, **over}
+    return [f for f in oracles.check_conventions(result([span(**d)])) if f["rule"].startswith("conventions.")]
+
+
+def test_cached_equal_to_input_is_allowed_one_more_is_not():
+    assert [f for f in _conv(**{"gen_ai.usage.cache_read.input_tokens": 100})
+            if f["rule"] == "conventions.cached_exceeds_input"] == []
+    (f,) = [f for f in _conv(**{"gen_ai.usage.cache_read.input_tokens": 101})
+            if f["rule"] == "conventions.cached_exceeds_input"]
+    assert (f["expected"], f["actual"]) == ("<= 100", 101)
+
+
+def test_reasoning_equal_to_output_is_allowed_one_more_is_not():
+    assert [f for f in _conv(**{"gen_ai.usage.reasoning.output_tokens": 50})
+            if f["rule"] == "conventions.reasoning_exceeds_output"] == []
+    (f,) = [f for f in _conv(**{"gen_ai.usage.reasoning.output_tokens": 51})
+            if f["rule"] == "conventions.reasoning_exceeds_output"]
+    assert (f["expected"], f["actual"]) == ("<= 50", 51)
+
+
+def test_total_mismatch_reports_the_sum_and_the_recorded_total():
+    assert [f for f in _conv(**{"gen_ai.usage.total_tokens": 150}) if f["rule"] == "conventions.total_mismatch"] == []
+    (f,) = [f for f in _conv(**{"gen_ai.usage.total_tokens": 151}) if f["rule"] == "conventions.total_mismatch"]
+    assert (f["expected"], f["actual"]) == (150, 151)
+
+
+def test_missing_usage_severity_depends_on_the_attribute():
+    d = {k: v for k, v in GOOD.items() if "cache_read" not in k and "output_tokens" not in k}
+    sev = {f["message"].split()[0]: f["severity"] for f in oracles.check_usage(result([span(**d)]))}
+    assert sev["output_tokens"] == "high"  # the number a bill is built on
+    d = {k: v for k, v in GOOD.items() if "cache_read" not in k}
+    sev = {f["message"].split()[0]: f["severity"] for f in oracles.check_usage(result([span(**d)]))}
+    assert sev == {"cached": "medium"}
+
+
+def test_wrong_usage_message_names_both_numbers():
+    d = dict(GOOD, **{"gen_ai.usage.input_tokens": 1199})
+    (f,) = [f for f in oracles.check_usage(result([span(**d)])) if f["rule"] == "usage.wrong.input_tokens"]
+    assert (f["expected"], f["actual"]) == (1200, 1199) and "1199" in f["message"] and "1200" in f["message"]
+
+
+def test_duplicate_span_reports_the_count():
+    a, b, c = (span(sid=x, **GOOD) for x in "abc")
+    (f,) = [x for x in oracles.check_lifecycle(result([a, b, c])) if x["rule"] == "lifecycle.duplicate_span"]
+    assert (f["expected"], f["actual"]) == (1, 3)
+
+
+def test_failed_call_with_ok_status_flagged_but_completed_call_and_missing_span_are_not():
+    failed = {"truth": T, "op": "gen_ai.chat", "completes": False}
+    done = {"truth": T, "op": "gen_ai.chat", "completes": True}
+    rules = lambda r: [f["rule"] for f in oracles.check_lifecycle(r)]  # noqa: E731
+    assert "lifecycle.status_ok_on_failure" in rules(result([span(**GOOD)], calls=[failed], exception="boom"))
+    # negative controls: the call completed, or the span carries an error status, or the app saw no exception
+    assert "lifecycle.status_ok_on_failure" not in rules(result([span(**GOOD)], calls=[done], exception="boom"))
+    assert "lifecycle.status_ok_on_failure" not in rules(
+        result([span(status="internal_error", **GOOD)], calls=[failed], exception="boom"))
+    assert "lifecycle.status_ok_on_failure" not in rules(result([span(**GOOD)], calls=[failed], exception=None))
+
+
+def test_streaming_flag_wrong_both_directions_and_untagged_results_skipped():
+    def run(flag, tags):
+        r = result([span(**GOOD, **{"gen_ai.response.streaming": flag})])
+        r["tags"] = tags
+        return [f for f in oracles.check_identity(r) if f["rule"] == "identity.streaming_wrong"]
+    (f,) = run(True, [])
+    assert (f["expected"], f["actual"]) == (False, True) and "non-streaming" in f["message"]
+    (f,) = run(False, ["stream"])
+    assert (f["expected"], f["actual"]) == (True, False) and "a streaming call" in f["message"]
+    assert run(True, ["stream"]) == [] and run(False, []) == []
+    r = result([span(**GOOD, **{"gen_ai.response.streaming": True})])  # no tags: not checked
+    assert [f for f in oracles.check_identity(r) if f["rule"] == "identity.streaming_wrong"] == []

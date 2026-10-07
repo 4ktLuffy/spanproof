@@ -1,0 +1,44 @@
+{
+ "live_runs": 45,
+ "loud_failures_left_out": 8,
+ "not_found_in_sentry": 1,
+ "scored": 36,
+ "scores": {
+  "tool_loop": {
+   "tp": 6,
+   "fp": 0,
+   "fn": 0
+  },
+  "retry_storm": {
+   "tp": 9,
+   "fp": 0,
+   "fn": 0
+  },
+  "silent_tool_error": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 0
+  },
+  "dead_end": {
+   "tp": 1,
+   "fp": 0,
+   "fn": 0
+  },
+  "truncated_answer": {
+   "tp": 2,
+   "fp": 0,
+   "fn": 0
+  },
+  "empty_answer": {
+   "tp": 0,
+   "fp": 0,
+   "fn": 0
+  }
+ },
+ "live_healthy": 19,
+ "live_healthy_with_alarm": 0,
+ "synthetic_healthy_from_sentry": 16,
+ "synthetic_healthy_with_alarm": 0,
+ "healthy_total": 35,
+ "healthy_with_alarm_total": 0
+}

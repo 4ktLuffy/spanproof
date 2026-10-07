@@ -28,7 +28,7 @@ I also ran it against a real Sentry account (what Sentry stored matched what was
 
 Watch reads agent traces from a Sentry org and files failures back as Sentry issues: tool loops, retry storms, silent tool errors, dead ends, cut-off and empty answers, LLM calls missing from the trace, and token spikes. Repeats of the same failure group into one issue, with a link to the trace.
 
-The hard part is timing. Spans arrive late and out of order, so Watch waits until a trace has really finished, reads it again later for stragglers, and gives every failure a fixed id so a retry never files twice. I tested this by replaying 301 saved traces the way Sentry delivers them, with failed deliveries and crashes thrown in: out of 1,945 failures it filed 0 false issues and 0 duplicates, and missed 1. On traces read back from a real Sentry account, including real agents on a live model, it raised no false alarms on 35 healthy traces.
+The hard part is timing. Spans arrive late and out of order, so Watch waits until a trace has really finished, reads it again later for stragglers, and gives every failure a fixed id so a retry never files twice. I tested this by replaying 301 saved traces the way Sentry delivers them, with failed deliveries and crashes thrown in: out of 1,945 failures it filed 0 false issues and 0 duplicates, and missed 1. On traces read back from a real Sentry account it raised no false alarms on 35 healthy traces: 19 real agent runs on a live model, judged by what each agent actually did, plus 16 synthetic ones. `python -m spanproof.score_live` reproduces this.
 
 ## Built on top of Sentry's own code
 

@@ -51,13 +51,34 @@ def load(paths: list[str]) -> list[list[dict]]:
     return out
 
 
-def schedule(traces: list[list[dict]], rng: random.Random, window: float = 6 * 3600) -> list[list[dict]]:
+# Extra arrival scenarios, run with --scenario NAME. They only change how traces are scheduled; the
+# default (no --scenario) draws the same random numbers as before, so the published numbers do not move.
+SCENARIOS = {
+    "default": {},
+    # every span ending in a 20-minute outage window is ingested only after it, all at once
+    "burst": {"burst": (3 * 3600.0, 1200.0)},
+    # the same, but the outage lasts 90 minutes: longer than Watch's one-hour discovery window
+    "burst-90m": {"burst": (3 * 3600.0, 5400.0)},
+    # a long tail of agents running up to 3 hours (default caps at 30 minutes)
+    "long-agents": {"max_duration": 10800.0, "mu": 5.5},
+    # 25% of spans ingested 1-20 minutes late (default: 2% by 1-10 minutes)
+    "backlog-heavy": {"backlog_p": 0.25, "backlog_max": 1200.0},
+    # the process dies in 30% of cycles (set by run(); see main())
+    "restart-heavy": {"crash": 0.3},
+    # the same 301 traces packed into one hour, so more than Watch's 100-trace discovery limit are live at once
+    "dense": {"window": 3600.0},
+}
+
+
+def schedule(traces: list[list[dict]], rng: random.Random, window: float = 6 * 3600, *,
+             max_duration: float = 1800.0, mu: float = 3.7, backlog_p: float = 0.02, backlog_max: float = 600.0,
+             burst: tuple | None = None, crash: float | None = None) -> list[list[dict]]:
     """Copies of the traces with start times stretched and placed, and an arrival time per span."""
     out = []
     for n, sp in enumerate(traces):
         t0 = min(s["start"] for s in sp)
         span = max(s["start"] for s in sp) - t0
-        duration = min(rng.lognormvariate(3.7, 1.2), 1800.0)  # median ~40 s, a few runs near 30 min
+        duration = min(rng.lognormvariate(mu, 1.2), max_duration)  # median ~40 s, a few runs near 30 min
         stretch = duration / max(span, 0.01)
         base = rng.uniform(0, window)
         tid = f"r{n:04d}"
@@ -76,9 +97,11 @@ def schedule(traces: list[list[dict]], rng: random.Random, window: float = 6 * 3
 
         for s in new:
             delay = rng.lognormvariate(1.0, 0.7)
-            if rng.random() < 0.02:
-                delay += rng.uniform(60, 600)  # ingestion backlog
+            if rng.random() < backlog_p:
+                delay += rng.uniform(60, backlog_max)  # ingestion backlog
             s["_arrive"] = end(s) + delay
+            if burst and burst[0] <= s["_arrive"] < burst[0] + burst[1]:
+                s["_arrive"] = burst[0] + burst[1] + rng.uniform(0, 30)  # held back, then flushed together
         out.append(new)
     return out
 
@@ -190,6 +213,8 @@ def run(version: str, traces, seed: int, fail: float, crash: float) -> dict:
                                       and filed_at[k] < agent_at[k[0]]),"false": sum(1 for k in got if k not in want), "missed": sum(1 for k in want if k not in got),
             "early": sum(1 for k in got if k in want and filed_at[k] < finish[k[0]]),
             "duplicates": sum(n - 1 for n in got.values()), "true": len(want), "posts": world.posts,
+            "detail": {"false": sorted(k for k in got if k not in want),
+                       "missed": sorted(k for k in want if k not in got)},
             }
 
 
@@ -251,20 +276,26 @@ def main(argv=None) -> int:
     ap.add_argument("--fail", type=float, default=0.1, help="share of deliveries that fail")
     ap.add_argument("--crash", type=float, default=0.02,
                     help="share of cycles in which a crash is armed: the process dies at its next delivery after 1-3")
+    ap.add_argument("--scenario", choices=sorted(SCENARIOS), default="default",
+                    help="harsher arrival pattern (default: the published one)")
     ap.add_argument("--json")
     a = ap.parse_args(argv)
     base = load(a.traces)
+    sc = dict(SCENARIOS[a.scenario])
+    if "crash" in sc:
+        a.crash = sc.pop("crash")
     rows = {}
     for version in ("first-sight", "settle-only", "watch"):
         tot = Counter()
         delays = []
         for seed in range(a.seeds):
-            traces = schedule(base, random.Random(seed))
+            traces = schedule(base, random.Random(seed), **sc)
             r = run(version, traces, seed, a.fail, a.crash)
             delays += r.pop("delays")
+            r.pop("detail")
             tot.update(r)
         rows[version] = dict(tot, median_delay=statistics.median(delays))  # first filing of each true failure
-    print(f"{len(base)} traces x {a.seeds} arrival orders; {a.fail:.0%} of deliveries fail, "
+    print(f"scenario {a.scenario}: {len(base)} traces x {a.seeds} arrival orders; {a.fail:.0%} of deliveries fail, "
           f"a crash is armed in {a.crash:.0%} of cycles")
     print(f"{'version':12} {'true':>6} {'false':>6} {'right, spans in flight':>23} {'never filed':>12} {'stored twice':>13}"
           f" {'median delay':>13}")
@@ -272,7 +303,7 @@ def main(argv=None) -> int:
         print(f"{v:12} {r['true']:6} {r['false']:6} {r['early']:23} {r['missed']:12} {r['duplicates']:13}"
               f" {r['median_delay']:12.0f}s")
     if a.json:
-        json.dump({"traces": len(base), "seeds": a.seeds, "fail": a.fail, "crash": a.crash, "versions": rows},
+        json.dump({"traces": len(base), "seeds": a.seeds, "fail": a.fail, "crash": a.crash, "scenario": a.scenario, "versions": rows},
                   open(a.json, "w"), indent=1)
     return 0
 

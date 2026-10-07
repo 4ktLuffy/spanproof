@@ -289,7 +289,8 @@ def _f(**kw):
 # ------------------------------------------------- found by the 2026-10-06 exploration
 _f(id="SP-19", title="Hugging Face and Cohere streams swallow provider errors: the app gets a shorter answer and no "
                      "exception",
-   sdk="python", integration="huggingface_hub, cohere", severity="high", intent="unintended", status="new",
+   sdk="python", integration="huggingface_hub, cohere", severity="high", intent="unintended", status="reported: sentry-python#7889",
+   issue="https://github.com/getsentry/sentry-python/issues/7889",
    evidence=[f"{PYI}/huggingface_hub.py#L352-L388 (the for/yield loop sits inside capture_internal_exceptions())",
              f"{PYI}/huggingface_hub.py#L286-L307 (text_generation stream, same pattern)",
              f"{PYI}/cohere.py#L223-L234 (chat_stream, same pattern)",
@@ -343,7 +344,8 @@ _f(id="SP-24", title="OpenAI background responses: tokens never recorded (respon
 _f(id="SP-25", title="Structured-output parse() calls produce no span (OpenAI chat.completions.parse, Anthropic "
                      "messages.parse)",
    sdk="python", integration="openai, anthropic", severity="high", intent="unintended",
-   status="new (responses.parse known: #5401)", issue="https://github.com/getsentry/sentry-python/issues/5401",
+   status="reported: sentry-python#7891 (responses.parse known: #5401)",
+   issue="https://github.com/getsentry/sentry-python/issues/7891",
    evidence=[f"{PYI}/openai.py#L138-L149", f"{PYI}/anthropic.py#L245-L274",
              "openai and anthropic SDKs: parse() calls self._post directly, not create()"],
    scenarios=["openai.adv.chat.parse", "openai.adv.chat.parse.async", "openai.adv.responses.parse",
@@ -398,7 +400,8 @@ _f(id="SP-31", title="Billing facts with no attribute: server and built-in tool 
           "audio tokens and flex/priority tiers change the bill but cannot be represented, so cost is understated.",
    fix="Conventions first (attributes for these), then the integrations.")
 _f(id="SP-32", title="MCP: tool errors are recorded as successes",
-   sdk="python", integration="mcp", severity="high", intent="unintended", status="new",
+   sdk="python", integration="mcp", severity="high", intent="unintended", status="reported: sentry-python#7890",
+   issue="https://github.com/getsentry/sentry-python/issues/7890",
    evidence=[f"{PYI}/mcp.py#L457-L501 (mcp 2.x middleware never reads result['isError'])",
              f"{PYI}/mcp.py#L357-L395 (mcp 1.x wrapper ignores a returned CallToolResult.isError)",
              "the client receives isError=true; the span status stays ok and the MCP integration captures nothing"],
