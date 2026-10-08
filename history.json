@@ -805,5 +805,250 @@
   "unknown": [],
   "crashes": [],
   "baseline": null
+ },
+ {
+  "date": "2026-10-08",
+  "format": 2,
+  "sdk_sha": "7cb80948cbdefb10831740c23b49e56e348532a5",
+  "provenance": {
+   "sdk_sha": "7cb80948cbdefb10831740c23b49e56e348532a5",
+   "runner_sha": "3e781da94c8518958f35df4119837bbc387b8946",
+   "packages": {
+    "openai-base@1.0.1": {
+     "sentry-sdk": "2.71.0",
+     "openai": "1.0.1"
+    },
+    "openai-base@latest": {
+     "sentry-sdk": "2.71.0",
+     "openai": "3.26.1"
+    },
+    "openai-base@pre": {
+     "sentry-sdk": "2.71.0",
+     "openai": "3.26.1"
+    },
+    "anthropic@0.16.0": {
+     "sentry-sdk": "2.71.0",
+     "anthropic": "0.16.0"
+    },
+    "anthropic@latest": {
+     "sentry-sdk": "2.71.0",
+     "anthropic": "1.12.1"
+    },
+    "anthropic@pre": {
+     "sentry-sdk": "2.71.0",
+     "anthropic": "1.12.1"
+    },
+    "litellm@1.77.7": {
+     "sentry-sdk": "2.71.0",
+     "litellm": "1.77.7"
+    },
+    "litellm@latest": {
+     "sentry-sdk": "2.71.0",
+     "litellm": "1.104.2"
+    },
+    "litellm@pre": {
+     "sentry-sdk": "2.71.0",
+     "litellm": "1.106.0.dev2"
+    },
+    "google_genai@1.29.0": {
+     "sentry-sdk": "2.71.0",
+     "google-genai": "1.29.0"
+    },
+    "google_genai@latest": {
+     "sentry-sdk": "2.71.0",
+     "google-genai": "2.29.0"
+    },
+    "google_genai@pre": {
+     "sentry-sdk": "2.71.0",
+     "google-genai": "2.29.0"
+    },
+    "cohere@5.4.0": {
+     "sentry-sdk": "2.71.0",
+     "cohere": "5.4.0"
+    },
+    "cohere@latest": {
+     "sentry-sdk": "2.71.0",
+     "cohere": "7.2.0"
+    },
+    "cohere@pre": {
+     "sentry-sdk": "2.71.0",
+     "cohere": "7.2.0"
+    },
+    "mistral@2.0.5": {
+     "sentry-sdk": "2.71.0",
+     "mistralai": "2.0.5"
+    },
+    "mistral@latest": {
+     "sentry-sdk": "2.71.0",
+     "mistralai": "3.1.0"
+    },
+    "mistral@pre": {
+     "sentry-sdk": "2.71.0",
+     "mistralai": "3.1.0"
+    },
+    "huggingface_hub@0.24.7": {
+     "sentry-sdk": "2.71.0",
+     "huggingface_hub": "0.24.7"
+    },
+    "huggingface_hub@latest": {
+     "sentry-sdk": "2.71.0",
+     "huggingface_hub": "2.1.1"
+    },
+    "huggingface_hub@pre": {
+     "sentry-sdk": "2.71.0",
+     "huggingface_hub": "2.1.1"
+    },
+    "openai_agents@0.0.19": {
+     "sentry-sdk": "2.71.0",
+     "openai-agents": "0.0.19"
+    },
+    "openai_agents@latest": {
+     "sentry-sdk": "2.71.0",
+     "openai-agents": "0.23.1"
+    },
+    "openai_agents@pre": {
+     "sentry-sdk": "2.71.0",
+     "openai-agents": "0.23.1"
+    },
+    "pydantic_ai@1.0.18": {
+     "sentry-sdk": "2.71.0",
+     "pydantic-ai-slim": "1.0.18"
+    },
+    "pydantic_ai@latest": {
+     "sentry-sdk": "2.71.0",
+     "pydantic-ai-slim": "2.54.0"
+    },
+    "pydantic_ai@pre": {
+     "sentry-sdk": "2.71.0",
+     "pydantic-ai-slim": "2.54.0"
+    },
+    "langchain-base@0.1.20": {
+     "sentry-sdk": "2.71.0",
+     "langchain": "0.1.20"
+    },
+    "langchain-base@latest": {
+     "sentry-sdk": "2.71.0",
+     "langchain": "1.4.3"
+    },
+    "langchain-base@pre": {
+     "sentry-sdk": "2.71.0",
+     "langchain": "1.4.3"
+    },
+    "langgraph@0.6.11": {
+     "sentry-sdk": "2.71.0",
+     "langgraph": "0.6.11"
+    },
+    "langgraph@latest": {
+     "sentry-sdk": "2.71.0",
+     "langgraph": "1.2.14"
+    },
+    "langgraph@pre": {
+     "sentry-sdk": "2.71.0",
+     "langgraph": "1.2.14"
+    },
+    "js": {
+     "@sentry/node": "11.5.0",
+     "openai": "7.30.1",
+     "@anthropic-ai/sdk": "0.131.0",
+     "ai": "7.0.133",
+     "@langchain/core": "1.2.16",
+     "@langchain/openai": "1.6.2",
+     "@langchain/anthropic": "1.5.12",
+     "@langchain/google-genai": "2.3.2",
+     "@langchain/langgraph": "1.4.19",
+     "langchain": "1.5.15",
+     "@google/genai": "2.27.0",
+     "node": "v22.23.3"
+    }
+   }
+  },
+  "cells": [
+   "openai-base@1.0.1",
+   "openai-base@latest (3.26.1)",
+   "openai-base@pre (3.26.1)",
+   "anthropic@0.16.0",
+   "anthropic@latest (1.12.1)",
+   "anthropic@pre (1.12.1)",
+   "litellm@1.77.7",
+   "litellm@latest (1.104.2)",
+   "litellm@pre (1.106.0.dev2)",
+   "google_genai@1.29.0",
+   "google_genai@latest (2.29.0)",
+   "google_genai@pre (2.29.0)",
+   "cohere@5.4.0",
+   "cohere@latest (7.2.0)",
+   "cohere@pre (7.2.0)",
+   "mistral@2.0.5",
+   "mistral@latest (3.1.0)",
+   "mistral@pre (3.1.0)",
+   "huggingface_hub@0.24.7",
+   "huggingface_hub@latest (2.1.1)",
+   "huggingface_hub@pre (2.1.1)",
+   "openai_agents@0.0.19",
+   "openai_agents@latest (0.23.1)",
+   "openai_agents@pre (0.23.1)",
+   "pydantic_ai@1.0.18",
+   "pydantic_ai@latest (2.54.0)",
+   "pydantic_ai@pre (2.54.0)",
+   "langchain-base@0.1.20",
+   "langchain-base@latest (1.4.3)",
+   "langchain-base@pre (1.4.3)",
+   "langgraph@0.6.11",
+   "langgraph@latest (1.2.14)",
+   "langgraph@pre (1.2.14)",
+   "js (@sentry/node 11.5.0)"
+  ],
+  "problems": [
+   "KNOWN-JS-23993",
+   "OLD-SDK:anthropic@0.16.0",
+   "OLD-SDK:langchain-base@0.1.20",
+   "OLD-SDK:openai-base@1.0.1",
+   "SP-01",
+   "SP-02",
+   "SP-03",
+   "SP-04",
+   "SP-05",
+   "SP-06",
+   "SP-07",
+   "SP-08",
+   "SP-09",
+   "SP-10",
+   "SP-11",
+   "SP-13",
+   "SP-14",
+   "SP-15",
+   "SP-19",
+   "SP-20",
+   "SP-21",
+   "SP-22",
+   "SP-23",
+   "SP-24",
+   "SP-25",
+   "SP-26",
+   "SP-27",
+   "SP-28",
+   "SP-29",
+   "SP-30",
+   "SP-31",
+   "SP-35",
+   "SP-36",
+   "SP-37",
+   "SP-38",
+   "SP-40",
+   "SP-41",
+   "SP-42",
+   "SP-43",
+   "SP-44",
+   "SP-45",
+   "SP-46",
+   "SP-47",
+   "SP-48",
+   "UPSTREAM-LANGCHAIN"
+  ],
+  "new": [],
+  "fixed": [],
+  "unknown": [],
+  "crashes": [],
+  "baseline": "2026-10-07"
  }
 ]
