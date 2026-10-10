@@ -14,44 +14,44 @@ th,td{padding:6px 10px;border-bottom:1px solid var(--rule);text-align:left;verti
 th{font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}.bad{color:var(--bad)}.good{color:var(--good)}
 .new{color:var(--new);font-weight:600}code{font-family:var(--mono);font-size:.85em}a{color:var(--new)}</style><div class='w'>
 <h1>SpanProof nightly: Sentry AI monitoring vs. provider truth</h1>
-<p class='m'>last run 2026-10-09 · sentry-python 7cb80948 · runner 3e781da9 · @sentry/node 11.6.0 · 34 cells · 1132 open findings under 45 ids · <a href='https://github.com/4ktLuffy/spanproof'>repository</a></p>
+<p class='m'>last run 2026-10-10 · sentry-python 7cb80948 · runner 3e781da9 · @sentry/node 11.6.0 · 34 cells · 1132 open findings under 45 ids · <a href='https://github.com/4ktLuffy/spanproof'>repository</a></p>
 <p>Every night this replays scripted provider responses through Sentry's AI integrations on the latest sentry-python, against the oldest supported, latest and pre-release versions of each provider SDK, and compares the spans with the truth. Nights are compared finding by finding (cell, scenario, mode, rule, attribute, call); the catalog id is a label. A finding counts as fixed only if its own cell, scenario and mode ran cleanly tonight and no longer produce it. If they did not run (crash, failed install, unsupported, missing), the finding is listed as did not run and kept open.</p>
-<h2>Since the previous night (2026-10-08)</h2>
+<h2>Since the previous night (2026-10-09)</h2>
 <p><b>0 new, 0 fixed, 0 did not run.</b></p>
-<h3>What changed between the two nights</h3><ul><li><code>huggingface_hub@latest</code>: huggingface_hub 2.1.1 -&gt; 2.2.0</li><li><code>huggingface_hub@pre</code>: huggingface_hub 2.1.1 -&gt; 2.2.0</li><li><code>js</code>: @sentry/node 11.5.0 -&gt; 11.6.0; ai 7.0.133 -&gt; 7.0.136; openai 7.30.1 -&gt; 7.31.0</li><li><code>langchain-base@latest</code>: langchain 1.4.3 -&gt; 1.4.4</li><li><code>langchain-base@pre</code>: langchain 1.4.3 -&gt; 1.4.4</li><li><code>mistral@latest</code>: mistralai 3.1.0 -&gt; 3.2.0</li><li><code>mistral@pre</code>: mistralai 3.1.0 -&gt; 3.2.0</li></ul><p class='m'>Listed next to each verdict below. A change that happens on the same night as a verdict co-occurs with it; that is not proof that it caused it.</p>
+<h3>What changed between the two nights</h3><ul><li><code>anthropic@latest</code>: anthropic 1.12.1 -&gt; 1.13.0</li><li><code>anthropic@pre</code>: anthropic 1.12.1 -&gt; 1.13.0</li><li><code>js</code>: ai 7.0.136 -&gt; 7.0.137; openai 7.31.0 -&gt; 7.32.0</li><li><code>litellm@pre</code>: litellm 1.106.0.dev2 -&gt; 1.106.0.dev3</li><li><code>openai-base@latest</code>: openai 3.26.1 -&gt; 3.28.0</li><li><code>openai-base@pre</code>: openai 3.26.1 -&gt; 3.28.0</li><li><code>pydantic_ai@latest</code>: pydantic-ai-slim 2.54.0 -&gt; 2.55.0</li><li><code>pydantic_ai@pre</code>: pydantic-ai-slim 2.54.0 -&gt; 2.55.0</li></ul><p class='m'>Listed next to each verdict below. A change that happens on the same night as a verdict co-occurs with it; that is not proof that it caused it.</p>
 <h2>Open findings tonight</h2><div class='s'><table><tr><th>id</th><th>finding</th><th>findings</th><th>where</th></tr>
 <tr><td class=''>KNOWN-JS-23993</td><td>Vercel AI reasoning tokens (known: getsentry/sentry-javascript#23993)</td><td>2</td><td class='m'>js (@sentry/node 11.6.0)</td></tr>
 <tr><td class=''>old SDK</td><td>Provider SDK version predates the usage field (not a Sentry fault)</td><td>4</td><td class='m'>anthropic@0.16.0</td></tr>
 <tr><td class=''>old SDK</td><td>Provider SDK version predates the usage field (not a Sentry fault)</td><td>6</td><td class='m'>langchain-base@0.1.20</td></tr>
 <tr><td class=''>old SDK</td><td>Provider SDK version predates the usage field (not a Sentry fault)</td><td>8</td><td class='m'>openai-base@1.0.1</td></tr>
-<tr><td class=''>SP-01</td><td>LiteLLM drops cached, reasoning and cache-write tokens</td><td>48</td><td class='m'>litellm@1.77.7, litellm@latest (1.104.2), litellm@pre (1.106.0.dev2)</td></tr>
-<tr><td class=''>SP-02</td><td>OpenAI stream closed early: the gen_ai span is never sent (Chat and Responses)</td><td>8</td><td class='m'>openai-base@latest (3.26.1), openai-base@pre (3.26.1)</td></tr>
-<tr><td class=''>SP-03</td><td>LiteLLM stream closed early: the gen_ai span is never sent</td><td>6</td><td class='m'>litellm@1.77.7, litellm@latest (1.104.2), litellm@pre (1.106.0.dev2)</td></tr>
-<tr><td class=''>SP-04</td><td>OpenAI Responses cache_write_tokens never recorded (Python and JavaScript)</td><td>8</td><td class='m'>openai-base@latest (3.26.1), openai-base@pre (3.26.1)</td></tr>
-<tr><td class=''>SP-05</td><td>Anthropic with_raw_response: span closes before parse(), so no usage, model or id</td><td>30</td><td class='m'>anthropic@0.16.0, anthropic@latest (1.12.1), anthropic@pre (1.12.1)</td></tr>
+<tr><td class=''>SP-01</td><td>LiteLLM drops cached, reasoning and cache-write tokens</td><td>48</td><td class='m'>litellm@1.77.7, litellm@latest (1.104.2), litellm@pre (1.106.0.dev3)</td></tr>
+<tr><td class=''>SP-02</td><td>OpenAI stream closed early: the gen_ai span is never sent (Chat and Responses)</td><td>8</td><td class='m'>openai-base@latest (3.28.0), openai-base@pre (3.28.0)</td></tr>
+<tr><td class=''>SP-03</td><td>LiteLLM stream closed early: the gen_ai span is never sent</td><td>6</td><td class='m'>litellm@1.77.7, litellm@latest (1.104.2), litellm@pre (1.106.0.dev3)</td></tr>
+<tr><td class=''>SP-04</td><td>OpenAI Responses cache_write_tokens never recorded (Python and JavaScript)</td><td>8</td><td class='m'>openai-base@latest (3.28.0), openai-base@pre (3.28.0)</td></tr>
+<tr><td class=''>SP-05</td><td>Anthropic with_raw_response: span closes before parse(), so no usage, model or id</td><td>30</td><td class='m'>anthropic@0.16.0, anthropic@latest (1.13.0), anthropic@pre (1.13.0)</td></tr>
 <tr><td class=''>SP-06</td><td>Summing tokens across span levels double counts agent runs (2.00x to 3.00x billed)</td><td>87</td><td class='m'>js (@sentry/node 11.6.0), langgraph@0.6.11, langgraph@latest (1.2.14), langgraph@pre (1.2.14), openai_agents@0.0.19, openai_agents@latest (0.23.1) …</td></tr>
 <tr><td class=''>SP-07</td><td>Nested agent (Agent.as_tool) reports usage that includes its parent&#x27;s tokens</td><td>14</td><td class='m'>openai_agents@0.0.19, openai_agents@latest (0.23.1), openai_agents@pre (0.23.1)</td></tr>
 <tr><td class=''>SP-08</td><td>LangGraph graph.stream()/astream(): no invoke_agent span</td><td>30</td><td class='m'>langgraph@0.6.11, langgraph@latest (1.2.14), langgraph@pre (1.2.14)</td></tr>
-<tr><td class=''>SP-09</td><td>Pydantic AI Agent.iter(): no agent or tool spans</td><td>12</td><td class='m'>pydantic_ai@1.0.18, pydantic_ai@latest (2.54.0), pydantic_ai@pre (2.54.0)</td></tr>
-<tr><td class=''>SP-10</td><td>Finish reasons not recorded by OpenAI, OpenAI Agents, Pydantic AI (and LiteLLM)</td><td>184</td><td class='m'>anthropic@0.16.0, anthropic@latest (1.12.1), anthropic@pre (1.12.1), js (@sentry/node 11.6.0), litellm@1.77.7, litellm@latest (1.104.2) …</td></tr>
+<tr><td class=''>SP-09</td><td>Pydantic AI Agent.iter(): no agent or tool spans</td><td>12</td><td class='m'>pydantic_ai@1.0.18, pydantic_ai@latest (2.55.0), pydantic_ai@pre (2.55.0)</td></tr>
+<tr><td class=''>SP-10</td><td>Finish reasons not recorded by OpenAI, OpenAI Agents, Pydantic AI (and LiteLLM)</td><td>184</td><td class='m'>anthropic@0.16.0, anthropic@latest (1.13.0), anthropic@pre (1.13.0), js (@sentry/node 11.6.0), litellm@1.77.7, litellm@latest (1.104.2) …</td></tr>
 <tr><td class=''>SP-11</td><td>JS OpenAI ignores cached and reasoning tokens</td><td>8</td><td class='m'>js (@sentry/node 11.6.0)</td></tr>
 <tr><td class=''>SP-13</td><td>JS Vercel AI streamText stopped early: parent span never sent, child orphaned</td><td>2</td><td class='m'>js (@sentry/node 11.6.0)</td></tr>
-<tr><td class=''>SP-14</td><td>List-valued finish_reasons cannot be searched in Sentry with the default gen_ai transport</td><td>232</td><td class='m'>anthropic@0.16.0, anthropic@latest (1.12.1), anthropic@pre (1.12.1), cohere@5.4.0, cohere@latest (7.2.0), cohere@pre (7.2.0) …</td></tr>
-<tr><td class=''>SP-15</td><td>LiteLLM streams report the requested model instead of the provider&#x27;s model</td><td>6</td><td class='m'>litellm@1.77.7, litellm@latest (1.104.2), litellm@pre (1.106.0.dev2)</td></tr>
+<tr><td class=''>SP-14</td><td>List-valued finish_reasons cannot be searched in Sentry with the default gen_ai transport</td><td>232</td><td class='m'>anthropic@0.16.0, anthropic@latest (1.13.0), anthropic@pre (1.13.0), cohere@5.4.0, cohere@latest (7.2.0), cohere@pre (7.2.0) …</td></tr>
+<tr><td class=''>SP-15</td><td>LiteLLM streams report the requested model instead of the provider&#x27;s model</td><td>6</td><td class='m'>litellm@1.77.7, litellm@latest (1.104.2), litellm@pre (1.106.0.dev3)</td></tr>
 <tr><td class=''>SP-19</td><td>Hugging Face and Cohere streams swallow provider errors: the app gets a shorter answer and no exception</td><td>10</td><td class='m'>cohere@5.4.0, cohere@latest (7.2.0), cohere@pre (7.2.0), huggingface_hub@latest (2.2.0), huggingface_hub@pre (2.2.0)</td></tr>
 <tr><td class=''>SP-20</td><td>Hugging Face chat stream: span lost on early close, break or mid-stream error</td><td>12</td><td class='m'>huggingface_hub@latest (2.2.0), huggingface_hub@pre (2.2.0)</td></tr>
 <tr><td class=''>SP-21</td><td>Hugging Face text_generation: generated tokens recorded as the total; input and output tokens missing</td><td>36</td><td class='m'>huggingface_hub@0.24.7, huggingface_hub@latest (2.2.0), huggingface_hub@pre (2.2.0)</td></tr>
 <tr><td class=''>SP-22</td><td>Mistral: chat.stream, chat.stream_async and embeddings.create produce no span</td><td>18</td><td class='m'>mistral@2.0.5, mistral@latest (3.2.0), mistral@pre (3.2.0)</td></tr>
-<tr><td class=''>SP-23</td><td>OpenAI Responses stream that ends &#x27;incomplete&#x27; records no tokens and no model</td><td>48</td><td class='m'>openai-base@latest (3.26.1), openai-base@pre (3.26.1)</td></tr>
-<tr><td class=''>SP-24</td><td>OpenAI background responses: tokens never recorded (responses.retrieve is not instrumented)</td><td>16</td><td class='m'>openai-base@latest (3.26.1), openai-base@pre (3.26.1)</td></tr>
-<tr><td class=''>SP-25</td><td>Structured-output parse() calls produce no span (OpenAI chat.completions.parse, Anthropic messages.parse)</td><td>20</td><td class='m'>anthropic@latest (1.12.1), anthropic@pre (1.12.1), openai-base@latest (3.26.1), openai-base@pre (3.26.1)</td></tr>
-<tr><td class=''>SP-26</td><td>OpenAI streamed n&gt;1 chat: choices merged into one garbled string</td><td>4</td><td class='m'>openai-base@latest (3.26.1), openai-base@pre (3.26.1)</td></tr>
-<tr><td class=''>SP-27</td><td>Anthropic stream: tool-call JSON glued into the answer text, tool calls not recorded</td><td>12</td><td class='m'>anthropic@latest (1.12.1), anthropic@pre (1.12.1)</td></tr>
+<tr><td class=''>SP-23</td><td>OpenAI Responses stream that ends &#x27;incomplete&#x27; records no tokens and no model</td><td>48</td><td class='m'>openai-base@latest (3.28.0), openai-base@pre (3.28.0)</td></tr>
+<tr><td class=''>SP-24</td><td>OpenAI background responses: tokens never recorded (responses.retrieve is not instrumented)</td><td>16</td><td class='m'>openai-base@latest (3.28.0), openai-base@pre (3.28.0)</td></tr>
+<tr><td class=''>SP-25</td><td>Structured-output parse() calls produce no span (OpenAI chat.completions.parse, Anthropic messages.parse)</td><td>20</td><td class='m'>anthropic@latest (1.13.0), anthropic@pre (1.13.0), openai-base@latest (3.28.0), openai-base@pre (3.28.0)</td></tr>
+<tr><td class=''>SP-26</td><td>OpenAI streamed n&gt;1 chat: choices merged into one garbled string</td><td>4</td><td class='m'>openai-base@latest (3.28.0), openai-base@pre (3.28.0)</td></tr>
+<tr><td class=''>SP-27</td><td>Anthropic stream: tool-call JSON glued into the answer text, tool calls not recorded</td><td>12</td><td class='m'>anthropic@latest (1.13.0), anthropic@pre (1.13.0)</td></tr>
 <tr><td class=''>SP-28</td><td>Hugging Face streamed tool call: only the last delta is kept</td><td>8</td><td class='m'>huggingface_hub@latest (2.2.0), huggingface_hub@pre (2.2.0)</td></tr>
 <tr><td class=''>SP-29</td><td>Mistral: response model, id and finish reason not recorded; tool calls dropped</td><td>6</td><td class='m'>mistral@2.0.5, mistral@latest (3.2.0), mistral@pre (3.2.0)</td></tr>
-<tr><td class=''>SP-30</td><td>Anthropic thinking tokens not recorded</td><td>12</td><td class='m'>anthropic@latest (1.12.1), anthropic@pre (1.12.1)</td></tr>
-<tr><td class=''>SP-31</td><td>Billing facts with no attribute: server and built-in tool calls, cache-write TTL, audio tokens, service tier</td><td>88</td><td class='m'>anthropic@0.16.0, anthropic@latest (1.12.1), anthropic@pre (1.12.1), openai-base@latest (3.26.1), openai-base@pre (3.26.1)</td></tr>
-<tr><td class=''>SP-35</td><td>Known gaps reproduced: uninstrumented client methods</td><td>22</td><td class='m'>anthropic@latest (1.12.1), anthropic@pre (1.12.1), cohere@5.4.0, cohere@latest (7.2.0), cohere@pre (7.2.0), huggingface_hub@latest (2.2.0) …</td></tr>
+<tr><td class=''>SP-30</td><td>Anthropic thinking tokens not recorded</td><td>12</td><td class='m'>anthropic@latest (1.13.0), anthropic@pre (1.13.0)</td></tr>
+<tr><td class=''>SP-31</td><td>Billing facts with no attribute: server and built-in tool calls, cache-write TTL, audio tokens, service tier</td><td>88</td><td class='m'>anthropic@0.16.0, anthropic@latest (1.13.0), anthropic@pre (1.13.0), openai-base@latest (3.28.0), openai-base@pre (3.28.0)</td></tr>
+<tr><td class=''>SP-35</td><td>Known gaps reproduced: uninstrumented client methods</td><td>22</td><td class='m'>anthropic@latest (1.13.0), anthropic@pre (1.13.0), cohere@5.4.0, cohere@latest (7.2.0), cohere@pre (7.2.0), huggingface_hub@latest (2.2.0) …</td></tr>
 <tr><td class=''>SP-36</td><td>Cohere: legacy ai.* span ops and attributes</td><td>54</td><td class='m'>cohere@5.4.0, cohere@latest (7.2.0), cohere@pre (7.2.0)</td></tr>
 <tr><td class=''>SP-37</td><td>JS LangChain createAgent (LangChain v1&#x27;s recommended agent API): no agent span, no tool spans</td><td>4</td><td class='m'>js (@sentry/node 11.6.0)</td></tr>
 <tr><td class=''>SP-38</td><td>JS LangGraph with a checkpointer: agent span re-counts earlier turns</td><td>3</td><td class='m'>js (@sentry/node 11.6.0)</td></tr>
@@ -66,20 +66,21 @@ th{font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}.bad{
 <tr><td class=''>SP-48</td><td>Cohere 5.4.0: tool calls recorded as a Python repr string, not JSON</td><td>2</td><td class='m'>cohere@5.4.0</td></tr>
 <tr><td class=''>UPSTREAM-LANGCHAIN</td><td>LangChain JS&#x27;s own usage numbers differ from the provider&#x27;s (reproduces without Sentry)</td><td>8</td><td class='m'>js (@sentry/node 11.6.0)</td></tr>
 </table></div><h2>History</h2><div class='s'><table><tr><th>night</th><th>sentry-python</th><th>runner</th><th>cells</th><th>open ids</th><th>new</th><th>fixed</th><th>did not run</th><th>problems running</th></tr>
+<tr><td>2026-10-10</td><td class='m'>7cb80948</td><td class='m'>3e781da9</td><td>34</td><td>45</td><td class='new'>0</td><td class='good'>0</td><td>0</td><td class=''>0</td></tr>
 <tr><td>2026-10-09</td><td class='m'>7cb80948</td><td class='m'>3e781da9</td><td>34</td><td>45</td><td class='new'>0</td><td class='good'>0</td><td>0</td><td class=''>0</td></tr>
 <tr><td>2026-10-08</td><td class='m'>7cb80948</td><td class='m'>3e781da9</td><td>34</td><td>45</td><td class='new'>0</td><td class='good'>0</td><td>0</td><td class=''>0</td></tr>
 <tr><td>2026-10-07</td><td class='m'>4b9d3298</td><td class='m'>3e781da9</td><td>34</td><td>45</td><td class='new'>441</td><td class='good'>0</td><td>0</td><td class=''>0</td></tr>
 <tr><td>2026-10-06</td><td class='m'>6a4eb20f</td><td class='m'>-</td><td>25</td><td>18</td><td class='new'>0</td><td class='good'>0</td><td>0</td><td class=''>0</td></tr>
 </table></div><p class='m'>Nights before per-finding signatures counted new and fixed by catalog id.</p><h2>Cells tonight</h2><div class='s'><table><tr><th>cell (resolved)</th><th>package versions</th><th>runs</th></tr>
 <tr><td class='m'>openai-base@1.0.1</td><td class='m'>openai 1.0.1, sentry-sdk 2.71.0</td><td class=''>64</td></tr>
-<tr><td class='m'>openai-base@latest (3.26.1)</td><td class='m'>openai 3.26.1, sentry-sdk 2.71.0</td><td class=''>64</td></tr>
-<tr><td class='m'>openai-base@pre (3.26.1)</td><td class='m'>openai 3.26.1, sentry-sdk 2.71.0</td><td class=''>64</td></tr>
+<tr><td class='m'>openai-base@latest (3.28.0)</td><td class='m'>openai 3.28.0, sentry-sdk 2.71.0</td><td class=''>64</td></tr>
+<tr><td class='m'>openai-base@pre (3.28.0)</td><td class='m'>openai 3.28.0, sentry-sdk 2.71.0</td><td class=''>64</td></tr>
 <tr><td class='m'>anthropic@0.16.0</td><td class='m'>anthropic 0.16.0, sentry-sdk 2.71.0</td><td class=''>54</td></tr>
-<tr><td class='m'>anthropic@latest (1.12.1)</td><td class='m'>anthropic 1.12.1, sentry-sdk 2.71.0</td><td class=''>54</td></tr>
-<tr><td class='m'>anthropic@pre (1.12.1)</td><td class='m'>anthropic 1.12.1, sentry-sdk 2.71.0</td><td class=''>54</td></tr>
+<tr><td class='m'>anthropic@latest (1.13.0)</td><td class='m'>anthropic 1.13.0, sentry-sdk 2.71.0</td><td class=''>54</td></tr>
+<tr><td class='m'>anthropic@pre (1.13.0)</td><td class='m'>anthropic 1.13.0, sentry-sdk 2.71.0</td><td class=''>54</td></tr>
 <tr><td class='m'>litellm@1.77.7</td><td class='m'>litellm 1.77.7, sentry-sdk 2.71.0</td><td class=''>10</td></tr>
 <tr><td class='m'>litellm@latest (1.104.2)</td><td class='m'>litellm 1.104.2, sentry-sdk 2.71.0</td><td class=''>10</td></tr>
-<tr><td class='m'>litellm@pre (1.106.0.dev2)</td><td class='m'>litellm 1.106.0.dev2, sentry-sdk 2.71.0</td><td class=''>10</td></tr>
+<tr><td class='m'>litellm@pre (1.106.0.dev3)</td><td class='m'>litellm 1.106.0.dev3, sentry-sdk 2.71.0</td><td class=''>10</td></tr>
 <tr><td class='m'>google_genai@1.29.0</td><td class='m'>google-genai 1.29.0, sentry-sdk 2.71.0</td><td class=''>6</td></tr>
 <tr><td class='m'>google_genai@latest (2.29.0)</td><td class='m'>google-genai 2.29.0, sentry-sdk 2.71.0</td><td class=''>6</td></tr>
 <tr><td class='m'>google_genai@pre (2.29.0)</td><td class='m'>google-genai 2.29.0, sentry-sdk 2.71.0</td><td class=''>6</td></tr>
@@ -96,13 +97,13 @@ th{font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}.bad{
 <tr><td class='m'>openai_agents@latest (0.23.1)</td><td class='m'>openai-agents 0.23.1, sentry-sdk 2.71.0</td><td class=''>6</td></tr>
 <tr><td class='m'>openai_agents@pre (0.23.1)</td><td class='m'>openai-agents 0.23.1, sentry-sdk 2.71.0</td><td class=''>6</td></tr>
 <tr><td class='m'>pydantic_ai@1.0.18</td><td class='m'>pydantic-ai-slim 1.0.18, sentry-sdk 2.71.0</td><td class=''>4</td></tr>
-<tr><td class='m'>pydantic_ai@latest (2.54.0)</td><td class='m'>pydantic-ai-slim 2.54.0, sentry-sdk 2.71.0</td><td class=''>4</td></tr>
-<tr><td class='m'>pydantic_ai@pre (2.54.0)</td><td class='m'>pydantic-ai-slim 2.54.0, sentry-sdk 2.71.0</td><td class=''>4</td></tr>
+<tr><td class='m'>pydantic_ai@latest (2.55.0)</td><td class='m'>pydantic-ai-slim 2.55.0, sentry-sdk 2.71.0</td><td class=''>4</td></tr>
+<tr><td class='m'>pydantic_ai@pre (2.55.0)</td><td class='m'>pydantic-ai-slim 2.55.0, sentry-sdk 2.71.0</td><td class=''>4</td></tr>
 <tr><td class='m'>langchain-base@0.1.20</td><td class='m'>langchain 0.1.20, sentry-sdk 2.71.0</td><td class=''>4</td></tr>
 <tr><td class='m'>langchain-base@latest (1.4.4)</td><td class='m'>langchain 1.4.4, sentry-sdk 2.71.0</td><td class=''>4</td></tr>
 <tr><td class='m'>langchain-base@pre (1.4.4)</td><td class='m'>langchain 1.4.4, sentry-sdk 2.71.0</td><td class=''>4</td></tr>
 <tr><td class='m'>langgraph@0.6.11</td><td class='m'>langgraph 0.6.11, sentry-sdk 2.71.0</td><td class=''>8</td></tr>
 <tr><td class='m'>langgraph@latest (1.2.14)</td><td class='m'>langgraph 1.2.14, sentry-sdk 2.71.0</td><td class=''>8</td></tr>
 <tr><td class='m'>langgraph@pre (1.2.14)</td><td class='m'>langgraph 1.2.14, sentry-sdk 2.71.0</td><td class=''>8</td></tr>
-<tr><td class='m'>js (@sentry/node 11.6.0)</td><td class='m'>@anthropic-ai/sdk 0.131.0, @google/genai 2.27.0, @langchain/anthropic 1.5.12, @langchain/core 1.2.16, @langchain/google-genai 2.3.2, @langchain/langgraph 1.4.19, @langchain/openai 1.6.2, @sentry/node 11.6.0, ai 7.0.136, langchain 1.5.15, node v22.23.3, openai 7.31.0</td><td class=''>74</td></tr>
+<tr><td class='m'>js (@sentry/node 11.6.0)</td><td class='m'>@anthropic-ai/sdk 0.131.0, @google/genai 2.27.0, @langchain/anthropic 1.5.12, @langchain/core 1.2.16, @langchain/google-genai 2.3.2, @langchain/langgraph 1.4.19, @langchain/openai 1.6.2, @sentry/node 11.6.0, ai 7.0.137, langchain 1.5.15, node v22.23.3, openai 7.32.0</td><td class=''>74</td></tr>
 </table></div></div>
