@@ -14,43 +14,471 @@ th,td{padding:6px 10px;border-bottom:1px solid var(--rule);text-align:left;verti
 th{font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}.bad{color:var(--bad)}.good{color:var(--good)}
 .new{color:var(--new);font-weight:600}code{font-family:var(--mono);font-size:.85em}a{color:var(--new)}</style><div class='w'>
 <h1>SpanProof nightly: Sentry AI monitoring vs. provider truth</h1>
-<p class='m'>last run 2026-11-22 · sentry-python 7ad850f4 · runner 3e781da9 · @sentry/node 11.16.0 · 34 cells · 1088 open findings under 42 ids · <a href='https://github.com/4ktLuffy/spanproof'>repository</a></p>
+<p class='m'>last run 2026-11-23 · sentry-python 8842a6e0 · runner 3e781da9 · @sentry/node 11.16.0 · 34 cells · 106 open findings under 14 ids · <a href='https://github.com/4ktLuffy/spanproof'>repository</a></p>
 <p>Every night this replays scripted provider responses through Sentry's AI integrations on the latest sentry-python, against the oldest supported, latest and pre-release versions of each provider SDK, and compares the spans with the truth. Nights are compared finding by finding (cell, scenario, mode, rule, attribute, call); the catalog id is a label. A finding counts as fixed only if its own cell, scenario and mode ran cleanly tonight and no longer produce it. If they did not run (crash, failed install, unsupported, missing), the finding is listed as did not run and kept open.</p>
-<h2>Since the previous night (2026-11-21)</h2>
-<p><b>0 new, 0 fixed, 0 did not run.</b></p>
-<h3>What changed between the two nights</h3><ul><li><code>litellm@pre</code>: litellm 1.112.0.dev1 -&gt; 1.112.0.dev2</li></ul><p class='m'>Listed next to each verdict below. A change that happens on the same night as a verdict co-occurs with it; that is not proof that it caused it.</p>
+<h2>Since the previous night (2026-11-22)</h2>
+<p><b>0 new, 0 fixed, 982 did not run.</b></p>
+<h3>What changed between the two nights</h3><ul><li>sentry-python 7ad850f4 -&gt; 8842a6e0</li><li><code>anthropic@0.16.0</code>: anthropic 0.16.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>anthropic@latest</code>: anthropic 2.12.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>anthropic@pre</code>: anthropic 2.12.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>cohere@5.4.0</code>: cohere 5.4.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>cohere@latest</code>: cohere 7.3.2 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>cohere@pre</code>: cohere 7.3.2 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>google_genai@1.29.0</code>: google-genai 1.29.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>google_genai@latest</code>: google-genai 3.6.1 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>google_genai@pre</code>: google-genai 3.6.1 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>huggingface_hub@0.24.7</code>: huggingface_hub 0.24.7 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>huggingface_hub@latest</code>: huggingface_hub 2.4.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>huggingface_hub@pre</code>: huggingface_hub 2.4.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>langchain-base@0.1.20</code>: langchain 0.1.20 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>langchain-base@latest</code>: langchain 1.5.2 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>langchain-base@pre</code>: langchain 1.5.2 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>langgraph@0.6.11</code>: langgraph 0.6.11 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>langgraph@latest</code>: langgraph 1.2.24 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>langgraph@pre</code>: langgraph 1.2.24 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>litellm@1.77.7</code>: litellm 1.77.7 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>litellm@latest</code>: litellm 1.110.2 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>litellm@pre</code>: litellm 1.112.0.dev2 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>mistral@2.0.5</code>: mistralai 2.0.5 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>mistral@latest</code>: mistralai 3.8.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>mistral@pre</code>: mistralai 3.8.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>openai-base@1.0.1</code>: openai 1.0.1 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>openai-base@latest</code>: openai 3.57.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>openai-base@pre</code>: openai 3.57.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>openai_agents@0.0.19</code>: openai-agents 0.0.19 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>openai_agents@latest</code>: openai-agents 0.25.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>openai_agents@pre</code>: openai-agents 0.25.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>pydantic_ai@1.0.18</code>: pydantic-ai-slim 1.0.18 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>pydantic_ai@latest</code>: pydantic-ai-slim 2.71.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li><li><code>pydantic_ai@pre</code>: pydantic-ai-slim 2.71.0 -&gt; absent; sentry-sdk 2.75.0 -&gt; absent</li></ul><p class='m'>Listed next to each verdict below. A change that happens on the same night as a verdict co-occurs with it; that is not proof that it caused it.</p>
+<h3 class='bad'>Did not run tonight: unknown, not fixed (982)</h3><div class='s'><table><tr><th>cell|scenario|mode</th><th>open findings</th><th>ids</th><th>last seen</th></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.adv.cache_ttl.stream|default</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.adv.cache_ttl.stream|legacy</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.adv.cache_ttl.sync|default</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.adv.cache_ttl.sync|legacy</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.adv.stop_reason.max_tokens|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.adv.stop_reason.max_tokens|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.adv.stop_reason.model_context_window_exceeded|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.adv.stop_reason.model_context_window_exceeded|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.adv.stop_reason.refusal.stream|default</td><td>3</td><td>OLD-SDK, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.adv.stop_reason.refusal.stream|legacy</td><td>3</td><td>OLD-SDK, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.adv.stop_reason.refusal|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.adv.stop_reason.refusal|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.messages.async|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.messages.async|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.messages.raw_response|default</td><td>6</td><td>SP-05, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.messages.raw_response|legacy</td><td>6</td><td>SP-05, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.messages.stream.async|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.messages.stream.async|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.messages.stream_helper|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.messages.stream_helper|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.messages.stream|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.messages.stream|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.messages.sync|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@0.16.0|anthropic.messages.sync|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.beta.stream|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.beta.stream|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.beta.sync|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.beta.sync|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.cache_ttl.stream|default</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.cache_ttl.stream|legacy</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.cache_ttl.sync|default</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.cache_ttl.sync|legacy</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.parse.async|default</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.parse.async|legacy</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.parse.sync|default</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.parse.sync|legacy</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.server_tools.stream|default</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.server_tools.stream|legacy</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.server_tools.sync|default</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.server_tools.sync|legacy</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.stop_reason.max_tokens|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.stop_reason.max_tokens|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.stop_reason.model_context_window_exceeded|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.stop_reason.model_context_window_exceeded|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.stop_reason.refusal.stream|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.stop_reason.refusal.stream|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.stop_reason.refusal|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.stop_reason.refusal|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.thinking.stream_helper|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.thinking.stream_helper|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.thinking.stream|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.thinking.stream|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.thinking.sync|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.thinking.sync|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.tool_round_trip.stream|default</td><td>2</td><td>SP-14, SP-27</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.tool_round_trip.stream|legacy</td><td>2</td><td>SP-14, SP-27</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.tool_round_trip.sync|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.adv.tool_round_trip.sync|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.async|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.async|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.raw_response|default</td><td>6</td><td>SP-05, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.raw_response|legacy</td><td>6</td><td>SP-05, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.stream.async|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.stream.async|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.stream_helper|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.stream_helper|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.stream|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.stream|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.sync|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.sync|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.tool_use|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@latest|anthropic.messages.tool_use|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.beta.stream|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.beta.stream|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.beta.sync|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.beta.sync|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.cache_ttl.stream|default</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.cache_ttl.stream|legacy</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.cache_ttl.sync|default</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.cache_ttl.sync|legacy</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.parse.async|default</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.parse.async|legacy</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.parse.sync|default</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.parse.sync|legacy</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.server_tools.stream|default</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.server_tools.stream|legacy</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.server_tools.sync|default</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.server_tools.sync|legacy</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.stop_reason.max_tokens|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.stop_reason.max_tokens|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.stop_reason.model_context_window_exceeded|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.stop_reason.model_context_window_exceeded|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.stop_reason.refusal.stream|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.stop_reason.refusal.stream|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.stop_reason.refusal|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.stop_reason.refusal|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.thinking.stream_helper|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.thinking.stream_helper|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.thinking.stream|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.thinking.stream|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.thinking.sync|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.thinking.sync|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.tool_round_trip.stream|default</td><td>2</td><td>SP-14, SP-27</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.tool_round_trip.stream|legacy</td><td>2</td><td>SP-14, SP-27</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.tool_round_trip.sync|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.adv.tool_round_trip.sync|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.async|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.async|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.raw_response|default</td><td>6</td><td>SP-05, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.raw_response|legacy</td><td>6</td><td>SP-05, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.stream.async|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.stream.async|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.stream_helper|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.stream_helper|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.stream|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.stream|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.sync|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.sync|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.tool_use|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>anthropic@pre|anthropic.messages.tool_use|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat.async|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat.async|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat.cached|default</td><td>2</td><td>SP-36, SP-45</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat.cached|legacy</td><td>2</td><td>SP-36, SP-45</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat.http_500|default</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat.http_500|legacy</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat.sync|default</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat.sync|legacy</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat.tool_call|default</td><td>2</td><td>SP-36, SP-48</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat.tool_call|legacy</td><td>2</td><td>SP-36, SP-48</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat_stream.connection_drop|default</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat_stream.connection_drop|legacy</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat_stream.early_close|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat_stream.early_close|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat_stream|default</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.chat_stream|legacy</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.embed.batched|default</td><td>3</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.embed.batched|legacy</td><td>3</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.embed|default</td><td>3</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@5.4.0|cohere.embed|legacy</td><td>3</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat.async|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat.async|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat.cached|default</td><td>5</td><td>SP-14, SP-36, SP-45</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat.cached|legacy</td><td>5</td><td>SP-14, SP-36, SP-45</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat.http_500|default</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat.http_500|legacy</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat.sync|default</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat.sync|legacy</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat.tool_call|default</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat.tool_call|legacy</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat_stream.connection_drop|default</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat_stream.connection_drop|legacy</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat_stream.early_close|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat_stream.early_close|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat_stream|default</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.chat_stream|legacy</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.embed.batched|default</td><td>3</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.embed.batched|legacy</td><td>3</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.embed|default</td><td>3</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.embed|legacy</td><td>3</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.v2.chat|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@latest|cohere.v2.chat|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat.async|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat.async|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat.cached|default</td><td>5</td><td>SP-14, SP-36, SP-45</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat.cached|legacy</td><td>5</td><td>SP-14, SP-36, SP-45</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat.http_500|default</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat.http_500|legacy</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat.sync|default</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat.sync|legacy</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat.tool_call|default</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat.tool_call|legacy</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat_stream.connection_drop|default</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat_stream.connection_drop|legacy</td><td>1</td><td>SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat_stream.early_close|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat_stream.early_close|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat_stream|default</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.chat_stream|legacy</td><td>4</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.embed.batched|default</td><td>3</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.embed.batched|legacy</td><td>3</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.embed|default</td><td>3</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.embed|legacy</td><td>3</td><td>SP-14, SP-36</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.v2.chat|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>cohere@pre|cohere.v2.chat|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@0.24.7|huggingface_hub.text_generation.details|default</td><td>3</td><td>SP-21</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@0.24.7|huggingface_hub.text_generation.details|legacy</td><td>3</td><td>SP-21</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@0.24.7|huggingface_hub.text_generation.stream|default</td><td>3</td><td>SP-21</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@0.24.7|huggingface_hub.text_generation.stream|legacy</td><td>3</td><td>SP-21</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@latest|huggingface_hub.chat_completion.async|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@latest|huggingface_hub.chat_completion.async|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@latest|huggingface_hub.chat_completion.stream.break|default</td><td>1</td><td>SP-20</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@latest|huggingface_hub.chat_completion.stream.break|legacy</td><td>1</td><td>SP-20</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@latest|huggingface_hub.chat_completion.stream.early_close|default</td><td>1</td><td>SP-20</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@latest|huggingface_hub.chat_completion.stream.early_close|legacy</td><td>1</td><td>SP-20</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@latest|huggingface_hub.chat_completion.stream.tool_call|default</td><td>2</td><td>SP-28</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@latest|huggingface_hub.chat_completion.stream.tool_call|legacy</td><td>2</td><td>SP-28</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@latest|huggingface_hub.text_generation.details|default</td><td>3</td><td>SP-21</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@latest|huggingface_hub.text_generation.details|legacy</td><td>3</td><td>SP-21</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@latest|huggingface_hub.text_generation.stream|default</td><td>3</td><td>SP-21</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@latest|huggingface_hub.text_generation.stream|legacy</td><td>3</td><td>SP-21</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@pre|huggingface_hub.chat_completion.async|default</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@pre|huggingface_hub.chat_completion.async|legacy</td><td>1</td><td>SP-35</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@pre|huggingface_hub.chat_completion.stream.break|default</td><td>1</td><td>SP-20</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@pre|huggingface_hub.chat_completion.stream.break|legacy</td><td>1</td><td>SP-20</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@pre|huggingface_hub.chat_completion.stream.early_close|default</td><td>1</td><td>SP-20</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@pre|huggingface_hub.chat_completion.stream.early_close|legacy</td><td>1</td><td>SP-20</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@pre|huggingface_hub.chat_completion.stream.tool_call|default</td><td>2</td><td>SP-28</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@pre|huggingface_hub.chat_completion.stream.tool_call|legacy</td><td>2</td><td>SP-28</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@pre|huggingface_hub.text_generation.details|default</td><td>3</td><td>SP-21</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@pre|huggingface_hub.text_generation.details|legacy</td><td>3</td><td>SP-21</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@pre|huggingface_hub.text_generation.stream|default</td><td>3</td><td>SP-21</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>huggingface_hub@pre|huggingface_hub.text_generation.stream|legacy</td><td>3</td><td>SP-21</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langchain-base@0.1.20|langchain.chat_openai.invoke|default</td><td>4</td><td>OLD-SDK, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langchain-base@0.1.20|langchain.chat_openai.invoke|legacy</td><td>4</td><td>OLD-SDK, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langchain-base@latest|langchain.chat_openai.invoke|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langchain-base@latest|langchain.chat_openai.invoke|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langchain-base@latest|langchain.chat_openai.stream|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langchain-base@latest|langchain.chat_openai.stream|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langchain-base@pre|langchain.chat_openai.invoke|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langchain-base@pre|langchain.chat_openai.invoke|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langchain-base@pre|langchain.chat_openai.stream|default</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langchain-base@pre|langchain.chat_openai.stream|legacy</td><td>1</td><td>SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@0.6.11|langgraph.react_agent.astream|default</td><td>4</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@0.6.11|langgraph.react_agent.astream|legacy</td><td>4</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@0.6.11|langgraph.react_agent.stream.early_close|default</td><td>3</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@0.6.11|langgraph.react_agent.stream.early_close|legacy</td><td>3</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@0.6.11|langgraph.react_agent.stream|default</td><td>4</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@0.6.11|langgraph.react_agent.stream|legacy</td><td>4</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@0.6.11|langgraph.react_agent|default</td><td>4</td><td>SP-06, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@0.6.11|langgraph.react_agent|legacy</td><td>4</td><td>SP-06, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@latest|langgraph.react_agent.astream|default</td><td>4</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@latest|langgraph.react_agent.astream|legacy</td><td>4</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@latest|langgraph.react_agent.stream.early_close|default</td><td>3</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@latest|langgraph.react_agent.stream.early_close|legacy</td><td>3</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@latest|langgraph.react_agent.stream|default</td><td>4</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@latest|langgraph.react_agent.stream|legacy</td><td>4</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@latest|langgraph.react_agent|default</td><td>4</td><td>SP-06, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@latest|langgraph.react_agent|legacy</td><td>4</td><td>SP-06, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@pre|langgraph.react_agent.astream|default</td><td>4</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@pre|langgraph.react_agent.astream|legacy</td><td>4</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@pre|langgraph.react_agent.stream.early_close|default</td><td>3</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@pre|langgraph.react_agent.stream.early_close|legacy</td><td>3</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@pre|langgraph.react_agent.stream|default</td><td>4</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@pre|langgraph.react_agent.stream|legacy</td><td>4</td><td>SP-08, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@pre|langgraph.react_agent|default</td><td>4</td><td>SP-06, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>langgraph@pre|langgraph.react_agent|legacy</td><td>4</td><td>SP-06, SP-14</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@1.77.7|litellm.acompletion.openai|default</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@1.77.7|litellm.acompletion.openai|legacy</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@1.77.7|litellm.completion.anthropic|default</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@1.77.7|litellm.completion.anthropic|legacy</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@1.77.7|litellm.completion.openai.stream.early_close|default</td><td>1</td><td>SP-03</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@1.77.7|litellm.completion.openai.stream.early_close|legacy</td><td>1</td><td>SP-03</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@1.77.7|litellm.completion.openai.stream|default</td><td>4</td><td>SP-01, SP-10, SP-15</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@1.77.7|litellm.completion.openai.stream|legacy</td><td>4</td><td>SP-01, SP-10, SP-15</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@1.77.7|litellm.completion.openai|default</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@1.77.7|litellm.completion.openai|legacy</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@latest|litellm.acompletion.openai|default</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@latest|litellm.acompletion.openai|legacy</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@latest|litellm.completion.anthropic|default</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@latest|litellm.completion.anthropic|legacy</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@latest|litellm.completion.openai.stream.early_close|default</td><td>1</td><td>SP-03</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@latest|litellm.completion.openai.stream.early_close|legacy</td><td>1</td><td>SP-03</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@latest|litellm.completion.openai.stream|default</td><td>4</td><td>SP-01, SP-10, SP-15</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@latest|litellm.completion.openai.stream|legacy</td><td>4</td><td>SP-01, SP-10, SP-15</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@latest|litellm.completion.openai|default</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@latest|litellm.completion.openai|legacy</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@pre|litellm.acompletion.openai|default</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@pre|litellm.acompletion.openai|legacy</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@pre|litellm.completion.anthropic|default</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@pre|litellm.completion.anthropic|legacy</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@pre|litellm.completion.openai.stream.early_close|default</td><td>1</td><td>SP-03</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@pre|litellm.completion.openai.stream.early_close|legacy</td><td>1</td><td>SP-03</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@pre|litellm.completion.openai.stream|default</td><td>4</td><td>SP-01, SP-10, SP-15</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@pre|litellm.completion.openai.stream|legacy</td><td>4</td><td>SP-01, SP-10, SP-15</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@pre|litellm.completion.openai|default</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>litellm@pre|litellm.completion.openai|legacy</td><td>3</td><td>SP-01, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@2.0.5|mistral.chat.complete.async|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@2.0.5|mistral.chat.complete.async|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@2.0.5|mistral.chat.complete.tool_call|default</td><td>2</td><td>SP-10, SP-29</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@2.0.5|mistral.chat.complete.tool_call|legacy</td><td>2</td><td>SP-10, SP-29</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@2.0.5|mistral.chat.complete|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@2.0.5|mistral.chat.complete|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@2.0.5|mistral.chat.stream.async|default</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@2.0.5|mistral.chat.stream.async|legacy</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@2.0.5|mistral.chat.stream|default</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@2.0.5|mistral.chat.stream|legacy</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@2.0.5|mistral.embeddings.create|default</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@2.0.5|mistral.embeddings.create|legacy</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@latest|mistral.chat.complete.async|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@latest|mistral.chat.complete.async|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@latest|mistral.chat.complete.tool_call|default</td><td>2</td><td>SP-10, SP-29</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@latest|mistral.chat.complete.tool_call|legacy</td><td>2</td><td>SP-10, SP-29</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@latest|mistral.chat.complete|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@latest|mistral.chat.complete|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@latest|mistral.chat.stream.async|default</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@latest|mistral.chat.stream.async|legacy</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@latest|mistral.chat.stream|default</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@latest|mistral.chat.stream|legacy</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@latest|mistral.embeddings.create|default</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@latest|mistral.embeddings.create|legacy</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@pre|mistral.chat.complete.async|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@pre|mistral.chat.complete.async|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@pre|mistral.chat.complete.tool_call|default</td><td>2</td><td>SP-10, SP-29</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@pre|mistral.chat.complete.tool_call|legacy</td><td>2</td><td>SP-10, SP-29</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@pre|mistral.chat.complete|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@pre|mistral.chat.complete|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@pre|mistral.chat.stream.async|default</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@pre|mistral.chat.stream.async|legacy</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@pre|mistral.chat.stream|default</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@pre|mistral.chat.stream|legacy</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@pre|mistral.embeddings.create|default</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>mistral@pre|mistral.embeddings.create|legacy</td><td>1</td><td>SP-22</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@1.0.1|openai.adv.chat.n2.sync|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@1.0.1|openai.adv.chat.n2.sync|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@1.0.1|openai.chat.async|default</td><td>3</td><td>OLD-SDK, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@1.0.1|openai.chat.async|legacy</td><td>3</td><td>OLD-SDK, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@1.0.1|openai.chat.sync|default</td><td>3</td><td>OLD-SDK, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@1.0.1|openai.chat.sync|legacy</td><td>3</td><td>OLD-SDK, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.audio_tokens|default</td><td>3</td><td>SP-10, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.audio_tokens|legacy</td><td>3</td><td>SP-10, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.n1.stream|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.n1.stream|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.n2.stream|default</td><td>2</td><td>SP-10, SP-26</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.n2.stream|legacy</td><td>2</td><td>SP-10, SP-26</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.n2.sync|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.n2.sync|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.parse.async|default</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.parse.async|legacy</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.parse|default</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.parse|legacy</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.predictions|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.predictions|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.service_tier|default</td><td>2</td><td>SP-10, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.service_tier|legacy</td><td>2</td><td>SP-10, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.stream_helper|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.chat.stream_helper|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.background|default</td><td>4</td><td>SP-24</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.background|legacy</td><td>4</td><td>SP-24</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.builtin_tools.stream|default</td><td>4</td><td>SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.builtin_tools.stream|legacy</td><td>4</td><td>SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.builtin_tools.sync|default</td><td>4</td><td>SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.builtin_tools.sync|legacy</td><td>4</td><td>SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.incomplete.stream.async|default</td><td>4</td><td>SP-23</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.incomplete.stream.async|legacy</td><td>4</td><td>SP-23</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.incomplete.stream|default</td><td>4</td><td>SP-23</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.incomplete.stream|legacy</td><td>4</td><td>SP-23</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.incomplete_reasoning_only.stream|default</td><td>4</td><td>SP-23</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.incomplete_reasoning_only.stream|legacy</td><td>4</td><td>SP-23</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.parse|default</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.parse|legacy</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.service_tier|default</td><td>1</td><td>SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.adv.responses.service_tier|legacy</td><td>1</td><td>SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.chat.async|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.chat.async|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.chat.stream.async|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.chat.stream.async|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.chat.stream.early_close|default</td><td>1</td><td>SP-02</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.chat.stream.early_close|legacy</td><td>1</td><td>SP-02</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.chat.stream|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.chat.stream|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.chat.sync|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.chat.sync|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.chat.tool_call|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.chat.tool_call|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.responses.stream.early_close|default</td><td>1</td><td>SP-02</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.responses.stream.early_close|legacy</td><td>1</td><td>SP-02</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.responses.stream|default</td><td>1</td><td>SP-04</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.responses.stream|legacy</td><td>1</td><td>SP-04</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.responses.sync|default</td><td>1</td><td>SP-04</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@latest|openai.responses.sync|legacy</td><td>1</td><td>SP-04</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.audio_tokens|default</td><td>3</td><td>SP-10, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.audio_tokens|legacy</td><td>3</td><td>SP-10, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.n1.stream|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.n1.stream|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.n2.stream|default</td><td>2</td><td>SP-10, SP-26</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.n2.stream|legacy</td><td>2</td><td>SP-10, SP-26</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.n2.sync|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.n2.sync|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.parse.async|default</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.parse.async|legacy</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.parse|default</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.parse|legacy</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.predictions|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.predictions|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.service_tier|default</td><td>2</td><td>SP-10, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.service_tier|legacy</td><td>2</td><td>SP-10, SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.stream_helper|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.chat.stream_helper|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.background|default</td><td>4</td><td>SP-24</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.background|legacy</td><td>4</td><td>SP-24</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.builtin_tools.stream|default</td><td>4</td><td>SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.builtin_tools.stream|legacy</td><td>4</td><td>SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.builtin_tools.sync|default</td><td>4</td><td>SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.builtin_tools.sync|legacy</td><td>4</td><td>SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.incomplete.stream.async|default</td><td>4</td><td>SP-23</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.incomplete.stream.async|legacy</td><td>4</td><td>SP-23</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.incomplete.stream|default</td><td>4</td><td>SP-23</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.incomplete.stream|legacy</td><td>4</td><td>SP-23</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.incomplete_reasoning_only.stream|default</td><td>4</td><td>SP-23</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.incomplete_reasoning_only.stream|legacy</td><td>4</td><td>SP-23</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.parse|default</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.parse|legacy</td><td>1</td><td>SP-25</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.service_tier|default</td><td>1</td><td>SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.adv.responses.service_tier|legacy</td><td>1</td><td>SP-31</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.chat.async|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.chat.async|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.chat.stream.async|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.chat.stream.async|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.chat.stream.early_close|default</td><td>1</td><td>SP-02</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.chat.stream.early_close|legacy</td><td>1</td><td>SP-02</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.chat.stream|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.chat.stream|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.chat.sync|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.chat.sync|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.chat.tool_call|default</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.chat.tool_call|legacy</td><td>1</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.responses.stream.early_close|default</td><td>1</td><td>SP-02</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.responses.stream.early_close|legacy</td><td>1</td><td>SP-02</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.responses.stream|default</td><td>1</td><td>SP-04</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.responses.stream|legacy</td><td>1</td><td>SP-04</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.responses.sync|default</td><td>1</td><td>SP-04</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai-base@pre|openai.responses.sync|legacy</td><td>1</td><td>SP-04</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@0.0.19|openai_agents.agent_as_tool|default</td><td>10</td><td>SP-06, SP-07, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@0.0.19|openai_agents.agent_as_tool|legacy</td><td>10</td><td>SP-06, SP-07, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@0.0.19|openai_agents.run.chat|default</td><td>5</td><td>SP-06, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@0.0.19|openai_agents.run.chat|legacy</td><td>5</td><td>SP-06, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@0.0.19|openai_agents.run.responses|default</td><td>3</td><td>SP-06</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@0.0.19|openai_agents.run.responses|legacy</td><td>3</td><td>SP-06</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@latest|openai_agents.agent_as_tool|default</td><td>9</td><td>SP-06, SP-07, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@latest|openai_agents.agent_as_tool|legacy</td><td>9</td><td>SP-06, SP-07, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@latest|openai_agents.run.chat|default</td><td>5</td><td>SP-06, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@latest|openai_agents.run.chat|legacy</td><td>5</td><td>SP-06, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@latest|openai_agents.run.responses|default</td><td>3</td><td>SP-06</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@latest|openai_agents.run.responses|legacy</td><td>3</td><td>SP-06</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@pre|openai_agents.agent_as_tool|default</td><td>9</td><td>SP-06, SP-07, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@pre|openai_agents.agent_as_tool|legacy</td><td>9</td><td>SP-06, SP-07, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@pre|openai_agents.run.chat|default</td><td>5</td><td>SP-06, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@pre|openai_agents.run.chat|legacy</td><td>5</td><td>SP-06, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@pre|openai_agents.run.responses|default</td><td>3</td><td>SP-06</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>openai_agents@pre|openai_agents.run.responses|legacy</td><td>3</td><td>SP-06</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>pydantic_ai@1.0.18|pydantic_ai.iter|default</td><td>4</td><td>SP-09, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>pydantic_ai@1.0.18|pydantic_ai.iter|legacy</td><td>4</td><td>SP-09, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>pydantic_ai@1.0.18|pydantic_ai.run_sync|default</td><td>2</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>pydantic_ai@1.0.18|pydantic_ai.run_sync|legacy</td><td>2</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>pydantic_ai@latest|pydantic_ai.iter|default</td><td>4</td><td>SP-09, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>pydantic_ai@latest|pydantic_ai.iter|legacy</td><td>4</td><td>SP-09, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>pydantic_ai@latest|pydantic_ai.run_sync|default</td><td>2</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>pydantic_ai@latest|pydantic_ai.run_sync|legacy</td><td>2</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>pydantic_ai@pre|pydantic_ai.iter|default</td><td>4</td><td>SP-09, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>pydantic_ai@pre|pydantic_ai.iter|legacy</td><td>4</td><td>SP-09, SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>pydantic_ai@pre|pydantic_ai.run_sync|default</td><td>2</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+<tr><td class='m'>pydantic_ai@pre|pydantic_ai.run_sync|legacy</td><td>2</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
+</table></div>
 <h2>Open findings tonight</h2><div class='s'><table><tr><th>id</th><th>finding</th><th>findings</th><th>where</th></tr>
 <tr><td class=''>KNOWN-JS-23993</td><td>Vercel AI reasoning tokens (known: getsentry/sentry-javascript#23993)</td><td>2</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
-<tr><td class=''>old SDK</td><td>Provider SDK version predates the usage field (not a Sentry fault)</td><td>4</td><td class='m'>anthropic@0.16.0</td></tr>
-<tr><td class=''>old SDK</td><td>Provider SDK version predates the usage field (not a Sentry fault)</td><td>6</td><td class='m'>langchain-base@0.1.20</td></tr>
-<tr><td class=''>old SDK</td><td>Provider SDK version predates the usage field (not a Sentry fault)</td><td>8</td><td class='m'>openai-base@1.0.1</td></tr>
-<tr><td class=''>SP-01</td><td>LiteLLM drops cached, reasoning and cache-write tokens</td><td>48</td><td class='m'>litellm@1.77.7, litellm@latest (1.110.2), litellm@pre (1.112.0.dev2)</td></tr>
-<tr><td class=''>SP-02</td><td>OpenAI stream closed early: the gen_ai span is never sent (Chat and Responses)</td><td>8</td><td class='m'>openai-base@latest (3.57.0), openai-base@pre (3.57.0)</td></tr>
-<tr><td class=''>SP-03</td><td>LiteLLM stream closed early: the gen_ai span is never sent</td><td>6</td><td class='m'>litellm@1.77.7, litellm@latest (1.110.2), litellm@pre (1.112.0.dev2)</td></tr>
-<tr><td class=''>SP-04</td><td>OpenAI Responses cache_write_tokens never recorded (Python and JavaScript)</td><td>8</td><td class='m'>openai-base@latest (3.57.0), openai-base@pre (3.57.0)</td></tr>
-<tr><td class=''>SP-05</td><td>Anthropic with_raw_response: span closes before parse(), so no usage, model or id</td><td>30</td><td class='m'>anthropic@0.16.0, anthropic@latest (2.12.0), anthropic@pre (2.12.0)</td></tr>
-<tr><td class=''>SP-06</td><td>Summing tokens across span levels double counts agent runs (2.00x to 3.00x billed)</td><td>90</td><td class='m'>js (@sentry/node 11.16.0), langgraph@0.6.11, langgraph@latest (1.2.24), langgraph@pre (1.2.24), openai_agents@0.0.19, openai_agents@latest (0.25.0) …</td></tr>
-<tr><td class=''>SP-07</td><td>Nested agent (Agent.as_tool) reports usage that includes its parent&#x27;s tokens</td><td>14</td><td class='m'>openai_agents@0.0.19, openai_agents@latest (0.25.0), openai_agents@pre (0.25.0)</td></tr>
-<tr><td class=''>SP-08</td><td>LangGraph graph.stream()/astream(): no invoke_agent span</td><td>30</td><td class='m'>langgraph@0.6.11, langgraph@latest (1.2.24), langgraph@pre (1.2.24)</td></tr>
-<tr><td class=''>SP-09</td><td>Pydantic AI Agent.iter(): no agent or tool spans</td><td>12</td><td class='m'>pydantic_ai@1.0.18, pydantic_ai@latest (2.71.0), pydantic_ai@pre (2.71.0)</td></tr>
-<tr><td class=''>SP-10</td><td>Finish reasons not recorded by OpenAI, OpenAI Agents, Pydantic AI (and LiteLLM)</td><td>184</td><td class='m'>anthropic@0.16.0, anthropic@latest (2.12.0), anthropic@pre (2.12.0), js (@sentry/node 11.16.0), litellm@1.77.7, litellm@latest (1.110.2) …</td></tr>
+<tr><td class=''>SP-06</td><td>Summing tokens across span levels double counts agent runs (2.00x to 3.00x billed)</td><td>24</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
+<tr><td class=''>SP-10</td><td>Finish reasons not recorded by OpenAI, OpenAI Agents, Pydantic AI (and LiteLLM)</td><td>20</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
 <tr><td class=''>SP-11</td><td>JS OpenAI ignores cached and reasoning tokens</td><td>4</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
 <tr><td class=''>SP-13</td><td>JS Vercel AI streamText stopped early: parent span never sent, child orphaned</td><td>2</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
-<tr><td class=''>SP-14</td><td>List-valued finish_reasons cannot be searched in Sentry with the default gen_ai transport</td><td>232</td><td class='m'>anthropic@0.16.0, anthropic@latest (2.12.0), anthropic@pre (2.12.0), cohere@5.4.0, cohere@latest (7.3.2), cohere@pre (7.3.2) …</td></tr>
-<tr><td class=''>SP-15</td><td>LiteLLM streams report the requested model instead of the provider&#x27;s model</td><td>6</td><td class='m'>litellm@1.77.7, litellm@latest (1.110.2), litellm@pre (1.112.0.dev2)</td></tr>
-<tr><td class=''>SP-20</td><td>Hugging Face chat stream: span lost on early close, break or mid-stream error</td><td>8</td><td class='m'>huggingface_hub@latest (2.4.0), huggingface_hub@pre (2.4.0)</td></tr>
-<tr><td class=''>SP-21</td><td>Hugging Face text_generation: generated tokens recorded as the total; input and output tokens missing</td><td>36</td><td class='m'>huggingface_hub@0.24.7, huggingface_hub@latest (2.4.0), huggingface_hub@pre (2.4.0)</td></tr>
-<tr><td class=''>SP-22</td><td>Mistral: chat.stream, chat.stream_async and embeddings.create produce no span</td><td>18</td><td class='m'>mistral@2.0.5, mistral@latest (3.8.0), mistral@pre (3.8.0)</td></tr>
-<tr><td class=''>SP-23</td><td>OpenAI Responses stream that ends &#x27;incomplete&#x27; records no tokens and no model</td><td>48</td><td class='m'>openai-base@latest (3.57.0), openai-base@pre (3.57.0)</td></tr>
-<tr><td class=''>SP-24</td><td>OpenAI background responses: tokens never recorded (responses.retrieve is not instrumented)</td><td>16</td><td class='m'>openai-base@latest (3.57.0), openai-base@pre (3.57.0)</td></tr>
-<tr><td class=''>SP-25</td><td>Structured-output parse() calls produce no span (OpenAI chat.completions.parse, Anthropic messages.parse)</td><td>20</td><td class='m'>anthropic@latest (2.12.0), anthropic@pre (2.12.0), openai-base@latest (3.57.0), openai-base@pre (3.57.0)</td></tr>
-<tr><td class=''>SP-26</td><td>OpenAI streamed n&gt;1 chat: choices merged into one garbled string</td><td>4</td><td class='m'>openai-base@latest (3.57.0), openai-base@pre (3.57.0)</td></tr>
-<tr><td class=''>SP-27</td><td>Anthropic stream: tool-call JSON glued into the answer text, tool calls not recorded</td><td>4</td><td class='m'>anthropic@latest (2.12.0), anthropic@pre (2.12.0)</td></tr>
-<tr><td class=''>SP-28</td><td>Hugging Face streamed tool call: only the last delta is kept</td><td>8</td><td class='m'>huggingface_hub@latest (2.4.0), huggingface_hub@pre (2.4.0)</td></tr>
-<tr><td class=''>SP-29</td><td>Mistral: response model, id and finish reason not recorded; tool calls dropped</td><td>6</td><td class='m'>mistral@2.0.5, mistral@latest (3.8.0), mistral@pre (3.8.0)</td></tr>
-<tr><td class=''>SP-31</td><td>Billing facts with no attribute: server and built-in tool calls, cache-write TTL, audio tokens, service tier</td><td>88</td><td class='m'>anthropic@0.16.0, anthropic@latest (2.12.0), anthropic@pre (2.12.0), openai-base@latest (3.57.0), openai-base@pre (3.57.0)</td></tr>
-<tr><td class=''>SP-35</td><td>Known gaps reproduced: uninstrumented client methods</td><td>28</td><td class='m'>anthropic@latest (2.12.0), anthropic@pre (2.12.0), cohere@5.4.0, cohere@latest (7.3.2), cohere@pre (7.3.2), huggingface_hub@latest (2.4.0) …</td></tr>
-<tr><td class=''>SP-36</td><td>Cohere: legacy ai.* span ops and attributes</td><td>48</td><td class='m'>cohere@5.4.0, cohere@latest (7.3.2), cohere@pre (7.3.2)</td></tr>
 <tr><td class=''>SP-37</td><td>JS LangChain createAgent (LangChain v1&#x27;s recommended agent API): no agent span, no tool spans</td><td>4</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
 <tr><td class=''>SP-38</td><td>JS LangGraph with a checkpointer: agent span re-counts earlier turns</td><td>3</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
 <tr><td class=''>SP-40</td><td>JS LangChain with Anthropic: input excludes cache, cache attributes missing</td><td>2</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
@@ -58,11 +486,10 @@ th{font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}.bad{
 <tr><td class=''>SP-42</td><td>JS LangChain: tool-call arguments recorded with recordOutputs off</td><td>7</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
 <tr><td class=''>SP-43</td><td>JS LangGraph without the LangChain integration: every LLM call reported twice</td><td>10</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
 <tr><td class=''>SP-44</td><td>JS: after the first LangChain call, direct provider calls lose their spans process-wide</td><td>8</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
-<tr><td class=''>SP-45</td><td>Cohere: meta.cached_tokens ignored</td><td>6</td><td class='m'>cohere@5.4.0, cohere@latest (7.3.2), cohere@pre (7.3.2)</td></tr>
 <tr><td class=''>SP-46</td><td>JS identity gaps: LangGraph finish_reasons sent as an array; LangChain + Google records a run id as response id</td><td>2</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
-<tr><td class=''>SP-48</td><td>Cohere 5.4.0: tool calls recorded as a Python repr string, not JSON</td><td>2</td><td class='m'>cohere@5.4.0</td></tr>
 <tr><td class=''>UPSTREAM-LANGCHAIN</td><td>LangChain JS&#x27;s own usage numbers differ from the provider&#x27;s (reproduces without Sentry)</td><td>8</td><td class='m'>js (@sentry/node 11.16.0)</td></tr>
 </table></div><h2>History</h2><div class='s'><table><tr><th>night</th><th>sentry-python</th><th>runner</th><th>cells</th><th>open ids</th><th>new</th><th>fixed</th><th>did not run</th><th>problems running</th></tr>
+<tr><td>2026-11-23</td><td class='m'>8842a6e0</td><td class='m'>3e781da9</td><td>34</td><td>14</td><td class='new'>0</td><td class='good'>0</td><td>982</td><td class='bad'>648</td></tr>
 <tr><td>2026-11-22</td><td class='m'>7ad850f4</td><td class='m'>3e781da9</td><td>34</td><td>42</td><td class='new'>0</td><td class='good'>0</td><td>0</td><td class=''>0</td></tr>
 <tr><td>2026-11-21</td><td class='m'>7ad850f4</td><td class='m'>3e781da9</td><td>34</td><td>42</td><td class='new'>0</td><td class='good'>0</td><td>0</td><td class=''>0</td></tr>
 <tr><td>2026-11-20</td><td class='m'>7ad850f4</td><td class='m'>3e781da9</td><td>34</td><td>42</td><td class='new'>0</td><td class='good'>0</td><td>0</td><td class=''>0</td></tr>
@@ -111,38 +538,38 @@ th{font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}.bad{
 <tr><td>2026-10-07</td><td class='m'>4b9d3298</td><td class='m'>3e781da9</td><td>34</td><td>45</td><td class='new'>441</td><td class='good'>0</td><td>0</td><td class=''>0</td></tr>
 <tr><td>2026-10-06</td><td class='m'>6a4eb20f</td><td class='m'>-</td><td>25</td><td>18</td><td class='new'>0</td><td class='good'>0</td><td>0</td><td class=''>0</td></tr>
 </table></div><p class='m'>Nights before per-finding signatures counted new and fixed by catalog id.</p><h2>Cells tonight</h2><div class='s'><table><tr><th>cell (resolved)</th><th>package versions</th><th>runs</th></tr>
-<tr><td class='m'>openai-base@1.0.1</td><td class='m'>openai 1.0.1, sentry-sdk 2.75.0</td><td class=''>64</td></tr>
-<tr><td class='m'>openai-base@latest (3.57.0)</td><td class='m'>openai 3.57.0, sentry-sdk 2.75.0</td><td class=''>64</td></tr>
-<tr><td class='m'>openai-base@pre (3.57.0)</td><td class='m'>openai 3.57.0, sentry-sdk 2.75.0</td><td class=''>64</td></tr>
-<tr><td class='m'>anthropic@0.16.0</td><td class='m'>anthropic 0.16.0, sentry-sdk 2.75.0</td><td class=''>54</td></tr>
-<tr><td class='m'>anthropic@latest (2.12.0)</td><td class='m'>anthropic 2.12.0, sentry-sdk 2.75.0</td><td class=''>54</td></tr>
-<tr><td class='m'>anthropic@pre (2.12.0)</td><td class='m'>anthropic 2.12.0, sentry-sdk 2.75.0</td><td class=''>54</td></tr>
-<tr><td class='m'>litellm@1.77.7</td><td class='m'>litellm 1.77.7, sentry-sdk 2.75.0</td><td class=''>10</td></tr>
-<tr><td class='m'>litellm@latest (1.110.2)</td><td class='m'>litellm 1.110.2, sentry-sdk 2.75.0</td><td class=''>10</td></tr>
-<tr><td class='m'>litellm@pre (1.112.0.dev2)</td><td class='m'>litellm 1.112.0.dev2, sentry-sdk 2.75.0</td><td class=''>10</td></tr>
-<tr><td class='m'>google_genai@1.29.0</td><td class='m'>google-genai 1.29.0, sentry-sdk 2.75.0</td><td class=''>6</td></tr>
-<tr><td class='m'>google_genai@latest (3.6.1)</td><td class='m'>google-genai 3.6.1, sentry-sdk 2.75.0</td><td class=''>6</td></tr>
-<tr><td class='m'>google_genai@pre (3.6.1)</td><td class='m'>google-genai 3.6.1, sentry-sdk 2.75.0</td><td class=''>6</td></tr>
-<tr><td class='m'>cohere@5.4.0</td><td class='m'>cohere 5.4.0, sentry-sdk 2.75.0</td><td class=''>22</td></tr>
-<tr><td class='m'>cohere@latest (7.3.2)</td><td class='m'>cohere 7.3.2, sentry-sdk 2.75.0</td><td class=''>22</td></tr>
-<tr><td class='m'>cohere@pre (7.3.2)</td><td class='m'>cohere 7.3.2, sentry-sdk 2.75.0</td><td class=''>22</td></tr>
-<tr><td class='m'>mistral@2.0.5</td><td class='m'>mistralai 2.0.5, sentry-sdk 2.75.0</td><td class=''>14</td></tr>
-<tr><td class='m'>mistral@latest (3.8.0)</td><td class='m'>mistralai 3.8.0, sentry-sdk 2.75.0</td><td class=''>14</td></tr>
-<tr><td class='m'>mistral@pre (3.8.0)</td><td class='m'>mistralai 3.8.0, sentry-sdk 2.75.0</td><td class=''>14</td></tr>
-<tr><td class='m'>huggingface_hub@0.24.7</td><td class='m'>huggingface_hub 0.24.7, sentry-sdk 2.75.0</td><td class=''>24</td></tr>
-<tr><td class='m'>huggingface_hub@latest (2.4.0)</td><td class='m'>huggingface_hub 2.4.0, sentry-sdk 2.75.0</td><td class=''>24</td></tr>
-<tr><td class='m'>huggingface_hub@pre (2.4.0)</td><td class='m'>huggingface_hub 2.4.0, sentry-sdk 2.75.0</td><td class=''>24</td></tr>
-<tr><td class='m'>openai_agents@0.0.19</td><td class='m'>openai-agents 0.0.19, sentry-sdk 2.75.0</td><td class=''>6</td></tr>
-<tr><td class='m'>openai_agents@latest (0.25.0)</td><td class='m'>openai-agents 0.25.0, sentry-sdk 2.75.0</td><td class=''>6</td></tr>
-<tr><td class='m'>openai_agents@pre (0.25.0)</td><td class='m'>openai-agents 0.25.0, sentry-sdk 2.75.0</td><td class=''>6</td></tr>
-<tr><td class='m'>pydantic_ai@1.0.18</td><td class='m'>pydantic-ai-slim 1.0.18, sentry-sdk 2.75.0</td><td class=''>4</td></tr>
-<tr><td class='m'>pydantic_ai@latest (2.71.0)</td><td class='m'>pydantic-ai-slim 2.71.0, sentry-sdk 2.75.0</td><td class=''>4</td></tr>
-<tr><td class='m'>pydantic_ai@pre (2.71.0)</td><td class='m'>pydantic-ai-slim 2.71.0, sentry-sdk 2.75.0</td><td class=''>4</td></tr>
-<tr><td class='m'>langchain-base@0.1.20</td><td class='m'>langchain 0.1.20, sentry-sdk 2.75.0</td><td class=''>4</td></tr>
-<tr><td class='m'>langchain-base@latest (1.5.2)</td><td class='m'>langchain 1.5.2, sentry-sdk 2.75.0</td><td class=''>4</td></tr>
-<tr><td class='m'>langchain-base@pre (1.5.2)</td><td class='m'>langchain 1.5.2, sentry-sdk 2.75.0</td><td class=''>4</td></tr>
-<tr><td class='m'>langgraph@0.6.11</td><td class='m'>langgraph 0.6.11, sentry-sdk 2.75.0</td><td class=''>8</td></tr>
-<tr><td class='m'>langgraph@latest (1.2.24)</td><td class='m'>langgraph 1.2.24, sentry-sdk 2.75.0</td><td class=''>8</td></tr>
-<tr><td class='m'>langgraph@pre (1.2.24)</td><td class='m'>langgraph 1.2.24, sentry-sdk 2.75.0</td><td class=''>8</td></tr>
+<tr><td class='m'>openai-base@1.0.1</td><td class='m'></td><td class='bad'>64, 64 crashed</td></tr>
+<tr><td class='m'>openai-base@latest (?)</td><td class='m'></td><td class='bad'>64, 64 crashed</td></tr>
+<tr><td class='m'>openai-base@pre (?)</td><td class='m'></td><td class='bad'>64, 64 crashed</td></tr>
+<tr><td class='m'>anthropic@0.16.0</td><td class='m'></td><td class='bad'>54, 54 crashed</td></tr>
+<tr><td class='m'>anthropic@latest (?)</td><td class='m'></td><td class='bad'>54, 54 crashed</td></tr>
+<tr><td class='m'>anthropic@pre (?)</td><td class='m'></td><td class='bad'>54, 54 crashed</td></tr>
+<tr><td class='m'>litellm@1.77.7</td><td class='m'></td><td class='bad'>10, 10 crashed</td></tr>
+<tr><td class='m'>litellm@latest (?)</td><td class='m'></td><td class='bad'>10, 10 crashed</td></tr>
+<tr><td class='m'>litellm@pre (?)</td><td class='m'></td><td class='bad'>10, 10 crashed</td></tr>
+<tr><td class='m'>google_genai@1.29.0</td><td class='m'></td><td class='bad'>6, 6 crashed</td></tr>
+<tr><td class='m'>google_genai@latest (?)</td><td class='m'></td><td class='bad'>6, 6 crashed</td></tr>
+<tr><td class='m'>google_genai@pre (?)</td><td class='m'></td><td class='bad'>6, 6 crashed</td></tr>
+<tr><td class='m'>cohere@5.4.0</td><td class='m'></td><td class='bad'>22, 22 crashed</td></tr>
+<tr><td class='m'>cohere@latest (?)</td><td class='m'></td><td class='bad'>22, 22 crashed</td></tr>
+<tr><td class='m'>cohere@pre (?)</td><td class='m'></td><td class='bad'>22, 22 crashed</td></tr>
+<tr><td class='m'>mistral@2.0.5</td><td class='m'></td><td class='bad'>14, 14 crashed</td></tr>
+<tr><td class='m'>mistral@latest (?)</td><td class='m'></td><td class='bad'>14, 14 crashed</td></tr>
+<tr><td class='m'>mistral@pre (?)</td><td class='m'></td><td class='bad'>14, 14 crashed</td></tr>
+<tr><td class='m'>huggingface_hub@2.0.0</td><td class='m'></td><td class='bad'>24, 24 crashed</td></tr>
+<tr><td class='m'>huggingface_hub@latest (?)</td><td class='m'></td><td class='bad'>24, 24 crashed</td></tr>
+<tr><td class='m'>huggingface_hub@pre (?)</td><td class='m'></td><td class='bad'>24, 24 crashed</td></tr>
+<tr><td class='m'>openai_agents@0.10.5</td><td class='m'></td><td class='bad'>6, 6 crashed</td></tr>
+<tr><td class='m'>openai_agents@latest (?)</td><td class='m'></td><td class='bad'>6, 6 crashed</td></tr>
+<tr><td class='m'>openai_agents@pre (?)</td><td class='m'></td><td class='bad'>6, 6 crashed</td></tr>
+<tr><td class='m'>pydantic_ai@1.76.0</td><td class='m'></td><td class='bad'>4, 4 crashed</td></tr>
+<tr><td class='m'>pydantic_ai@latest (?)</td><td class='m'></td><td class='bad'>4, 4 crashed</td></tr>
+<tr><td class='m'>pydantic_ai@pre (?)</td><td class='m'></td><td class='bad'>4, 4 crashed</td></tr>
+<tr><td class='m'>langchain-base@0.1.20</td><td class='m'></td><td class='bad'>4, 4 crashed</td></tr>
+<tr><td class='m'>langchain-base@latest (?)</td><td class='m'></td><td class='bad'>4, 4 crashed</td></tr>
+<tr><td class='m'>langchain-base@pre (?)</td><td class='m'></td><td class='bad'>4, 4 crashed</td></tr>
+<tr><td class='m'>langgraph@0.6.11</td><td class='m'></td><td class='bad'>8, 8 crashed</td></tr>
+<tr><td class='m'>langgraph@latest (?)</td><td class='m'></td><td class='bad'>8, 8 crashed</td></tr>
+<tr><td class='m'>langgraph@pre (?)</td><td class='m'></td><td class='bad'>8, 8 crashed</td></tr>
 <tr><td class='m'>js (@sentry/node 11.16.0)</td><td class='m'>@anthropic-ai/sdk 0.131.0, @google/genai 2.27.0, @langchain/anthropic 1.5.12, @langchain/core 1.2.16, @langchain/google-genai 2.3.2, @langchain/langgraph 1.4.19, @langchain/openai 1.6.2, @sentry/node 11.16.0, ai 7.0.179, langchain 1.5.15, node v22.23.5, openai 7.62.0</td><td class=''>74</td></tr>
 </table></div></div>
