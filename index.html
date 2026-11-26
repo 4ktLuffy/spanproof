@@ -14,11 +14,11 @@ th,td{padding:6px 10px;border-bottom:1px solid var(--rule);text-align:left;verti
 th{font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}.bad{color:var(--bad)}.good{color:var(--good)}
 .new{color:var(--new);font-weight:600}code{font-family:var(--mono);font-size:.85em}a{color:var(--new)}</style><div class='w'>
 <h1>SpanProof nightly: Sentry AI monitoring vs. provider truth</h1>
-<p class='m'>last run 2026-11-25 · sentry-python 34e29c8e · runner 3e781da9 · @sentry/node 11.17.0 · 34 cells · 106 open findings under 14 ids · <a href='https://github.com/4ktLuffy/spanproof'>repository</a></p>
+<p class='m'>last run 2026-11-26 · sentry-python 566beb01 · runner 3e781da9 · @sentry/node 11.18.0 · 34 cells · 106 open findings under 14 ids · <a href='https://github.com/4ktLuffy/spanproof'>repository</a></p>
 <p>Every night this replays scripted provider responses through Sentry's AI integrations on the latest sentry-python, against the oldest supported, latest and pre-release versions of each provider SDK, and compares the spans with the truth. Nights are compared finding by finding (cell, scenario, mode, rule, attribute, call); the catalog id is a label. A finding counts as fixed only if its own cell, scenario and mode ran cleanly tonight and no longer produce it. If they did not run (crash, failed install, unsupported, missing), the finding is listed as did not run and kept open.</p>
-<h2>Since the previous night (2026-11-24)</h2>
+<h2>Since the previous night (2026-11-25)</h2>
 <p><b>0 new, 0 fixed, 982 did not run.</b></p>
-<h3>What changed between the two nights</h3><ul><li>sentry-python 8842a6e0 -&gt; 34e29c8e</li><li><code>js</code>: openai 7.63.0 -&gt; 7.64.0</li></ul><p class='m'>Listed next to each verdict below. A change that happens on the same night as a verdict co-occurs with it; that is not proof that it caused it.</p>
+<h3>What changed between the two nights</h3><ul><li>sentry-python 34e29c8e -&gt; 566beb01</li><li><code>js</code>: @sentry/node 11.17.0 -&gt; 11.18.0; ai 7.0.181 -&gt; 7.0.183; openai 7.64.0 -&gt; 7.65.0</li></ul><p class='m'>Listed next to each verdict below. A change that happens on the same night as a verdict co-occurs with it; that is not proof that it caused it.</p>
 <h3 class='bad'>Did not run tonight: unknown, not fixed (982)</h3><div class='s'><table><tr><th>cell|scenario|mode</th><th>open findings</th><th>ids</th><th>last seen</th></tr>
 <tr><td class='m'>anthropic@0.16.0|anthropic.adv.cache_ttl.stream|default</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
 <tr><td class='m'>anthropic@0.16.0|anthropic.adv.cache_ttl.stream|legacy</td><td>3</td><td>SP-14, SP-31</td><td class='m'>2026-11-22</td></tr>
@@ -474,21 +474,22 @@ th{font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}.bad{
 <tr><td class='m'>pydantic_ai@pre|pydantic_ai.run_sync|legacy</td><td>2</td><td>SP-10</td><td class='m'>2026-11-22</td></tr>
 </table></div>
 <h2>Open findings tonight</h2><div class='s'><table><tr><th>id</th><th>finding</th><th>findings</th><th>where</th></tr>
-<tr><td class=''>KNOWN-JS-23993</td><td>Vercel AI reasoning tokens (known: getsentry/sentry-javascript#23993)</td><td>2</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>SP-06</td><td>Summing tokens across span levels double counts agent runs (2.00x to 3.00x billed)</td><td>24</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>SP-10</td><td>Finish reasons not recorded by OpenAI, OpenAI Agents, Pydantic AI (and LiteLLM)</td><td>20</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>SP-11</td><td>JS OpenAI ignores cached and reasoning tokens</td><td>4</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>SP-13</td><td>JS Vercel AI streamText stopped early: parent span never sent, child orphaned</td><td>2</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>SP-37</td><td>JS LangChain createAgent (LangChain v1&#x27;s recommended agent API): no agent span, no tool spans</td><td>4</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>SP-38</td><td>JS LangGraph with a checkpointer: agent span re-counts earlier turns</td><td>3</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>SP-40</td><td>JS LangChain with Anthropic: input excludes cache, cache attributes missing</td><td>2</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>SP-41</td><td>JS LangChain: cached and reasoning tokens never emitted</td><td>12</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>SP-42</td><td>JS LangChain: tool-call arguments recorded with recordOutputs off</td><td>7</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>SP-43</td><td>JS LangGraph without the LangChain integration: every LLM call reported twice</td><td>10</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>SP-44</td><td>JS: after the first LangChain call, direct provider calls lose their spans process-wide</td><td>8</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>SP-46</td><td>JS identity gaps: LangGraph finish_reasons sent as an array; LangChain + Google records a run id as response id</td><td>2</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
-<tr><td class=''>UPSTREAM-LANGCHAIN</td><td>LangChain JS&#x27;s own usage numbers differ from the provider&#x27;s (reproduces without Sentry)</td><td>8</td><td class='m'>js (@sentry/node 11.17.0)</td></tr>
+<tr><td class=''>KNOWN-JS-23993</td><td>Vercel AI reasoning tokens (known: getsentry/sentry-javascript#23993)</td><td>2</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>SP-06</td><td>Summing tokens across span levels double counts agent runs (2.00x to 3.00x billed)</td><td>24</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>SP-10</td><td>Finish reasons not recorded by OpenAI, OpenAI Agents, Pydantic AI (and LiteLLM)</td><td>20</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>SP-11</td><td>JS OpenAI ignores cached and reasoning tokens</td><td>4</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>SP-13</td><td>JS Vercel AI streamText stopped early: parent span never sent, child orphaned</td><td>2</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>SP-37</td><td>JS LangChain createAgent (LangChain v1&#x27;s recommended agent API): no agent span, no tool spans</td><td>4</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>SP-38</td><td>JS LangGraph with a checkpointer: agent span re-counts earlier turns</td><td>3</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>SP-40</td><td>JS LangChain with Anthropic: input excludes cache, cache attributes missing</td><td>2</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>SP-41</td><td>JS LangChain: cached and reasoning tokens never emitted</td><td>12</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>SP-42</td><td>JS LangChain: tool-call arguments recorded with recordOutputs off</td><td>7</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>SP-43</td><td>JS LangGraph without the LangChain integration: every LLM call reported twice</td><td>10</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>SP-44</td><td>JS: after the first LangChain call, direct provider calls lose their spans process-wide</td><td>8</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>SP-46</td><td>JS identity gaps: LangGraph finish_reasons sent as an array; LangChain + Google records a run id as response id</td><td>2</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
+<tr><td class=''>UPSTREAM-LANGCHAIN</td><td>LangChain JS&#x27;s own usage numbers differ from the provider&#x27;s (reproduces without Sentry)</td><td>8</td><td class='m'>js (@sentry/node 11.18.0)</td></tr>
 </table></div><h2>History</h2><div class='s'><table><tr><th>night</th><th>sentry-python</th><th>runner</th><th>cells</th><th>open ids</th><th>new</th><th>fixed</th><th>did not run</th><th>problems running</th></tr>
+<tr><td>2026-11-26</td><td class='m'>566beb01</td><td class='m'>3e781da9</td><td>34</td><td>14</td><td class='new'>0</td><td class='good'>0</td><td>982</td><td class='bad'>648</td></tr>
 <tr><td>2026-11-25</td><td class='m'>34e29c8e</td><td class='m'>3e781da9</td><td>34</td><td>14</td><td class='new'>0</td><td class='good'>0</td><td>982</td><td class='bad'>648</td></tr>
 <tr><td>2026-11-24</td><td class='m'>8842a6e0</td><td class='m'>3e781da9</td><td>34</td><td>14</td><td class='new'>0</td><td class='good'>0</td><td>982</td><td class='bad'>648</td></tr>
 <tr><td>2026-11-23</td><td class='m'>8842a6e0</td><td class='m'>3e781da9</td><td>34</td><td>14</td><td class='new'>0</td><td class='good'>0</td><td>982</td><td class='bad'>648</td></tr>
@@ -573,5 +574,5 @@ th{font:600 .72rem var(--mono);text-transform:uppercase;color:var(--muted)}.bad{
 <tr><td class='m'>langgraph@0.6.11</td><td class='m'></td><td class='bad'>8, 8 crashed</td></tr>
 <tr><td class='m'>langgraph@latest (?)</td><td class='m'></td><td class='bad'>8, 8 crashed</td></tr>
 <tr><td class='m'>langgraph@pre (?)</td><td class='m'></td><td class='bad'>8, 8 crashed</td></tr>
-<tr><td class='m'>js (@sentry/node 11.17.0)</td><td class='m'>@anthropic-ai/sdk 0.131.0, @google/genai 2.27.0, @langchain/anthropic 1.5.12, @langchain/core 1.2.16, @langchain/google-genai 2.3.2, @langchain/langgraph 1.4.19, @langchain/openai 1.6.2, @sentry/node 11.17.0, ai 7.0.181, langchain 1.5.15, node v22.23.5, openai 7.64.0</td><td class=''>74</td></tr>
+<tr><td class='m'>js (@sentry/node 11.18.0)</td><td class='m'>@anthropic-ai/sdk 0.131.0, @google/genai 2.27.0, @langchain/anthropic 1.5.12, @langchain/core 1.2.16, @langchain/google-genai 2.3.2, @langchain/langgraph 1.4.19, @langchain/openai 1.6.2, @sentry/node 11.18.0, ai 7.0.183, langchain 1.5.15, node v22.23.5, openai 7.65.0</td><td class=''>74</td></tr>
 </table></div></div>
